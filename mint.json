@@ -33,8 +33,8 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
+      "name": "Launch Francis",
+      "icon": "rocket-launch",
       "url": "https://mintlify.com/docs"
     },
     {
@@ -43,9 +43,9 @@
       "url": "https://mintlify.com/community"
     },
     {
-      "name": "Blog",
+      "name": "Forward with Francis",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://forward.francis.app/"
     }
   ],
   "navigation": [
