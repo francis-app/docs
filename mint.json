@@ -22,8 +22,8 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Launch Francis",
+    "url": "https://launch.francis.app/"
   },
   "tabs": [
     {
@@ -33,8 +33,8 @@
   ],
   "anchors": [
     {
-      "name": "Launch Francis",
-      "icon": "rocket-launch",
+      "name": "Website",
+      "icon": "globe",
       "url": "https://launch.francis.app/"
     },
     {
