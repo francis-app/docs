@@ -27,20 +27,15 @@
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Masterclasses",
+      "url": "masterclasses"
     }
   ],
   "anchors": [
     {
       "name": "Launch Francis",
       "icon": "rocket-launch",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "url": "https://launch.francis.app/"
     },
     {
       "name": "Forward with Francis",
@@ -50,11 +45,10 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
+        "Workspace setup"
       ]
     },
     {
