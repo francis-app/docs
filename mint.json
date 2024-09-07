@@ -38,6 +38,16 @@
       "url": "https://launch.francis.app/"
     },
     {
+      "name": "Roadmap",
+      "icon": "sign-post",
+      "url": "https://roadmap.francis.app/roadmap"
+    },
+    {
+      "name": "Changelog",
+      "icon": "book",
+      "url": "roadmap.francis.app/changelog"
+    },
+    {
       "name": "Forward with Francis",
       "icon": "newspaper",
       "url": "https://forward.francis.app/"
