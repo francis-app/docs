@@ -71,5 +71,10 @@
   ],
   "footerSocials": {
     "linkedin": "https://www.linkedin.com/company/francis"
+  },
+  "analytics": {
+    "pirsch": {
+        "id": "nWxnnyI36nXezu76DVMOmPTMFUeTREds"
+    }
   }
 }
