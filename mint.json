@@ -72,6 +72,8 @@
   "footerSocials": {
     "linkedin": "https://www.linkedin.com/company/francis"
   },
+
+  // Not sure this is the correct ID. The documentation is not clear from Mintlify
   "analytics": {
     "pirsch": {
         "id": "nWxnnyI36nXezu76DVMOmPTMFUeTREds"
