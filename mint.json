@@ -33,6 +33,11 @@
   ],
   "anchors": [
     {
+      "name": "Forward with Francis",
+      "icon": "newspaper",
+      "url": "https://forward.francis.app/"
+    },
+    {
       "name": "Website",
       "icon": "globe",
       "url": "https://launch.francis.app/"
@@ -46,11 +51,6 @@
       "name": "Changelog",
       "icon": "book",
       "url": "https://roadmap.francis.app/changelog"
-    },
-    {
-      "name": "Forward with Francis",
-      "icon": "newspaper",
-      "url": "https://forward.francis.app/"
     }
   ],
   "navigation": [
