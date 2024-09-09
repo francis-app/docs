@@ -9,10 +9,10 @@
   "colors": {
     "primary": "#0355F3",
     "light": "#0355F3",
-    "dark": "#0355F3",
-    "anchors": {
-      "from": "#0355F3",
-      "to": "#0355F3"
+    "dark": "#0355F3"//,
+    //"anchors": {
+    //  "from": "#0355F3",
+    //  "to": "#0355F3"
     }
   },
   "topbarLinks": [
