@@ -23,8 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Launch",
-    "url": "https://launch.francis.app/",
-    "type": "primary"
+    "url": "https://launch.francis.app/"
   },
   "tabs": [
     {
