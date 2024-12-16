@@ -13,7 +13,7 @@
     "background": {
       "light": "#FCFCFC",
       "dark": "#111111"
-    },
+    }
   },
   "topbarLinks": [
     {
@@ -45,7 +45,7 @@
     {
       "name": "Changelog",
       "icon": "book",
-      "iconType": "regular",      
+      "iconType": "regular",
       "url": "https://roadmap.francis.app/changelog"
     }
   ],
