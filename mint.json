@@ -49,7 +49,9 @@
     },
     {
       "name": "Changelog",
-      "icon": "light book",
+      "icon": "book",
+      "iconType": "regular",
+      "color": "646464",
       "url": "https://roadmap.francis.app/changelog"
     }
   ],
