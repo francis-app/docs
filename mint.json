@@ -10,6 +10,10 @@
     "primary": "#202020",
     "light": "#EEEEEE",
     "dark": "#202020",
+    "background": {
+      "light": "#EEEEEE",
+      "dark": "#222222"
+    }
     "anchors": {
       "from": "#0355F3",
       "to": "#0355F3"
