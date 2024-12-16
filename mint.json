@@ -37,16 +37,16 @@
   ],
   "anchors": [
     {
-      "name": "Roadmap",
-      "icon": "sign-post",
-      "iconType": "regular",
-      "url": "https://roadmap.francis.app/roadmap"
-    },
-    {
       "name": "Changelog",
       "icon": "book",
       "iconType": "regular",
       "url": "https://roadmap.francis.app/changelog"
+    },
+    {
+      "name": "Roadmap",
+      "icon": "sign-post",
+      "iconType": "regular",
+      "url": "https://roadmap.francis.app/roadmap"
     }
   ],
   "navigation": [
@@ -78,12 +78,12 @@
         "title": "Resources",
         "links": [
           {
-            "label": "Roadmap",
-            "url": "https://roadmap.francis.app/roadmap"
-          },
-          {
             "label": "Changelog",
             "url": "https://roadmap.francis.app/changelog"
+          },
+          {
+            "label": "Roadmap",
+            "url": "https://roadmap.francis.app/roadmap"
           },
           {
             "label": "Customers",
