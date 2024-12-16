@@ -14,7 +14,6 @@
       "from": "#0355F3",
       "to": "#0355F3"
     }
-  font
   },
   "topbarLinks": [
     {
@@ -47,12 +46,7 @@
       "name": "Changelog",
       "icon": "book",
       "url": "https://roadmap.francis.app/changelog"
-    },
-    {
-      "name": "Coomunity",
-      "icon": "book",
-      "url": "https://roadmap.francis.app/changelog"
-    }Coomunity
+    }
   ],
   "navigation": [
     {
@@ -77,5 +71,5 @@
   ],
   "footerSocials": {
     "linkedin": "https://www.linkedin.com/company/francis"
-  },
+  }
 }
