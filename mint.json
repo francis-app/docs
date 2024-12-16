@@ -33,8 +33,15 @@
     {
       "name": "Masterclasses",
       "url": "masterclasses"
+    },
+    {
+      "name": "Integrations",
+      "url": "integrations"
     }
   ],
+  "primaryTab": {
+    "name": "Documentation"
+  }
   "anchors": [
     {
       "name": "Roadmap",
