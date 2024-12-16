@@ -14,10 +14,6 @@
       "light": "#FCFCFC",
       "dark": "#111111"
     },
-    "anchors": {
-      "from": "#0355F3",
-      "to": "#0355F3"
-    }
   },
   "topbarLinks": [
     {
@@ -41,20 +37,15 @@
   ],
   "anchors": [
     {
-      "name": "Forward with Francis",
-      "icon": "newspaper",
-      "url": "https://forward.francis.app/"
-    },
-    {
       "name": "Roadmap",
       "icon": "sign-post",
+      "iconType": "regular",
       "url": "https://roadmap.francis.app/roadmap"
     },
     {
       "name": "Changelog",
       "icon": "book",
-      "iconType": "regular",
-      "color": "#646464",
+      "iconType": "regular",      
       "url": "https://roadmap.francis.app/changelog"
     }
   ],
