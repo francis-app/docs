@@ -23,8 +23,8 @@
   ],
   "topbarCtaButton": {
     "name": "Launch",
-    "color": "#202020",
-    "url": "https://launch.francis.app/"
+    "url": "https://launch.francis.app/",
+    "type": "primary"
   },
   "tabs": [
     {
