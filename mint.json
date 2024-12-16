@@ -7,22 +7,23 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0355F3",
-    "light": "#0355F3",
-    "dark": "#0355F3",
+    "primary": "#202020",
+    "light": "#202020",
+    "dark": "#EEEEEE",
     "anchors": {
       "from": "#0355F3",
       "to": "#0355F3"
     }
+  font
   },
   "topbarLinks": [
     {
-      "name": "Support",
+      "name": "Contact",
       "url": "mailto:support@francis.app"
     }
   ],
   "topbarCtaButton": {
-    "name": "Launch Francis",
+    "name": "Launch",
     "url": "https://launch.francis.app/"
   },
   "tabs": [
@@ -46,7 +47,12 @@
       "name": "Changelog",
       "icon": "book",
       "url": "https://roadmap.francis.app/changelog"
-    }
+    },
+    {
+      "name": "Coomunity",
+      "icon": "book",
+      "url": "https://roadmap.francis.app/changelog"
+    }Coomunity
   ],
   "navigation": [
     {
@@ -72,11 +78,4 @@
   "footerSocials": {
     "linkedin": "https://www.linkedin.com/company/francis"
   },
-
-  // Not sure this is the correct ID. The documentation is not clear from Mintlify
-  "analytics": {
-    "pirsch": {
-        "id": "nWxnnyI36nXezu76DVMOmPTMFUeTREds"
-    }
-  }
 }
