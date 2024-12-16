@@ -27,6 +27,10 @@
   },
   "tabs": [
     {
+      "name": "Documentation",
+      "url": "docs"
+    },
+    {
       "name": "Masterclasses",
       "url": "masterclasses"
     }
