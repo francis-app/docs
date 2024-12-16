@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Launch",
-    "style": "roundedRectangle",
+    "color": "primary",
     "url": "https://launch.francis.app/"
   },
   "tabs": [
