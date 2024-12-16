@@ -27,8 +27,8 @@
   },
   "tabs": [
     {
-      "name": "Documentation",
-      "url": "documentation"
+      "name": "Integrations",
+      "url": "integrations"
     },
     {
       "name": "Masterclasses",
@@ -67,7 +67,8 @@
         "essentials/reusable-snippets",
         "essentials/test"
       ]
-    }
+    },
+    
   ],
   "footer": {
     "socials": {
