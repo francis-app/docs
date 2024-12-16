@@ -33,15 +33,8 @@
     {
       "name": "Masterclasses",
       "url": "masterclasses"
-    },
-    {
-      "name": "Integrations",
-      "url": "integrations"
     }
   ],
-  "primaryTab": {
-    "name": "Documentation"
-  }
   "anchors": [
     {
       "name": "Roadmap",
@@ -76,7 +69,61 @@
       ]
     }
   ],
-  "footerSocials": {
-    "linkedin": "https://www.linkedin.com/company/francis"
-  }
+"footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "linkedin": "https://www.linkedin.com/company/mintlify",
+      "github": "https://github.com/mintlify",
+      "slack": "https://mintlify.com/community"
+    },
+    "links": [
+      {
+        "title": "Resources",
+        "links": [
+          {
+            "label": "Roadmap",
+            "url": "https://roadmap.francis.app/roadmap"
+          },
+          {
+            "label": "Changelog",
+            "url": "https://roadmap.francis.app/changelog"
+          },
+          {
+            "label": "Customers",
+            "url": "https://www.francis.app/customers"
+          },
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          {
+            "label": "About",
+            "url": "https://www.francis.app/about"
+          },
+          {
+            "label": "Forward with Francis",
+            "url": "https://forward.francis.app/"
+          },
+          {
+            "label": "Partners",
+            "url": "https://www.francis.app/partners"
+          }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          {
+            "label": "Privacy Policy",
+            "url": "https://www.francis.app/policies/privacy-policy"
+          },
+          {
+            "label": "Terms of Service",
+            "url": "https://www.francis.app/policies/terms-of-service"
+          }
+        ]
+      }
+    ]
+  },
 }
