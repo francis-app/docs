@@ -18,6 +18,7 @@
   "topbarLinks": [
     {
       "name": "Contact",
+      "style": "roundedRectangle",
       "url": "mailto:support@francis.app"
     }
   ],
