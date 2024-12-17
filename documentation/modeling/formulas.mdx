@@ -4,3 +4,33 @@ description: "Description of your new file."
 ---
 
 ## Overview
+
+Like Excel and Sheets, Francis' formulas use cell references, functions, and mathematical operators. However, Francis uses a slightly different, more human-readable syntax than the A1 notation found in other spreadsheets.
+
+## Basics
+
+### Syntax
+
+Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the value of the row "Revenue" from 12 months earlier and apply a 5% growth rate, you would write the following:
+
+```latex
+="Revenue"[-12]*(1+5%)
+```
+
+There are several reasons for why we've implemented this syntax:
+
+* More readable references, with clearly stated names and relative periods.
+
+* Enhanced functionality allows users to drag and drop components without breaking formulas.
+
+* Simplified management of rolling forecasts, as all references are based on relative periods.
+
+### Conventions
+
+The convention in Francis is that income and balance sheet items are input as positive values, while expenses are input as negative values (minus prefix). This ensures compatibility with imported actuals from connected accounting systems.
+
+Consequently, subtotals like gross profit will be calculated by taking revenue and *adding* direct costs using a plus (+), instead of subtracting direct costs using a minus (-). In simpler terms, gross profit would be calculated as:
+
+```latex
+="Revenue"[0]+"Direct costs"[0]
+```
