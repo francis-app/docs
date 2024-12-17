@@ -1,4 +1,36 @@
 ---
-title: 'Mappings'
-description: 'Description of your new file.'
+title: "Mappings"
+description: "Define the link between your connected data sources and your financial model in Francis."
 ---
+
+## Overview
+
+The *Mappings* view shows general ledger accounts from all your connected accounting systems. Map your general ledger accounts to their relevant line items in your model to automatically import actuals from your accounting system.
+
+## Basics
+
+### Accessing your chart of accounts
+
+Your general ledger accounts are accessible through the *Mappings* view. This view allows you to (1) see the structure of your financial model and (2) get a complete overview of the general ledger accounts from all connected accounting systems. Accounts in the Mappings view are divided into two categories:
+
+* **Active**: Accounts with booked entries from any time. The 'Last Activity' identifies the last booked entry. We recommend that you either map or ignore these accounts.&#x20;
+
+* **Unused**: Accounts without booked entries, ever. You do not need to do anything with these; if entries are booked to them later, they will automatically move to the active category.&#x20;
+
+To help guide the mapping of your general ledger, accounts are categorized into five categories: Income (I), Expense (EX), Asset (A), Liability (L), or Equity (EQ). This categorization is based exclusively on information from your accounting system tool.
+
+### Mapping your chart of accounts
+
+You map accounts to your financial model by dragging them over. You can drag accounts to existing rows or automatically create new rows for them by dragging them all the way to the row names and releasing them.&#x20;
+
+You can map accounts to rows and groups in Francis. Rows and groups with mapped accounts will have a green dot, indicating a link to the ERP tool. You can map multiple accounts to the same line item.
+
+### Notifications regarding missing mappings
+
+At any given time, the notification count on the mapping button and individual data sources indicate the number of accounts needing to be mapped to your financial model.
+
+The notification provides a completeness check and can be considered a to-do list. You can either map or ignore accounts to bring the notification count down.&#x20;
+
+### Ignoring accounts
+
+You can ignore accounts if your chart includes old accounts you wish to exclude. Ignored accounts are excluded from the notification count. If new entries are booked to ignored accounts, they are automatically un-ignored, prompting a notification.
