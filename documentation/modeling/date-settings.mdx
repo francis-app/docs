@@ -1,0 +1,49 @@
+---
+title: "Date settings"
+description: "Description of your new file."
+mode: "wide"
+---
+
+## Overview
+
+Understanding date settings is essential to leveraging Francis's built-in features. These settings enable core functionalities such as rolling forecasting and variance analysis. We strongly recommend that users familiarize themselves with the date settings before extensively building their models.
+
+## Basics
+
+### Timeline
+
+The timeline defines which months to view in your model. It does not impact formulas or calculations but simply allows you to define what date range to show at a given time.
+
+<Tip>
+  When planning your start-of-year budget, include a few months from the previous financial year, allowing you to consider last year's actuals when planning ahead.
+</Tip>
+
+### Forecast start
+
+As the name suggests, the *forecast start* indicates the month from which you're currently forecasting. In Francis, every financial plan has a forecast start date. Months before the *Forecast Start* represent actuals, and months after the *Forecast Start* represent your forecast.
+
+Updating the *Forecast Start* has the following effects on your model:
+
+1. Months that were previously considered forecasts are replaced by actuals.
+
+2. Forecast formulas automatically recompute to include the newly introduced actuals.
+
+Technically, budgets are perceived as forecasts that simply happen to start at the beginning of the year. Consequently, *Forecast Start* is also used to specify your budget start. Consider defining a consistent naming convention to easily distinguish between budgets and rolling forecasts.
+
+<Tip>
+  Before updating *Forecast Start,* save a snapshot of the current state of your forecast using our versions feature. This will allow you to reference old forecasts in charts and reports.
+</Tip>
+
+### Last close
+
+The *last close* represents the last closed month in your accounting system. It is always equal to or after the forecast start date. It** is displayed as the orange line throughout your model and determines the months of available actuals since your *forecast start*. Updating the *last close* will not impact your forecast but enable you to compare new actuals against forecasts.
+
+Once you've updated the *Last Close*, you can leverage the built-in variance analysis features:&#x20;
+
+1. Use follow-up and compare features to perform BVA analysis directly in your model.
+
+2. Compare actuals against budget using Francis' built-in variance reporting.
+
+<Tip>
+  Update the *last close* every month following your month-end closing process to pull in your latest actuals, allowing you to run budget-variance analysis against your forecast versions.
+</Tip>
