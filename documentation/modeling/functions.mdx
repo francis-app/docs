@@ -1,5 +1,5 @@
 ---
-title: "Functions"
+title: "Functions (WIP)"
 description: "Description of your new file."
 ---
 
@@ -12,12 +12,41 @@ description: "Description of your new file."
     The `avg()` function calculates the average of the values in the specified time series from `range_start` to `range_end`.
 
     ```
-    #Example
-    =avg("Revenue"[-3:0])
+    avg("Revenue"[-3:0])
     ```
   </Accordion>
 
-  <Accordion title="New Accordion" defaultOpen="false">
+  <Accordion title="avg_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
+    The `avg_ytd()` function returns the average of the values in a time series from the beginning of the fiscal year until and including the current month.&#x20;
 
+    ```
+    avg_ytd("Revenue")
+    ```
+  </Accordion>
+
+  <Accordion title="avg_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
+    The `avg_last_year()` function returns the average of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
+
+    ```
+    avg_last_year("Revenue")
+    ```
+
+
+  </Accordion>
+
+  <Accordion title="avg_last(&#x22;row_name&#x22;,num_months)" defaultOpen={false}>
+    The `avg_last()` function returns the average of the values in the time series going back *n* months, as defined by the `num_months` parameter.
+
+    ```
+    avg_last("Revenue",6)
+    ```
+  </Accordion>
+
+  <Accordion title="median(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
+    The `median()` function returns the median of the values in the specified time series from `range_start` to `range_end`
+
+    ```
+    median("Revenue"[-3:0])
+    ```
   </Accordion>
 </AccordionGroup>
