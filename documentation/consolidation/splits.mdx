@@ -1,5 +1,40 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Splits"
+description: "Description of your new file."
 ---
 
+## Overview
+
+You can create a system of templates combined with a consolidation to manage multiple entities or department budgets. As part of the configuration, you specify how to filter entity or dimension data.
+
+## Basics
+
+### Consolidation and templating
+
+You can convert a tab into a Consolidation Templat&#x65;***,*** which is a system of templates combined with a consolidation. To do this, navigate to the tab settings and select *Split by...* from the action menu.
+
+Select whether to filter by entities or dimension values when configuring your consolidation template. You are free to group dimension values as you see fit. Instances are spawned based on your filters and typically represent entities or departments.&#x20;
+
+Once you have applied a split, all structure is defined top-down, while actuals and forecasts are consolidated bottom-up.
+
+#### Consolidation templates
+
+Consolidation templates define the structure for instances. This includes adding, renaming, rearranging, or removing components. Formulas in calculations are considered structural elements and are also defined top-down in the consolidation template. Changes to the consolidation template sync across all instances.
+
+At the same time, the consolidation template consolidates the values of all underlying instances. For this reason, actuals and forecasts are defined in the instances and cannot be edited top-down. In other words: you can't change cell values in the consolidation template.
+
+#### Instances
+
+While instances inherit the structure of the consolidation template. actuals and forecasts are defined in the instances and are automatically consolidated. This allows you to create and analyze separate forecasts for different parts of your business.
+
+<Tip>
+  Before applying a split, note that specific actions may lead to the deletion of forecasts:
+
+  * When you split a tab, all pre-existing forecasts and manual entries are deleted, as they are now defined bottom-up in the instances.
+
+  * If a new split leads to the deletion of an instance, all forecasts and manual entries in that instance will be deleted.
+</Tip>
+
+### Manual consolidations
+
+If you wish to create extra consolidations, e..g, for a subset of entities or departments, you can create extra tabs and manually set up calculations to sum the values of different instances. In general, you have full modeling flexibility to create extra tabs with any summaries that you need.&#x20;

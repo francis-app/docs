@@ -1,5 +1,20 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "New file"
+description: "Use breakdowns to segment data across dimensions or entities for more detailed planning."
 ---
 
+## Overview
+
+Breakdowns enable the segmentation of actuals based on dimensions or entities. Unlike consolidation templates, breakdowns are especially useful when you need to focus on dimensions within a specific part of your model, as they allow you to dissect individual rows.
+
+## Basics
+
+### Dimensions
+
+Assuming you have correctly configured an accounting source and specified a dimension in the source settings, you can perform a dimensional breakdown on all rows containing actuals from that specific accounting system. Following this breakdown, you will be able to forecast for each dimension individually.
+
+### Entities
+
+While we strongly recommend using our consolidation templates for segmenting entity-specific data, you *can* apply entity breakdowns on individual rows if you prefer not to create separate instances for each entity.
+
+This approach will limit your ability to implement dimensional planning. With multiple connected accounting systems and a need for dimensional planning, we advise first using our consolidation templates to segregate actuals by entity, before applying dimensional breakdowns to each instance.
