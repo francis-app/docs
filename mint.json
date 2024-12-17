@@ -27,12 +27,12 @@
   },
   "tabs": [
     {
-      "name": "Integrations",
-      "url": "integrations"
+      "name": "Documentation",
+      "url": "documentation"
     },
     {
-      "name": "Masterclasses",
-      "url": "masterclasses"
+      "name": "Integrations",
+      "url": "integrations"
     }
   ],
   "anchors": [
@@ -73,50 +73,7 @@
             "documentation/modeling/shortcuts"
           ]
         },
-        {
-          "group": "Consolidation",
-          "icon": "network-wired",
-          "pages": [
-            "documentation/consolidation/breakdowns",
-            "documentation/consolidation/splits"
-          ]
-        },
-        "documentation/version-control/version-control",
-        {
-          "group": "Variance analysis",
-          "icon": "plus-minus",
-          "pages": [
-            "documentation/variance-analysis/three-column-report",
-            "documentation/variance-analysis/month-by-month"
-          ]
-        },
-        {
-          "group": "Reporting",
-          "icon": "chart-line",
-          "pages": [
-            "documentation/reporting/charts",
-            "documentation/reporting/dashboards",
-            "documentation/reporting/reports",
-            "documentation/reporting/export-to-excel"
-          ]
-        },
-        {
-          "group": "Collaboration",
-          "icon": "users",
-          "pages": [
-            "documentation/collaboration/status-indicators",
-            "documentation/collaboration/descriptions",
-            "documentation/collaboration/multiplayer"
-          ]
-        },
-        {
-          "group": "Confidentiality",
-          "icon": "lock",
-          "pages": [
-            "documentation/confidentiality/rales-permissions",
-            "documentation/confidentiality/limited-viewers"
-          ]
-        }
+        ...
       ]
     },
     {
@@ -125,7 +82,7 @@
         "integrations/accounting/accounting-integrations",
         "integrations/accounting/visma-e-conomic"
       ]
-    },
+    }
   ],
   "footer": {
     "socials": {
