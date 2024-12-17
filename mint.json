@@ -127,7 +127,7 @@
         "integrations/accounting/quickbooks",
         "integrations/accounting/xero",
         "integrations/accounting/business-central",
-        "integrations/accounting/netsuite",
+        "integrations/accounting/netsuite"
       ]
     }
   ],
