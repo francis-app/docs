@@ -108,6 +108,14 @@
             "documentation/collaboration/descriptions",
             "documentation/collaboration/multiplayer"
           ]
+        },
+        {
+          "group": "Confidentiality",
+          "icon": "lock",
+          "pages": [
+            "documentation/confidentiality/rales-permissions",
+            "documentation/confidentiality/limited-viewers"
+          ]
         }
       ]
     }
