@@ -89,6 +89,16 @@
             "documentation/variance-analysis/three-column-report",
             "documentation/variance-analysis/month-by-month"
           ]
+        },
+        {
+          "group": "Reporting",
+          "icon": "chart-line",
+          "pages": [
+            "documentation/reporting/charts",
+            "documentation/reporting/dashboards",
+            "documentation/reporting/reports",
+            "documentation/reporting/export-to-excel"
+          ]
         }
       ]
     },
