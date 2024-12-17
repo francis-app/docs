@@ -63,7 +63,13 @@
         {
           "group": "Modeling",
           "pages": [
-            "documentation/modeling/components"
+            "documentation/modeling/components",
+            "documentation/modeling/date-settings",
+            "documentation/modeling/mappings",
+            "documentation/modeling/formulas",
+            "documentation/modeling/functions",
+            "documentation/modeling/manual-entries",
+            "documentation/modeling/shortcuts"
           ]
         }
       ]
