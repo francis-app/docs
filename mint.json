@@ -129,6 +129,18 @@
         "integrations/accounting/business-central",
         "integrations/accounting/netsuite"
       ]
+    },
+    {
+      "group": "Currency",
+      "pages": [
+        "integrations/currency/market-rates",
+        "integrations/currency/custom-rates"
+      ]
+    },
+    {
+      "group": "Other",
+      "pages": [
+        "integrations/other/google-sheets"
     }
   ],
   "footer": {
