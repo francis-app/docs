@@ -122,8 +122,12 @@
     {
       "group": "Accounting",
       "pages": [
-        "integrations/accounting/accounting-integrations",
-        "integrations/accounting/visma-e-conomic"
+        "integrations/accounting/general",
+        "integrations/accounting/e-conomic",
+        "integrations/accounting/quickbooks",
+        "integrations/accounting/xero",
+        "integrations/accounting/business-central",
+        "integrations/accounting/netsuite",
       ]
     }
   ],
