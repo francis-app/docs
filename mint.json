@@ -99,6 +99,15 @@
             "documentation/reporting/reports",
             "documentation/reporting/export-to-excel"
           ]
+        },
+        {
+          "group": "Collaboration",
+          "icon": "chart-line",
+          "pages": [
+            "documentation/collaboration/status-indicators",
+            "documentation/collaboration/descriptions",
+            "documentation/collaboration/multiplayer"
+          ]
         }
       ]
     },
