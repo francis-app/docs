@@ -118,7 +118,13 @@
           ]
         }
       ]
-    }
+    },
+    {
+      "group": "Accounting",
+      "pages": [
+        "integrations/accounting/visma-e-conomic"
+      ]
+    },
   ],
   "footer": {
     "socials": {
