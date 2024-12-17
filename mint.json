@@ -33,6 +33,10 @@
     {
       "name": "Integrations",
       "url": "integrations"
+    },
+    {
+      "name": "Masterclasses",
+      "url": "masterclasses"
     }
   ],
   "anchors": [
