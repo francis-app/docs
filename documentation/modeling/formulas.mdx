@@ -1,6 +1,6 @@
 ---
 title: "Formulas"
-description: "Description of your new file."
+description: "Understand Francis' formula syntax to define model relations faster than ever."
 ---
 
 ## Overview
@@ -14,7 +14,9 @@ Like Excel and Sheets, Francis' formulas use cell references, functions, and mat
 Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the value of the row "Revenue" from 12 months earlier and apply a 5% growth rate, you would write the following:
 
 ```latex
-="Revenue"[-12]*(1+5%)
+\begin{aling}
+="Revenue"[-12]*(1+5\%)
+\end{aling}
 ```
 
 There are several reasons for why we've implemented this syntax:
