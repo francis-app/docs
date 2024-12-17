@@ -60,6 +60,17 @@
     {
       "group": "Features",
       "pages": [
+        {
+          "group": "Modeling",
+          "pages": [
+            "documentation/modeling/components"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Archive",
+      "pages": [
         "essentials/markdown",
         "essentials/code",
         "essentials/images",
