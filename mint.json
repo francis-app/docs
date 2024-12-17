@@ -78,7 +78,8 @@
             "documentation/consolidation/breakdowns",
             "documentation/consolidation/splits"
           ]
-        }
+        },
+        "page": "documentation/version-control/version-control"
       ]
     },
     {
