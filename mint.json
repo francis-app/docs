@@ -62,7 +62,7 @@
       "pages": [
         {
           "group": "Modeling",
-          "icon": "brackets-curly",
+          "icon": "function",
           "pages": [
             "documentation/modeling/components",
             "documentation/modeling/date-settings",
@@ -109,18 +109,6 @@
             "documentation/collaboration/multiplayer"
           ]
         }
-      ]
-    },
-    {
-      "group": "Archive",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets",
-        "essentials/test"
       ]
     }
   ],
