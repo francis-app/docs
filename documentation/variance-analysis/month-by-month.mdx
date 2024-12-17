@@ -1,4 +1,30 @@
 ---
-title: 'Month by month'
-description: 'Description of your new file.'
+title: "Month by month"
+description: "Analyze budget variance month-over-month using our compare and follow-up features."
 ---
+
+## Overview
+
+Comparing actual results with budgeted figures is a crucial component of the month-end closing process. Besides the traditional budget variance view, Francis also offers a detailed month-by-month comparison of actuals versus budgets. This feature specifically addresses ad-hoc queries related to variances, enabling users to use transactions drill-down to better understand variances.
+
+## Basics
+
+### Updating last close
+
+After completing the month-end closing process, update the *last close* setting to indicate your accounting system's most recently closed month. This tells Francis which months' actuals must be overlaid on your budget for comparison purposes.
+
+<Tip>
+  To compare actuals against the budget, set the *last close* to a date that is later than the Forecast Start. Essentially, your budget needs to start before the most recently closed month in your accounting system. Otherwise, there will be no budget to compare your actuals against.
+</Tip>
+
+### Follow-up on actuals
+
+After updating the *last close*, you can overlay actuals onto your model by activating the *Follow-up* feature, accessible from the top bar in your *Model* view. You can switch between the follow-up view and the regular model view to compare your budget and actuals.
+
+<Tip>
+  Toggling the follow-up view will not initiate a re-computation of your rolling forecast with updated actuals. This view is temporary and only *overlays* actuals onto your model. You'll need to update the *forecast start* to forecast based on recent actuals. For more information, please refer to our documentation on date settings.
+</Tip>
+
+### Compare against budget
+
+In addition to the follow-up view, Francis supports a *Compare* feature, which presents a month-over-month analysis showing the specific variances from your budget. By enabling *Compare*, you can view discrepancies within your model, enabling you to quickly identify and evaluate differences between actuals and budget.
