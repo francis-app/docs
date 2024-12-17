@@ -52,6 +52,7 @@
   "navigation": [
     {
       "group": "Getting Started",
+      "icon": "network-wired",
       "pages": [
         "documentation/welcome",
         "documentation/onboarding-guide"
