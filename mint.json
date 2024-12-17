@@ -81,7 +81,15 @@
             "documentation/consolidation/splits"
           ]
         },
-        "documentation/version-control/version-control"
+        "documentation/version-control/version-control",
+        {
+          "group": "Variance analysis",
+          "icon": "plus-minus",
+          "pages": [
+            "documentation/variance-analysis/three-column-report",
+            "documentation/variance-analysis/month-by-month"
+          ]
+        }
       ]
     },
     {
