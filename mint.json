@@ -52,7 +52,6 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "icon": "network-wired",
       "pages": [
         "documentation/welcome",
         "documentation/onboarding-guide"
@@ -63,6 +62,7 @@
       "pages": [
         {
           "group": "Modeling",
+          "icon": "brackets-curly",
           "pages": [
             "documentation/modeling/components",
             "documentation/modeling/date-settings",
@@ -75,6 +75,7 @@
         },
         {
           "group": "Consolidation",
+          "icon": "network-wired",
           "pages": [
             "documentation/consolidation/breakdowns",
             "documentation/consolidation/splits"
