@@ -102,7 +102,7 @@
         },
         {
           "group": "Collaboration",
-          "icon": "chart-line",
+          "icon": "users",
           "pages": [
             "documentation/collaboration/status-indicators",
             "documentation/collaboration/descriptions",
