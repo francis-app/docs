@@ -122,6 +122,7 @@
     {
       "group": "Accounting",
       "pages": [
+        "integrations/accounting/accounting-integrations",
         "integrations/accounting/visma-e-conomic"
       ]
     },
