@@ -123,7 +123,12 @@
         }
       ]
     },
-    "integrations/general",
+    {
+      "group": "Getting Started",
+      "pages": [
+        "integrations/general",
+      ]
+    },
     {
       "group": "Accounting",
       "pages": [
