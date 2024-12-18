@@ -146,6 +146,12 @@
       "pages": [
         "integrations/other/google-sheets"
       ]
+    },
+    {
+      "group": "Group1",
+      "pages": [
+        "masterclasses/folder1/file1"
+      ]
     }
   ],
   "footer": {
