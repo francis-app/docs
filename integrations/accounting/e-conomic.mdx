@@ -13,12 +13,52 @@ Connect your Visma e-conomic instance to import and consolidate actuals. Once co
 
 ## Configuration
 
-Enable the Visma e-conomic integration from Settings > Integrations > Visma e-conomic. A window will appear asking you to confirm that you would like to add Francis as an application&#x20;
+Enable the Visma e-conomic integration from organization settings under Integrations > Visma e-conomic. A window will appear asking you to confirm that you would like to add Francis as an application to your Visma e-conomic account.
 
 ### Asset range
 
+If your chart of accounts differs from the default template in Visma e-conomic, you'll be prompted to confirm your assets range; i.e. by identifying the first and last asset account on your chart of accounts, by changing the `asset_range_start` and `asset_range_end` settings.
+
+<Tip>
+  The default asset range for Visma e-conomic is between `5000` and `5990`. Francis might ask you to confirm you asset range configuration, even if your asset range follows Visma e-conomic's default chart of accounts.
+</Tip>
+
 ### Retained earnings
+
+Similarly to the asset range configuration, if your chart of accounts differs from the default Visma e-conomic template, you'll be promoted to specify your retained earnings account. Most often, the retained earning account in Visma e-conomic is 6130 Overført resultat tidligere år.
+
+<Tip>
+  If you're not sure what account is your retained earnings account, you can always validate this in Visma e-conomic through settings under Regnskab > Systemkonti > Årsafslutning.
+</Tip>
 
 ### Dimensions
 
+Francis will automatically detect whether you're using dimensions as part of your bookkeeping in Visma e-conomic. If you intend to be using dimensions as part of your planning in Francis, you'll be able to configure which dimension is relevant for your planning, and this dimension will be available through splits and breakdowns.
+
 ### Currency conversion
+
+Transactions from Visma e-conomic can automatically be converted from their base currency to a target currency using either a market or custom exchange rate. Enable currency conversion on your Visma e-conomic connection under Currency conversion > Enable currency conversion.
+
+## Adjustments
+
+A number of transformations and adjustments are made behind-the-scenes to ensure imported transactions are presented in a usable and appropriate format.
+
+### Number conventions
+
+In Francis, the convention is that income, asset, liability, and equity accounts are input as positive (+) values, while expense accounts are inputs as negative (-) values. This convention ensures that data across models and data sources can be appropriately compared.
+
+Francis makes the necessary adjustments based on the account information, which is derived from the asset range, which we've covered above. I.e., your asset range determines which accounts are imported as either positive (+) or negative (-) values. If you've configured your connection correctly, your accounts will align with the following format:
+
+* **Positive (+):** Income (I), Asset (A), Liability (L) and Equity (EQ)
+
+* **Negative (-):** Expense (E)
+
+### Retained earnings adjustments
+
+When you close a fiscal year in accounting systems, retained earnings for the year are automatically moved from a "Retained earnings this year" account to a "Retained earnings from previous years" account.&#x20;
+
+Francis corrects this and adds an extra account to your chart of accounts that represents "Retained earnings this year." As noted above, you may have to specify which account corresponds to "Retained earnings from previous years".
+
+### Accumulating balance sheet accounts
+
+In Francis, balance sheet values are presented as the accumulated values at a point in time and not only the movements in the period. This adjustment is made to balance sheet accounts at the time of import. For this reason, balance sheet items in charts and reports are typically summarized by ENDING values or DELTA values instead of SUM values.&#x20;
