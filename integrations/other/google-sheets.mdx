@@ -29,6 +29,46 @@ After connecting your Google account, you’ll choose one of two templates — m
   </Tab>
 </Tabs>
 
-## Syncing data
+## Importing accounting data
+
+Francis makes it relatively easy to import data from non-supported accounting systems using our Google Sheets integration. Below, we outline the steps required to ensure Francis accurately treats your data accounting data and transforms it accordingly.
+
+<Steps>
+  <Step title="Upload your data">
+    After having established a connection to Google Sheet, the first step is naturally to import your data. Because we're uploading accounting data, it's important that we follow a few guidelines to ensure the data is transformed correctly once imported into Francis. Here's how to format your data:
+
+    * **Income** accounts: Input negative (-) values.
+
+    * **Expense** accounts: Input positive (+) values.
+
+    * **Asset** accounts: Input positive (+) values.
+
+    * **Liability** accounts: Input negative (-) values.
+
+    * **Equity** accounts: Input negative (-) values.
+
+    Accounts classified as assets, liabilities, or equity (balance sheet) will automatically be accumulated at import. This means you'll need to input **delta values** between periods for these accounts.
+  </Step>
+
+  <Step title="Treat as entity">
+    When you've imported your data, go ahead and toggle the **Treat as entity** setting on your connection. This tells Francis to treat any data contained within the file as accounting data, which prompts Francis to automatically perform a range of transformations on the data to ensure a compliant format.
+  </Step>
+
+  <Step title="Categorize accounts">
+    When you toggle Treat as entity, Francis will immediately highlight a series of errors related to missing account categorization. Because we're importing accounting data, you'll need to categorize each account as either income, expense, asset, liability or equity. This is important, as all balance sheet accounts are automatically accumulated and Francis automatically adjust the signs (+/-) on all account types except assets, following the accounting conventions used for our native integrations.
+
+    * **Income** accounts: Converted to positive (+) values.
+
+    * **Expense** accounts: Converted to negative (-) values.
+
+    * **Asset** accounts: Converted to positive (+) values.
+
+    * **Liability** accounts: Converted to positive (+) values.
+
+    * **Equity** accounts: Converted to positive (+) values.
+  </Step>
+</Steps>
+
+## Syncing
 
 Changes made in Google Sheets do not automatically sync to Francis. To reflect the latest updates in Francis, you must manually initiate a sync. If your data is not formatted correctly and does not meet the required data structure, the sync will fail, prompting you to correct the source data in Google Sheets before attempting again.
