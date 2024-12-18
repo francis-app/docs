@@ -35,7 +35,7 @@ Francis makes it relatively easy to import data from non-supported accounting sy
 
 <Steps>
   <Step title="Upload your data">
-    After having established a connection to Google Sheet, the first step is naturally to import your data. Because we're uploading accounting data, it's important that we follow a few guidelines to ensure the data is transformed correctly once imported into Francis. Here's how to format your data:
+    After establishing a connection to Google Sheets, start by uploading your data. Since you’re working with accounting data, it’s important to format it correctly to ensure proper transformation once it’s in Francis. Follow these guidelines for consistent results:
 
     * **Income** accounts: Input negative (-) values.
 
@@ -47,15 +47,15 @@ Francis makes it relatively easy to import data from non-supported accounting sy
 
     * **Equity** accounts: Input negative (-) values.
 
-    Accounts classified as assets, liabilities, or equity (balance sheet) will automatically be accumulated at import. This means you'll need to input **delta values** between periods for these accounts.
+    Balance sheet accounts (assets, liabilities, and equity) are automatically accumulated at import. To accommodate this, provide **delta values** rather than cumulative totals.
   </Step>
 
   <Step title="Treat as entity">
-    When you've imported your data, go ahead and toggle the **Treat as entity** setting on your connection. This tells Francis to treat any data contained within the file as accounting data, which prompts Francis to automatically perform a range of transformations on the data to ensure a compliant format.
+    Once your data is uploaded, switch on the **Treat as entity** setting for your Google Sheets connection. This indicates to Francis that the uploaded data represents accounting information. In response, Francis applies a series of transformations to present your data in a compliant format.
   </Step>
 
   <Step title="Categorize accounts">
-    When you toggle Treat as entity, Francis will immediately highlight a series of errors related to missing account categorization. Because we're importing accounting data, you'll need to categorize each account as either income, expense, asset, liability or equity. This is important, as all balance sheet accounts are automatically accumulated and Francis automatically adjust the signs (+/-) on all account types except assets, following the accounting conventions used for our native integrations.
+    After enabling Treat as entity, Francis will prompt you to categorize each account as income, expense, asset, liability, or equity. This step ensures that Francis can automatically accumulate balance sheet accounts and correctly adjust values based on standard accounting conventions. Once categorized, Francis converts your data as follows:
 
     * **Income** accounts: Converted to positive (+) values.
 
