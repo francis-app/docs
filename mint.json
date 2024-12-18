@@ -123,6 +123,7 @@
         }
       ]
     },
+    "integrations/general",
     {
       "group": "Accounting",
       "pages": [
