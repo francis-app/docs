@@ -15,11 +15,7 @@ To enable currency conversion of actuals imported from connected accounting syst
   <Tab title="Market">
     Market rates are automatically imported from the European Central Bank (ECB) and are the preferred choice for most users.&#x20;
 
-
-
     Monthly closing rates are imported directly from the European Central Bank.&#x20;
-
-
 
     Monthly average rates are calculated as the arithmetic mean of daily closing rates, i.e., the sum of the month’s daily closing rates divided by the number of days in the month.
   </Tab>
@@ -27,19 +23,11 @@ To enable currency conversion of actuals imported from connected accounting syst
   <Tab title="Custom">
     Custom rates are manually entered and can be helpful if your organization is part of a larger group that uses standardized exchange rates.
 
-
-
     For custom rates, you must specify a currency cross (e.g., EUR/USD) and input the monthly exchange rates.
-
-
 
     The first exchange rate you input will be extrapolated backward. For instance, if your first entry is January 2020 at 7.5, all earlier periods (e.g., 2019, 2018, 2017, etc.) will use this rate for conversion.
 
-
-
     Exchange rates are not extrapolated forward, so if you use custom rates, you must provide rates for each month up to your last closed month to ensure accurate conversions. If a rate is missing, actuals will default to an exchange rate of zero for that period.
-
-
 
     Users provide both average and closing rates.
   </Tab>
@@ -63,17 +51,19 @@ Francis follows the following method to convert currencies:
 
 Two effects result from this method that are important to note.
 
-#### Effect 1: translating balance sheet accounts at a closing rate that differs from the previous closing rate
+#### Effect 1: Current and historical reates
 
 Balance sheet opening balances are translated to the month's closing rate, causing amounts to fluctuate even without new transactions. As a result, balance sheet amounts reflect both movements and exchange rate adjustments.
 
-Example with "liability: long-term loan":
+Example with "liability: long-term loan"![](currency-effect-1.png)
 
-#### Effect 2: Translating P\&L accounts with average rates but balance sheet accounts with closing rates
+#### Effect 2: Average and closing rates
 
 P\&L transactions are translated using the month's average rate, but their corresponding entries on the balance sheet are translated using closing rates.&#x20;
 
 Example with "equity: retained Earnings":
+
+![](currency-effect-2.png)
 
 ### IAS21 Compliance
 
