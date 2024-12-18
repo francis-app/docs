@@ -134,16 +134,10 @@
       ]
     },
     {
-      "group": "Currency",
-      "pages": [
-        "integrations/currency/market-rates",
-        "integrations/currency/custom-rates"
-      ]
-    },
-    {
       "group": "Other",
       "pages": [
-        "integrations/other/google-sheets"
+        "integrations/other/google-sheets",
+        "integrations/other/currency"
       ]
     },
     {
