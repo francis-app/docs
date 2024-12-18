@@ -5,28 +5,30 @@ description: "Use Google Sheets to import actuals from non-supported systems."
 
 ## Overview
 
-The Google Sheets integration allows teams to import data from virtually any business tool into Francis for financial planning. By leveraging Google Sheets and third-party integrations, you can connect CRMs, ERPs, or set up custom API connections. Consider this integration a versatile solution for importing business data into Francis that isn't supported by our native accounting or currency connections.
+The Google Sheets integration enables you to import data from virtually any business tool into Francis for financial planning. By pairing Google Sheets with third-party integrations, you can connect CRMs, ERPs, or create custom API connections. Use this integration as a flexible option for importing data that is not already supported by Francis’ native accounting or currency integrations.
 
 ## Configuration
 
-To set up the Google Sheets integration, navigate to the *Integrations* page in Settings and connect your Google account. This will automatically create a Google Sheet called *Francis Data Source* in your Google Drive. To share access with team members, you can either update the permissions directly in Google Sheets or move the file from your personal drive to a shared drive.
+To set up the Google Sheets integration, go to **Settings > Integrations** and connect your Google account. Francis will create a new Google Sheet called **Francis Data Source** in your Google Drive. To share this sheet with team members, update its permissions in Google Sheets or move it from your personal drive to a shared drive.
 
 <Tip>
-  When configuring your connection, Francis will request permission to access your Google account. This allows Francis to view, edit, create, and delete ***only*** the specific Google Drive files created. Francis ***does not*** request or gain access to any other files in your Google Drive.
+  When you configure this integration, Francis requests permission to access your Google account. Francis will view, edit, create, and delete **only the specific Google Drive files it creates**. It does not request or gain access to any of your other Google Drive files.
 </Tip>
 
-### Data format
+### Data Format
 
-After connecting your Google account, you'll be prompted to choose between two templates: *Monthly Totals* or *Detailed Entries*, depending on your data format. When deciding between these options, consider whether access to individual records is important for your planning in Francis.
+After connecting your Google account, you’ll choose one of two templates—**Monthly Totals** or **Detailed Entries**—based on how your data is organized. Select the template that best matches your existing format and reporting needs.
 
-#### Monthly totals
+<Tabs>
+  <Tab title="Monthly totals">
+    Select **Monthly Totals** if your data is already aggregated by month and does not require drilling down into individual records. This format is best suited for data that is summarized on a monthly basis.
+  </Tab>
 
-Select the *Monthly Totals* template if your data is summary data that is already aggregated and structured as a monthly time series. This format does not support drill-downs, so keep this in mind if you intend to upload monthly totals using this template.
+  <Tab title="Detailed entries">
+    Select **Detailed Entries** if your data consists of individual records or row-level transactions that have not been aggregated into monthly totals. While this template can handle aggregated data, it’s ideal for CSV exports from various tools that require minimal preprocessing. Data imported via this template supports drill-downs in Francis, enabling more detailed analysis and explainability.
+  </Tab>
+</Tabs>
 
-#### Detailed entries
+## Syncing Data
 
-Choose the *Detailed Entries* template if your data consists of individual records or row-level data that has not been aggregated into a monthly time series. While this template does support aggregate data, it is most commonly used to import CSV exports from various business tools with minimal prior data transformation. All records uploaded through this template will be available for drill-downs in Francis, providing better explainability.
-
-## Syncing data
-
-Updates made in Google Sheets don't automatically sync with Francis. To have Francis reflect changes made in Google Sheets, you need to manually sync the data source. If data is incorrectly formatted in Google Sheets and doesn't follow the required data structure, the sync job will fail, prompting you to correct the data in Google Sheets.
+Changes made in Google Sheets do not automatically sync to Francis. To reflect the latest updates in Francis, you must manually initiate a sync. If your data is not formatted correctly and does not meet the required data structure, the sync will fail, prompting you to correct the source data in Google Sheets before attempting again.
