@@ -5,7 +5,7 @@ description: "How to enable and configure your Visma e-conomic connection."
 
 ## Overview
 
-By connecting your Visma e-conomic instance to Francis, you can seamlessly import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can efficiently map Visma e-conomic accounts to corresponding line items in your financial model for more accurate and consistent reporting.
+By connecting your Visma e-conomic instance to Francis, you can automatically import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can efficiently map Visma e-conomic accounts to corresponding line items in your financial model for more accurate and consistent reporting.
 
 <Tip>
   Francis only imports booked (finalized) transactions. Draft transactions are not currently supported.
@@ -53,23 +53,17 @@ Francis applies several adjustments to ensure your imported data is presented in
 
     These adjustments create a uniform standard across all models and data sources, simplifying comparisons and ensuring your reports are easy to understand.
 
-
-
     As Francis relies on the configured asset range to determine each account’s classification, confirming your asset range settings is critical. Once correctly set, your accounts will reliably follow the positive/negative convention outlined above.
   </Tab>
 
   <Tab title="Retained earnings">
     When you close a fiscal year, Visma e-conomic moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis accounts for this by introducing an extra “Retained earnings this year” line, giving you a clear and accurate picture of your retained earnings over time.
 
-
-
     As noted above, you may need to specify which account represents retained earnings from previous years so that this adjustment is correctly applied in Francis.
   </Tab>
 
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import, ensuring that your balance sheet data aligns with common reporting practices.
-
-
 
     Because of this convention, you’ll typically summarize balance sheet items using **ENDING** or **DELTA** values instead of **SUM**. Doing so accurately reflects the state of your finances at the chosen reporting date.
   </Tab>
