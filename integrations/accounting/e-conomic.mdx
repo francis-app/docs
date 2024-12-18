@@ -43,22 +43,28 @@ Transactions from Visma e-conomic can automatically be converted from their base
 
 A number of transformations and adjustments are made behind-the-scenes to ensure imported transactions are presented in a usable and appropriate format.
 
-### Number conventions
+<Tabs>
+  <Tab title="Number convention">
+    In Francis, the convention is that income, asset, liability, and equity accounts are input as positive (+) values, while expense accounts are inputs as negative (-) values. This convention ensures that data across models and data sources can be appropriately compared.
 
-In Francis, the convention is that income, asset, liability, and equity accounts are input as positive (+) values, while expense accounts are inputs as negative (-) values. This convention ensures that data across models and data sources can be appropriately compared.
 
-Francis makes the necessary adjustments based on the account information, which is derived from the asset range, which we've covered above. I.e., your asset range determines which accounts are imported as either positive (+) or negative (-) values. If you've configured your connection correctly, your accounts will align with the following format:
 
-* **Positive (+):** Income (I), Asset (A), Liability (L) and Equity (EQ)
+    Francis makes the necessary adjustments based on the account information, which is derived from the asset range, which we've covered above. I.e., your asset range determines which accounts are imported as either positive (+) or negative (-) values. If you've configured your connection correctly, your accounts will align with the following format:
 
-* **Negative (-):** Expense (E)
+    * **Positive (+):** Income (I), Asset (A), Liability (L) and Equity (EQ)
 
-### Retained earnings adjustments
+    * **Negative (-):** Expense (E)
+  </Tab>
 
-When you close a fiscal year in accounting systems, retained earnings for the year are automatically moved from a "Retained earnings this year" account to a "Retained earnings from previous years" account.&#x20;
+  <Tab title="Retained earnings">
+    When you close a fiscal year in accounting systems, retained earnings for the year are automatically moved from a "Retained earnings this year" account to a "Retained earnings from previous years" account.&#x20;
 
-Francis corrects this and adds an extra account to your chart of accounts that represents "Retained earnings this year." As noted above, you may have to specify which account corresponds to "Retained earnings from previous years".
 
-### Accumulating balance sheet accounts
 
-In Francis, balance sheet values are presented as the accumulated values at a point in time and not only the movements in the period. This adjustment is made to balance sheet accounts at the time of import. For this reason, balance sheet items in charts and reports are typically summarized by ENDING values or DELTA values instead of SUM values.&#x20;
+    Francis corrects this and adds an extra account to your chart of accounts that represents "Retained earnings this year." As noted above, you may have to specify which account corresponds to "Retained earnings from previous years".
+  </Tab>
+
+  <Tab title="Balance sheet">
+    In Francis, balance sheet values are presented as the accumulated values at a point in time and not only the movements in the period. This adjustment is made to balance sheet accounts at the time of import. For this reason, balance sheet items in charts and reports are typically summarized by ENDING values or DELTA values instead of SUM values.&#x20;
+  </Tab>
+</Tabs>
