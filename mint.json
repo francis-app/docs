@@ -147,9 +147,9 @@
       ]
     },
     {
-      "group": "Group1",
+      "group": "Currency",
       "pages": [
-        "masterclasses/folder1/file1"
+        "masterclasses/ias21"
       ]
     }
   ],

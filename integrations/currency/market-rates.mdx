@@ -1,4 +1,26 @@
 ---
 title: "Market Rates"
-description: "Description of your new file."
+description: "Use market rates from the European Central Bank (EBC) to automatically convert actuals."
 ---
+
+## Overview
+
+To support currency conversion of actuals between functional base currencies to target or reporting currencies, Francis natively allows you to pull market exchange rates directly from the European Central Bank (ECB). The integration supports both average and closing rates, to support&#x20;
+
+## Configuration
+
+To enable market rates from ECB, go to Settings > Integrations > Market FX Rates and enable the integration
+
+## Conversion method and effects
+
+Francis follows the following method to convert currencies:
+
+* **Income** and **expenses** (P\&L) are translated using the average rates for the months in which they are presented. For practical reasons, a monthly average rate approximates the exchange rates at the transaction dates.
+
+* All accumulated **assets**, **liabilities**, and **equity** amounts are translated using the closing rates for the months in which they are presented.&#x20;
+
+Two effects result from this method that are important to note.
+
+### IAS21 Compliance
+
+IAS 21.42 stipulates that exchange rate differences (the two effects described above) related to equity should be presented as a separate equity component named “Other Comprehensive Income.” This differs from Francis' standard methodology but can easily be set up to comply with IAS21. You can refer to this guide if you wish to adopt this method.
