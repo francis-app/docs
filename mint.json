@@ -124,20 +124,14 @@
       ]
     },
     {
-      "group": "Overview",
-      "pages": [
-        "integrations/general"
-      ]
-    },
-    {
       "group": "Accounting",
       "pages": [
         "integrations/accounting/general",
         "integrations/accounting/e-conomic",
         "integrations/accounting/quickbooks",
-        "integrations/accounting/xero",
         "integrations/accounting/business-central",
-        "integrations/accounting/netsuite"
+        "integrations/accounting/netsuite",
+        "integrations/accounting/xero"
       ]
     },
     {
