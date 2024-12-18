@@ -9,17 +9,15 @@ By connecting your Business Central instance to Francis, you can seamlessly impo
 
 ## Configuration
 
-### Account categorization
+### Account categories
 
 To ensure imported transactions from Business Central are handled correctly, Francis requires all general ledger accounts to have been categorized. If you haven't assigned account categories or want to verify that you've assigned these correctly, you can view your account categories in Business Central under Finance > G/L Account Categories.
-
-### Retained Earnings
 
 ### Dimensions
 
 Francis automatically detects whether you use dimensions in Business Central. If you plan to incorporate dimensions into your planning process, you can select which dimension is most relevant. Once configured, this dimension will be available for splits and breakdowns within Francis, giving you deeper insight into your financial data.
 
-### Currency Conversion
+### Currency conversion
 
 Business Central transactions can be automatically converted from their base currency into a target currency. You can use either market exchange rates or custom rates. To enable this feature, open the **Currency Conversion** section of your Business Central connection settings in Francis and toggle **Enable currency conversion**.
 
@@ -37,17 +35,15 @@ Francis applies several adjustments to ensure your imported data is presented in
 
     These adjustments create a uniform standard across all models and data sources, simplifying comparisons and ensuring your reports are easy to understand.
 
-
-
     As Francis relies on the configured asset range to determine each account’s classification, confirming your asset range settings is critical. Once correctly set, your accounts will reliably follow the positive/negative convention outlined above.
   </Tab>
 
-  <Tab title="Retained earnings (WIP)" />
+  <Tab title="Retained earnings (WIP)">
+
+  </Tab>
 
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import, ensuring that your balance sheet data aligns with common reporting practices.
-
-
 
     Because of this convention, you’ll typically summarize balance sheet items using **ENDING** or **DELTA** values instead of **SUM**. Doing so accurately reflects the state of your finances at the chosen reporting date.
   </Tab>
