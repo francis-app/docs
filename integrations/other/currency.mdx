@@ -15,17 +15,21 @@ To enable currency conversion for your imported actuals, open **Settings > Integ
   <Tab title="Market">
     **Market rates**, sourced from the European Central Bank, are automatically imported and serve as the preferred choice for most users.
 
-    - **Monthly closing rates**: Imported directly from the ECB.
-    - **Monthly average rates**: Calculated as the arithmetic mean of the month’s daily closing rates (the sum of all daily closing rates divided by the number of days in the month).
+    * **Monthly closing rates**: Imported directly from the ECB.
+
+    * **Monthly average rates**: Calculated as the arithmetic mean of the month’s daily closing rates (the sum of all daily closing rates divided by the number of days in the month).
   </Tab>
 
   <Tab title="Custom">
     **Custom rates** are manually entered and useful if you adhere to standardized exchange rates set at the group level.
 
-    - Define the currency cross (e.g., EUR/USD) and input monthly exchange rates.
-    - The first rate you provide is extrapolated backward for all prior months, ensuring historical data is converted consistently.
-    - Rates are not extrapolated forward. You must provide rates for each month up to your most recent closed month; if a rate is missing, the system defaults to zero for that period.
-    - You can supply both average and closing rates for custom configurations.
+    * Define the currency cross (e.g., EUR/USD) and input monthly exchange rates.
+
+    * The first rate you provide is extrapolated backward for all prior months, ensuring historical data is converted consistently.
+
+    * Rates are not extrapolated forward. You must provide rates for each month up to your most recent closed month; if a rate is missing, the system defaults to zero for that period.
+
+    * You can supply both average and closing rates for custom configurations.
   </Tab>
 </Tabs>
 
@@ -39,8 +43,9 @@ If you are importing data from a Google Sheets source, you will need to manually
 
 Francis uses a standard approach to currency conversion:
 
-- **Income and expenses (P&L)**: Translated at the monthly average exchange rate. This approach approximates transaction-date exchange rates.
-- **Assets, liabilities, and equity**: Translated at the monthly closing exchange rate, ensuring that balance sheet items reflect the financial position at the end of each period.
+* **Income and expenses (P\&L)**: Translated at the monthly average exchange rate. This approach approximates transaction-date exchange rates.
+
+* **Assets, liabilities, and equity**: Translated at the monthly closing exchange rate, ensuring that balance sheet items reflect the financial position at the end of each period.
 
 Two key effects result from this methodology:
 
@@ -49,12 +54,14 @@ Two key effects result from this methodology:
 Opening balance sheet amounts are translated at the current month’s closing rate. This can cause balance sheet values to fluctuate due to exchange rate changes alone, even without new transactions. In practice, it means your balance sheet will reflect both financial movements and currency adjustments.
 
 *(Example: “Liability: long-term loan”)*
-  
+
 #### Effect 2: Average and closing rates
 
-While P&L items are translated at average monthly rates, their corresponding balance sheet entries are translated at closing rates. As a result, the P&L and balance sheet may use slightly different exchange rates for the same underlying transactions.
+While P\&L items are translated at average monthly rates, their corresponding balance sheet entries are translated at closing rates. As a result, the P\&L and balance sheet may use slightly different exchange rates for the same underlying transactions.
 
 *(Example: “Equity: retained earnings”)*
+
+![](currency-effect-2.png)
 
 ### IAS21 compliance
 
