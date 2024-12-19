@@ -1,5 +1,56 @@
 ---
-title: 'New file'
+title: 'Eliminations'
 description: 'Description of your new file.'
 ---
 
+## Overview
+
+Many company groups deal with intercompany transactions that need to be eliminated at the consolidated level. Depending on whether all entities share the same base currency or not, the elimination process may involve different steps. This guide provides two distinct approaches:
+
+* **For groups with the same base currency:** A straightforward process, as no currency differences arise.
+
+* **For groups with multiple currencies:** Additional steps are required to handle currency exchange rate fluctuations.
+
+Refer directly to the section that best fits your group's structure so you only read what's most relevant to your scenario.
+
+## Basics
+
+At a consolidated level, transactions between entities within the same group should not impact the overall financials. Eliminations ensure these internal transactions do not inflate your group-wide results.
+
+Below, you’ll find two distinct sets of instructions. If all companies share the same base currency, skip directly to that section. If you manage entities with differing currencies, proceed to the section on handling exchange rate fluctuations.
+
+### Same base currency
+
+When all entities share the same base currency, you can eliminate intercompany transactions without worrying about currency fluctuations. This process focuses solely on identifying and removing any internal transactions to present a clean, consolidated picture.
+
+#### Identifying intercompany transactions
+
+To begin, pinpoint the relevant intercompany transactions. These are often tracked through specific general ledger accounts or distinct dimension values. Separating these transactions into their own rows in Francis allows you to clearly isolate and target them.
+
+#### Eliminating intercompany transactions
+
+Keep the intercompany data intact for each individual entity’s standalone reporting, but remove it at the group level. Use a dedicated instance—often called “Eliminations”—to record all entries that offset these internal transactions.
+
+Create elimination entries by applying the opposite sign to the identified transactions. For example, if an entity shows a receivable of 100, add an entry of -100 in the Eliminations instance. This ensures that when consolidating, these offsets cancel each other out, preventing double counting and presenting more accurate group-wide financials.
+
+### Different base currencies
+
+If your group entities use different base currencies, you must account for currency exchange rate fluctuations. These differences arise because transactions recorded in various currencies are later converted into a unified reporting currency in Francis. As exchange rates shift over time, amounts may no longer match perfectly, requiring an additional adjustment step.
+
+#### Accounting for currency fluctuations
+
+First, identify intercompany transactions as you would in a same-currency scenario. Once you’ve isolated these transactions, convert them into the group’s chosen reporting currency. If the converted values don’t match across entities (due to fluctuating exchange rates), create one or more adjustment rows to capture the residual differences.
+
+This adjustment effectively isolates currency-related discrepancies, allowing you to accurately represent the financial position without mixing currency effects with other sources of discrepancy. Follow established accounting standards—such as IFRS or GAAP—which provide guidance on where and how to record these currency translation differences. In Francis, you can easily place these adjustments wherever they best fit your overall financial model.
+
+#### Important considerations
+
+The suggested approach of treating all discrepancies as currency-related assumes that both sides of the transaction represent the same underlying items. If bookkeeping inconsistencies or multi-purpose accounts lead to mismatched transactions, you risk attributing discrepancies incorrectly. In these cases, you may need to investigate the underlying data or adjust your approach to avoid misallocating differences.
+
+## Next Steps
+
+* **For same-currency eliminations:** After completing the steps above, continue refining your consolidated financials. Confirm all intercompany transactions have been removed and your reporting aligns with expected standards.
+
+* **For multi-currency eliminations:** Once you’ve accounted for exchange rate differences, verify that the final consolidated figures accurately represent your group’s performance. Regularly review the applied exchange rates and adjust as necessary to maintain accuracy over time.
+
+By following the guidelines that apply to your specific scenario, you can ensure a clear, compliant, and accurate consolidation process in Francis.
