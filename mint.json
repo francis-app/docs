@@ -145,6 +145,12 @@
       "pages": [
         "masterclasses/ias21-compliance"
       ]
+    },
+    {
+      "group": "Masterclasses",
+      "pages": [
+        "masterclasses/overview"
+      ]
     }
   ],
   "footer": {
