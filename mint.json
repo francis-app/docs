@@ -143,6 +143,7 @@
     {
       "group": "Masterclasses",
       "pages": [
+        "masterclasses/overview"
         {
           "group": "Currency",
           "pages": [
