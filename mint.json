@@ -146,6 +146,7 @@
         "masterclasses/overview",
         {
           "group": "Currency",
+          "icon": "arrow-right-arrow-left",
           "pages": [
             "masterclasses/ias21-compliance"
           ]
