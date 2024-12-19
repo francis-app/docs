@@ -145,6 +145,13 @@
       "pages": [
         "masterclasses/overview",
         {
+          "group": "Consolidation",
+          "icon": "network-wired",
+          "pages": [
+            "masterclasses/consolidation/eliminations"
+          ]
+        },
+        {
           "group": "Currency",
           "icon": "arrow-right-arrow-left",
           "pages": [
