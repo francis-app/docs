@@ -158,7 +158,8 @@
             "masterclasses/forecasting/methods",
             "masterclasses/forecasting/vat",
             "masterclasses/forecasting/tax",
-            "masterclasses/forecasting/receivables"
+            "masterclasses/forecasting/receivables",
+            "masterclasses/forecasting/recognized-deferred-revenue"
           ]
         },
         {
