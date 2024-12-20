@@ -13,6 +13,34 @@ Forecasting is a key component of financial planning. However, selecting an appr
 
 Forecasting using YoY growth is relevant for companies that experience seasonal fluctuations or predictable cyclical patterns. Retail and e-commerce businesses often utilize this method.
 
-| Method                                                                                                                | **Applications**                                                                                         |
-| --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| Reference revenue from the same month last year and add a growth rate to account for expected changes in performance. | Typically used for revenue projections and employed by companies who experience predictable seasonality. |
+<CardGroup cols="2">
+  <Card title="Method">
+    Reference revenue from the same month last year and add a growth rate to account for expected changes in performance.
+  </Card>
+
+  <Card title="Application">
+    Typically used for revenue projections and employed by companies who experience predictable seasonality.
+  </Card>
+</CardGroup>
+
+```
+="Revenue"[-12] * (1+5%)
+```
+
+### Percentage of revenue
+
+When companies scale, certain expenses and balance sheet items tend to scale proportionally with revenue. With the percentage of revenue method, certain line items are forecasted proportionally to forecasted revenue.
+
+<CardGroup cols="2">
+  <Card title="Method">
+    Determine items as % of revenue based on past performance and multiply this percentage to get your forecast values.
+  </Card>
+
+  <Card title="Application">
+    Often used for costs that scale and correlate with revenue, including working capital items such as inventory or receivables.
+  </Card>
+</CardGroup>
+
+```
+="Revenue"[0] * "COGS % of Revenue"[0]
+```
