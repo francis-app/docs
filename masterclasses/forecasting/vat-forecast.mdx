@@ -1,0 +1,48 @@
+---
+title: "VAT Forecasting"
+description: "Description of your new file."
+---
+
+## Overview
+
+VAT is a common liability that significantly affects cash flow. It involves several components, each requiring its own forecasting approach. This guide outlines these movements and offers strategies to balance forecasting accuracy with the effort required.
+
+If simplicity is your priority, consider a basic approach. For example, you might assume last month’s VAT value remains constant for all future periods or use a percentage of revenue to approximate VAT liabilities going forward.
+
+## Basics
+
+Your VAT liability can be broken down into four main movements:
+
+1. **Beginning value**
+
+2. **Additions during the month**
+
+3. **Detractions during the month**
+
+4. **Settlements during the month**
+
+### Beginning value
+
+Include the beginning value to reflect accumulated liabilities. Use a formula that references the ending value of the previous period to accurately carry forward the balance.
+
+### Additions and subtractions
+
+When forecasting additions and subtractions, determine which P\&L and balance sheet movements are subject to VAT. Decide on the level of detail needed—broad assumptions may be enough for a reliable forecast.
+
+* **Detraction during the month** = Total cost \* Assumed % of costs with VAT \* VAT%
+
+* **Additions during the month** = Total income \* Assumed % of income with VAT \* VAT%
+
+To simplify your calculations, create subtotals for “Total costs” and “Total income” before applying VAT percentages.
+
+### Settlements
+
+Define the frequency of VAT settlements (bi-annually, quarterly, or monthly). Then, use conditional formulas (e.g., IF statements) to apply different settlement rules for each period.
+
+### Mapping VAT accounts from the general ledger
+
+The way you map VAT accounts depends on your chart of accounts. In some cases, grouping all VAT accounts together makes sense. In others, mapping each VAT account to its own line item is more appropriate.
+
+### Bridging actuals and forecasts
+
+Structure your forecasts to mirror your bookkeeping workflows. Align your model’s logic with the journal entries that appear throughout the year. If needed, consult your bookkeeper to understand these entries and ensure your forecast setup accurately reflects real-world accounting practices.
