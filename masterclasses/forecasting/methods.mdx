@@ -24,7 +24,7 @@ Forecasting using YoY growth is relevant for companies that experience seasonal 
 </CardGroup>
 
 ```
-="Revenue"[-12] * (1+5%)
+= "Revenue"[-12] * (1+5%)
 ```
 
 ### Percentage of revenue
@@ -42,5 +42,95 @@ When companies scale, certain expenses and balance sheet items tend to scale pro
 </CardGroup>
 
 ```
-="Revenue"[0] * "COGS % of Revenue"[0]
+= "Revenue"[0] * "COGS % of Revenue"[0]
+```
+
+### Moving average
+
+Moving averages are suited for companies with steady operations and relatively low volatility. This method is based on the notion that the near-term future will likely mirror the recent past, where it can be helpful to smoothen short-term fluctuations and focus on longer-term trends.
+
+<CardGroup cols={2}>
+  <Card title="Method">
+    Calculate a moving average based on the last X months actuals. Optionally, add a growth assumption to account for expected changes.
+  </Card>
+
+  <Card title="Application">
+    Moving averages are used across a wide range of financial items including revenue, expenses and balance sheet items.
+  </Card>
+</CardGroup>
+
+```
+= AVG_LAST("Revenue",3) * (1+5%)
+```
+
+### Annual inputs
+
+The annual inputs method is optimal when annual costs can be estimated with high certainty, yet the monthly distribution remains uncertain. It suits companies that adhere strictly to annual budgeting and planning cycles.
+
+<CardGroup cols={2}>
+  <Card title="Method">
+    Input annual assumptions and divide by twelve to distribute costs equally throughout the year, thereby generating your monthly forecasts.
+  </Card>
+
+  <Card title="Application">
+    Ideal for fixed cost items where the annual cost can be estimated with high certainty, but monthly distribution is unknown.
+  </Card>
+</CardGroup>
+
+```
+= -12.000 / 12
+```
+
+### Prior months balance
+
+The prior month's balance method assumes a steady state from one month to the next and is a simple yet effective method for stable accounts on the balance sheet.
+
+<CardGroup cols={2}>
+  <Card title="Method">
+    Based on the assumption that conditions remain stable. Simply reference last month's value to keep items constant.
+  </Card>
+
+  <Card title="Application">
+    Typically used for balance sheet items that have limited predictability, or no expected changes during the forecast period.
+  </Card>
+</CardGroup>
+
+```
+= "Rent"[-1]
+```
+
+### Cost per employee
+
+The cost-per-employee method is particularly relevant for high-growth companies where employee-related benefits and costs constitute most of the cost base. This is often the case in software companies, where most expenses relate to employees.
+
+<CardGroup cols={2}>
+  <Card title="Method">
+    Relevant for cost items that scale with the number of employees, including items such lunch, insurance and office expenses.
+  </Card>
+
+  <Card title="Application">
+    Based on historical data, determine an average cost per employee and multiply by projected total employees.
+  </Card>
+</CardGroup>
+
+```
+= "Lunch, cost per employee"[0] ∗ "Total employees"[0]
+```
+
+### Fixed assumptions
+
+The fixed assumptions method is particularly useful for fixed-cost items or in situations where the environment is stable and historical patterns are expected to continue into the future without significant changes.
+
+<CardGroup cols={2}>
+  <Card title="Method">
+    Instead of formula based forecasting, simply hardcode scheduled expenses and other forecast assumptions directly into your model.
+  </Card>
+
+  <Card title="Application">
+    Hardcoded forecast assumptions are especially relevant for fixed-cost items including rent, insurance or interests.
+  </Card>
+</CardGroup>
+
+```
+= -10.000
 ```
