@@ -152,6 +152,13 @@
           ]
         },
         {
+          "group": "Forecasting",
+          "icon": "chart-line-up-down",
+          "pages": [
+            "masterclasses/forecasting/methods"
+          ]
+        },
+        {
           "group": "Currency",
           "icon": "dollar-sign",
           "pages": [
