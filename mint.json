@@ -162,6 +162,7 @@
             "masterclasses/forecasting/recognized-deferred-revenue"
           ]
         },
+        "documentation/monthly-close/monthly-close",
         {
           "group": "Currency",
           "icon": "dollar-sign",
