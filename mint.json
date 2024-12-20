@@ -156,8 +156,9 @@
           "icon": "chart-line-up-down",
           "pages": [
             "masterclasses/forecasting/methods",
-            "masterclasses/forecasting/vat-forecast",
-            "masterclasses/forecasting/tax-forecast"
+            "masterclasses/forecasting/vat",
+            "masterclasses/forecasting/tax",
+            "masterclasses/forecasting/receivables"
           ]
         },
         {
