@@ -20,7 +20,8 @@ description: "Description of your new file."
   <Accordion title="avg_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
     The `avg_ytd()` function returns the average of the values in a time series from the beginning of the fiscal year until and including the current month.&#x20;
 
-    ```
+    ```python
+    # Example 
     avg_ytd("Revenue")
     ```
   </Accordion>
@@ -65,19 +66,20 @@ description: "Description of your new file."
     ```
   </Accordion>
 
-  <Accordion title="New Accordion" defaultOpen="false">
+  <Accordion title="median_last(&#x22;row_name&#x22;, num_months)" defaultOpen={false}>
+    The `median_last()` function returns the median of the values in the time series going back *X* months, as defined by the `num_months` parameter.
+
+    ```python
+    # Example
+    median_last("Revenue", 6)
+    ```
+
 
   </Accordion>
 
-  <Accordion title="New Accordion" defaultOpen="false">
+  <Accordion title="New Accordion" defaultOpen="false" />
 
-  </Accordion>
+  <Accordion title="New Accordion" defaultOpen="false" />
 
-  <Accordion title="New Accordion" defaultOpen="false">
-
-  </Accordion>
-
-  <Accordion title="New Accordion" defaultOpen="false">
-
-  </Accordion>
+  <Accordion title="New Accordion" defaultOpen="false" />
 </AccordionGroup>
