@@ -91,7 +91,8 @@
           "icon": "plus-minus",
           "pages": [
             "documentation/variance-analysis/three-column-report",
-            "documentation/variance-analysis/month-by-month"
+            "documentation/variance-analysis/month-by-month",
+            "documentation/variance-analysis/transactions-drill-down"
           ]
         },
         {
