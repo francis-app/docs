@@ -5,16 +5,16 @@ description: "Understand Francis' formula syntax to define model relations faste
 
 ## Overview
 
-Like Excel and Sheets, Francis' formulas use cell references, functions, and mathematical operators. However, Francis uses a slightly different, more human-readable syntax than the A1 notation found in other spreadsheets.
+Like Excel and Sheets, Francis' formulas use cell references, [functions](/documentation/modeling/functions), and mathematical operators. However, Francis uses a slightly different, more human-readable syntax than the A1 notation found in other spreadsheets.
 
 ## Basics
 
 ### Syntax
 
-Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the value of the row "Revenue" from 12 months earlier and apply a 5% growth rate, you would write the following:
+Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the value of the row "Revenue" from 12 months earlier you would input the following:
 
 ```
-="Revenue"[-12]*(1+5%)
+="Revenue"[-12]
 ```
 
 There are several reasons for why we've implemented this syntax:
@@ -27,10 +27,10 @@ There are several reasons for why we've implemented this syntax:
 
 ### Conventions
 
-The convention in Francis is that income and balance sheet items are input as positive values, while expenses are input as negative values (minus prefix). This ensures compatibility with imported actuals from connected accounting systems.
+The convention in Francis is that income and balance sheet items are input as positive values (+), while expenses are input as negative values (-). This ensures compatibility with imported actuals from connected accounting systems.
 
 Consequently, subtotals like gross profit will be calculated by taking revenue and *adding* direct costs using a plus (+), instead of subtracting direct costs using a minus (-). In simpler terms, gross profit would be calculated as:
 
 ```
-="Revenue"[0]+"Direct costs"[0]
+="Revenue"[0] + "Direct costs"[0]
 ```

@@ -11,7 +11,8 @@ description: "Description of your new file."
   <Accordion title="avg(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
     The `avg()` function calculates the average of the values in the specified time series from `range_start` to `range_end`.
 
-    ```
+    ```typescript
+    // Example
     avg("Revenue"[-3:0])
     ```
   </Accordion>
@@ -35,7 +36,7 @@ description: "Description of your new file."
   <Accordion title="avg_last(&#x22;row_name&#x22;,num_months)" defaultOpen={false}>
     The `avg_last()` function returns the average of the values in the time series going back *n* months, as defined by the `num_months` parameter.
 
-    ```
+    ```javascript
     avg_last("Revenue",6)
     ```
   </Accordion>
@@ -46,5 +47,37 @@ description: "Description of your new file."
     ```
     median("Revenue"[-3:0])
     ```
+  </Accordion>
+
+  <Accordion title="median_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
+    The `median_ytd()` function returns the median of the values in a time series from the beginning of the fiscal year until and including the current month.
+
+    ```
+    median_ytd("Revenue")
+    ```
+  </Accordion>
+
+  <Accordion title="median_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
+    The `median_last_year()` function returns the median of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
+
+    ```
+    median_last_year("Revenue")
+    ```
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
   </Accordion>
 </AccordionGroup>
