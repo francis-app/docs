@@ -43,13 +43,13 @@
     {
       "name": "Changelog",
       "icon": "book",
-      "iconType": "regular",
+      "iconType": "light",
       "url": "https://roadmap.francis.app/changelog"
     },
     {
       "name": "Roadmap",
       "icon": "sign-post",
-      "iconType": "regular",
+      "iconType": "light",
       "url": "https://roadmap.francis.app/roadmap"
     }
   ],
