@@ -20,8 +20,8 @@ description: "Description of your new file."
   <Accordion title="avg_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
     The `avg_ytd()` function returns the average of the values in a time series from the beginning of the fiscal year until and including the current month.&#x20;
 
-    ```python
-    # Example 
+    ```typescript
+    // Example 
     avg_ytd("Revenue")
     ```
   </Accordion>
@@ -29,7 +29,8 @@ description: "Description of your new file."
   <Accordion title="avg_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
     The `avg_last_year()` function returns the average of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
-    ```
+    ```typescript
+    // Example
     avg_last_year("Revenue")
     ```
   </Accordion>
@@ -37,7 +38,8 @@ description: "Description of your new file."
   <Accordion title="avg_last(&#x22;row_name&#x22;,num_months)" defaultOpen={false}>
     The `avg_last()` function returns the average of the values in the time series going back *n* months, as defined by the `num_months` parameter.
 
-    ```javascript
+    ```typescript
+    // Example
     avg_last("Revenue",6)
     ```
   </Accordion>
@@ -45,7 +47,8 @@ description: "Description of your new file."
   <Accordion title="median(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
     The `median()` function returns the median of the values in the specified time series from `range_start` to `range_end`
 
-    ```
+    ```typescript
+    // Example
     median("Revenue"[-3:0])
     ```
   </Accordion>
@@ -54,6 +57,7 @@ description: "Description of your new file."
     The `median_ytd()` function returns the median of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```
+    // Example
     median_ytd("Revenue")
     ```
   </Accordion>
@@ -62,6 +66,7 @@ description: "Description of your new file."
     The `median_last_year()` function returns the median of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
     ```
+    // Example
     median_last_year("Revenue")
     ```
   </Accordion>
@@ -69,15 +74,22 @@ description: "Description of your new file."
   <Accordion title="median_last(&#x22;row_name&#x22;, num_months)" defaultOpen={false}>
     The `median_last()` function returns the median of the values in the time series going back *X* months, as defined by the `num_months` parameter.
 
-    ```python
-    # Example
+    ```typescript
+    // Example
     median_last("Revenue", 6)
+    ```
+  </Accordion>
+
+  <Accordion title="sum(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
+    The `sum()` function calculates the total of the values in the specified time series from `range_start` to `range_end`.
+
+    ```
+    // Example
+    sum("Revenue"[-3:0])
     ```
 
 
   </Accordion>
-
-  <Accordion title="New Accordion" defaultOpen="false" />
 
   <Accordion title="New Accordion" defaultOpen="false" />
 
