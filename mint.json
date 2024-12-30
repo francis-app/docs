@@ -149,6 +149,7 @@
           "group": "Consolidation",
           "icon": "network-wired",
           "pages": [
+            "masterclasses/consolidation/consolidation",
             "masterclasses/consolidation/eliminations"
           ]
         },
