@@ -87,11 +87,59 @@ description: "Description of your new file."
     // Example
     sum("Revenue"[-3:0])
     ```
+  </Accordion>
+
+  <Accordion title="sum_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
+    The `sum_ytd()` function returns the sum of the values in a time series from the beginning of the fiscal year until and including the current month.&#x20;
+
+    ```typescript
+    // Example
+    sum_ytd("Revenue")
+    ```
+  </Accordion>
+
+  <Accordion title="sum_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
+    The `sum_last_year()` function returns the sum of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
+
+    ```
+    sum_last_year("Revenue")
+    ```
 
 
   </Accordion>
 
-  <Accordion title="New Accordion" defaultOpen="false" />
+  <Accordion title="sum_last(&#x22;row_name&#x22;, num_month)" defaultOpen={false}>
+    The `sum_last()` function returns the sum of the values in the time series going back *X* months, as defined by the `num_months` parameter.
 
-  <Accordion title="New Accordion" defaultOpen="false" />
+    ```typescript
+    sum_last("Revenue", 6)
+    ```
+  </Accordion>
+
+  <Accordion title="receivables(&#x22;row_name&#x22;, payment_days)" defaultOpen={false}>
+    The `receivables()` function accumulates revenue amounts from previous months based on an assumption of payment days. Based on the number of payment days, the function loops back through previous months to collect revenue as part of receivables.&#x20;
+
+
+
+    The function assumes 30 days per month. The payment days input must be hardcoded and cannot reference a cell.&#x20;
+
+    ```typescript
+    // Example
+    receivables("revenue", 30)
+    ```
+
+
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
+  </Accordion>
+
+  <Accordion title="New Accordion" defaultOpen="false">
+
+  </Accordion>
 </AccordionGroup>
