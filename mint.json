@@ -39,7 +39,7 @@
     "location": "side"
   },
 
-  "rounded": "sharp",
+  "rounded": "default",
   
   "topbarLinks": [
     {
