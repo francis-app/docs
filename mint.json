@@ -69,20 +69,6 @@
       "url": "masterclasses"
     }
   ],
-  "anchors": [
-    {
-      "name": "Changelog",
-      "icon": "book",
-      "iconType": "light",
-      "url": "https://roadmap.francis.app/changelog"
-    },
-    {
-      "name": "Roadmap",
-      "icon": "sign-post",
-      "iconType": "light",
-      "url": "https://roadmap.francis.app/roadmap"
-    }
-  ],
   "navigation": [
     {
       "group": "Getting Started",
