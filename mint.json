@@ -32,7 +32,7 @@
   },
 
   "topbar": {
-    "style": "gradient"
+    "style": "default"
   },
 
   "search": {
