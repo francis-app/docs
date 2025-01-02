@@ -24,6 +24,10 @@
     }
   },
 
+  "topbar": {
+    "style": "gradient"
+  },
+
   "search": {
     "location": "side"
   },
