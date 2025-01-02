@@ -25,7 +25,7 @@
   },
 
   "sidebar": {
-    "items": "undecorated"
+    "items": "container"
   },
 
   "topbar": {
