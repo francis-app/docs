@@ -58,7 +58,8 @@
       "group": "Getting Started",
       "pages": [
         "documentation/welcome",
-        "documentation/onboarding-guide"
+        "documentation/onboarding-guide",
+        "documentation/home"
       ]
     },
     {
