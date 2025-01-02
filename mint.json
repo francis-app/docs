@@ -24,6 +24,10 @@
     }
   },
 
+  "sidebar": {
+    "items": "border"
+  },
+
   "topbar": {
     "style": "gradient"
   },
