@@ -23,9 +23,11 @@
       "family": "Inter"
     }
   },
-  "background": {
-    "style": "windows"
+
+  "search": {
+    "location": "side"
   },
+  
   "topbarLinks": [
     {
       "name": "Contact",
