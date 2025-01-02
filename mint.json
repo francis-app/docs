@@ -15,6 +15,14 @@
       "dark": "#111111"
     }
   },
+  "font": {
+    "headings": {
+      "family": "Inter"
+    },
+    "body": {
+      "family": "Inter"
+    }
+  }
   "topbarLinks": [
     {
       "name": "Contact",
