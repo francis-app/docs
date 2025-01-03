@@ -73,8 +73,8 @@
     {
       "group": "Getting Started",
       "pages": [
-        "documentation/welcome",
-        "documentation/onboarding-guide",
+        "documentation/getting-started/welcome",
+        "documentation/getting-started/onboarding-guide",
         {
           "group": "Account",
           "icon": "circle-user",
