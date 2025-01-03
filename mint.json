@@ -70,7 +70,6 @@
     }
   ],
   "navigation": [
-    "documentation/features/overview",
     {
       "group": "Getting Started",
       "pages": [
@@ -98,6 +97,7 @@
     {
       "group": "Features",
       "pages": [
+        "documentation/features/overview",
         {
           "group": "Modeling",
           "icon": "function",
