@@ -1,7 +1,7 @@
 ---
 title: "Accounting Integrations"
-description: "Description of your new file."
-sidebarTitle: "Overview"
+description: "Connect an ERP or accounting system to automate actuals import"
+sidebarTitle: "Overview (WIP)"
 ---
 
 ## Overview
@@ -13,19 +13,55 @@ sidebarTitle: "Overview"
 
   <Card title="Xero" href="/integrations/accounting/xero" />
 
-  <Card title="Business Central" href="/integrations/accounting/business-central">
+  <Card title="Business Central" href="/integrations/accounting/business-central" />
 
-  </Card>
-
-  <Card title="NetSuite" href="/integrations/accounting/netsuite">
-
-  </Card>
+  <Card title="NetSuite" href="/integrations/accounting/netsuite" />
 </CardGroup>
 
 ## Adjustments
 
 ### Number conventions
 
-### Retained earnings
+Francis follows a consistent convention for interpreting accounts.
 
-### Accumulation
+* **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+
+* **Negative (-):** Expense (E)
+
+This standardization simplifies comparisons and ensures that reports remain straightforward to interpret. Since Francis relies on your asset range configuration to determine each account’s classification, it’s critical to confirm that your asset range settings are correct.
+
+### Balance sheet accumulation
+
+Francis always presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import, ensuring that your balance sheet data aligns with common reporting practices.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I setup a connection?" defaultOpen={false}>
+    For in-depth information on how to setup and configure a connection to your accounting or ERP system, we suggest reviewing the documentation for that specific integration and follow the steps outlined on those pages.
+  </Accordion>
+
+  <Accordion title="Does Francis support dimensional planning?" defaultOpen={false}>
+    Users on Advanced and Mastery plans have access to dimensional planning. Francis will automatically detect any available dimensions in your accounting system, allowing you to pick which dimension is relevant for your financial planning.
+  </Accordion>
+
+  <Accordion title="Can I connect multiple accounting systems?" defaultOpen={false}>
+    Yes, you can easily configure multiple connections from either the same or different accounting systems. These can then subsequently be consolidated through our Mappings feature, allowing you to unify your general ledgers across entities.
+  </Accordion>
+
+  <Accordion title="Can I add more connections to my plan?" defaultOpen={false}>
+    Depending on your current plan, you can unlock more connections by upgrading to a different tier or by adding more connections to your existing plan.
+
+    * For users on our Core plan, your only option is to upgrade to the Advanced plan.
+
+    * For users on our Advanced plan, upgrade to Mastery and add more connections.
+
+    * For users on our Mastery plan, simply add more connections to your existing plan.
+  </Accordion>
+
+  <Accordion title="How often does Francis sync my data?" defaultOpen={false}>
+    Francis currently doesn't support scheduled data syncs, meaning that your data is not automatically synced at any point. However, you're there are no limits to how frequently you can sync your data source connections.
+  </Accordion>
+</AccordionGroup>
+
+##
