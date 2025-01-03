@@ -163,7 +163,7 @@
       "pages": [
         "integrations/accounting/e-conomic",
         "integrations/accounting/quickbooks",
-        "integrations/accounting/xero"
+        "integrations/accounting/xero",
         "integrations/accounting/business-central",
         "integrations/accounting/netsuite"
       ]
