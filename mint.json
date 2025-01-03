@@ -16,7 +16,7 @@
     }
   },
 
-  "layout": "sidenav",
+  "layout": "topnav",
   
   "font": {
     "headings": {
