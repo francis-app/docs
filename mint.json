@@ -75,7 +75,15 @@
       "pages": [
         "documentation/welcome",
         "documentation/onboarding-guide",
-        "documentation/home"
+        "documentation/home",
+        {
+          "group": "Account",
+          "icon": "user",
+          "pages": [
+            "documentation/getting-started/account/profile",
+            "documentation/getting-started/account/preferences"
+          ]
+        }
       ]
     },
     {
