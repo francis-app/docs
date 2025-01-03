@@ -78,10 +78,19 @@
         "documentation/home",
         {
           "group": "Account",
-          "icon": "user",
+          "icon": "circle-user",
           "pages": [
             "documentation/getting-started/account/profile",
             "documentation/getting-started/account/preferences"
+          ]
+        },
+        {
+          "group": "Administration",
+          "icon": "building",
+          "pages": [
+            "documentation/getting-started/administration/organizations",
+            "documentation/getting-started/administration/member-roles",
+            "documentation/getting-started/administration/billing-plans"
           ]
         }
       ]
