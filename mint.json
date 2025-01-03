@@ -75,7 +75,6 @@
       "pages": [
         "documentation/welcome",
         "documentation/onboarding-guide",
-        "documentation/home",
         {
           "group": "Account",
           "icon": "circle-user",
@@ -89,7 +88,7 @@
           "icon": "building",
           "pages": [
             "documentation/getting-started/administration/organizations",
-            "documentation/getting-started/administration/member-roles",
+            "documentation/getting-started/administration/members-roles",
             "documentation/getting-started/administration/billing-plans"
           ]
         }
