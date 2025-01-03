@@ -162,10 +162,10 @@
       "group": "Accounting",
       "pages": [
         "integrations/accounting/e-conomic",
-        "integrations/accounting/business-central",
         "integrations/accounting/quickbooks",
-        "integrations/accounting/netsuite",
         "integrations/accounting/xero"
+        "integrations/accounting/business-central",
+        "integrations/accounting/netsuite"
       ]
     },
     {
