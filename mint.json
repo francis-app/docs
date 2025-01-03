@@ -112,7 +112,7 @@
         },
         {
           "group": "Consolidation",
-          "icon": "network-wired",
+          "icon": "sitemap",
           "pages": [
             "documentation/consolidation/breakdowns",
             "documentation/consolidation/splits"
