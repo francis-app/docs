@@ -70,6 +70,7 @@
     }
   ],
   "navigation": [
+    "documentation/features/overview",
     {
       "group": "Getting Started",
       "pages": [
