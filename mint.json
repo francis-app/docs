@@ -102,58 +102,58 @@
           "group": "Modeling",
           "icon": "function",
           "pages": [
-            "documentation/modeling/components",
-            "documentation/modeling/date-settings",
-            "documentation/modeling/mappings",
-            "documentation/modeling/formulas",
-            "documentation/modeling/functions",
-            "documentation/modeling/manual-entries",
-            "documentation/modeling/shortcuts"
+            "documentation/features/modeling/components",
+            "documentation/features/modeling/date-settings",
+            "documentation/features/modeling/mappings",
+            "documentation/features/modeling/formulas",
+            "documentation/features/modeling/functions",
+            "documentation/features/modeling/manual-entries",
+            "documentation/features/modeling/shortcuts"
           ]
         },
         {
           "group": "Consolidation",
           "icon": "sitemap",
           "pages": [
-            "documentation/consolidation/breakdowns",
-            "documentation/consolidation/splits"
+            "documentation/features/consolidation/breakdowns",
+            "documentation/features/consolidation/splits"
           ]
         },
-        "documentation/version-control/version-control",
+        "documentation/features/version-control/version-control",
         {
           "group": "Variance analysis",
           "icon": "plus-minus",
           "pages": [
-            "documentation/variance-analysis/three-column-report",
-            "documentation/variance-analysis/month-by-month",
-            "documentation/variance-analysis/transactions-drill-down"
+            "documentation/features/variance-analysis/three-column-report",
+            "documentation/features/variance-analysis/month-by-month",
+            "documentation/features/variance-analysis/transactions-drill-down"
           ]
         },
         {
           "group": "Reporting",
           "icon": "chart-line",
           "pages": [
-            "documentation/reporting/charts",
-            "documentation/reporting/dashboards",
-            "documentation/reporting/reports",
-            "documentation/reporting/export-to-excel"
+            "documentation/features/reporting/charts",
+            "documentation/features/reporting/dashboards",
+            "documentation/features/reporting/reports",
+            "documentation/features/reporting/export-to-excel"
           ]
         },
         {
           "group": "Collaboration",
           "icon": "users",
           "pages": [
-            "documentation/collaboration/status-indicators",
-            "documentation/collaboration/descriptions",
-            "documentation/collaboration/multiplayer"
+            "documentation/features/collaboration/status-indicators",
+            "documentation/features/collaboration/descriptions",
+            "documentation/features/collaboration/multiplayer"
           ]
         },
         {
           "group": "Confidentiality",
           "icon": "lock",
           "pages": [
-            "documentation/confidentiality/rales-permissions",
-            "documentation/confidentiality/limited-viewers"
+            "documentation/features/confidentiality/roles-permissions",
+            "documentation/features/confidentiality/limited-viewers"
           ]
         }
       ]
