@@ -111,8 +111,8 @@
         {
           "group": "Consolidation",
           "pages": [
-            "documentation/features/consolidation/breakdowns",
-            "documentation/features/consolidation/splits"
+            "documentation/features/consolidation/splits",
+            "documentation/features/consolidation/breakdowns"
           ]
         },
         "documentation/features/version-control/version-control",
