@@ -14,17 +14,17 @@ Like Excel and Sheets, Francis' formulas use cell references, [functions](/docum
 
 Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the value of the row "Revenue" from 12 months earlier you would input the following:
 
-```
+```typescript
 ="Revenue"[-12]
 ```
 
 There are several reasons for why we've implemented this syntax:
 
-* More readable references, with clearly stated names and relative periods.
+* More readable references and syntax, with clearly stated names and relative periods
 
-* Enhanced functionality allows users to drag and drop components without breaking formulas.
+* Syntax allows users to drag and drop components without breaking references
 
-* Simplified management of rolling forecasts, as all references are based on relative periods.
+* Simplified rolling forecasts, as all references are based on relative periods
 
 ### Conventions
 
@@ -32,6 +32,6 @@ The convention in Francis is that income and balance sheet items are input as po
 
 Consequently, subtotals like gross profit will be calculated by taking revenue and *adding* direct costs using a plus (+), instead of subtracting direct costs using a minus (-). In simpler terms, gross profit would be calculated as:
 
-```
+```typescript
 ="Revenue"[0] + "Direct costs"[0]
 ```

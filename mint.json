@@ -106,8 +106,8 @@
           "group": "Modeling",
           "pages": [
             "documentation/features/modeling/components",
-            "documentation/features/modeling/date-settings",
             "documentation/features/modeling/mappings",
+            "documentation/features/modeling/date-settings",
             "documentation/features/modeling/formulas",
             "documentation/features/modeling/functions",
             "documentation/features/modeling/manual-entries",
