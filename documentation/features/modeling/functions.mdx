@@ -5,7 +5,7 @@ icon: "function"
 ---
 
 <Tip>
-  Your number format in Francis determines whether you’ll use commas (US) or semicolons (EU) to separate function parameters. All examples below use the US format with commas.
+  Your [number format](/documentation/getting-started/account/preferences) in Francis determines whether you’ll use commas (US) or semicolons (EU) to separate function parameters. All examples below use the US format with commas.
 </Tip>
 
 <AccordionGroup>
@@ -122,7 +122,7 @@ icon: "function"
 
     ```typescript
     // Example
-    receivables("revenue", 30)
+    receivables("Revenue", 30)
     ```
   </Accordion>
 
@@ -146,14 +146,29 @@ icon: "function"
 
   <Accordion title="min(a,b)" defaultOpen={false}>
     The `min()` function returns the smallest numeric value of the input values.
+
+    ```typescript
+    // Example
+    min("Revenue"[0],"Revenue"[-1])
+    ```
   </Accordion>
 
   <Accordion title="max(a,b)" defaultOpen={false}>
     The `max()` function returns the largest numeric value of the input values.
+
+    ```typescript
+    // Example
+    max("Revenue"[0],"Revenue"[-1])
+    ```
   </Accordion>
 
   <Accordion title="abs(num)" defaultOpen={false}>
     The `abs()` function returns the absolute value of a number.
+
+    ```typescript
+    // Example
+    abs("Direct costs"[0])
+    ```
   </Accordion>
 
   <Accordion title="round(num, decimals)" defaultOpen={false}>
@@ -161,16 +176,26 @@ icon: "function"
 
     ```typescript
     // Example
-    round("Revenue",2)
+    round("Revenue"[0],2)
     ```
   </Accordion>
 
   <Accordion title="round_down(num)" defaultOpen={false}>
-    The `rounddown()` function rounds numbers *down* to the nearest integer.
+    The `round_down()` function rounds numbers *down* to the nearest integer.
+
+    ```typescript
+    // Example
+    round_down("Revenue"[0])
+    ```
   </Accordion>
 
   <Accordion title="round_up(num)" defaultOpen={false}>
     The `roundup()` function rounds numbers *up* to the nearest integer.
+
+    ```typescript
+    // Example
+    round_up("Revenue"[0])
+    ```
   </Accordion>
 
   <Accordion title="if(condition, value_if_true, value_if_false)" defaultOpen={false}>
