@@ -75,6 +75,7 @@
       "pages": [
         "documentation/getting-started/welcome",
         "documentation/getting-started/onboarding-guide",
+        "documentation/getting-started/overview",
         {
           "group": "Getting started",
           "pages": [
