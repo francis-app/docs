@@ -57,7 +57,7 @@ icon: "function"
   <Accordion title="median_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
     The `median_ytd()` function returns the median of the values in a time series from the beginning of the fiscal year until and including the current month.
 
-    ```
+    ```typescript
     // Example
     median_ytd("Revenue")
     ```
@@ -66,7 +66,7 @@ icon: "function"
   <Accordion title="median_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
     The `median_last_year()` function returns the median of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
-    ```
+    ```typescript
     // Example
     median_last_year("Revenue")
     ```
@@ -84,7 +84,7 @@ icon: "function"
   <Accordion title="sum(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
     The `sum()` function calculates the total of the values in the specified time series from `range_start` to `range_end`.
 
-    ```
+    ```typescript
     // Example
     sum("Revenue"[-3:0])
     ```
@@ -102,7 +102,7 @@ icon: "function"
   <Accordion title="sum_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
     The `sum_last_year()` function returns the sum of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
-    ```
+    ```typescript
     sum_last_year("Revenue")
     ```
   </Accordion>
@@ -138,7 +138,7 @@ icon: "function"
   <Accordion title="power(num, exponent)" defaultOpen={false}>
     The `power()` function is a mathematical function that returns the value of the parameter *num* to the power of the *exponent* parameter.
 
-    ```
+    ```typescript
     // Example
     power(10,2)
     ```
@@ -146,9 +146,6 @@ icon: "function"
 
   <Accordion title="min(a,b)" defaultOpen={false}>
     The `min()` function returns the smallest numeric value of the input values.
-
-    ```
-    ```
   </Accordion>
 
   <Accordion title="max(a,b)" defaultOpen={false}>
@@ -170,9 +167,6 @@ icon: "function"
 
   <Accordion title="round_down(num)" defaultOpen={false}>
     The `rounddown()` function rounds numbers *down* to the nearest integer.
-
-    ```
-    ```
   </Accordion>
 
   <Accordion title="round_up(num)" defaultOpen={false}>
