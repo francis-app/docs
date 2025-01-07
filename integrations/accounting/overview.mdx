@@ -16,7 +16,6 @@ sidebarTitle: "Overview (WIP)"
   <Card title="Business Central" href="/integrations/accounting/business-central" />
 
   <Card title="NetSuite" href="/integrations/accounting/netsuite" />
-
 </CardGroup>
 
 ## Adjustments
@@ -51,18 +50,20 @@ Francis always presents balance sheet values as accumulated amounts at a specifi
   </Accordion>
 
   <Accordion title="Can I add more connections to my plan?" defaultOpen={false}>
-    Depending on your current plan, you can unlock more connections by upgrading to a different tier or by adding more connections to your existing plan.
+    Depending on your current plan, you can unlock more connections by either upgrading to a different tier or by adding more connections to your existing plan.
 
-    * For users on our Core plan, your only option is to upgrade to the Advanced plan.
+    * For users on the Core plan, upgrade to Advanced or Mastery to add more connections.
 
-    * For users on our Advanced plan, upgrade to Mastery and add more connections.
+    * For users on the Advanced plan, upgrade to Mastery and add more connections.
 
-    * For users on our Mastery plan, simply add more connections to your existing plan.
+    * For users on the Mastery plan, simply add more connections to your existing plan.
   </Accordion>
 
   <Accordion title="How often does Francis sync my data?" defaultOpen={false}>
-    Francis currently doesn't support scheduled data syncs, meaning that your data is not automatically synced at any point. However, you're there are no limits to how frequently you can sync your data source connections.
+    There is no limit to how frequently you can sync your data in Francis. However, Francis currently does not support scheduled data source syncs, meaning you'll just need to initiate a sync when you want to pull the latest actuals from your connected systems.
+  </Accordion>
+
+  <Accordion title="Does Francis write any data back to my systems?" defaultOpen={false}>
+    No. By design, Francis exclusive *reads* data. For this reason, we always recommend to resolve any data issues at the source, e.g. if you encounter errors in your bookkeeping.
   </Accordion>
 </AccordionGroup>
-
-##
