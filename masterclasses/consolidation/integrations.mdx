@@ -1,5 +1,46 @@
 ---
 title: "Connecting Multiple Data Sources"
+description: "Connect accounting systems for each of your entities to start consolidating actuals."
 sidebarTitle: "Integrations"
 icon: "database"
 ---
+
+<iframe width="720" height="466" src="https://www.loom.com/embed/9408ec4f838e472cb7a5754a9f2bddda?sid=67cc8064-849b-4788-a826-b05dd9caaea4" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
+## Overview
+
+To consolidate actuals across multiple legal entities, begin by connecting each entity’s accounting system. This process lets you automatically pull financial data from each source and unify your general ledger accounts for consolidated reporting.
+
+## Basics
+
+### Connect your accounting systems
+
+To link Francis with your accounting system, go to **Settings > Organization > Integrations**. This page displays all available options, including these five native integrations:
+
+* Visma e-conomic
+
+* Microsoft Dynamics 365 Business Central
+
+* Intuit Quickbooks Online
+
+* Oracle Netsuite
+
+* Xero
+
+Select the integration that matches the accounting system for the entity you want to connect. If your system isn’t listed among the native integrations, see the section on non-supported systems below.
+
+<Tip>
+  If multiple entities use the same accounting system, simply repeat the connection steps for each entity.
+</Tip>
+
+#### Non-supported systems
+
+When an entity’s accounting system isn’t supported by Francis’ native integrations, you can still bring in actuals through one of these methods:
+
+1. **Google Sheets Integration**: Import trial balances (or detailed transactions, if desired) using our Google Sheets integration. This method reduces manual input errors, supports larger data sets, and allows you to drill down into individual transactions, which is especially helpful for variance analysis.
+
+2. **Manual entry**: Copy and paste or directly input monthly aggregates into your financial model. This approach is best for very small volumes of data, as there is no ability to import individual transactions or leverage drill-down features.
+
+### Currency conversion
+
+If any entity operates in a different base currency—or if your base currency differs from your preferred reporting currency—you can easily convert actuals at import. This ensures that all transactions display in a single target currency, simplifying your consolidated reporting and analysis.
