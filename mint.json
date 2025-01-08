@@ -197,7 +197,8 @@
             "masterclasses/forecasting/tax",
             "masterclasses/forecasting/vat"
           ]
-        }
+        },
+        "masterclasses/monthly-close/monthly-close"
       ]
     }
   ],
