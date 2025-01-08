@@ -24,7 +24,8 @@ Forecasting using YoY growth is relevant for companies that experience seasonal 
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = "Revenue"[-12] * (1+5%)
 ```
 
@@ -42,7 +43,8 @@ When companies scale, certain expenses and balance sheet items tend to scale pro
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = "Revenue"[0] * "COGS % of Revenue"[0]
 ```
 
@@ -60,7 +62,8 @@ Moving averages are suited for companies with steady operations and relatively l
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = AVG_LAST("Revenue",3) * (1+5%)
 ```
 
@@ -78,7 +81,8 @@ The annual inputs method is optimal when annual costs can be estimated with high
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = -12.000 / 12
 ```
 
@@ -96,7 +100,8 @@ The prior month's balance method assumes a steady state from one month to the ne
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = "Rent"[-1]
 ```
 
@@ -114,7 +119,8 @@ The cost-per-employee method is particularly relevant for high-growth companies 
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = "Lunch, cost per employee"[0] ∗ "Total employees"[0]
 ```
 
@@ -132,6 +138,7 @@ The fixed assumptions method is particularly useful for fixed-cost items or in s
   </Card>
 </CardGroup>
 
-```
+```typescript
+// Example
 = -10.000
 ```
