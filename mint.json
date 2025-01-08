@@ -181,6 +181,7 @@
         {
           "group": "Consolidation",
           "pages": [
+            "masterclasses/consolidation/integrations",
             "masterclasses/consolidation/consolidation",
             "masterclasses/consolidation/eliminations"
           ]
