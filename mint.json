@@ -180,7 +180,6 @@
         "masterclasses/overview",
         {
           "group": "Consolidation",
-          "icon": "network-wired",
           "pages": [
             "masterclasses/consolidation/consolidation",
             "masterclasses/consolidation/eliminations"
@@ -188,7 +187,6 @@
         },
         {
           "group": "Forecasting",
-          "icon": "chart-line-up-down",
           "pages": [
             "masterclasses/forecasting/methods",
             "masterclasses/forecasting/vat",
@@ -200,7 +198,6 @@
         "masterclasses/monthly-close/monthly-close",
         {
           "group": "Currency",
-          "icon": "dollar-sign",
           "pages": [
             "masterclasses/currency/ias21"
           ]
