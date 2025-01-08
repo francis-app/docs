@@ -4,3 +4,30 @@ description: "Description of your new file."
 icon: "users"
 sidebarTitle: "Headcount"
 ---
+
+<iframe width="720" height="483" src="https://www.loom.com/embed/799fcb9020514d7fa3eda7353b894f1d?sid=74449116-0c68-4313-a05f-cb0785da2f80" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
+## Overview
+
+Headcount planning is essential for almost every organization, especially when it comes to analyzing salaries. However, actuals data in accounting systems is often structured differently than what’s needed for detailed headcount forecasting. This Masterclass outlines a recommended approach to reconciling these differences and setting up effective headcount planning in Francis.
+
+## Basics
+
+### Importing actuals
+
+Your chart of accounts typically contains various salary-related accounts (e.g., base salaries, fees, taxes). You can choose to map each account to individual rows or combine them into a single row, depending on how granular you want your data to be.&#x20;
+
+<Tip>
+  If you’ve implemented dimensions, you can use them to break down salary data by department or individual employees.
+</Tip>
+
+### Forecasting salaries
+
+To keep headcount forecasts organized, we recommend creating a dedicated tab separate from your main P\&L. One effective structure is to group people by department with rows for each individual; for more detailed planning, you might place each person in their own group and list separate components of their compensation.
+
+Base salaries are often entered as fixed amounts. If you want to account for annual increases, you can automate these changes using the `if_month()` function:
+
+```typescript
+// Example
+= "Base salaries"[-1] * (1 + if_month(1) * 5%)
+```
