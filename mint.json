@@ -197,13 +197,6 @@
             "masterclasses/forecasting/tax",
             "masterclasses/forecasting/vat"
           ]
-        },
-        "masterclasses/monthly-close/monthly-close",
-        {
-          "group": "Currency",
-          "pages": [
-            "masterclasses/currency/ias21"
-          ]
         }
       ]
     }
