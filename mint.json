@@ -190,10 +190,12 @@
           "group": "Forecasting",
           "pages": [
             "masterclasses/forecasting/methods",
-            "masterclasses/forecasting/vat",
-            "masterclasses/forecasting/tax",
+            "masterclasses/forecasting/cash-flow",
+            "masterclasses/forecasting/headcount",
             "masterclasses/forecasting/receivables",
-            "masterclasses/forecasting/recognized-deferred-revenue"
+            "masterclasses/forecasting/revenue-recognition",
+            "masterclasses/forecasting/tax",
+            "masterclasses/forecasting/vat"
           ]
         },
         "masterclasses/monthly-close/monthly-close",
