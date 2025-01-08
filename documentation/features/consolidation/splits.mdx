@@ -4,6 +4,8 @@ description: "Centrally define a structure for your model which applies across d
 icon: "sitemap"
 ---
 
+<iframe width="720" height="483" src="https://www.loom.com/embed/bc9fc9c008e54acabbfccdd5fd688286?sid=bc8b0ab9-c378-4516-a845-b0bc000fe9fc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
 ## Overview
 
 You can create a system of templates combined with a consolidation to manage multiple entities or department budgets. As part of the configuration, you specify how to filter entity or dimension data.
@@ -28,14 +30,14 @@ At the same time, the consolidation template consolidates the values of all unde
 
 While instances inherit the structure of the consolidation template. actuals and forecasts are defined in the instances and are automatically consolidated. This allows you to create and analyze separate forecasts for different parts of your business.
 
-<Tip>
+<Warning>
   Before applying a split, note that specific actions may lead to the deletion of forecasts:
 
   * When you split a tab, all pre-existing forecasts and manual entries are deleted, as they are now defined bottom-up in the instances.
 
   * If a new split leads to the deletion of an instance, all forecasts and manual entries in that instance will be deleted.
-</Tip>
+</Warning>
 
-### Manual consolidations
+### Manual consolidation
 
-If you wish to create extra consolidations, e..g, for a subset of entities or departments, you can create extra tabs and manually set up calculations to sum the values of different instances. In general, you have full modeling flexibility to create extra tabs with any summaries that you need.&#x20;
+If you wish to create extra consolidations, e..g, for a subset of entities or departments, you can create extra tabs and manually set up calculations to sum the values of different instances. In general, you have full modeling flexibility to create extra tabs with any summaries that you need.
