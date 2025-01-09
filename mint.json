@@ -156,8 +156,8 @@
         "integrations/accounting/overview",
         "integrations/accounting/business-central",
         "integrations/accounting/e-conomic",
-        "integrations/accounting/netsuite",
         "integrations/accounting/quickbooks",
+        "integrations/accounting/netsuite",
         "integrations/accounting/xero",
       ]
     },
