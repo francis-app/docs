@@ -3,3 +3,45 @@ title: "Intuit Quickbooks Online"
 description: "How to connect and configure Intuit Quickbooks Online."
 sidebarTitle: "Quickbooks"
 ---
+
+## Overview
+
+By connecting your Quickbooks Online instance to Francis, you can import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can define custom mappings of Quickbooks accounts to corresponding line items in your financial model.
+
+## Configuration
+
+To set up the Quickbooks integration, go to **Organization Settings > Integrations > Quickbooks**. After enabling this option, a prompt will appear asking you to authorize Francis as an application in your Quickbooks account. Completing this authorization step ensures that Francis can securely access journal entries from your Quickbooks environment.
+
+### Account categories
+
+For Francis to process your Quickbooks data correctly, each general ledger account must have a valid account category. If you haven’t assigned these categories review your Quickbooks settings and ensure that each account is properly classified.
+
+### Currency conversion
+
+Imported transactions from Quickbooks can automatically convert from their base currency into a chosen target currency. To enable this feature, open the **Currency Conversion** section of your Quickbooks connection settings in Francis and toggle **Enable currency conversion**. You can use either market rates or custom rates for your conversions.
+
+### Dimensions
+
+<Info>
+  Dimensional planning for Quickbooks Online is scheduled for release during H1 2025. If you have questions about this upcoming feature, feel free to reach out at [support@francis.app](mailto:support@francis.app).
+</Info>
+
+## Adjustments
+
+Francis applies several adjustments to ensure that imported data is aligned with best practices and supports clear financial analysis.
+
+<Tabs>
+  <Tab title="Number convention">
+    Francis follows a consistent convention for interpreting accounts:
+
+    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+
+    * **Negative (-):** Expense (E)
+
+    This standardization simplifies comparisons and makes reporting easier. Because Francis determines each account’s classification based on your asset range settings, verify that your configuration is correct before proceeding.
+  </Tab>
+
+  <Tab title="Balance sheet">
+    Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import to ensure your balance sheet data aligns with common reporting conventions.
+  </Tab>
+</Tabs>
