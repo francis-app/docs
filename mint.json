@@ -171,6 +171,13 @@
       "pages": [
         "masterclasses/overview",
         {
+          "group": "Financial statements",
+          "pages": [
+            "masterclasses/financial-statements/balance-sheet",
+            "masterclasses/financial-statements/currency-adjustment"
+          ]
+        },
+        {
           "group": "Consolidation",
           "pages": [
             "masterclasses/consolidation/integrations",
