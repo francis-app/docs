@@ -1,70 +1,78 @@
 ---
 title: "Currency"
-description: "Convert actuals using market rates from the European Central Bank."
+description: "Convert your financial data using market rates from the European Central Bank."
 ---
 
 ## Overview
 
-Francis supports currency conversion for actuals, allowing you to translate data from your accounting system’s functional base currency into a chosen target (reporting) currency. You can pull market exchange rates directly from the European Central Bank (ECB) or use custom rates. Both average and closing rates are supported, offering flexibility to meet your reporting needs.
+You can easily convert your financial data between different currencies in Francis, helping you translate figures from your accounting system's base currency into your preferred reporting currency. We support both market exchange rates from the European Central Bank (ECB) and custom rates to match your specific needs. To give you maximum flexibility in your reporting, you can use either average rates or closing rates for your conversions.
 
-## Configuration
+## Setting Up Currency Conversion
 
-To enable currency conversion for your imported actuals, open **Settings > Integrations** and add a currency data source. You may choose either market rates or custom rates, both of which are configured on a monthly basis.
+Follow these steps to start converting your financial data:
+
+1. Go to **Settings > Integrations**
+2. Add a currency data source
+3. Choose between market rates or custom rates (both are configured monthly)
 
 <Tabs>
-  <Tab title="Market">
-    **Market rates**, sourced from the European Central Bank, are automatically imported and serve as the preferred choice for most users.
+  <Tab title="Market Rates">
+    Market rates from the European Central Bank offer you automatic, reliable currency conversion. We recommend this option for most users.
 
-    * **Monthly closing rates**: Imported directly from the ECB.
+    You'll have access to:
+    * **Monthly closing rates**: Direct from the ECB database
+    * **Monthly average rates**: Calculated automatically as the arithmetic mean of daily closing rates for each month
 
-    * **Monthly average rates**: Calculated as the arithmetic mean of the month’s daily closing rates (the sum of all daily closing rates divided by the number of days in the month).
+    These rates update automatically, saving you time and ensuring accuracy.
   </Tab>
 
-  <Tab title="Custom">
-    **Custom rates** are manually entered and useful if you adhere to standardized exchange rates set at the group level.
+  <Tab title="Custom Rates">
+    Custom rates give you control over your currency conversions, particularly useful when you need to follow specific group-level exchange rates.
 
-    * Define the currency cross (e.g., EUR/USD) and input monthly exchange rates.
-
-    * The first rate you provide is extrapolated backward for all prior months, ensuring historical data is converted consistently.
-
-    * Rates are not extrapolated forward. You must provide rates for each month up to your most recent closed month; if a rate is missing, the system defaults to zero for that period.
-
-    * You can supply both average and closing rates for custom configurations.
+    Here's what you need to know:
+    * Define your currency pairs (for example, EUR/USD)
+    * Enter monthly exchange rates manually
+    * Your first rate entry will apply to all previous months automatically
+    * Remember to maintain up-to-date rates - the system uses zero for any missing future periods
+    * You can set both average and closing rates to match your requirements
   </Tab>
 </Tabs>
 
-### Enabling conversion
+### Activating Currency Conversion
 
-To apply currency conversion to your actuals, open the configuration settings for the relevant accounting integration. Francis automatically detects the functional currency for your accounting system’s data. Simply specify the exchange rate data source and select your target currency.
+To start converting your actuals:
 
-If you are importing data from a Google Sheets source, you will need to manually define the functional currency.
+1. Open your accounting integration's configuration settings
+2. Select your exchange rate data source
+3. Choose your target currency
 
-## Conversion method and effects
+Francis automatically identifies your accounting system's base currency. For Google Sheets imports, you'll need to specify the base currency manually.
 
-Francis uses a standard approach to currency conversion:
+## Understanding the Conversion Process
 
-* **Income and expenses (P\&L)**: Translated at the monthly average exchange rate. This approach approximates transaction-date exchange rates.
+Here's how Francis handles your currency conversions:
 
-* **Assets, liabilities, and equity**: Translated at the monthly closing exchange rate, ensuring that balance sheet items reflect the financial position at the end of each period.
+* **Income and Expenses (P&L)**: We use monthly average exchange rates to closely match the timing of your transactions
+* **Balance Sheet Items**: We apply monthly closing rates to accurately reflect your financial position at period end
 
-Two key effects result from this methodology:
+This approach creates two important effects you should be aware of:
 
-#### Effect 1: Current and historical rates
+#### 1. Current vs. Historical Rates
 
-Opening balance sheet amounts are translated at the current month’s closing rate. This can cause balance sheet values to fluctuate due to exchange rate changes alone, even without new transactions. In practice, it means your balance sheet will reflect both financial movements and currency adjustments.
+When we convert your opening balance sheet amounts using current month closing rates, you may notice value changes even without new transactions. This reflects both your financial activities and currency fluctuations.
 
-In the example below, we demonstrate how to calculate the exchange rate effect resulting from fluctuating exchange rates.
+Here's an example of how exchange rate changes affect your balance sheet:
 
 ![](/images/integrations/other/currency/currency-effect-1.png)
 
-#### Effect 2: Average and closing rates
+#### 2. Average and Closing Rate Differences
 
-While P\&L items are translated at average monthly rates, their corresponding balance sheet entries are translated at closing rates. As a result, the P\&L and balance sheet may use slightly different exchange rates for the same underlying transactions.
+Since we convert P&L items at average rates but balance sheet entries at closing rates, you may see slight differences in the exchange rates applied to related transactions.
 
-In the example below, we demonstrate how the difference between average and closing rates effects the equity account for retained earnings.
+This example shows how these rate differences affect your retained earnings:
 
 ![](/images/integrations/other/currency/currency-effect-2.png)
 
-### IAS21 compliance
+### IAS21 Compliance
 
-IAS 21.42 specifies that exchange rate differences related to equity should appear as a separate equity component called “Other Comprehensive Income.” This differs from Francis’ standard approach, but it’s easy to configure Francis to comply with IAS21 guidelines. Refer to the provided guide for instructions on adopting this accounting standard.
+While Francis's standard approach differs slightly from IAS 21.42 (which requires exchange rate differences for equity to appear as "Other Comprehensive Income"), you can easily configure Francis to follow these guidelines. If you need to comply with IAS21, please refer to our compliance guide for step-by-step instructions.

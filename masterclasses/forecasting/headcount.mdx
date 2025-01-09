@@ -1,6 +1,6 @@
 ---
 title: "Forecasting Headcount"
-description: "Plan and manage headcount to unify actuals salary data forecasts."
+description: "Learn how to effectively plan and manage your organization's headcount by aligning salary data with forecasts."
 icon: "users"
 sidebarTitle: "Headcount"
 ---
@@ -9,25 +9,44 @@ sidebarTitle: "Headcount"
 
 ## Overview
 
-Headcount planning is essential for almost every organization, especially when it comes to analyzing salaries. However, actuals data in accounting systems is often structured differently than what’s needed for detailed headcount forecasting. This Masterclass outlines a recommended approach to reconciling these differences and setting up effective headcount planning in Francis.
+Effective headcount planning is crucial for managing your organization's growth and financial health. While your accounting system tracks actual salary data one way, you often need a different structure for forecasting. This guide will help you bridge this gap and create clear, accurate headcount forecasts in Francis.
 
-## Basics
+## Getting Started
 
-### Importing actuals
+### Setting Up Your Actuals Data
 
-Your chart of accounts typically contains various salary-related accounts (e.g., base salaries, fees, taxes). You can choose to map each account to individual rows or combine them into a single row, depending on how granular you want your data to be.&#x20;
+Your chart of accounts likely includes various salary-related items such as:
+- Base salaries
+- Benefits
+- Payroll taxes
+- Contractor fees
+
+You have two options for mapping these accounts:
+1. Create individual rows for each account type for detailed analysis
+2. Combine them into a single row for a higher-level view
 
 <Tip>
-  If you’ve implemented dimensions, you can use them to break down salary data by department or individual employees.
+  If you're using dimensions in your accounting setup, you can leverage them to analyze salary data by department or employee, giving you more detailed insights into your workforce costs.
 </Tip>
 
-### Forecasting salaries
+### Creating Your Salary Forecasts
 
-To keep headcount forecasts organized, we recommend creating a dedicated tab separate from your main P\&L. One effective structure is to group people by department with rows for each individual; for more detailed planning, you might place each person in their own group and list separate components of their compensation.
+To maintain clear and organized headcount forecasts, follow these steps:
 
-Base salaries are often entered as fixed amounts. If you want to account for annual increases, you can automate these changes using the `if_month()` function:
+1. Create a dedicated tab separate from your main P&L
+2. Choose your preferred structure:
+   - Group employees by department
+   - Create individual groups for each team member
+   - List detailed compensation components per person
+
+When forecasting base salaries, you can:
+- Enter fixed amounts for stable projections
+- Account for planned increases using the `if_month()` function
+
+Here's an example of how to automate annual salary increases:
 
 ```typescript
-// Example
+// Applies a 5% increase in January
 = "Base salaries"[-1] * (1 + if_month(1) * 5%)
-```
+```</fileContent>
+</invoke>

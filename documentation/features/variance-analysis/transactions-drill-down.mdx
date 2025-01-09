@@ -1,6 +1,6 @@
 ---
 title: "Transactions Drill-Down"
-description: "Drill-down into actuals to better understand your data and any potential budget variance."
+description: "Understand your budget variances by examining the underlying transaction details."
 icon: "table-list"
 ---
 
@@ -8,18 +8,30 @@ icon: "table-list"
 
 ## Overview
 
-Transaction drill-downs enable you to more efficiently understand variances in your model. They can be viewed directly from the model view and give you a better understanding of the transactions that make up each number in your model.
+The transactions drill-down feature helps you efficiently analyze and understand variances in your model. You can access detailed transaction information directly from your model view, giving you immediate insight into the specific transactions that contribute to each value.
 
-## Basics
+## How to Use Transactions Drill-Down
 
-### Transactions drill-down
+Follow these steps to examine your transaction details:
 
-First, select the cell for which you want to view transactions to enable the transactions drill-down. Then, select *Transactions* from the top bar. This will open a side drawer displaying a complete list of all transactions posted from the accounts mapped to the specific rows within the selected month.
+1. Navigate to your model view
+2. Select the cell containing the value you want to investigate
+3. Click "Transactions" in the top bar
+4. A side drawer will open, displaying all transactions from the mapped accounts for the selected month
 
-### Converted transactions
+## Understanding Your Transaction Data
 
-If actuals from your accounting system are converted using Francis' built-in features, both the converted and original transaction values will be accessible in the transactions drill-down. This ensures that transactions can be easily viewed and traced back to their source.
+### Converted Transactions
+When your accounting system's actuals are converted using Francis' conversion features, you'll see both:
+- The converted transaction values
+- The original transaction values
 
-### Balance sheet transactions
+This dual display ensures you can easily trace any transaction back to its source, maintaining clear visibility of your data transformation process.
 
-Francis accumulates balance sheet accounts from accounting integrations. Note that the transactions drill-down only shows monthly posted transactions and not starting values. Consequently, if balance sheet accounts remain unchanged month over month, no transactions will appear when enabling drill-down. Read our documentation on [adjustments](https://francis.mintlify.app/integrations/accounting/e-conomic#adjustments) to learn more.
+### Balance Sheet Transactions
+For balance sheet accounts integrated from your accounting system, Francis accumulates the values over time. Important notes:
+- The transactions drill-down displays monthly posted transactions only
+- Starting values are not shown in the drill-down view
+- If a balance sheet account shows no change in a given month, no transactions will appear
+
+For more information about handling balance sheet data, please refer to our guide on [adjustments](https://francis.mintlify.app/integrations/accounting/e-conomic#adjustments).

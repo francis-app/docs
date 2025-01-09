@@ -2,144 +2,144 @@
 title: "Forecasting Methods"
 sidebarTitle: "Methods"
 icon: "code"
-description: "Explore seven forecasting methods to help you accurately plan the future."
+description: "Learn how to implement seven proven forecasting methods to plan your company's future with confidence."
 ---
 
 ## Overview
 
-Forecasting is a key component of financial planning. However, selecting an appropriate forecasting method can often be challenging. Below, we explore seven forecasting methods, detailing their most common applications and how to implement each within Francis. From simple moving averages to assumption-based forecasting, this guide covers a range of applications to help you get started.
+Selecting the right forecasting method is crucial for accurate financial planning. This guide walks you through seven effective forecasting methods you can implement in Francis. Whether you're looking for simple moving averages or detailed assumption-based forecasting, you'll find clear, practical guidance to help you make informed decisions.
 
-## Basics
+## Core Forecasting Methods
 
 ### YoY Growth
 
-Forecasting using YoY growth is relevant for companies that experience seasonal fluctuations or predictable cyclical patterns. Retail and e-commerce businesses often utilize this method.
+Year-over-Year (YoY) growth forecasting helps you account for seasonal patterns in your business. This method is particularly valuable if you're working with retail or e-commerce companies.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Reference revenue from the same month last year and add a growth rate to account for expected changes in performance.
+  <Card title="How It Works">
+    Take your revenue from the same month last year and apply a growth rate that reflects your expected performance changes. This approach helps you maintain seasonal patterns while accounting for growth.
   </Card>
 
-  <Card title="Application">
-    Typically used for revenue projections and employed by companies who experience predictable seasonality.
+  <Card title="When to Use It">
+    This method works best when your business has clear seasonal patterns and you need to project revenue while accounting for cyclical trends.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = "Revenue"[-12] * (1+5%)
 ```
 
-### Percentage of revenue
+### Percentage of Revenue
 
-When companies scale, certain expenses and balance sheet items tend to scale proportionally with revenue. With the percentage of revenue method, items are forecasted proportionally to forecasted revenue.
+As your company grows, certain costs and balance sheet items typically grow proportionally with revenue. This method helps you maintain these relationships in your forecasts.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Determine items as % of revenue based on past performance and multiply this percentage to get your forecast values.
+  <Card title="How It Works">
+    Calculate items as a percentage of revenue based on historical performance, then apply this percentage to your projected revenue to generate forecasts.
   </Card>
 
-  <Card title="Application">
-    Used for costs that scale and correlate with revenue, including working capital items such as inventory or receivables.
+  <Card title="When to Use It">
+    Use this approach for items that consistently scale with revenue, such as inventory levels or accounts receivable.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = "Revenue"[0] * "COGS % of Revenue"[0]
 ```
 
-### Moving average
+### Moving Average
 
-Moving averages are suited for companies with steady operations and relatively low volatility. This method is based on the notion that the near-term future will likely mirror the recent past, where it can be helpful to smoothen short-term fluctuations and focus on longer-term trends.
+The moving average method helps you identify trends by smoothing out short-term fluctuations. It's particularly useful when you need to focus on longer-term patterns in stable operations.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Calculate a moving average on last X months actuals. Add a growth assumption to account for expected changes.
+  <Card title="How It Works">
+    Calculate an average from your recent months' data, then apply a growth factor to account for expected changes. This helps you maintain trend accuracy while reducing the impact of outliers.
   </Card>
 
-  <Card title="Application">
-    Moving averages are used across a wide range of financial items including revenue, expenses and balance sheet items.
+  <Card title="When to Use It">
+    Apply this method when you need reliable forecasts for relatively stable metrics across revenue, expenses, and balance sheet items.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = AVG_LAST("Revenue",3) * (1+5%)
 ```
 
-### Annual inputs
+### Annual Inputs
 
-The annual inputs method is optimal when annual costs can be estimated with high certainty, yet the monthly distribution remains uncertain. It suits companies that adhere strictly to annual budgeting and planning cycles.
+When you have confidence in your annual projections but need flexibility in monthly distribution, the annual inputs method provides a structured approach.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Input annual assumptions and divide by 12 to distribute costs equally throughout the year, generating your monthly forecasts.
+  <Card title="How It Works">
+    Start with your annual forecast and divide it evenly across twelve months to create balanced monthly projections.
   </Card>
 
-  <Card title="Application">
-    Ideal for fixed cost items where the annual cost can be estimated with high certainty, but monthly distribution is unknown.
+  <Card title="When to Use It">
+    This method is ideal for fixed costs where you can confidently estimate annual totals but need flexibility in monthly allocation.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = -12.000 / 12
 ```
 
-### Prior months balance
+### Prior Month's Balance
 
-The prior month's balance method assumes a steady state from one month to the next and is a simple yet effective method for stable accounts on the balance sheet.
+For stable accounts that tend to maintain consistent values, the prior month's balance method offers a straightforward forecasting approach.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Based on the assumption that conditions remain stable. Simply reference last month's value to keep items constant.
+  <Card title="How It Works">
+    Simply carry forward the previous month's value when you expect minimal changes in account balances.
   </Card>
 
-  <Card title="Application">
-    Typically used for balance sheet items that have limited predictability, or no expected changes during the forecast period.
+  <Card title="When to Use It">
+    Apply this method to balance sheet items that remain relatively constant or have limited predictability in their changes.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = "Rent"[-1]
 ```
 
-### Cost per employee
+### Cost per Employee
 
-The cost-per-employee method is particularly relevant for high-growth companies where employee-related benefits and costs constitute most of the cost base. This is often the case in software companies, where most expenses relate to employees.
+For companies where employee-related expenses dominate the cost structure, such as software firms, this method helps you maintain accurate personnel-based forecasts.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Based on historical data, determine an average cost per employee and multiply by projected total employees.
+  <Card title="How It Works">
+    Calculate your average cost per employee using historical data, then multiply by your projected headcount to forecast total costs.
   </Card>
 
-  <Card title="Application">
-    Relevant for cost items that scale with the number of employees, including lunch, insurance, office expenses, etc.
+  <Card title="When to Use It">
+    Use this approach for employee-linked expenses such as benefits, workspace costs, or equipment allocations.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = "Lunch, cost per employee"[0] ∗ "Total employees"[0]
 ```
 
-### Fixed assumptions
+### Fixed Assumptions
 
-The fixed assumptions method is particularly useful for fixed-cost items or in situations where the environment is stable and historical patterns are expected to continue into the future without significant changes.
+When you have specific, predetermined values for certain expenses, the fixed assumptions method provides a reliable way to incorporate them into your forecast.
 
 <CardGroup cols={2}>
-  <Card title="Method">
-    Instead of formula based forecasting, hardcode scheduled expenses and other assumptions directly into your model.
+  <Card title="How It Works">
+    Input your known future expenses directly into your model instead of using formulas. This ensures accuracy for predetermined costs.
   </Card>
 
-  <Card title="Application">
-    Hardcoded forecast assumptions are especially relevant for fixed-cost items including rent, insurance or interests.
+  <Card title="When to Use It">
+    Apply this method when you have confirmed fixed costs like lease payments, insurance premiums, or scheduled interest payments.
   </Card>
 </CardGroup>
 
 ```typescript
-// Example
+// Implementation Example
 = -10.000
 ```

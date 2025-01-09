@@ -1,69 +1,87 @@
 ---
 title: "Visma e-conomic"
-description: "How to connect and configure Visma e-conomic."
+description: "Connect and configure Visma e-conomic with clear, step-by-step guidance."
 sidebarTitle: "E-conomic"
 ---
 
 ## Overview
 
-By connecting your Visma e-conomic instance to Francis, you can automatically import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can efficiently map Visma e-conomic accounts to corresponding line items in your financial model for more accurate and consistent reporting.
+Connect your Visma e-conomic instance to Francis to streamline your financial data management. This integration automatically imports and consolidates your actuals, making your chart of accounts readily available in the **Mappings** view of your model. From there, you can easily map your Visma e-conomic accounts to corresponding line items in your financial model, ensuring accurate and consistent reporting.
 
 <Tip>
-  Francis only imports booked transactions. Draft transactions are not currently supported.
+  For data reliability, Francis imports only booked transactions. Draft transactions are not currently supported.
 </Tip>
 
-## Configuration
+## Setting Up Your Connection
 
-To set up the Visma e-conomic integration, go to **Organization Settings > Integrations > Visma e-conomic**. After enabling, a prompt will appear asking you to confirm the addition of Francis as an application to your Visma e-conomic account. Completing this authorization step ensures that Francis can securely access the necessary data.
+1. Go to **Organization Settings > Integrations > Visma e-conomic**
+2. Click **Enable** to start the connection process
+3. Follow the authorization prompt to add Francis as an approved application to your Visma e-conomic account
 
-### Asset Range
+This secure authorization ensures Francis can access only the necessary data for your financial reporting needs.
 
-If your Visma e-conomic chart of accounts does not match the default template, Francis will prompt you to confirm the asset account range. You’ll specify the start and end of this range by adjusting the `asset_range_start` and `asset_range_end` settings. This ensures that Francis accurately interprets your accounts during data import.
+### Configuring Asset Ranges
+
+If your chart of accounts differs from the default template, you'll need to specify your asset account range:
+
+1. Enter your specific `asset_range_start` value
+2. Enter your `asset_range_end` value
 
 <Tip>
-  The default asset range for Visma e-conomic is 5000 to 5990. Even if your chart of accounts follows this default, Francis may still prompt you to confirm these settings.
+  While the standard Visma e-conomic asset range is 5000 to 5990, you may need to confirm these settings even if you use the default range.
 </Tip>
 
-### Retained earnings
+### Setting Up Retained Earnings
 
-If your chart of accounts differs from Visma e-conomic’s default template, you’ll also be prompted to specify your retained earnings account. In most cases, the retained earnings account is 6130 Retained earnings last year.
+For charts of accounts that differ from the default template, specify your retained earnings account. The most common setting is 6130 Retained earnings last year.
 
 <Tip>
-  Unsure which account is used for retained earnings? In Visma e-conomic, navigate to Regnskab > Systemkonti > Årsafslutning to verify your retained earnings configuration.
+  To verify your retained earnings account: Open Visma e-conomic and navigate to Regnskab > Systemkonti > Årsafslutning.
 </Tip>
 
-### Dimensions
+### Managing Dimensions
 
-Francis automatically detects whether you use dimensions in Visma e-conomic. If you plan to incorporate dimensions into your planning process, you can select which dimension is most relevant. Once configured, this dimension will be available for splits and breakdowns within Francis, giving you deeper insight into your financial data.
+Francis detects your Visma e-conomic dimensions automatically. To enhance your planning process:
 
-### Currency conversion
+1. Review the available dimensions
+2. Select your primary dimension for analysis
+3. Apply this dimension for detailed splits and breakdowns within Francis
 
-Visma e-conomic transactions can be automatically converted from their base currency into a target currency. You can use either market exchange rates or custom rates. To enable this feature, open the **Currency Conversion** section of your Visma e-conomic connection settings in Francis and toggle **Enable currency conversion**.
+### Setting Up Currency Conversion
 
-## Adjustments
+To convert Visma e-conomic transactions from their base currency:
 
-Francis applies several adjustments to ensure your imported data is presented in a way that aligns with best practices and supports consistent financial analysis.
+1. Open the **Currency Conversion** section in your connection settings
+2. Toggle **Enable currency conversion**
+3. Choose between market rates or custom rates for conversion
+
+## Understanding Data Adjustments
+
+Francis applies specific adjustments to ensure your financial data aligns with industry best practices and supports consistent analysis.
 
 <Tabs>
-  <Tab title="Number convention">
-    Francis interprets your accounts based on a consistent convention:
+  <Tab title="Number Convention">
+    Francis maintains a clear and consistent number format:
 
-    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ) accounts
+    * **Positive (+) Values:** Income (I), Asset (A), Liability (L), and Equity (EQ) accounts
+    * **Negative (-) Values:** Expense (E) accounts
 
-    * **Negative (-):** Expense (E) accounts
-
-    These adjustments create a uniform standard across all models and data sources, simplifying comparisons and ensuring your reports are easy to understand. As Francis relies on the configured asset range to determine each account’s classification, confirming your asset range settings is critical. Once correctly set, your accounts will reliably follow the positive/negative convention outlined above.
+    This standardization creates uniformity across all models and data sources, making your reports clear and comparable. The accuracy of these conventions depends on correct asset range settings.
   </Tab>
 
-  <Tab title="Retained earnings">
-    When you close a fiscal year, Visma e-conomic moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis accounts for this by introducing an extra “Retained earnings this year” line, giving you a clear and accurate picture of your retained earnings over time.
+  <Tab title="Retained Earnings">
+    When closing a fiscal year in Visma e-conomic, retained earnings move between two accounts:
+    * From: "Retained earnings this year"
+    * To: "Retained earnings from previous years"
 
-    As noted above, you may need to specify which account represents retained earnings from previous years so that this adjustment is correctly applied in Francis.
+    Francis maintains clarity by creating a distinct "Retained earnings this year" line, providing a complete view of your retained earnings progression.
   </Tab>
 
-  <Tab title="Balance sheet">
-    Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import, ensuring that your balance sheet data aligns with common reporting practices.
-
-    Because of this convention, you’ll typically summarize balance sheet items using **ENDING** or **DELTA** values instead of **SUM**. Doing so accurately reflects the state of your finances at the chosen reporting date.
+  <Tab title="Balance Sheet">
+    Francis presents balance sheet values as point-in-time accumulated amounts rather than period movements. This approach:
+    * Aligns with standard accounting practices
+    * Requires using **ENDING** or **DELTA** values instead of **SUM** for balance sheet items
+    * Provides accurate financial positioning at your chosen reporting date
   </Tab>
-</Tabs>
+</Tabs></fileContent>
+</invoke>

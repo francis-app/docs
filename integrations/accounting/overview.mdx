@@ -1,10 +1,12 @@
 ---
 title: "Accounting Integrations"
-description: "Connect an ERP or accounting system to automate actuals import"
-sidebarTitle: "Overview (WIP)"
+description: "Connect your accounting system to streamline financial data management"
+sidebarTitle: "Overview"
 ---
 
 ## Overview
+
+Connect your accounting or ERP system to automate and simplify your financial data management. Our secure integrations support leading accounting platforms, ensuring seamless data synchronization while maintaining full control over your financial information.
 
 <CardGroup cols={1}>
   <Card title="Microsoft Dynamics 365 Business Central" href="/integrations/accounting/business-central" />
@@ -18,36 +20,36 @@ sidebarTitle: "Overview (WIP)"
   <Card title="Xero" horizontal="TRUE" href="/integrations/accounting/xero" />
 </CardGroup>
 
-## FAQ
+## Frequently Asked Questions
 
 <AccordionGroup>
-  <Accordion title="How do I setup a connection?" defaultOpen={false}>
-    For in-depth information on how to set up and configure a connection to your accounting or ERP system, we suggest reviewing the documentation for that specific integration and follow the steps outlined on those pages.
+  <Accordion title="How do I set up an accounting integration?" defaultOpen={false}>
+    Each accounting system has its own specific setup process to ensure secure and accurate data synchronization. Select your accounting system from the list above to access detailed, step-by-step setup instructions tailored to your platform.
   </Accordion>
 
-  <Accordion title="Does Francis support dimensional planning?" defaultOpen={false}>
-    Users on Advanced and Mastery plans have access to dimensional planning. Francis will automatically detect any available dimensions in your accounting system, allowing you to pick which dimension is relevant for your financial planning.
+  <Accordion title="What dimensional planning capabilities are available?" defaultOpen={false}>
+    Advanced and Mastery plan users have access to comprehensive dimensional planning features. When you connect your accounting system, we automatically detect available dimensions, enabling you to select and utilize the dimensions most relevant to your financial planning needs. This allows for more detailed and precise financial analysis across your organization.
   </Accordion>
 
   <Accordion title="Can I connect multiple accounting systems?" defaultOpen={false}>
-    Yes, you can easily configure multiple connections from either the same or different accounting systems. These can then subsequently be consolidated through our Mappings feature, allowing you to unify your general ledgers across entities.
+    Yes, you can establish connections with multiple accounting systems, whether they're from the same provider or different ones. Our Mappings feature allows you to consolidate these connections, creating a unified view of your general ledgers across all entities. This flexibility helps you maintain comprehensive financial oversight while preserving the organizational structure that works best for your business.
   </Accordion>
 
-  <Accordion title="Can I add more connections to my plan?" defaultOpen={false}>
-    Depending on your current plan, you can unlock more connections by either upgrading to a different tier or by adding more connections to your existing plan.
+  <Accordion title="How can I expand my connection capabilities?" defaultOpen={false}>
+    We offer several options to expand your connection capabilities based on your current plan:
 
-    * For users on the Core plan, upgrade to Advanced or Mastery to add more connections.
+    * Core plan users: Upgrade to Advanced or Mastery to access additional connections
+    * Advanced plan users: Move to Mastery or add more connections to your current plan
+    * Mastery plan users: Add more connections to your existing plan as needed
 
-    * For users on the Advanced plan, upgrade to Mastery and add more connections.
-
-    * For users on the Mastery plan, simply add more connections to your existing plan.
+    Each option is designed to grow with your business needs while maintaining the same level of security and reliability.
   </Accordion>
 
-  <Accordion title="How often does Francis sync my data?" defaultOpen={false}>
-    There is no limit to how frequently you can sync your data in Francis. However, Francis currently does not support scheduled data source syncs, meaning you'll just need to initiate a sync when you want to pull the latest actuals from your connected systems.
+  <Accordion title="How frequently is my accounting data synchronized?" defaultOpen={false}>
+    You have complete control over your data synchronization timing. While there are no restrictions on sync frequency, you'll need to manually initiate each sync to retrieve the latest data from your connected systems. This approach ensures you always know when your financial data is being accessed and updated.
   </Accordion>
 
-  <Accordion title="Does Francis write any data back to my systems?" defaultOpen={false}>
-    No. By design, Francis exclusively *reads* data. For this reason, we always recommend to resolve any data issues at the source, e.g. if you encounter errors in your bookkeeping.
+  <Accordion title="Does the integration modify my accounting system data?" defaultOpen={false}>
+    No. To maintain the integrity of your financial records, our integration is designed to only read data from your accounting system. We recommend addressing any data discrepancies directly in your accounting system to ensure accuracy at the source. This read-only approach provides an additional layer of security for your financial data.
   </Accordion>
 </AccordionGroup>

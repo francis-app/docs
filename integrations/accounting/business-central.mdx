@@ -6,40 +6,62 @@ sidebarTitle: "Business Central"
 
 ## Overview
 
-By connecting your Business Central instance to Francis, you can seamlessly import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can efficiently map Business Central accounts to corresponding line items in your financial model, ensuring more accurate and consistent reporting.
+Connect your Business Central instance to Francis to streamline your financial data management and reporting processes. This integration enables you to import and consolidate your actuals seamlessly. Once connected, you'll find your chart of accounts readily available in the **Mappings** view of your model, where you can efficiently map Business Central accounts to your financial model's line items.
 
 ## Configuration
 
-### Account categories
+### Setting up account categories
 
-To ensure that imported transactions are processed correctly, all general ledger accounts in Business Central must have appropriate account categories assigned. If you have not yet categorized your accounts, or if you need to double-check these settings, go to **Finance > G/L Account Categories > Edit list > Account Category** in Business Central to review and confirm that each account is properly classified.
+To ensure accurate data processing, each general ledger account in Business Central needs an appropriate account category. Here's how to verify your account categories:
 
-### Dimensions
+1. Navigate to **Finance > G/L Account Categories** in Business Central
+2. Select **Edit list**
+3. Review the **Account Category** for each entry
+4. Make any necessary adjustments to ensure all accounts are properly classified
 
-Francis automatically detects whether you use dimensions in Business Central. If you intend to incorporate dimensions into your planning, you can designate which dimension is most relevant. Once selected, this dimension will be available for splits and breakdowns within Francis, helping you gain deeper insights into your financial data.
+### Working with dimensions
 
-### Currency conversion
+Francis automatically detects your Business Central dimensions. If you use dimensions for detailed financial tracking, you can select your primary dimension for planning purposes. This selected dimension will be available for:
+- Creating detailed splits
+- Generating breakdowns
+- Analyzing financial data at a granular level
 
-Business Central transactions can be automatically converted from their base currency to a target currency using market or custom exchange rates. To enable this feature, open the **Currency Conversion** section of your Business Central connection settings in Francis and toggle **Enable currency conversion**.
+### Setting up currency conversion
 
-## Adjustments
+To automatically convert transactions from your base currency to a target currency:
 
-Francis applies several adjustments to ensure that imported data is aligned with best practices and supports clear financial analysis.
+1. Go to your Business Central connection settings in Francis
+2. Locate the **Currency Conversion** section
+3. Toggle **Enable currency conversion**
+4. Choose between market rates or custom exchange rates
+
+## Understanding adjustments
+
+Francis applies specific adjustments to your data to ensure consistency and clarity in your financial analysis.
 
 <Tabs>
   <Tab title="Number convention">
-    Francis follows a consistent convention for interpreting accounts:
+    To maintain consistency across your financial reporting, Francis follows these standard conventions:
 
-    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+    **Positive (+) values:**
+    - Income (I)
+    - Asset (A)
+    - Liability (L)
+    - Equity (EQ)
 
-    * **Negative (-):** Expense (E)
+    **Negative (-) values:**
+    - Expense (E)
 
-    This standardization simplifies comparisons and ensures that reports remain straightforward to interpret. Since Francis relies on your asset range configuration to determine each account’s classification, it’s critical to confirm that your asset range settings are correct.
+    > **Important:** These conventions rely on your asset range configuration. Take a moment to verify your asset range settings to ensure accurate account classification.
   </Tab>
 
   <Tab title="Balance sheet">
-    Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import to ensure your balance sheet data aligns with common reporting conventions.
+    Francis displays your balance sheet values as accumulated amounts at specific points in time, rather than as period movements. This approach aligns with standard reporting practices and provides clearer financial snapshots.
 
-    As a result, you will typically summarize balance sheet items using **ENDING** or **DELTA** values instead of **SUM**. This method provides a more accurate snapshot of your financial position at the chosen reporting date.
+    **Best practice:** When working with balance sheet items:
+    - Use **ENDING** values to see positions at specific dates
+    - Use **DELTA** values to track changes between periods
+    - Avoid using **SUM** for balance sheet items, as it may not reflect your actual financial position
   </Tab>
-</Tabs>
+</Tabs></newContent>
+</invoke>

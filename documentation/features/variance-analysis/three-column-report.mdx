@@ -1,6 +1,6 @@
 ---
 title: "Three-column report"
-description: "Analyze budget vs actuals for the last month, year to date and full fiscal year."
+description: "Compare your budget against actuals across three key time periods: last month, year to date, and full fiscal year."
 icon: "columns-3"
 ---
 
@@ -8,30 +8,54 @@ icon: "columns-3"
 
 ## Overview
 
-The budget variance analysis is accessible through the *Reports* view. It offers a classic comparison of actual performance against the budget for the last closed month, year-to-date, and the full fiscal year. Additionally, there is an option to include a forecast, providing an updated outlook on your business's performance for the full fiscal year.
+Access the budget variance analysis through your Reports view to gain clear insights into your financial performance. This powerful tool helps you compare your actual performance against budgeted targets across three essential time periods:
 
-## Basics
+- Last closed month
+- Year-to-date
+- Full fiscal year
 
-### Update last close
+You can also include forecast data to get an updated outlook on your expected year-end performance.
 
-After completing the month-end closing process, update the [*last close*](/documentation/modeling/date-settings) setting to indicate your accounting system's most recently closed month. This tells Francis which months' actuals need to be included in the actuals column in the budget variance analysis.
+## Setting Up Your Analysis
 
-### Specify your budget version
+### 1. Set Your Last Close Date
 
-Once the *last close* is updated to define which actuals are included in the variance analysis, it is necessary to specify the saved [version](/documentation/version-control/version-control) that is considered the budget for the purpose of the analysis. This budget version serves as the reference point for variance analysis in both the last closed month and year-to-date periods.
+To ensure accurate analysis:
+
+1. Go to [Date Settings](/documentation/modeling/date-settings)
+2. Update the *last close* date to match your most recently closed accounting period
+3. This setting determines which months' actuals appear in your variance analysis
+
+### 2. Select Your Budget Version
+
+For meaningful comparisons:
+
+1. Choose a saved [version](/documentation/version-control/version-control) to serve as your budget baseline
+2. This version will be your reference point for both monthly and year-to-date variance calculations
 
 <Tip>
-  The budget version would typically be the mutually agreed upon start-of-year budget. However, you might want to compare two reforecasts against each other, in which case the budget selection simply serves as the baseline for comparison in your variance analysis.
+While most organizations use their start-of-year budget as the baseline, you can select any version you need. For instance, you might want to compare two reforecasts to track the evolution of your projections.
 </Tip>
 
-### Specify your reforecast version
+### 3. Choose Your Forecast Version
 
-Forecasts are used specifically for the full fiscal year budget variance analysis. This analysis compares the defined budget to actuals set by the Last Close and incorporates a forecast for the remainder of the year.&#x20;
+For full fiscal year analysis:
 
-In simpler terms, the full fiscal year analysis examines the budget versus actuals for X months, plus a forecast for the remaining 12-X months. This provides the most recent estimate of the year's end performance based on the defined forecast version of your financial model.
+1. Select a forecast version to complement your actual data
+2. The system will combine:
+   - Actual results up to your last close date
+   - Forecast figures for the remaining months
 
-### Variance settings
+This combination provides you with the most current estimate of your year-end performance.
 
-Depending on personal preference, there are various ways to view the budget variance as part of the budget variance analysis. Francis currently supports three methods for displaying variance: percent, index, and absolute difference.
+### 4. Customize Your Variance Display
+
+Select your preferred method for viewing variances:
+
+- Percentage difference
+- Index comparison
+- Absolute difference
+
+Choose the format that best suits your analysis needs and reporting preferences.
 
 ## [](https://docs.francis.app/guides/documentation/variance-analysis/last-month-ytd-full-year#basics)

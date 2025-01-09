@@ -1,6 +1,6 @@
 ---
 title: "Formulas"
-description: "Understand Francis' formula syntax to build more robust and reliable financial models."
+description: "Learn how to build robust and reliable financial models using Francis' intuitive formula syntax."
 icon: "code"
 ---
 
@@ -8,32 +8,37 @@ icon: "code"
 
 ## Overview
 
-Like Excel and Sheets, Francis' formulas use cell references, [functions](/documentation/modeling/functions), and mathematical operators. However, Francis uses a slightly different, more human-readable syntax than the A1 notation found in other spreadsheets.
+Francis provides an intuitive formula system that will feel familiar if you've worked with Excel or Google Sheets. While you'll use similar components like cell references, [functions](/documentation/modeling/functions), and mathematical operators, we've enhanced the syntax to be more human-readable and robust for financial modeling.
 
-## Basics
+## Working with Formulas
 
-### Syntax
+### Formula Syntax
 
-Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the value of the row "Revenue" from 12 months earlier you would input the following:
+Francis uses a clear, descriptive syntax that follows this pattern: `"ROW_NAME"[RELATIVE_PERIOD]`. For example, to reference the "Revenue" row's value from 12 months ago, enter:
 
 ```typescript
 ="Revenue"[-12]
 ```
 
-There are several reasons for why we've implemented this syntax:
+We've designed this syntax with your needs in mind:
 
-* More readable references and syntax, with clearly stated names and relative periods
+* References are clear and intuitive, using actual row names instead of cell coordinates
+* You can confidently move components around without breaking formula references
+* Creating rolling forecasts is straightforward since all references use relative periods
 
-* Syntax allows users to drag and drop components without breaking references
+### Accounting Conventions
 
-* Simplified rolling forecasts, as all references are based on relative periods
+To ensure compatibility with your accounting systems and maintain consistency in your financial models, Francis follows standard accounting conventions:
 
-### Conventions
+* Income and balance sheet items use positive values (+)
+* Expenses use negative values (-)
 
-The convention in Francis is that income and balance sheet items are input as positive values (+), while expenses are input as negative values (-). This ensures compatibility with imported actuals from connected accounting systems.
+This alignment with accounting standards makes it easier to work with imported data from your existing systems.
 
-Consequently, subtotals like gross profit will be calculated by taking revenue and *adding* direct costs using a plus (+), instead of subtracting direct costs using a minus (-). In simpler terms, gross profit would be calculated as:
+When calculating subtotals like gross profit, you'll add the components using their natural signs. For example, to calculate gross profit:
 
 ```typescript
-="Revenue"[0] + "Direct costs"[0]
+="Revenue"[0] + "Direct costs"[0]
 ```
+
+This approach maintains accounting consistency and makes your formulas more intuitive to read and validate.

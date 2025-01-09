@@ -2,53 +2,79 @@
 title: "Forecasting Cash Flow"
 sidebarTitle: "Cash flow"
 icon: "money-bill"
-description: "Forecast cash flow based on your P&L and balance sheet using the indirect method."
+description: "Learn how to forecast your cash flow using the indirect method, connecting your P&L and balance sheet data."
 ---
 
 <iframe width="720" height="483" src="https://www.loom.com/embed/c01877ee4a954f9e8e31e37bae6f3ab7?sid=ca5134dd-eb7b-40a7-898f-6cc014c56425" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
 ## Overview
 
-Cash flow forecasts are essential parts of a robust financial model. While the P\&L and balance sheet pull directly from your accounting system’s general ledger, the cash flow statement in Francis is created separately. This guide outlines six steps for setting up your cash flow statement using the indirect method.
+A well-structured cash flow forecast is essential for understanding your business's financial health. While your P&L and balance sheet data come directly from your accounting system, you'll create your cash flow statement separately in Francis. This guide will walk you through using the indirect method to set up your cash flow statement effectively.
 
-## Basics
+## Understanding the Basics
 
-### **Calculations**
+### How Calculations Work
 
-Because the indirect method uses information from the income statement and balance sheet to determine cash flows, all cash flow items in Francis are calculated rows. Calculated rows share these traits:
+When you use the indirect method in Francis, your cash flow items are created through calculated rows. Here's what this means for you:
 
-* They maintain formula consistency over time, applying the same logic each month.
+* Your formulas remain consistent each month, ensuring reliable forecasting
+* Instead of importing actual values directly, your figures are derived from other financial data points
 
-* They don’t include directly imported actuals. Instead, values are derived from other rows.
+### Understanding Cash Flow Categories
 
-### **Cash Flow Categories**
+Your cash flow statement will be organized into three main categories:
 
-Organize your cash flow statement into three main categories:
+1. **Operating Activities**
+   * Starts with your net income
+   * Includes adjustments for non-cash items like depreciation
+   * Reflects your core business operations
 
-* **Operating activities:** Start with net income and adjust for non-cash items like depreciation.
+2. **Financing Activities**
+   * Shows money moving in and out from funding sources
+   * Includes debt payments, equity investments, and other financing
 
-* **Financing activities:** Capture all inflows and outflows related to debt, equity, and other financing sources.
+3. **Investing Activities**
+   * Tracks purchases or sales of long-term assets
+   * Excludes accumulated depreciation (since it's not a cash transaction)
 
-* **Investing activities:** Record cash movements related to acquiring or disposing of long-term assets. Remember to exclude accumulated depreciation since it’s a non-cash item.
+### Setting Up Your Foundation
 
-### P\&L and Balance Sheet
+Before you start your cash flow forecast, ensure you have:
 
-Because the cash flow statement relies on P\&L and balance sheet movements, ensure these statements are properly structured and mapped first. Once set up, you’ll have the foundation you need to accurately model your cash flow.
+* A properly structured P&L statement
+* An accurately mapped balance sheet
 
-### Cash and retained earnings
+These documents provide the essential data you'll need for your cash flow calculations.
 
-Cash and retained earnings are key links between the financial statements. Treat them carefully when creating your forecast, as they ensure that all three statements remain connected.
+### Key Components: Cash and Retained Earnings
 
-### Forecasting
+Pay special attention to cash and retained earnings—they're crucial links between your financial statements. These components help maintain consistency across your P&L, balance sheet, and cash flow statement.
 
-To forecast cash flows, you must forecast your P\&L and balance sheet items. This often involves more detailed modeling for balance sheet items than for P\&L items. Refer to our [forecasting methods](/masterclasses/forecasting/methods) for guidance, particularly around fixed assumptions and referencing the prior month’s balances.
+### Creating Your Forecast
 
-### Formulas for Cash Flow Categories
+To build an accurate cash flow forecast, you'll need to:
 
-The indirect method calculates cash flow movements by referencing P\&L and balance sheet changes. When working with balance sheet items, use the difference between this month’s and last month’s values (deltas).
+1. Project your P&L items
+2. Forecast your balance sheet components (typically requiring more detailed modeling)
+3. Connect these projections using the formulas below
 
-* **Assets:** An increase in assets *reduces* cash flow (subtract the change).
+For guidance on different forecasting approaches, visit our [forecasting methods guide](/masterclasses/forecasting/methods).
 
-* **Liabilities and equity:** An increase in liabilities or equity *adds* to cash flow (add the change).
+### Understanding Cash Flow Formulas
 
-Include all balance sheet movements (except those related to cash, retained earnings, and accumulated depreciation) in one of your cash flow categories. This ensures your cash flow statement fully reflects the changes in your financial position.
+When using the indirect method, you'll calculate cash flows by looking at changes in your P&L and balance sheet. Here's how to interpret balance sheet changes:
+
+For Assets:
+* When assets increase → Cash flow decreases
+* Formula: Subtract the change in assets
+
+For Liabilities and Equity:
+* When these increase → Cash flow increases
+* Formula: Add the change in liabilities/equity
+
+Important: Include all balance sheet movements in your cash flow categories, except for:
+* Cash
+* Retained earnings
+* Accumulated depreciation
+
+This approach ensures your cash flow statement accurately reflects all changes in your financial position.

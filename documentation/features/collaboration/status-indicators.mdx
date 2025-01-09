@@ -7,19 +7,27 @@ icon: "circle-dashed"
 
 ## Overview
 
-Status indicators provide a simple yet effective means for team communication and collaboration on parts of your model that may require attention or where budget contributors should input their assumptions. The status feature is intentionally simple, allowing teams to assign their own meanings to the four default statuses.
+Status indicators enable clear team communication by highlighting areas of your model that need attention or review. With four distinct status options, you can effectively track progress and coordinate with budget contributors across your model. The straightforward design allows your team to define and implement status meanings that best suit your workflow.
 
-## Basics
+## Using Status Indicators
 
-### Setting a row status
+### Assigning Row Status
 
-As the name implies, statuses are assigned at the row level. The row status can be accessed through the action menu on any row in your model. Francis currently supports four statuses: no status, to do, in progress, and done. By default, all rows in your model are set to no status.
+To set a status for any row in your model:
+1. Go to the row you want to update
+2. Click the action menu for that row
+3. Select your desired status from the four available options:
+   - No status (default)
+   - To do
+   - In progress
+   - Done
 
-### Automatic propagation
+### Understanding Status Propagation
 
-Row statuses automatically propagate to groups. If any row within a group has a status other than the default, the most critical status from the rows will be displayed for the entire group. If a group contains rows, each with a different status, the "To-do" status (considered the most critical) will be displayed at the group level. This feature helps easily identify parts of your model that require attention, even if row statuses are hidden within nested groups.
+Status indicators automatically flow up through your model's hierarchy to provide clear visibility at every level:
 
-[
-](https://docs.francis.app/guides/documentation/collaboration)
+- When you assign a status to any row within a group, that status affects the group's overall status display
+- If rows within a group have different statuses, the group will display the most critical status ("To do")
+- This hierarchical display helps you quickly identify areas requiring attention, even when working with collapsed groups
 
-### [](https://docs.francis.app/guides/documentation/collaboration/row-status#automatic-propagation)
+This automatic propagation ensures that important status information remains visible regardless of how your model is organized or displayed.

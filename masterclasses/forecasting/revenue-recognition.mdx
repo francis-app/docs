@@ -9,66 +9,104 @@ description: "Learn how to accurately forecast recognized and deferred revenue."
 
 ## Overview
 
-Revenue should be recognized when the service or goods are delivered. Deferred revenue tracks payments received before delivery, which is especially important for SaaS companies selling annual subscriptions. This guide explains how to model recognized and deferred revenue in Francis.
+This guide will help you model recognized and deferred revenue effectively in Francis. You'll learn when to recognize revenue, how to track deferred revenue, and how to implement these concepts in your forecasting.
 
-## Basics
+## Understanding Revenue Recognition
 
-### **Recognized and deferred revenue**
+### When to Recognize Revenue
 
-According to accounting principles, revenue is recorded when the service or goods are actually delivered. This ensures that income reflects real business activity rather than just invoicing or payment timing.
+Revenue recognition follows a clear principle: record revenue when you deliver services or goods to your customer. For SaaS companies selling annual subscriptions, this means carefully tracking payments received before delivery as deferred revenue.
 
-Deferred (unearned) revenue represents amounts invoiced in advance of delivery. It appears as a liability on the balance sheet until the service is performed or the product is delivered. At that point, deferred revenue shifts from the balance sheet to recognized revenue on the income statement.
+### The Revenue Journey
 
-In practice, revenue generally moves through four stages:
+Revenue typically moves through these four key stages:
 
-1. **Booked:** An order is placed or a contract is signed, but no financial entry is recorded.
+1. **Booking Stage:** Your customer places an order or signs a contract
+2. **Invoice Stage:** You send an invoice, creating either:
+   - Deferred revenue (for advance payments)
+   - Accounts receivable (for later payments)
+3. **Recognition Stage:** You record revenue when delivering the service or product
+4. **Payment Stage:** Your customer completes the payment
 
-2. **Invoiced:** The company sends an invoice. If this happens before delivery, it creates deferred revenue. If payment is due later, it creates accounts receivable.
+In Francis, you'll primarily work with the Invoice and Recognition stages (stages 2 and 3). To track when you receive actual payments, you can set up additional receivables modeling.
 
-3. **Recognized:** Once the performance obligation is met, revenue is recorded on the income statement.
+## Practical Examples
 
-4. **Paid:** The customer pays, affecting cash flow but not revenue recognition.
+### Annual Membership with Events
 
-In Francis, you’ll focus on the invoiced and recognized phases (steps 2 and 3). For payment terms, you can model receivables to reflect when cash is actually received (step 4).
+Let's walk through how a running club manages revenue recognition for annual memberships with three events:
 
-## Examples
+**Scenario:** Events occur in March, May, and August
+1. **January (Initial Payment):**
+   - Record the full payment as deferred revenue
+2. **Event Months:**
+   - Recognize one-third of the annual fee as revenue when each event takes place
+   - This approach ensures revenue matches the actual delivery of services
 
-#### **Annual membership with events**
+### SaaS Annual Subscription
 
-Imagine a running club selling annual memberships that include events in March, May, and August.
+Here's how to handle revenue recognition for a 12-month SaaS subscription:
 
-* **Initial Payment (January):** The club invoices and receives payment upfront, recording it as deferred revenue.
+1. **At Payment:**
+   - Record the full annual payment as deferred revenue
+2. **Monthly:**
+   - Move one-twelfth of the payment from deferred to recognized revenue
+   - This reflects the ongoing delivery of your service
 
-* **Events Throughout the Year:** When each event occurs, one-third of the annual fee is recognized as revenue, aligning income with the delivery of services.
+## Calculating Your Revenue
 
-#### **12-month SaaS subscription**
+### Monthly Recognition Process
 
-Consider a SaaS company selling a 12-month subscription paid upfront.
+To determine your monthly recognized revenue:
 
-* **Initial Payment:** The full annual fee is invoiced and recorded as deferred revenue.
-
-* **Monthly Recognition:** Each month, one-twelfth of the fee moves from deferred revenue to recognized revenue as the service is delivered over time.
-
-## Calculating recognized and deferred revenue
-
-To determine how much revenue to recognize each month, consider the service period (e.g., 12 months) and review the invoiced amounts over that period. By distributing invoiced amounts evenly across the service period, you ensure revenue is recognized in proportion to the delivery of goods or services.
+1. Start with your service period (example: 12 months)
+2. Review your invoiced amounts for this period
+3. Distribute these amounts evenly across your service period
 
 *(IMAGE 1)*
 
-If invoicing varies month-to-month — such as when new customers are billed at different times — recognized revenue also adjusts accordingly.
+When your invoicing varies month-to-month (such as with new customers starting at different times), your recognized revenue will adjust accordingly.
 
 *(IMAGE 2)*
 
-All recognized and deferred revenue calculations rely on invoiced amounts. Forecasting invoiced amounts is often best done by importing data via the Google Sheets integration, though you can also input them manually. Depending on your business, you may forecast at the customer or product level. If you offer multiple products with different service periods, separate them into individual forecasts for clarity.
+### Setting Up Your Forecasts
 
-## Cash flow effects
+To create accurate forecasts:
 
-Deferred revenue itself doesn’t change how much cash you receive—it only affects the timing of when revenue appears on the income statement. For instance, if a customer pays $2,400 upfront, that cash is received immediately, regardless of how you recognize the revenue over time.
+1. Begin with your invoiced amounts
+2. Import data through the Google Sheets integration or enter it manually
+3. Consider forecasting at either:
+   - Customer level
+   - Product level
 
-On the cash flow statement, recognized revenue contributes to net profit, while changes in deferred revenue appear as a working capital adjustment. If invoices have delayed payment terms, this introduces accounts receivable, which you can model separately.
+**Tip:** If you offer multiple products with different service periods, create separate forecasts for each to maintain clarity.
+
+## Understanding Cash Flow Impact
+
+While deferred revenue affects when revenue appears on your income statement, it doesn't change your actual cash receipts. For example:
+
+- If a customer pays $2,400 upfront, you receive that cash immediately
+- The revenue recognition schedule only determines when this amount appears on your income statement
+
+On your cash flow statement, you'll see:
+- Recognized revenue contributing to net profit
+- Changes in deferred revenue appearing as working capital adjustments
+
+For invoices with payment terms, you can create separate accounts receivable models to track timing.
 
 *(IMAGE 3)*
 
-## Importing sales forecasts
+## Importing Existing Forecasts
 
-If you already forecast recognized and deferred revenue outside of Francis — such as in Excel — you can easily bring that data into Francis. Simply copy and paste the recognized revenue and deferred revenue metrics into Francis. This approach lets you benefit from Francis’ version control, variance analysis, and reporting tools while maintaining your external modeling workflows.
+If you already maintain revenue forecasts outside Francis:
+
+1. Go to your existing forecast (such as in Excel)
+2. Copy your recognized and deferred revenue metrics
+3. Paste them directly into Francis
+
+This approach lets you:
+- Maintain your current modeling workflow
+- Benefit from Francis's additional features:
+  - Version control
+  - Variance analysis
+  - Comprehensive reporting tools

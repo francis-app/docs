@@ -2,21 +2,32 @@
 title: "Forecasting Receivables"
 sidebarTitle: "Receivables"
 icon: "handshake-simple"
-description: "Leverage Francis' purpose-built function to easily forecast receivables. "
+description: "Learn how to accurately forecast your receivables using our purpose-built function."
 ---
 
 <iframe width="720" height="466" src="https://www.loom.com/embed/1256a4359f8e4ed1af5636a267e4ebd2?sid=0929f679-6ef6-46f6-bf0d-56733a8dc102" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
 ## Overview
 
-When forecasting receivables, many users assume a certain number of payment days. To simplify this, Francis offers the `receivables()` function.
+Forecasting receivables accurately is essential for understanding your future cash flow. To help you achieve this with confidence, we've developed the `receivables()` function that simplifies the process of calculating expected payments based on your payment terms.
 
-## Basics
+## How It Works
 
-The `receivables()` function accumulates revenue from previous months according to a specified number of payment days. It assumes each month has 30 days and looks back through earlier periods to identify revenue still owed.
+The `receivables()` function helps you track expected payments by:
+- Analyzing revenue from previous months
+- Calculating outstanding amounts based on your specified payment terms
+- Automatically adjusting calculations using a standardized 30-day month
 
-Keep in mind:
+## Using the Function
 
-* The payment days value must be a hardcoded number (not a cell reference).
+To get started with the `receivables()` function:
 
-* If you have multiple revenue streams with different payment terms, use separate `receivables()` functions for each revenue row.
+1. Determine your standard payment terms (in days)
+2. Enter this number directly into the function (for example: `receivables(30)`)
+3. The function will automatically calculate expected receivables based on your historical revenue
+
+Important Notes:
+- Always use a direct numerical value for payment days rather than a cell reference
+- For businesses with multiple revenue streams and different payment terms, create separate calculations using individual `receivables()` functions for each stream
+
+This approach ensures accurate tracking and forecasting of your expected incoming payments.

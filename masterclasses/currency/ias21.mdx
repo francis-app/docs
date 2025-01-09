@@ -2,17 +2,32 @@
 title: "Currency Conversion and IAS 21"
 icon: "dollar-sign"
 sidebarTitle: "IAS 21"
-description: "Routing equity-related exchange differences into OCI in line with IAS 21."
+description: "Learn how to handle exchange differences in equity accounts according to IAS 21 requirements."
 ---
 
 <iframe width="720" height="466" src="https://www.loom.com/embed/547ca41d282e4962bc38bc91a3f06175?sid=fd6c09f2-491b-41f5-b432-6ad0bca6eaae" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
-Francis’ currency conversion methodology generally aligns with IAS 21, applying average rates to P\&L items and closing rates to balance sheet items. Although IAS 21 does not specify how to handle equity accounts, it does require any exchange rate differences to appear in a separate equity component called **Other Comprehensive Income (OCI)**.
+## Understanding Currency Conversion in Francis
 
-By default, Francis allocates exchange rate differences directly to the relevant accounts. However, you can reassign these differences for equity accounts to an “OCI” row using formulas. At minimum, the disparity between the average rate for P\&L items and the closing rate for balance sheet items ([**Effect 2**](/integrations/other/currency)) should be reflected in OCI. You can also transfer adjustments to equity accounts for monthly closing rates ([**Effect 1**](/integrations/other/currency)) into OCI.
+Francis implements currency conversion in alignment with IAS 21 standards through two key principles:
+- Applying average rates to Profit and Loss (P&L) items
+- Using closing rates for balance sheet items
 
-If you need help configuring IAS 21 in Francis, reach out to us at [support@francis.app](mailto:support@francis.app).
+While IAS 21 does not prescribe specific handling for equity accounts, it requires exchange rate differences to be reported in **Other Comprehensive Income (OCI)**, a separate equity component.
+
+## Managing Exchange Differences
+
+By default, Francis distributes exchange rate differences directly to their respective accounts. To ensure IAS 21 compliance, you can redirect these differences for equity accounts to an "OCI" row using formulas. Here's what you need to consider:
+
+1. **Essential Adjustment**: The difference between average rates (P&L items) and closing rates (balance sheet items) must be reflected in OCI. Learn more about this in [Effect 2](/integrations/other/currency).
+
+2. **Optional Adjustment**: You can choose to transfer monthly closing rate adjustments for equity accounts to OCI. For details, see [Effect 1](/integrations/other/currency).
+
+## Getting Support
+
+Our team is here to help you configure IAS 21 in Francis. For personalized assistance, contact us at [support@francis.app](mailto:support@francis.app).
 
 <Warning>
-  Consult a professional accountant to ensure complete compliance with IAS 21 where it applies to your organization.
-</Warning>
+To ensure full compliance with IAS 21 for your specific organization, we recommend consulting with a professional accountant.
+</Warning></fileContent>
+</invoke>

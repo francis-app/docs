@@ -1,6 +1,6 @@
 ---
 title: "Date settings"
-description: "Master date settings to automate rolling forecasts and get the most out of Francis."
+description: "Learn how to configure date settings to enable automated rolling forecasts and maximize your Francis experience."
 icon: "calendar"
 ---
 
@@ -8,44 +8,43 @@ icon: "calendar"
 
 ## Overview
 
-Understanding date settings is essential to leveraging Francis's built-in features. These settings enable core functionalities such as [rolling forecasting](/documentation/version-control/version-control) and [variance analysis](/documentation/variance-analysis/three-column-report). We strongly recommend that users familiarize themselves with the date settings before extensively building their models.
+Date settings are fundamental to unlocking Francis's powerful features. When configured correctly, these settings enable essential functionalities like [rolling forecasting](/documentation/version-control/version-control) and [variance analysis](/documentation/variance-analysis/three-column-report). We recommend familiarizing yourself with these settings before building your models to ensure optimal results.
 
-## Basics
+## Core Settings
 
 ### Timeline
 
-The timeline defines which months to view in your model. It does not impact formulas or calculations but simply allows you to define what date range to show at a given time.
+The timeline determines the specific months visible in your model. While it doesn't affect your calculations or formulas, it lets you focus on the exact date range needed for your analysis.
 
 <Tip>
-  When planning your start-of-year budget, include a few months from the previous financial year, allowing you to consider last year's actuals when planning ahead.
+When preparing your start-of-year budget, include several months from the previous financial year. This gives you valuable context from historical actuals to inform your planning decisions.
 </Tip>
 
-### Forecast start
+### Forecast Start
 
-As the name suggests, the Forecast Start indicates the month from which you're currently forecasting and is displayed as a vertical purple line throughout your model. In Francis, every financial plan has a forecast start date. Months before the Forecast Start represent actuals, and months after the Forecast Start represent your forecast.
+The Forecast Start marks the transition point between historical data and future projections, appearing as a purple vertical line throughout your model. This date serves as the crucial divider: all months before it represent actual data, while months after it show your forecast.
 
-Updating the Forecast Start has the following effects on your model:
+When you update the Forecast Start, two key changes occur:
 
-1. Months that were previously considered forecasts are replaced by actuals.
+1. Previously forecasted months are updated with actual data
+2. Your forecast formulas automatically recalculate to incorporate new actuals
 
-2. Forecast formulas automatically recompute to include the newly introduced actuals.
-
-Technically, budgets are perceived as forecasts that simply happen to start at the beginning of the year. Consequently, Forecast Start is also used to specify your budget start. Consider defining a consistent naming convention to easily distinguish between budgets and rolling forecasts.
+Note that budgets function as specialized forecasts that begin at the start of your fiscal year. The Forecast Start setting helps distinguish between rolling forecasts and budgets. Consider implementing a clear naming convention to easily differentiate between these two types of projections.
 
 <Tip>
-  Before updating the Forecast Start, save a snapshot of your model using our versions feature. This will allow you to reference old forecasts in charts and reports.
+Before adjusting the Forecast Start, create a snapshot of your model using the versions feature. This preserves your previous forecasts for future reference in charts and reports.
 </Tip>
 
-### Last close
+### Last Close
 
-The Last Close represents the last closed month in your accounting system. It is always equal to or after the forecast start date. It is displayed as the orange line throughout your model and determines the months of available actuals since your Forecast Start. Updating the Last Close will not impact your forecast but enable you to compare new actuals against forecasts.
+The Last Close indicates your most recently completed accounting period and appears as an orange line in your model. This date must be either equal to or later than your Forecast Start, and it defines which actual data is available since your Forecast Start. Updating the Last Close won't affect your forecasts but enables powerful comparative analysis.
 
-Once you've updated the Last Close, you can leverage the built-in variance analysis features:&#x20;
+After updating the Last Close, you can access two key analysis features:
 
-1. Use follow-up and compare features to perform [BVA analysis](/documentation/variance-analysis/month-by-month) directly in your model.
-
-2. Compare actuals against budget using Francis' built-in three-column [variance reporting](/documentation/variance-analysis/three-column-report).
+1. Use the follow-up and compare tools for detailed [BVA (Budget Variance Analysis)](/documentation/variance-analysis/month-by-month) within your model
+2. Generate comprehensive [variance reports](/documentation/variance-analysis/three-column-report) comparing actuals against budget
 
 <Tip>
-  Update the Last Close every month following your month-end closing process to pull in your latest actuals, allowing you to run budget-variance analysis against your forecast versions.
-</Tip>
+Align your Last Close updates with your monthly closing process to ensure your variance analysis always reflects the most current data.
+</Tip></fileContent>
+</invoke>
