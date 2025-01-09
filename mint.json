@@ -36,7 +36,8 @@
   "rounded": "default",
   "feedback": {
     "thumbsRating": true,
-    "suggestEdit": true
+    "suggestEdit": true,
+    "raiseIssue": true
   },
   "topbarLinks": [
     {
