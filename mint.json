@@ -15,9 +15,7 @@
       "dark": "#191919"
     }
   },
-
   "layout": "topnav",
-  
   "font": {
     "headings": {
       "family": "Inter"
@@ -26,25 +24,19 @@
       "family": "Inter"
     }
   },
-
   "sidebar": {
     "items": "container"
   },
-
   "topbar": {
     "style": "default"
   },
-
   "search": {
     "location": "top"
   },
-
   "rounded": "default",
-
   "feedback": {
     "thumbsRating": true
   },
-  
   "topbarLinks": [
     {
       "name": "Contact",
