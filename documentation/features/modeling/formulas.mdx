@@ -22,11 +22,11 @@ Francis's formulas follow the syntax `"ROW_NAME"[RELATIVE_PERIOD]`. For example,
 
 There are several reasons for why we've implemented this syntax:
 
-* More readable references and syntax, with clearly stated names and relative periods
+* More readable references and syntax, with clearly stated names and relative periods.
 
-* Syntax allows users to drag and drop components without breaking references
+* Syntax allows users to drag and drop components without breaking references.
 
-* Simplified rolling forecasts, as all references are based on relative periods
+* Simplified rolling forecasts, as all references are based on relative periods.
 
 ### Conventions
 
@@ -35,5 +35,5 @@ The convention in Francis is that income and balance sheet items are input as po
 Consequently, subtotals like gross profit will be calculated by taking revenue and *adding* direct costs using a plus (+), instead of subtracting direct costs using a minus (-). In simpler terms, gross profit would be calculated as:
 
 ```typescript
-="Revenue"[0] + "Direct costs"[0]
+="Revenue"[0] + "Direct costs"[0]
 ```

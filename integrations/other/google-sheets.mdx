@@ -5,7 +5,7 @@ description: "Use Google Sheets to import actuals from non-supported systems."
 
 ## Overview
 
-The Google Sheets integration enables you to import data from virtually any business tool into Francis for financial planning. By pairing Google Sheets with third-party integrations, you can connect CRMs, ERPs, or create custom API connections. Use this integration as a flexible option for importing data that is not already supported by Francis’ native accounting or currency integrations.
+The Google Sheets integration enables you to import data from virtually any business tool into Francis for financial planning. By pairing Google Sheets with third-party integrations, you can connect CRMs, ERPs, or create custom API connections. Use this integration as a flexible option for importing data that is not already supported by Francis' native accounting or currency integrations.
 
 ## Configuration
 
@@ -27,17 +27,17 @@ Before setting up a Google Sheets connection, you must choose one of two templat
   </Tab>
 
   <Tab title="Detailed entries">
-    Select detailed entries if your data consists of individual records or row-level transactions that have not been aggregated into monthly totals. While this template can handle aggregated data, it’s ideal for CSV exports from various tools that require minimal preprocessing. Data imported via this template supports drill-downs in Francis, enabling more detailed analysis and explainability.
+    Select detailed entries if your data consists of individual records or row-level transactions that have not been aggregated into monthly totals. While this template can handle aggregated data, it's ideal for CSV exports from various tools that require minimal preprocessing. Data imported via this template supports drill-downs in Francis, enabling more detailed analysis and explainability.
   </Tab>
 </Tabs>
 
 ## Importing accounting data
 
-Francis makes it easy to import data from accounting systems that aren’t supported by our native integrations. Follow the steps below to ensure Francis accurately interprets your accounting data and applies the correct transformations.
+Francis makes it easy to import data from accounting systems that aren't supported by our native integrations. Follow the steps below to ensure Francis accurately interprets your accounting data and applies the correct transformations.
 
 <Steps>
   <Step title="Format your data">
-    After establishing a connection to Google Sheets, start by uploading your data. Since you’re working with accounting data, it’s important to format it correctly to ensure proper transformation once it’s in Francis. Follow these guidelines for consistent results:
+    After establishing a connection to Google Sheets, start by uploading your data. Since you're working with accounting data, it's important to format it correctly to ensure proper transformation once it's in Francis. Follow these guidelines for consistent results:
 
     * **Income** accounts: Input negative (-) values.
 
@@ -71,7 +71,7 @@ Francis makes it easy to import data from accounting systems that aren’t suppo
   </Step>
 
   <Step title="Adjust consolidation setup (Optional)">
-    If you’re already consolidating actuals across entities in Francis and want to incorporate accounting data imported from Google Sheets, you’ll need to adjust your existing setup to include this new data source.
+    If you're already consolidating actuals across entities in Francis and want to incorporate accounting data imported from Google Sheets, you'll need to adjust your existing setup to include this new data source.
 
     Open your consolidation template and select **Adjust split** from the action menu. Then, choose **Add new sheet** and drag the chip representing your newly added accounting data from the **Not yet assigned** group to the new sheet. Click **Apply** to confirm your changes. Your consolidation will now include an additional instance, reflecting the newly integrated Google Sheets data.
   </Step>
