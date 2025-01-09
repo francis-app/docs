@@ -154,11 +154,11 @@
       "group": "Accounting",
       "pages": [
         "integrations/accounting/overview",
+        "integrations/accounting/business-central",
         "integrations/accounting/e-conomic",
+        "integrations/accounting/netsuite",
         "integrations/accounting/quickbooks",
         "integrations/accounting/xero",
-        "integrations/accounting/business-central",
-        "integrations/accounting/netsuite"
       ]
     },
     {
