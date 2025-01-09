@@ -158,7 +158,7 @@
         "integrations/accounting/e-conomic",
         "integrations/accounting/quickbooks",
         "integrations/accounting/netsuite",
-        "integrations/accounting/xero",
+        "integrations/accounting/xero"
       ]
     },
     {
