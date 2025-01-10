@@ -34,11 +34,6 @@
     "location": "top"
   },
   "rounded": "default",
-  "feedback": {
-    "thumbsRating": true,
-    "suggestEdit": true,
-    "raiseIssue": true
-  },
   "topbarLinks": [
     {
       "name": "Contact",
