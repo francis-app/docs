@@ -39,22 +39,18 @@ Create elimination entries by applying the opposite sign to the identified trans
 
 <iframe width="720" height="466" src="https://www.loom.com/embed/0dba6f65adb24312a1c5d9eb65450147?sid=ae2f2859-9033-4678-915e-a52736902c92" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
-If your group entities use different base currencies, you must account for currency exchange rate fluctuations. These differences arise because transactions recorded in various currencies are later converted into a unified reporting currency in Francis. As exchange rates shift over time, amounts may no longer match perfectly, requiring an additional adjustment step.
+If the companies involved differ in base currency, you need to take one additional step when eliminating inter-company transactions. This step involves accounting for the difference in the inter-company transactions that arise from currency fluctuations.
 
 #### Accounting for currency fluctuations
 
-First, identify intercompany transactions as you would in a same-currency scenario. Once you’ve isolated these transactions, convert them into the group’s chosen reporting currency. If the converted values don’t match across entities (due to fluctuating exchange rates), create one or more adjustment rows to capture the residual differences.
+[](https://docs.francis.app/guides/getting-started/guides-and-tutorials/consolidation/eliminations-different-currencies#basics)
 
-This adjustment effectively isolates currency-related discrepancies, allowing you to accurately represent the financial position without mixing currency effects with other sources of discrepancy. Follow established accounting standards – such as IFRS or GAAP – which provide guidance on where and how to record these currency translation differences. In Francis, you can easily place these adjustments wherever they best fit your overall financial model.
+When multiple entities record intercompany transactions in different currencies, later converted to a unified currency in Francis using updated exchange rates, differences in amounts may arise due to fluctuating rates.
+
+You must create rows to account for exchange rate fluctuations to eliminate these amounts. Note that accounting frameworks like IFRS and GAAP provide specific rules on where these fluctuations should be recorded.
+
+In the video above, we walk you through the simple setup process, allowing you to decide where to allocate the effects of fluctuating currencies.
 
 #### Important considerations
 
-The suggested approach of treating all discrepancies as currency-related assumes that both sides of the transaction represent the same underlying items. If bookkeeping inconsistencies or multi-purpose accounts lead to mismatched transactions, you risk attributing discrepancies incorrectly. In these cases, you may need to investigate the underlying data or adjust your approach to avoid misallocating differences.
-
-## Next Steps
-
-* **For same-currency eliminations:** After completing the steps above, continue refining your consolidated financials. Confirm all intercompany transactions have been removed and your reporting aligns with expected standards.
-
-* **For multi-currency eliminations:** Once you’ve accounted for exchange rate differences, verify that the final consolidated figures accurately represent your group’s performance. Regularly review the applied exchange rates and adjust as necessary to maintain accuracy over time.
-
-By following the guidelines that apply to your specific scenario, you can ensure a clear, compliant, and accurate consolidation process in Francis.
+The suggested approach, which involves calculating the residual between the two amounts, assumes that all differences arise solely from exchange rate fluctuations. However, if the rows do not inherently include the same items - e.g., due to bookkeeping errors or using one account for multiple purposes - you risk over-allocating a discrepancy to the currency adjustment.
