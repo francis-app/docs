@@ -176,6 +176,7 @@
           "group": "Financial statements",
           "pages": [
             "masterclasses/financial-statements/balance-sheet",
+            "masterclasses/forecasting/cash-flow",
             "masterclasses/financial-statements/currency-adjustments"
           ]
         },
@@ -191,7 +192,6 @@
           "group": "Forecasting",
           "pages": [
             "masterclasses/forecasting/methods",
-            "masterclasses/forecasting/cash-flow",
             "masterclasses/forecasting/headcount",
             "masterclasses/forecasting/receivables",
             "masterclasses/forecasting/revenue-recognition",
