@@ -6,7 +6,7 @@ sidebarTitle: "Microsoft Business Central"
 
 ## Overview
 
-By connecting your Business Central instance to Francis, you can seamlessly import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can efficiently map Business Central accounts to corresponding line items in your financial model, ensuring more accurate and consistent reporting.
+By connecting your Business Central instance to Francis, you can seamlessly import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can map Business Central accounts to corresponding line items in your financial model, ensuring more accurate and consistent reporting.
 
 ## Configuration
 
@@ -32,9 +32,13 @@ Francis applies several adjustments to ensure that imported data is aligned with
 
     * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
 
-    * **Negative (-):** Expense (E)
+    * **Negative (-):** Expense (EX)
 
     This standardization simplifies comparisons and ensures that reports remain straightforward to interpret. Since Francis relies on your asset range configuration to determine each account’s classification, it’s critical to confirm that your asset range settings are correct.
+  </Tab>
+
+  <Tab title="Retained earnings">
+    When you close a fiscal year, Business Central moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis supports this by introducing an additional “Retained earnings this year” account, giving you a clear and accurate picture of your retained earnings over time.
   </Tab>
 
   <Tab title="Balance sheet">
