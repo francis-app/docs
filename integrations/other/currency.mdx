@@ -57,6 +57,13 @@ In the example below, we demonstrate how to calculate the exchange rate effect r
 
 <img class="block dark:hidden" src="/images/integrations/other/currency/current-historical-rates-light.png" />
 
+```typescript
+// Exchang rate adjustment calculation
+5000 * (1.15 - 1.05) = 500
+// or
+5250 * (1.15 / 1.05 - 1) = 500
+```
+
 #### Effect 2: Average and closing rates
 
 While P\&L items are translated at average monthly rates, their corresponding balance sheet entries are translated at closing rates. As a result, the P\&L and balance sheet may use slightly different exchange rates for the same underlying transactions.
