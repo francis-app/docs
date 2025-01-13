@@ -1,5 +1,5 @@
 ---
-title: "Changing GL category"
+title: "Conditionally Assign GL Category"
 description: "Use an IF statement to present amounts on assets or liabilities depending on the sign."
 icon: "arrow-down-arrow-up"
 ---
@@ -31,11 +31,11 @@ Follow these steps to set up formulas that display amounts correctly under asset
     For the two rows under assets and liabilities, create IF statements to display values correctly with the appropriate sign. Here are some examples:
 
     ```typescript
-    if("bank account"[0]>0,"bank account"[0],0)
+    if("Bank account"[0]>0,"Bank account"[0],0)
     ```
 
-    ```
-    if("bank account"[0]>0,0,-"bank account"[0])
+    ```typescript
+    if("Bank account"[0]>0,0,-"Bank account"[0])
     ```
   </Step>
 
