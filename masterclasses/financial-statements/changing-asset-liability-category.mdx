@@ -1,0 +1,44 @@
+---
+title: "Changing GL category"
+description: "Use an IF statement to present amounts on assets or liabilities depending on the sign."
+---
+
+<iframe width="720" height="467" src="https://www.loom.com/embed/be080e4fd6074bed8f451708eafb4d45?sid=af420781-b869-42c4-8b5a-a45556b53f23" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
+## Overview
+
+To present a general ledger account on either the asset or liability side based on whether the amount is positive or negative, you can use IF statements in Francis.
+
+<Tip>
+  We recommend fixing issues like this “at the source,” which means in your ERP. Consider creating two accounts - one asset and one liability - and moving amounts between them based on the sign. If that’s not feasible, use the solution below.
+</Tip>
+
+## Basics
+
+Follow these steps to set up formulas that display amounts correctly under assets and liabilities:
+
+<Steps>
+  <Step title="Separate the GL account">
+    Move the relevant account “out of your balance sheet” and into a separate sheet. You’ll reference these amounts in step 3.
+  </Step>
+
+  <Step title="Create an extra row">
+    Create an additional row “on the opposite side.” For example, if the original row is under assets, add a corresponding line item under liabilities, and vice versa.
+  </Step>
+
+  <Step title="Create IF statements">
+    For the two rows under assets and liabilities, create IF statements to display values correctly with the appropriate sign. Here are some examples:
+
+    ```typescript
+    if("bank account"[0]>0,"bank account"[0],0)
+    ```
+
+    ```
+    if("bank account"[0]>0,0,-"bank account"[0])
+    ```
+  </Step>
+
+  <Step title="Apply to other periods">
+    Start from a period far enough back to include all relevant data, and ensure it applies to all future periods.
+  </Step>
+</Steps>
