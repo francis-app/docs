@@ -33,10 +33,6 @@
   "search": {
     "location": "top"
   },
-  "feedback": {
-    "thumbsRating": true,
-    "suggestEdit": true
-  },
   "topbarLinks": [
     {
       "name": "Contact",
