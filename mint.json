@@ -33,7 +33,9 @@
   "search": {
     "location": "top"
   },
-  "rounded": "default",
+  "feedback": {
+    "thumbsRating": true
+  },
   "topbarLinks": [
     {
       "name": "Contact",
