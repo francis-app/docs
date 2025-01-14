@@ -187,6 +187,7 @@
         {
           "group": "Forecasting",
           "pages": [
+            "masterclasses/forecasting/importing-forecasts",
             "masterclasses/forecasting/methods",
             "masterclasses/forecasting/headcount",
             "masterclasses/forecasting/receivables",

@@ -1,0 +1,40 @@
+---
+title: "New file"
+description: "Bring your existing budgets and forecasts into Francis."
+---
+
+<iframe width="720" height="466" src="https://www.loom.com/embed/84e10f669d254b48b5ff046f7b1246fe?sid=1132b3e9-fa47-40b8-be37-0ab3385b5561" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
+## Overview
+
+Francis doesn’t currently support CSV uploads for importing budgets directly from Excel or Google Sheets. However, you can still bring your existing forecasts into Francis by either replicating the logic of your original model or pasting the forecast figures directly as hardcoded values. This guide outlines both approaches and helps you decide which one fits best.
+
+<Tip>
+  In Francis, there’s no technical distinction between budgets and forecasts. Any forecast that begins in the first month of your fiscal year functions as your budget, anchor budget, or start-of-year budget.
+</Tip>
+
+## Basics
+
+### Template vs. blank model
+
+Before you import your existing forecast, decide whether to start with one of Francis’ templates or build your model from scratch. We highly recommend starting with a template, because:
+
+* **Proven structure**: Templates ensure that your financial statements are correctly linked.
+
+* **Easy customization**: Add rows, groups, or sections to adapt the template to your unique needs.
+
+Starting from scratch is an option if you know your existing financial model diverges significantly from standard practices, such as having a highly specialized revenue forecast. Unless your model is very different from typical three-statement structures, we encourage using one of our existing templates as a solid foundation.
+
+### Importing budgets and forecasts
+
+If you already have a forecast in Excel or Google Sheets, you can import it into Francis in two ways: recreating your existing logic or pasting hardcoded values. Each approach has its pros and cons.
+
+#### Recreating existing logic
+
+Our recommended method is to recreate the logic behind your financial model within Francis. By defining the relationships between assumptions that drive your P\&L, balance sheet, and cash flow, you can take advantage of Francis’ built-in features for rolling forecasts, variance analysis, and more. Although this process may require additional effort, the result is a dynamic model that automatically updates when you change underlying assumptions.
+
+#### Hardcoded forecast values
+
+The alternative is to copy and paste your forecasts into Francis as static (hardcoded) numbers. This option is faster – especially if you want a quick proof of concept or plan to reevaluate your forecasting logic soon – but it won’t enable rolling forecasts and other built-in features.
+
+Your imported forecast remains “fixed”, meaning changes to assumptions in other parts of the model won’t flow through to your final numbers. Because of these limitations, we recommend using this approach only as a temporary or exploratory solution.
