@@ -34,7 +34,8 @@
     "location": "top"
   },
   "feedback": {
-    "thumbsRating": true
+    "thumbsRating": true,
+    "suggestEdit": true
   },
   "topbarLinks": [
     {
