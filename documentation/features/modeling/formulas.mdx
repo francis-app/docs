@@ -28,6 +28,15 @@ There are several reasons for why we've implemented this syntax:
 
 * Simplified rolling forecasts, as all references are based on relative periods
 
+### Comments
+
+Inspired by programming best practices, you can insert comments directly into your formulas to add context where it matters most. Simply place a hashtag (#) at the end of your formula, and any text that follows is highlighted in green. This makes it easier to interpret complex logic – such as lengthy if-statements – and reduces back-and-forth communication in larger teams by keeping essential insights alongside the formula itself.
+
+```typescript
+= IF("Revenue"[0]=0,0,"Direct costs"[0]/"Revenue"[0])
+# Function returns zero if reveneu is zero to avoid dividing with zero
+```
+
 ### Conventions
 
 The convention in Francis is that income and balance sheet items are input as positive values (+), while expenses are input as negative values (-). This ensures compatibility with imported actuals from connected accounting systems.
