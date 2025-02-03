@@ -23,8 +23,6 @@ Assets = Liabilities + Equity
 
 <img class="block dark:hidden" src="/images/masterclasses/financial-statements/balance-sheet/balance-sheet-light.png" />
 
-<img class="hidden dark:block" src="/images/masterclasses/financial-statements/balance-sheet/balance-sheet-dark.png" />
-
 We recommend also categorizing into subgroups such as "current" and "non-current items" as it follows your accounting system's classic structure of general ledgers. “Current” refers to items that will materialize over the next year, whereas “non-current” (“fixed”) items span across years.
 
 ### Accumulated values
@@ -50,3 +48,39 @@ On the other hand, if you want to include cash flow impact from balance sheet mo
 
   Francis recommends the indirect cash flow forecasting method derived from the P\&L and balance sheet movements. The reason is that the financial model in Francis is mapped to the general ledger of your accounting system, which follows the indirect method. If you set it up the same way in Francis, you create a bridge between forecasts and actuals, allowing you to automatically compare budget vs. actuals and create new forecasts.
 </Note>
+
+## Conditionally assign general ledger categories
+
+Using an IF statement, it’s possible to display a general ledger account under assets or liabilities based on whether its amount is positive or negative. This approach is most useful when it’s not feasible to create separate accounts for positive and negative balances in your ERP.
+
+<Tip>
+  If possible, resolve this “at the source” by creating two accounts – one for assets and one for liabilities – and moving amounts between them based on the sign. If that can’t be done, follow the steps below.
+</Tip>
+
+#### Steps for Conditional Assignments
+
+<Steps>
+  <Step title="Separate the GL account">
+    Temporarily remove the relevant account from your main balance sheet and place it in a separate sheet. This makes it easier to reference its amounts in future steps.
+  </Step>
+
+  <Step title="Add a row on the opposite side">
+    If the original row was under assets, create a corresponding row under liabilities (or vice versa). These two rows will work together to display amounts correctly.
+  </Step>
+
+  <Step title="Create IF statements">
+    Assign values to each row using conditional formulas. For instance:
+
+    ```typescript
+    // Asset row: Show positive amounts
+    if("Bank account"[0]>0,"Bank account"[0],0)
+
+    // Liability row: Show negative amounts
+    if("Bank account"[0]>0,0,-"Bank account"[0])
+    ```
+  </Step>
+
+  <Step title="Extend to other periods">
+    Apply these formulas from a period far enough back to capture all relevant data, and ensure they continue for any future periods you plan to forecast.
+  </Step>
+</Steps>
