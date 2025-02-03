@@ -1,6 +1,6 @@
 ---
-title: "Conditionally Assign General Ledger Category"
-description: "Use an IF statement to present amounts on assets or liabilities depending on the sign."
+title: "Conditionally Assign General Ledger Categories"
+description: "Use an IF statement to present amounts as assets or liabilities depending on the sign."
 sidebarTitle: "Assign GL categories"
 ---
 
@@ -8,10 +8,10 @@ sidebarTitle: "Assign GL categories"
 
 ## Overview
 
-To present a general ledger account on either the asset or liability side based on whether the amount is positive or negative, you can use IF statements in Francis.
+Using an IF statement, it’s possible to display a general ledger account under assets or liabilities based on whether its amount is positive or negative. This approach is most useful when it’s not feasible to create separate accounts for positive and negative balances in your ERP.
 
 <Tip>
-  We recommend fixing issues like this “at the source,” which means in your ERP. Consider creating two accounts - one asset and one liability - and moving amounts between them based on the sign. If that’s not feasible, use the solution below.
+  If possible, resolve this “at the source” (your accounting system) by creating two accounts – one for assets and one for liabilities – and moving amounts between them based on the sign. If that can’t be done, follow the steps below.
 </Tip>
 
 ## Basics

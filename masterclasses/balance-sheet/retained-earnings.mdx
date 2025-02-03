@@ -1,34 +1,32 @@
 ---
 title: "Calculating Retained Earnings"
-description: "You must complete a quick fix to set up retained earnings for Netsuite, Xero and QBO."
+description: "Complete a quick fix to set up retained earnings for NetSuite, Xero, or QuickBooks Online."
 sidebarTitle: "Retained earnings"
 ---
 
 <iframe width="720" height="467" src="https://www.loom.com/embed/86851929be07475784339fee88cf08f8?sid=782c952f-8e50-48c2-8b72-2a04cde18df5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
-When importing a chart of accounts from Oracle NetSuite, Xero, or QuickBooks Online, Francis currently does not include the Retained Earnings account. Therefore, you will need to manually calculate retained earnings amounts in your balance sheet for entities using these accounting systems.
+When importing your chart of accounts from Oracle NetSuite, Xero, or QuickBooks Online, Francis does not currently include a Retained Earnings account. Manually calculating retained earnings is therefore necessary in your balance sheet for these entities.
 
 <Info>
   Including retained earnings for Netsuite, Xero and Quickbooks Online is scheduled for release during 2025. If you have questions about this upcoming feature, feel free to reach out at [support@francis.app](mailto:support@francis.app).
 </Info>
 
-You calculate retained earnings by adding net profit (or loss) to the beginning retained earnings balance.
+Retained earnings are calculated by adding net profit (or loss) to the prior period’s retained earnings balance:
 
 ```typescript
-// Example
+// Basic example
 = "Retained earnings"[-1] + "Net profit"[0]
 ```
 
-If, in addition to connecting to Oracle NetSuite, Xero, or QuickBooks Online, you also convert the numbers to a different currency, the formula must include adjustments to account for currency conversion:
+If currency conversion is enabled on your NetSuite, Xero, or Quickbooks connection, the retained earnings formula must account for differences between average and closing exchange rates:
 
-1. **Retained earnings, starting value**: Adjust to reflect the new month’s closing exchange rate.
+1. **Retained earnings (starting value):** Adjust to the new month’s closing exchange rate.
 
-2. **Net profit for the month**: Convert from the average exchange rate to the closing exchange rate for the period.
-
-Learn more here.
+2. **Net profit (current month):** Convert from the average exchange rate to the closing rate.
 
 ```typescript
-// Example
+// Currency conversion example
 = "Retained earnings"[-1] / "Exchange rate - closing"[-1] * "Exchange rate - closing"[0] 
 + "Net profit"[0] / "Exchange rate - avg"[0] * "Exchange rate - closing"[0]
 ```
