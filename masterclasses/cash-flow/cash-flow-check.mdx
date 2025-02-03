@@ -9,42 +9,32 @@ sidebarTitle: "Cash flow check"
 
 ## Overview
 
-Even if you have set up your cash flow correctly, it may not match in specific periods due to two common reasons:
-
-* Accumulated depreciation
-
-* Retained earnings
-
-These two accounts can create discrepancies in the cash flow statement because, by design, standard cash flow statements usually exclude them. Below, we explain why this mismatch happens and how you can mitigate it.&#x20;
+Certain transactions may not appear in your cash flow statement, causing mismatches in specific periods. Two frequent causes are **accumulated depreciation** and **retained earnings**. Standard cash flow statements often exclude these items by design, which can lead to discrepancies.
 
 <Tip>
-  If you find that your cash flow check is wrong in *every* period, that generally indicates a broader modeling issue rather than a problem with just these two accounts.
+  If your cash flow check is off for every period, it generally points to a broader modeling issue rather than a localized problem with retained earnings or accumulated depreciation.
 </Tip>
 
 ## Basics
 
-The cash flow statement captures changes from most balance sheet items, but it does not automatically account for:
+The cash flow statement tracks changes from most balance sheet items but does not automatically recognize accumulated depreciation and retained earnings. It also excludes direct movements in the bank account, because calculating those inflows and outflows is the main purpose of a cash flow statement.&#x20;
 
-* Accumulated depreciation
+If a transaction affects any of these excluded items – alongside a typical balance sheet account – only part of the entry is captured, creating a discrepancy in your estimated cash flow.
 
-* Retained earnings
+### Resolution steps
 
-It also doesn’t directly include cash movements on the bank account itself (because calculating those movements is the entire purpose of the cash flow statement).
-
-Therefore, if you record a transaction that affects any of the excluded accounts - along with a corresponding transaction on a typical balance sheet account - only half of the transaction will register in the cash flow statement. This omission causes the estimated cash flow to be incorrect.
-
-If your cash flow check shows discrepancies for specific periods, but you believe your setup is fundamentally correct, follow these three steps:
+If this issue appears only in certain periods but the rest of your setup looks correct, consider these steps:
 
 <Steps>
   <Step title="Check retained earnings and accumulated depreciation">
-    Review these line items for extraordinary or unusual transactions. Confirm whether these transactions should indeed be recognized outside the cash flow statement.
+    Examine these accounts for unusual or unexpected transactions. Confirm whether any such entries genuinely belong outside the cash flow statement.
   </Step>
 
   <Step title="Identify the corresponding entries">
-    Find the double entry (or offsetting transactions) linked to retained earnings or accumulated depreciation. Ensure that all parts of the transaction are accounted for in the cash flow statement where appropriate.
+    Locate the double entry (or offsetting transactions) associated with retained earnings or accumulated depreciation. Make sure that the relevant portion of each transaction appears in the cash flow statement where needed.
   </Step>
 
   <Step title="Manually adjust">
-    Insert a manual adjustment line in your cash flow statement to compensate for the missing portion. Document the reason for this manual entry so that future reviewers (including you) understand why it was made.
+    Add a manual adjustment line to your cash flow statement to account for the missing piece of the transaction. Document why this entry is necessary to help anyone reviewing the model later.
   </Step>
 </Steps>
