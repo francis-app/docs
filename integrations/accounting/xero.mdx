@@ -44,3 +44,18 @@ Francis applies several adjustments to ensure that imported data is aligned with
     Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import to ensure your balance sheet data aligns with common reporting conventions.
   </Tab>
 </Tabs>
+
+### Retained earnings
+
+When importing a chart of accounts from Xero, Francis currently doesn't automatically include your retained earnings account. Therefore, you'll need to manually calculate retained earnings on your balance sheet for all entities using Xero.
+
+<Info>
+  Including retained earnings for Xero is scheduled for release during 2025. If you have questions about this upcoming feature, feel free to reach out at [support@francis.app](mailto:support@francis.app).
+</Info>
+
+To calculate retained earnings, add net profit (or loss) to the beginning retained earnings balance:
+
+```typescript
+// Example
+= "Retained earnings"[-1] + "Net profit"[0]
+```
