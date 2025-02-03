@@ -172,13 +172,13 @@
         {
           "group": "Profit & loss",
           "pages": [
-            "masterclasses/profit-loss/basics"
+            "masterclasses/profit-loss/fundamentals-profit-loss"
           ]
         },
         {
           "group": "Balance sheet",
           "pages": [
-            "masterclasses/balance-sheet/basics",
+            "masterclasses/balance-sheet/fundamentals-balance-sheet",
             "masterclasses/balance-sheet/retained-earnings",
             "masterclasses/balance-sheet/assign-gl-categories"
           ]
@@ -186,7 +186,7 @@
         {
           "group": "Cash flow",
           "pages": [
-            "masterclasses/cash-flow/basics",
+            "masterclasses/cash-flow/fundamentals-cash-flow",
             "masterclasses/cash-flow/cash-flow-check",
             "masterclasses/cash-flow/currency-adjustments"
           ]
