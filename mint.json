@@ -170,31 +170,25 @@
       "pages": [
         "masterclasses/overview",
         {
-          "group": "Financial statements",
-          "pages": [
-            "masterclasses/financial-statements/profit-loss",
-            "masterclasses/financial-statements/balance-sheet",
-            "masterclasses/financial-statements/cash-flow",
-            "masterclasses/financial-statements/currency-adjustments",
-            "masterclasses/financial-statements/assign-gl-category"
-          ]
-        },
-        {
           "group": "Profit & loss",
           "pages": [
-            "masterclasses/profit-loss/basics",
+            "masterclasses/profit-loss/basics"
           ]
         },
         {
           "group": "Balance sheet",
           "pages": [
             "masterclasses/balance-sheet/basics",
+            "masterclasses/balance-sheet/retained-earnings",
+            "masterclasses/balance-sheet/assign-gl-categories"
           ]
         },
         {
           "group": "Cash flow",
           "pages": [
-            "masterclasses/financial-statements/profit-loss",
+            "masterclasses/cash-flow/basics",
+            "masterclasses/cash-flow/cash-flow-check",
+            "masterclasses/cash-flow/currency-adjustments"
           ]
         },
         {
