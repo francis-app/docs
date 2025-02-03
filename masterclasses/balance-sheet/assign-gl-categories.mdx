@@ -20,26 +20,26 @@ Follow these steps to set up formulas that display amounts correctly under asset
 
 <Steps>
   <Step title="Separate the GL account">
-    Move the relevant account “out of your balance sheet” and into a separate sheet. You’ll reference these amounts in step 3.
+    Temporarily remove the relevant account from your main balance sheet and place it in a separate sheet. This makes it easier to reference its amounts in future steps.
   </Step>
 
-  <Step title="Create an extra row">
-    Create an additional row “on the opposite side.” For example, if the original row is under assets, add a corresponding line item under liabilities, and vice versa.
+  <Step title="Add a row on the opposite side">
+    If the original row was under assets, create a corresponding row under liabilities (or vice versa). These two rows will work together to display amounts correctly.
   </Step>
 
   <Step title="Create IF statements">
-    For the two rows under assets and liabilities, create IF statements to display values correctly with the appropriate sign. Here are some examples:
+    Assign values to each row using conditional formulas. For instance:
 
     ```typescript
+    // Asset row: Show positive amounts
     if("Bank account"[0]>0,"Bank account"[0],0)
-    ```
 
-    ```typescript
+    // Liability row: Show negative amounts
     if("Bank account"[0]>0,0,-"Bank account"[0])
     ```
   </Step>
 
-  <Step title="Apply to other periods">
-    Start from a period far enough back to include all relevant data, and ensure it applies to all future periods.
+  <Step title="Extend to other periods">
+    Apply these formulas from a period far enough back to capture all relevant data, and ensure they continue for any future periods you plan to forecast.
   </Step>
 </Steps>
