@@ -181,7 +181,6 @@
         },
         {
           "group": "Profit & loss",
-          "icon": "file-lines",
           "pages": [
             "masterclasses/profit-loss/basics",
           ]
@@ -189,7 +188,7 @@
         {
           "group": "Balance sheet",
           "pages": [
-            "masterclasses/financial-statements/profit-loss",
+            "masterclasses/balance-sheet/basics",
           ]
         },
         {
