@@ -1,0 +1,40 @@
+---
+title: "Cash Flow Currency Adjustments"
+description: "Introduce two new rows to have the cash flow check when converting currencies."
+sidebarTitle: "Currency adjustments"
+icon: "circle-dollar"
+---
+
+<iframe width="720" height="467" src="https://www.loom.com/embed/fbe111fca8e44529aa068ec224d14965?sid=5f4215da-992e-4095-9726-f874ec549e30" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
+## Overview
+
+If you have enabled currency conversion for a company, you must introduce two additional rows in the cash flow statement to manually account for the currency conversion effect on retained earnings. This ensures the cash flow check matches.
+
+## Basics
+
+The cash flow statement is derived as a plug from the P\&L and balance sheet movements and, by design, does not include retained earnings. When using Francis’ currency conversion feature to convert P\&L and balance sheet numbers monthly, the currency conversion effect on retained earnings is not reflected in the cash flow statement. This omission results in a cash flow estimate that differs from the actual cash position.
+
+If you have enabled currency conversion, you must introduce two additional rows in the cash flow statement to manually account for the currency conversion effect on retained earnings. This ensures that all currency adjustments from the balance sheet are accurately captured in the cash flow statement, maintaining its functionality as a plug.
+
+Here are the two rows to include in the cash flow statement:
+
+<Steps>
+  <Step title="Retained earnings, starting value">
+    The starting value of Retained Earnings is updated to reflect the new month’s closing exchange rate. The difference (delta) resulting from this currency adjustment should be calculated and added to the cash flow statement.
+
+    ```
+    = "Retained earnings"[-1] / "Exchange rate - closing"[-1] * "Exchange rate - closing"[0] - "Retained earnings"[-1]
+    ```
+  </Step>
+
+  <Step title="Retained earnings, addition">
+    The period’s net profit (or loss) is part of the cash flow from operations and is calculated using the average exchange rate for the period. However, it is included in Retained Earnings using the closing exchange rate. The difference (delta) between these two rates should be calculated and added to the cash flow statement.
+
+    ```
+    = "Net profit"[0] / "Exchange rate - avg"[0] * "Exchange rate - closing"[0] - "Net profit"[0]
+    ```
+  </Step>
+</Steps>
+
+Including these rows ensures that all currency adjustments affecting Retained Earnings are captured, allowing the cash flow check to match.
