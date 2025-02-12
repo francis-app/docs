@@ -170,26 +170,12 @@
       "pages": [
         "masterclasses/overview",
         {
-          "group": "Profit & loss",
+          "group": "Financial statements",
           "pages": [
-            "masterclasses/profit-loss/fundamentals-profit-loss",
-            "masterclasses/profit-loss/department-allocations"
-          ]
-        },
-        {
-          "group": "Balance sheet",
-          "pages": [
-            "masterclasses/balance-sheet/fundamentals-balance-sheet",
-            "masterclasses/balance-sheet/retained-earnings",
-            "masterclasses/balance-sheet/assign-gl-categories"
-          ]
-        },
-        {
-          "group": "Cash flow",
-          "pages": [
-            "masterclasses/cash-flow/fundamentals-cash-flow",
-            "masterclasses/cash-flow/cash-flow-check",
-            "masterclasses/cash-flow/currency-adjustments"
+            "masterclasses/financial-statements/profit-loss",
+            "masterclasses/financial-statements/balance-sheet",
+            "masterclasses/financial-statements/cash-flow",
+            "masterclasses/financial-statements/currency-adjustments"
           ]
         },
         {
@@ -213,6 +199,16 @@
           ]
         },
         "masterclasses/monthly-close/monthly-close"
+        {
+          "group": "Support articles",
+          "pages": [
+            "masterclasses/support-articles/department-allocations",
+            "masterclasses/support-articles/retained-earnings",
+            "masterclasses/support-articles/assign-gl-categories",
+            "masterclasses/support-articles/cash-flow-check",
+            "masterclasses/support-articles/currency-adjustments"
+          ]
+        },
       ]
     }
   ],
