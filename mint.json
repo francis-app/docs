@@ -189,6 +189,7 @@
           "group": "Forecasting",
           "pages": [
             "masterclasses/forecasting/importing-forecasts",
+            "masterclasses/forecasting/driver-based-forecasting",
             "masterclasses/forecasting/methods",
             "masterclasses/forecasting/headcount",
             "masterclasses/forecasting/receivables",
