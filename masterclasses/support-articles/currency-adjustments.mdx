@@ -37,13 +37,13 @@ Here are the two rows to include in the cash flow statement:
   <Step title="Acc. depreciation, delta">
     The period’s net profit (or loss) is part of the cash flow from operations and is calculated using the average exchange rate for the period. However, it is included in Retained Earnings using the closing exchange rate. The difference (delta) between these two rates should be calculated and added to the cash flow statement.
 
-    ```
+    ```typescript
     = "Acc. depreciation"[0] * ( "Exchange rate - close"[0] / "Exchange rate - avg"[0] - 1 )
     ```
 
     or
 
-    ```
+    ```typescript
     = "Acc. depreciation"[0] / "Exchange rate - avg"[0] * "Exchange rate - close"[0] - "Acc. depreciation"[0]
     ```
   </Step>
@@ -51,13 +51,13 @@ Here are the two rows to include in the cash flow statement:
   <Step title="Retained earnings, start">
     The starting value of Retained Earnings is updated to reflect the new month’s closing exchange rate. The difference (delta) resulting from this currency adjustment should be calculated and added to the cash flow statement.
 
-    ```
+    ```typescript
     = "Retained earnings"[-1] * ( "Exchange rate - close"[0] / "Exchange rate - close"[-1] - 1 )
     ```
 
     or
 
-    ```
+    ```typescript
     = "Retained earnings"[-1] / "Exchange rate - close"[-1] * "Exchange rate - close"[0] - "Retained earnings"[-1]
     ```
   </Step>
