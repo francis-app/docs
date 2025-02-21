@@ -23,13 +23,13 @@ Here are the two rows to include in the cash flow statement:
   <Step title="Acc. depreciation, start">
     The starting value of Retained Earnings is updated to reflect the new month’s closing exchange rate. The difference (delta) resulting from this currency adjustment should be calculated and added to the cash flow statement.
 
-    ```
+    ```typescript
     = "acc. depreciation"[-1] * ( "Exchange rate - close"[0] / "Exchange rate - close"[-1] - 1 )
     ```
 
     or
 
-    ```
+    ```typescript
     = "acc. depreciation"[-1] / "Exchange rate - close"[-1] * "Exchange rate - close"[0] - "acc. depreciation"[-1]
     ```
   </Step>
