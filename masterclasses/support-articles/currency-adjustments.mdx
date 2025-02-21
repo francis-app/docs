@@ -46,8 +46,6 @@ Here are the two rows to include in the cash flow statement:
     ```
     = "Acc. depreciation"[0] / "Exchange rate - avg"[0] * "Exchange rate - close"[0] - "Acc. depreciation"[0]
     ```
-
-
   </Step>
 
   <Step title="Retained earnings, start">
@@ -62,8 +60,6 @@ Here are the two rows to include in the cash flow statement:
     ```
     = "Retained earnings"[-1] / "Exchange rate - close"[-1] * "Exchange rate - close"[0] - "Retained earnings"[-1]
     ```
-
-
   </Step>
 
   <Step title="Retained earnings, delta">
@@ -78,9 +74,7 @@ Here are the two rows to include in the cash flow statement:
     ```typescript
     = "Net profit"[0] / "Exchange rate - avg"[0] * "Exchange rate - close"[0] - "Net profit"[0]
     ```
-
-
   </Step>
 </Steps>
 
-Including these rows ensures that all currency adjustments affecting Retained Earnings are captured, allowing the cash flow check to match.
+Including these rows ensures that all currency adjustments affecting accumulated depreciation ad retained earnings are captured, allowing the cash flow check to match.
