@@ -13,10 +13,10 @@ When importing your chart of accounts from Oracle NetSuite, Xero, or QuickBooks 
   Including retained earnings for Netsuite, Xero and Quickbooks Online is scheduled for release during 2025. If you have questions about this upcoming feature, feel free to reach out at [support@francis.app](mailto:support@francis.app).
 </Info>
 
-Retained earnings are calculated by adding net profit (or loss) to the prior period’s retained earnings balance:
+To calculate retained earnings, add net profit (or loss) to the beginning retained earnings balance:
 
 ```typescript
-// Basic example
+// Example
 = "Retained earnings"[-1] + "Net profit"[0]
 ```
 

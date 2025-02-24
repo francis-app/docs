@@ -48,6 +48,8 @@ Francis applies several adjustments to ensure that imported data is aligned with
 
 ### Retained earnings
 
+<iframe width="720" height="467" src="https://www.loom.com/embed/82c6f24084364b4dbbddbabd504ca943?sid=531cd2c5-b672-48a5-83c1-95d42db54f57" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
 When importing your chart of accounts from Quickbooks, Francis currently doesn't automatically include your retained earnings account. Therefore, you'll need to manually calculate retained earnings on your balance sheet for all entities using Quickbooks.
 
 <Info>
@@ -59,4 +61,16 @@ To calculate retained earnings, add net profit (or loss) to the beginning retain
 ```typescript
 // Example
 = "Retained earnings"[-1] + "Net profit"[0]
+```
+
+If currency conversion is enabled on your Quickbooks connection, the retained earnings formula must account for differences between average and closing exchange rates:
+
+1. **Retained earnings (starting value):** Adjust to the new month’s closing exchange rate.
+
+2. **Net profit (current month):** Convert from the average exchange rate to the closing rate.
+
+```typescript
+// Currency conversion example
+= "Retained earnings"[-1] / "Exchange rate - closing"[-1] * "Exchange rate - closing"[0] 
++ "Net profit"[0] / "Exchange rate - avg"[0] * "Exchange rate - closing"[0]
 ```
