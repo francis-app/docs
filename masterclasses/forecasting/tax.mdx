@@ -9,7 +9,11 @@ description: "Consider updating tax accounts in your Chart of Accounts to better
 
 ## Overview
 
-Taxes can be tricky to forecast. One reason is that the final tax expense is based on separate tax calculations in tax books that are separate from the company's books. Another reason is that Chart of Accounts typixally only include one account for everything tax-related, which ends up with a lot of noise from end-of-year adjustments and similar. This guide shows you how to structure tax expenses on the P&L and tax payables on the balance sheet to make it as straightforward as possible.
+Taxes can be tricky to forecast. One reason is that the final tax expense is based on tax accounting - a separate set of books from financial accounting, with adjustments made for tax rules and regulations. Another reason is that Chart of Accounts typixally only include one account for everything tax-related, which ends up with a lot of noise from end-of-year adjustments and similar. This guide shows you how to structure tax expenses on the P&L and tax payables on the balance sheet to make it as straightforward as possible.
+
+<Info>
+  When forecasting taxes, it’s important to remember that the final tax expense is based on tax accounting - a separate set of books from financial accounting, with adjustments made for tax rules. However, forecasting taxes based on financial accounting figures can serve as a proxy.
+</Info>
 
 ## Basics
 
@@ -36,7 +40,7 @@ Most Charts of Accounts just have one account for everything tax-related, which 
 
 ### Taxes in current year
 
-The account **"Tax expense, current year" **can be forecasted as:
+The account \*\*"Tax expense, current year" \*\*can be forecasted as:
 
 ```typescript
 = -"Profit before taxes"[0] * "% tax rate"[0]
@@ -44,14 +48,10 @@ The account **"Tax expense, current year" **can be forecasted as:
 
 While the real tax expense may deviate due to calculations in the tax books, basing it on forecasted P&L numbers is a good proxy.
 
-The account**"Tax payables, current year" ** can be forecasted as:
+The account\*\*"Tax payables, current year" \*\* can be forecasted as:
 
 ```typescript
 = -"Tax payables, current year"[-1] - "Tax expense, current year"[0] + if(if_month(3) = 1 or if_month(11) = 1, -"tax payment"[0],0)
 ```
 
 The idea is that the recognized tax expense from the P&L is credited to the tax payable, and then debited whenever (aconto) payments are made to the tax authorities.
-
-<Info>
-  Tax expenses are 
-</Info>
