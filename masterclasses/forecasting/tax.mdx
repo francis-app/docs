@@ -2,23 +2,56 @@
 title: "Forecasting Tax"
 sidebarTitle: "Tax"
 icon: "hand-holding-dollar"
-description: "Leverage Francis' components and functions to accurately forecast tax."
+description: "Consider updating tax accounts in your Chart of Accounts to better align with forecasting"
 ---
 
-<iframe width="720" height="482" src="https://www.loom.com/embed/1e021f49eb56490489ff4c1e82878452?sid=dd11a591-ba47-4120-9f55-d2126322abc4" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+<iframe width="720" height="464" src="https://www.loom.com/embed/527e59829b3d4a3989bcc5dfb8f23f2e?sid=8e0c6c20-8cc5-482f-8c5c-9071a3eb3c53" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
 ## Overview
 
-Accurate tax forecasting prevents unexpected cash outflows. In Francis, you can model estimated tax expenses and any resulting liabilities well in advance, making it easier to see how pending tax payments affect your overall cash flow. This guide shows you how to structure tax expenses on the P\&L, track liabilities on the balance sheet, and import journal entries that capture real-world accountant adjustments.
+Taxes can be tricky to forecast. One reason is that the final tax expense is based on separate tax calculations in tax books that are separate from the company's books. Another reason is that Chart of Accounts typixally only include one account for everything tax-related, which ends up with a lot of noise from end-of-year adjustments and similar. This guide shows you how to structure tax expenses on the P&L and tax payables on the balance sheet to make it as straightforward as possible.
 
 ## Basics
 
-Tax expenses typically appear in December, creating a liability on the balance sheet. You can use conditional formulas (e.g., `if()`) to forecast monthly variations. In practice, these entries may not be finalized until mid-way through the next year, once annual statements are complete.
+Typically, tax journal entries follow a pattern similar to:
 
-To address this:
+- Recognize taxes month-by-month throughout the year
+- Pay advance taxes ("aconto") in March and November
+- Make end-of-year adjustmens when the annual report is finalized during the next fiscal year
+- Make end-of-year adjustments for any prior errors
 
-* **Create a journal entry for the expected tax expense.** By estimating your yearly tax in advance, you can import the liability directly into Francis rather than waiting for final calculations.
+Most Charts of Accounts just have one account for everything tax-related, which includes everything above. Consider splitting taxes into multiple accounts, separating month-by-month tax reconigtion and advance payments from end-of-year-adjustments. For example:
 
-* **Apply adjustments as needed.** When accountants finalize the actual tax expense, import a single adjustment entry instead of a completely new record.
+**P&L accounts**
 
-By following this approach, you’ll ensure your financial model reflects accurate tax forecasts and stays up to date with real-world accounting practices.
+- **"Tax expense, current year"**: Tax recognized during the fiscal year. Book these as you close the months, so that you can compare budget to actuals.
+- **"Tax expense, correction to last year"**: The difference between the taxes recognized and paid in advance throughout the year vs. the actual tax expense from the annual report (typically ready 3-6 months into the next year)
+- **"Tax expense, correction to historical years"**: Corrections related to earlier fiscal years
+
+**Balance sheet accounts:**
+
+- **"Tax payables, current year"**: Where recognized tax expenses are credited and aconto payments are debited. Ideally nets to zero by year-end
+- **"Tax payables, correction to last year"**: The difference between taxes recognized/paid in advanced throughout the year and actual tax expense goes here. Goes to zero once settled with the tax authorities.
+- **"Tax payables, correction to historical years":** Older corrections that remain until settled. Goes to zero once settled with the tax authorities.
+
+### Taxes in current year
+
+The account **"Tax expense, current year" **can be forecasted as:
+
+```typescript
+= -"Profit before taxes"[0] * "% tax rate"[0]
+```
+
+While the real tax expense may deviate due to calculations in the tax books, basing it on forecasted P&L numbers is a good proxy.
+
+The account **"Tax payables, current year" **can be forecasted as:
+
+```typescript
+= -"Tax payables, current year"[-1] - "Tax expense, current year"[0] + if(if_month(3) = 1 or if_month(11) = 1, -"aconto payment"[0],0)
+```
+
+The idea is that the recognized tax expense from the P&L is credited to the tax payable, and then debited whenever (aconto) payments are made to the tax authorities.
+
+<Info>
+  Tax expenses are 
+</Info>
