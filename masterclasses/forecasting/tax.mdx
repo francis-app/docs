@@ -44,10 +44,10 @@ The account **"Tax expense, current year" **can be forecasted as:
 
 While the real tax expense may deviate due to calculations in the tax books, basing it on forecasted P&L numbers is a good proxy.
 
-The account **"Tax payables, current year" **can be forecasted as:
+The account**"Tax payables, current year" ** can be forecasted as:
 
 ```typescript
-= -"Tax payables, current year"[-1] - "Tax expense, current year"[0] + if(if_month(3) = 1 or if_month(11) = 1, -"aconto payment"[0],0)
+= -"Tax payables, current year"[-1] - "Tax expense, current year"[0] + if(if_month(3) = 1 or if_month(11) = 1, -"tax payment"[0],0)
 ```
 
 The idea is that the recognized tax expense from the P&L is credited to the tax payable, and then debited whenever (aconto) payments are made to the tax authorities.
