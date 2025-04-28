@@ -53,30 +53,30 @@ The three categories follow different patterns, so it makes sense to separate th
 
 ### Forecasting tax expenses
 
-Now that you've separated your timely tax expenses from after-the-fact adjustments, you can forecast tax expenses. We typically see three stages:
+Now that you’ve separated timely tax expenses from after-the-fact adjustments, you can start forecasting tax expenses. We typically see three stages:
 
 1. Not forecasting taxes. This means ignoring the impact on expenses and cash flow. Makes sense if you're a loss-making startup with no near-term tax liability.
-2. Forecasting taxes based on cash payments. This means recording expenses as payments are made, e.g., an aconto payment in March, an aconto payment in November and an adjustment at year end.
-3. Forecasting taxes month-by-month. This means recording your tax expense every month and utilizing your tax payables accounts (on liabilities) to manage cash flow.  
+2. Forecasting taxes based on cash payments. Tax expenses are recorded when payments are made, for example, an _aconto_ payment in March, another in November, and an adjustment at year-end. This approach reflects cash movements but can distort reported profitability throughout the year.
+3. Forecasting taxes across months. Tax payable accounts are used on the balance sheet to separate expense recognition from cash outflow, giving a clearer view of both profitability and cash flow.
 
-If you have taxable income and incur tax liabilities, we recommend forecasting taxes month-by-month. It provides the most rightful picture of your performance and cash effects. If you forecast taxes based on cash payments, you can still use the formulas below.
+If you have taxable income and expect to incur tax liabilities, we recommend forecasting taxes month-by-month. It provides a more accurate view of your financial performance and cash effects. If you prefer forecasting based on cash payments, you can still apply the formulas outlined below.
 
 **Tax expense**
 
-The forecasted tax expenses are typically based on profit before taxes multiplied with the tax rate.
+Forecasted tax expenses are typically calculated by multiplying pre-tax profit by the applicable tax rate.
 
 ```typescript
 = -"Profit before taxes"[0] * "% tax rate"[0]
 ```
 
-Other methods include relying on actuals from previous years if you have stable operations, using a forecasted effective tax rate based on historicals or advisory from external accountants or including tax adjustments. 
+Other methods include using actuals from prior years if operations are stable, applying a forecasted effective tax rate based on historical data or external advisor input, or incorporating specific tax adjustments.
 
 **Tax payables**
 
-The account "Tax payables, current year" can be forecasted as:
+The account “Tax payables, current year” can be forecasted as the difference between forecasted tax expenses and expected tax payments during the year.
 
 ```typescript
 = -"Tax payables, current year"[-1] - "Tax expense, current year"[0] + if(if_month(3) = 1 or if_month(11) = 1, -"tax payment"[0],0)
 ```
 
-The idea is that the recognized tax expense from the P&L is credited to the tax payable, and then debited whenever (aconto) payments are made to the tax authorities.
+The idea is that recognized tax expenses from the P&L are credited to the tax payable account, and the balance is debited whenever (aconto) payments are made to the tax authorities.
