@@ -2,53 +2,78 @@
 title: "Forecasting Tax"
 sidebarTitle: "Tax"
 icon: "hand-holding-dollar"
-description: "Consider updating your Chart of Accounts to better align with forecasting"
+description: "There are three things you should consider when forecasting taxes"
 ---
 
 <iframe width="720" height="464" src="https://www.loom.com/embed/527e59829b3d4a3989bcc5dfb8f23f2e?sid=8e0c6c20-8cc5-482f-8c5c-9071a3eb3c53" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
 ## Overview
 
-Taxes can be tricky to forecast. One reason is that the final tax expense is based on tax accounting - a separate set of books from financial accounting, with adjustments made for tax rules and regulations. Another reason is that Chart of Accounts typixally only include one account for everything tax-related, which ends up with a lot of noise from end-of-year adjustments and similar. This guide shows you how to structure tax expenses on the P&L and tax payables on the balance sheet to make it as straightforward as possible.
-
-<Info>
-  When forecasting taxes, it’s important to remember that the final tax expense is based on tax accounting - a separate set of books from financial accounting, with adjustments made for tax rules. However, forecasting taxes based on financial accounting figures can serve as a proxy.
-</Info>
+Taxes are harder to forecast than most other items. One reason is that the final tax expense is based on tax accounting - a separate set of books from financial accounting, with adjustments made for tax rules. Another reason is that Chart of Accounts typically only include one account for everything tax-related, which ends up with a lot of noise from end-of-year adjustments and similar. This guide explains how to forecast taxes more effectively by structuring your accounts properly and applying the right forecasting logic.
 
 ## Basics
 
-Typically, tax journal entries follow a pattern similar to:
+### Tax accounting vs financial accounting
 
-- Recognize taxes month-by-month throughout the year
-- Pay advance taxes ("aconto") in March and November
-- Make end-of-year adjustmens when the annual report is finalized during the next fiscal year
-- Make end-of-year adjustments for any prior errors
+When forecasting taxes, it’s important to remember that the final tax expense is based on tax accounting - a separate set of books from financial accounting, with adjustments made to comply with tax rules.
 
-Most Charts of Accounts just have one account for everything tax-related, which includes everything above. Consider splitting taxes into multiple accounts, separating month-by-month tax reconigtion and advance payments from end-of-year-adjustments. For example:
+<Info>
+  Examples of common tax adjustments include different depreciation methods (e.g., accelerated for tax but straight-line for financial reporting), disallowance of certain expenses (like fines), and timing differences in revenue recognition (cash basis for tax vs. accrual for financials).
+</Info>
+
+For SMBs, accountants typically manage the tax books in parallel with financial accounting and perform the necessary adjustments at year-end to estimate the final tax expense.
+
+To forecast taxes effectively, finance teams often use financial accounting figures as a basis for forecasting - typically by multiplying pre-tax income by the corporate tax rate. This approach is considered a good enough proxy for forecasting expenses and cash flow impacts. If specific items are expected to result in material tax adjustments, those adjustments can be incorporated into the forecast.
+
+### Organizing your tax accounts
+
+Typically, at a minimum, tax journal entries are created in the ERP for:
+
+- Advance tax payments (e.g., aconto payments in March and November in Denmark)
+- End-of-year adjustments to reconcile recognized tax expenses with the final tax expense
+- Corrections to previous years
+
+Most charts of accounts have a single account for all tax-related entries, covering everything above. The problem with this approach is that it bundles items of different nature together, making it difficult to get clear visibility into actual tax payments, expenses, and adjustments.
+
+Consider splitting taxes into multiple accounts, separating timely tax expenses with after-the-fact adjustments. For example:
 
 **P&L accounts**
 
-- **"Tax expense, current year"**: Tax recognized during the fiscal year. Book these as you close the months, so that you can compare budget to actuals.
-- **"Tax expense, correction to last year"**: The difference between the taxes recognized and paid in advance throughout the year vs. the actual tax expense from the annual report (typically ready 3-6 months into the next year)
-- **"Tax expense, correction to historical years"**: Corrections related to earlier fiscal years
+- **"Tax expense, recognized current year"**: Tax expenses recognized during the fiscal year
+- **"Tax expense, delta recognized vs. final"**: Difference between recognized tax expenses and final tax expenses after year-end (when you’re into the next year)
+- **"Tax expense, correction for previous years"**: Adjustments related to prior years
 
 **Balance sheet accounts:**
 
-- **"Tax payables, current year"**: Where recognized tax expenses are credited and aconto payments are debited. Ideally nets to zero by year-end
-- **"Tax payables, correction to last year"**: The difference between taxes recognized/paid in advanced throughout the year and actual tax expense goes here. Goes to zero once settled with the tax authorities.
-- **"Tax payables, correction to historical years":** Older corrections that remain until settled. Goes to zero once settled with the tax authorities.
+- **"Tax payables, recognized current year"**: Where recognized tax expenses are credited and advance tax payments (aconto) are debited. Should net to zero by year-end if your recognized tax expenses match your aconto payments
+- **"Tax payables, delta recognized vs. final"**: The delta to the final tax expense lands here. Goes to zero once settled with the tax authorities.
+- **"Tax payables, correction to historical years":** Adjustments related to prior years lands here. Goes to zero once settled with the tax authorities.
 
-### Taxes in current year
+The three categories follow different patterns, so it makes sense to separate them. It’s a small structural change, but makes forecasting far more manageable. 
 
-The account \*\*"Tax expense, current year" \*\*can be forecasted as:
+### Forecasting tax expenses
+
+Now that you've separated your timely tax expenses from after-the-fact adjustments, you can forecast tax expenses. We typically see three stages:
+
+1. Not forecasting taxes. This means ignoring the impact on expenses and cash flow. Makes sense if you're a loss-making startup with no near-term tax liability.
+2. Forecasting taxes based on cash payments. This means recording expenses as payments are made, e.g., an aconto payment in March, an aconto payment in November and an adjustment at year end.
+3. Forecasting taxes month-by-month. This means recording your tax expense every month and utilizing your tax payables accounts (on liabilities) to manage cash flow.  
+
+If you have taxable income and incur tax liabilities, we recommend forecasting taxes month-by-month. It provides the most rightful picture of your performance and cash effects. If you forecast taxes based on cash payments, you can still use the formulas below.
+
+**Tax expense**
+
+The forecasted tax expenses are typically based on profit before taxes multiplied with the tax rate.
 
 ```typescript
 = -"Profit before taxes"[0] * "% tax rate"[0]
 ```
 
-While the real tax expense may deviate due to calculations in the tax books, basing it on forecasted P&L numbers is a good proxy.
+Other methods include relying on actuals from previous years if you have stable operations, using a forecasted effective tax rate based on historicals or advisory from external accountants or including tax adjustments. 
 
-The account\*\*"Tax payables, current year" \*\* can be forecasted as:
+**Tax payables**
+
+The account "Tax payables, current year" can be forecasted as:
 
 ```typescript
 = -"Tax payables, current year"[-1] - "Tax expense, current year"[0] + if(if_month(3) = 1 or if_month(11) = 1, -"tax payment"[0],0)
