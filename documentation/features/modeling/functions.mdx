@@ -11,11 +11,10 @@ icon: "function"
 </Tip>
 
 <AccordionGroup>
-  <Accordion title='avg("row_name"[range_start:range_end])' defaultOpen={false}>
+  <Accordion title='avg("row_name"[range_start:range_end])' defaultOpen="false">
     The `avg()` function calculates the average of the values in the specified time series from `range_start` to `range_end`.
 
     ```typescript
-    // Example
     avg("Revenue"[-3:0])
     ```
   </Accordion>
@@ -23,7 +22,6 @@ icon: "function"
     The `avg_ytd()` function returns the average of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```typescript
-    // Example 
     avg_ytd("Revenue")
     ```
   </Accordion>
@@ -31,7 +29,6 @@ icon: "function"
     The `avg_last_year()` function returns the average of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
     ```typescript
-    // Example
     avg_last_year("Revenue")
     ```
   </Accordion>
@@ -39,15 +36,13 @@ icon: "function"
     The `avg_last()` function returns the average of the values in the time series going back _n_ months, as defined by the `num_months` parameter.
 
     ```typescript
-    // Example
-    avg_last("Revenue",6)
+    avg_last("Revenue", 6)
     ```
   </Accordion>
   <Accordion title='median("row_name"[range_start:range_end])'>
     The `median()` function returns the median of the values in the specified time series from `range_start` to `range_end`
 
     ```typescript
-    // Example
     median("Revenue"[-3:0])
     ```
   </Accordion>
@@ -55,7 +50,6 @@ icon: "function"
     The `median_ytd()` function returns the median of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```typescript
-    // Example
     median_ytd("Revenue")
     ```
   </Accordion>
@@ -63,7 +57,6 @@ icon: "function"
     The `median_last_year()` function returns the median of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
     ```typescript
-    // Example
     median_last_year("Revenue")
     ```
   </Accordion>
@@ -71,7 +64,6 @@ icon: "function"
     The `median_last()` function returns the median of the values in the time series going back _X_ months, as defined by the `num_months` parameter.
 
     ```typescript
-    // Example
     median_last("Revenue", 6)
     ```
   </Accordion>
@@ -79,7 +71,6 @@ icon: "function"
     The `sum()` function calculates the total of the values in the specified time series from `range_start` to `range_end`.
 
     ```typescript
-    // Example
     sum("Revenue"[-3:0])
     ```
   </Accordion>
@@ -87,7 +78,6 @@ icon: "function"
     The `sum_ytd()` function returns the sum of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```typescript
-    // Example
     sum_ytd("Revenue")
     ```
   </Accordion>
@@ -98,20 +88,19 @@ icon: "function"
     sum_last_year("Revenue")
     ```
   </Accordion>
-  <Accordion title='sum_last("row_name", num_month)' defaultOpen={false}>
+  <Accordion title='sum_last("row_name", num_month)' defaultOpen="false">
     The `sum_last()` function returns the sum of the values in the time series going back _X_ months, as defined by the `num_months` parameter.
 
     ```typescript
     sum_last("Revenue", 6)
     ```
   </Accordion>
-  <Accordion title='receivables("row_name", payment_days)' defaultOpen={false}>
+  <Accordion title='receivables("row_name", payment_days)' defaultOpen="false">
     The `receivables()` function accumulates revenue amounts from previous months based on an assumption of payment days. Based on the number of payment days, the function loops back through previous months to collect revenue as part of receivables.
 
     The function assumes 30 days per month. The payment days input must be hardcoded and cannot reference a cell.
 
     ```typescript
-    // Example
     receivables("Revenue", 30)
     ```
   </Accordion>
@@ -119,7 +108,6 @@ icon: "function"
     The`ignore_div_zero()` returns a zero if the function's output is a #DIV\!/0 error. The function is used for margin and percentage calculations, where the denominator is occasionally zero.
 
     ```typescript
-    // Example
     ignore_div_zero("Direct cost"[0] / "Revenue"[0])
     ```
   </Accordion>
@@ -127,67 +115,59 @@ icon: "function"
     The `power()` function is a mathematical function that returns the value of the parameter _num_ to the power of the _exponent_ parameter.
 
     ```typescript
-    // Example
-    power(10,2)
+    power(10, 2) // returns 100
     ```
   </Accordion>
   <Accordion title="min(a,b)">
     The `min()` function returns the smallest numeric value of the input values.
 
     ```typescript
-    // Example
-    min("Revenue"[0],"Revenue"[-1])
+    min(5, 10) // returns 5
     ```
   </Accordion>
   <Accordion title="max(a,b)">
     The `max()` function returns the largest numeric value of the input values.
 
     ```typescript
-    // Example
-    max("Revenue"[0],"Revenue"[-1])
+    max(5, 10) // returns 10
     ```
   </Accordion>
   <Accordion title="abs(num)">
     The `abs()` function returns the absolute value of a number.
 
     ```typescript
-    // Example
-    abs("Direct costs"[0])
+    abs(-10) // returns 10
     ```
   </Accordion>
   <Accordion title="round(num, decimals)">
     The `round()` function rounds the number value up or down to the nearest integer. Optionally, provide desired number of decimals.
 
     ```typescript
-    // Example
-    round("Revenue"[0],2)
+    round(10.4386) // returns 10
     ```
   </Accordion>
   <Accordion title="round_down(num)">
     The `round_down()` function rounds numbers _down_ to the nearest integer.
 
     ```typescript
-    // Example
-    round_down("Revenue"[0])
+    round_down(10.6) // returns 10
     ```
   </Accordion>
   <Accordion title="round_up(num)">
     The `round_up()` function rounds numbers _up_ to the nearest integer.
 
     ```typescript
-    // Example
-    round_up("Revenue"[0])
+    round_up(10.6) // returns 11
     ```
   </Accordion>
   <Accordion title="if(condition, value_if_true, value_if_false)">
     The `if()` function allows you to create a conditional calculation, similar to what is available in Excel or Google Sheets.
 
     ```typescript
-    // Example
     if("Revenue"[0]=0,0,"Gross profit"[0]/"Revenue"[0])
+    
+    // If revenue is zero, display zero; otherwise, calculate the gross profit margin. This specific example prevents #ERRs from dividing by zero.
     ```
-
-    If revenue is zero, display zero; otherwise, calculate the gross profit margin. This specific example prevents #ERRs from dividing by zero.
   </Accordion>
   <Accordion title="if_month(a,b)">
     The `if_month` function returns `1` if the time period is equal to the month number input in the formula, else `0`.
@@ -207,10 +187,7 @@ icon: "function"
     The `weekdays()` functions returns the numbers of weekdays (Monday through Friday) in a given month.
 
     ```typescript
-    // Example
-    weekdays()
+    weekdays() // January 2025 returns 23
     ```
-
-    For January 2025 `weekdays()` returns 23.
   </Accordion>
 </AccordionGroup>
