@@ -11,7 +11,7 @@ icon: "function"
 </Tip>
 
 <AccordionGroup>
-  <Accordion title='avg("row_name"[range_start:range_end])' defaultOpen="false">
+  <Accordion title='avg("row_name"[range_start:range_end])'>
     The `avg()` function calculates the average of the values in the specified time series from `range_start` to `range_end`.
 
     ```typescript
@@ -88,14 +88,14 @@ icon: "function"
     sum_last_year("Revenue")
     ```
   </Accordion>
-  <Accordion title='sum_last("row_name", num_month)' defaultOpen="false">
+  <Accordion title='sum_last("row_name", num_month)'>
     The `sum_last()` function returns the sum of the values in the time series going back _X_ months, as defined by the `num_months` parameter.
 
     ```typescript
     sum_last("Revenue", 6)
     ```
   </Accordion>
-  <Accordion title='receivables("row_name", payment_days)' defaultOpen="false">
+  <Accordion title='receivables("row_name", payment_days)'>
     The `receivables()` function accumulates revenue amounts from previous months based on an assumption of payment days. Based on the number of payment days, the function loops back through previous months to collect revenue as part of receivables.
 
     The function assumes 30 days per month. The payment days input must be hardcoded and cannot reference a cell.
