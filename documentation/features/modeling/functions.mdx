@@ -11,7 +11,7 @@ icon: "function"
 </Tip>
 
 <AccordionGroup>
-  <Accordion title="avg(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
+  <Accordion title='avg("row_name"[range_start:range_end])' defaultOpen="false">
     The `avg()` function calculates the average of the values in the specified time series from `range_start` to `range_end`.
 
     ```typescript
@@ -19,17 +19,15 @@ icon: "function"
     avg("Revenue"[-3:0])
     ```
   </Accordion>
-
-  <Accordion title="avg_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
-    The `avg_ytd()` function returns the average of the values in a time series from the beginning of the fiscal year until and including the current month.&#x20;
+  <Accordion title='avg_ytd("row_name")' defaultOpen="false">
+    The `avg_ytd()` function returns the average of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```typescript
     // Example 
     avg_ytd("Revenue")
     ```
   </Accordion>
-
-  <Accordion title="avg_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
+  <Accordion title='avg_last_year("row_name")' defaultOpen="false">
     The `avg_last_year()` function returns the average of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
     ```typescript
@@ -37,17 +35,15 @@ icon: "function"
     avg_last_year("Revenue")
     ```
   </Accordion>
-
-  <Accordion title="avg_last(&#x22;row_name&#x22;,num_months)" defaultOpen={false}>
-    The `avg_last()` function returns the average of the values in the time series going back *n* months, as defined by the `num_months` parameter.
+  <Accordion title='avg_last("row_name",num_months)' defaultOpen="false">
+    The `avg_last()` function returns the average of the values in the time series going back _n_ months, as defined by the `num_months` parameter.
 
     ```typescript
     // Example
     avg_last("Revenue",6)
     ```
   </Accordion>
-
-  <Accordion title="median(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
+  <Accordion title='median("row_name"[range_start:range_end])' defaultOpen="false">
     The `median()` function returns the median of the values in the specified time series from `range_start` to `range_end`
 
     ```typescript
@@ -55,8 +51,7 @@ icon: "function"
     median("Revenue"[-3:0])
     ```
   </Accordion>
-
-  <Accordion title="median_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
+  <Accordion title='median_ytd("row_name")' defaultOpen="false">
     The `median_ytd()` function returns the median of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```typescript
@@ -64,8 +59,7 @@ icon: "function"
     median_ytd("Revenue")
     ```
   </Accordion>
-
-  <Accordion title="median_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
+  <Accordion title='median_last_year("row_name")' defaultOpen="false">
     The `median_last_year()` function returns the median of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
     ```typescript
@@ -73,17 +67,15 @@ icon: "function"
     median_last_year("Revenue")
     ```
   </Accordion>
-
-  <Accordion title="median_last(&#x22;row_name&#x22;, num_months)" defaultOpen={false}>
-    The `median_last()` function returns the median of the values in the time series going back *X* months, as defined by the `num_months` parameter.
+  <Accordion title='median_last("row_name", num_months)' defaultOpen="false">
+    The `median_last()` function returns the median of the values in the time series going back _X_ months, as defined by the `num_months` parameter.
 
     ```typescript
     // Example
     median_last("Revenue", 6)
     ```
   </Accordion>
-
-  <Accordion title="sum(&#x22;row_name&#x22;[range_start:range_end])" defaultOpen={false}>
+  <Accordion title='sum("row_name"[range_start:range_end])' defaultOpen="false">
     The `sum()` function calculates the total of the values in the specified time series from `range_start` to `range_end`.
 
     ```typescript
@@ -91,62 +83,55 @@ icon: "function"
     sum("Revenue"[-3:0])
     ```
   </Accordion>
-
-  <Accordion title="sum_ytd(&#x22;row_name&#x22;)" defaultOpen={false}>
-    The `sum_ytd()` function returns the sum of the values in a time series from the beginning of the fiscal year until and including the current month.&#x20;
+  <Accordion title='sum_ytd("row_name")' defaultOpen="false">
+    The `sum_ytd()` function returns the sum of the values in a time series from the beginning of the fiscal year until and including the current month.
 
     ```typescript
     // Example
     sum_ytd("Revenue")
     ```
   </Accordion>
-
-  <Accordion title="sum_last_year(&#x22;row_name&#x22;)" defaultOpen={false}>
+  <Accordion title='sum_last_year("row_name")' defaultOpen="false">
     The `sum_last_year()` function returns the sum of the values in the previous fiscal year. This function is influenced by your fiscal year settings.
 
     ```typescript
     sum_last_year("Revenue")
     ```
   </Accordion>
-
-  <Accordion title="sum_last(&#x22;row_name&#x22;, num_month)" defaultOpen={false}>
-    The `sum_last()` function returns the sum of the values in the time series going back *X* months, as defined by the `num_months` parameter.
+  <Accordion title='sum_last("row_name", num_month)' defaultOpen="false">
+    The `sum_last()` function returns the sum of the values in the time series going back _X_ months, as defined by the `num_months` parameter.
 
     ```typescript
     sum_last("Revenue", 6)
     ```
   </Accordion>
+  <Accordion title='receivables("row_name", payment_days)' defaultOpen="false">
+    The `receivables()` function accumulates revenue amounts from previous months based on an assumption of payment days. Based on the number of payment days, the function loops back through previous months to collect revenue as part of receivables.
 
-  <Accordion title="receivables(&#x22;row_name&#x22;, payment_days)" defaultOpen={false}>
-    The `receivables()` function accumulates revenue amounts from previous months based on an assumption of payment days. Based on the number of payment days, the function loops back through previous months to collect revenue as part of receivables.&#x20;
-
-    The function assumes 30 days per month. The payment days input must be hardcoded and cannot reference a cell.&#x20;
+    The function assumes 30 days per month. The payment days input must be hardcoded and cannot reference a cell.
 
     ```typescript
     // Example
     receivables("Revenue", 30)
     ```
   </Accordion>
-
-  <Accordion title="ignore_div_zero(a/b)" defaultOpen={false}>
-    The`ignore_div_zero()` returns a zero if the function's output is a #DIV!/0 error. The function is used for margin and percentage calculations, where the denominator is occasionally zero.
+  <Accordion title="ignore_div_zero(a/b)" defaultOpen="false">
+    The`ignore_div_zero()` returns a zero if the function's output is a #DIV\!/0 error. The function is used for margin and percentage calculations, where the denominator is occasionally zero.
 
     ```typescript
     // Example
     ignore_div_zero("Direct cost"[0] / "Revenue"[0])
     ```
   </Accordion>
-
-  <Accordion title="power(num, exponent)" defaultOpen={false}>
-    The `power()` function is a mathematical function that returns the value of the parameter *num* to the power of the *exponent* parameter.
+  <Accordion title="power(num, exponent)" defaultOpen="false">
+    The `power()` function is a mathematical function that returns the value of the parameter _num_ to the power of the _exponent_ parameter.
 
     ```typescript
     // Example
     power(10,2)
     ```
   </Accordion>
-
-  <Accordion title="min(a,b)" defaultOpen={false}>
+  <Accordion title="min(a,b)" defaultOpen="false">
     The `min()` function returns the smallest numeric value of the input values.
 
     ```typescript
@@ -154,8 +139,7 @@ icon: "function"
     min("Revenue"[0],"Revenue"[-1])
     ```
   </Accordion>
-
-  <Accordion title="max(a,b)" defaultOpen={false}>
+  <Accordion title="max(a,b)" defaultOpen="false">
     The `max()` function returns the largest numeric value of the input values.
 
     ```typescript
@@ -163,8 +147,7 @@ icon: "function"
     max("Revenue"[0],"Revenue"[-1])
     ```
   </Accordion>
-
-  <Accordion title="abs(num)" defaultOpen={false}>
+  <Accordion title="abs(num)" defaultOpen="false">
     The `abs()` function returns the absolute value of a number.
 
     ```typescript
@@ -172,8 +155,7 @@ icon: "function"
     abs("Direct costs"[0])
     ```
   </Accordion>
-
-  <Accordion title="round(num, decimals)" defaultOpen={false}>
+  <Accordion title="round(num, decimals)" defaultOpen="false">
     The `round()` function rounds the number value up or down to the nearest integer. Optionally, provide desired number of decimals.
 
     ```typescript
@@ -181,26 +163,23 @@ icon: "function"
     round("Revenue"[0],2)
     ```
   </Accordion>
-
-  <Accordion title="round_down(num)" defaultOpen={false}>
-    The `round_down()` function rounds numbers *down* to the nearest integer.
+  <Accordion title="round_down(num)" defaultOpen="false">
+    The `round_down()` function rounds numbers _down_ to the nearest integer.
 
     ```typescript
     // Example
     round_down("Revenue"[0])
     ```
   </Accordion>
-
-  <Accordion title="round_up(num)" defaultOpen={false}>
-    The `round_up()` function rounds numbers *up* to the nearest integer.
+  <Accordion title="round_up(num)" defaultOpen="false">
+    The `round_up()` function rounds numbers _up_ to the nearest integer.
 
     ```typescript
     // Example
     round_up("Revenue"[0])
     ```
   </Accordion>
-
-  <Accordion title="if(condition, value_if_true, value_if_false)" defaultOpen={false}>
+  <Accordion title="if(condition, value_if_true, value_if_false)" defaultOpen="false">
     The `if()` function allows you to create a conditional calculation, similar to what is available in Excel or Google Sheets.
 
     ```typescript
@@ -210,24 +189,26 @@ icon: "function"
 
     If revenue is zero, display zero; otherwise, calculate the gross profit margin. This specific example prevents #ERRs from dividing by zero.
   </Accordion>
-
-  <Accordion title="if_month(a,b)" defaultOpen={false}>
+  <Accordion title="if_month(a,b)" defaultOpen="false">
     The `if_month` function returns `1` if the time period is equal to the month number input in the formula, else `0`.
 
-    * `if_month(1)` returns `1` if the month is January, else `0`&#x20;
-
-    * `if_month(1,6)` returns `1` if the month is January or June, else `0`
-
-    * `if_month(1,6,12)` returns `1` if the month is January, June, or December, else `0`
+    - `if_month(1)` returns `1` if the month is January, else `0`
+    - `if_month(1,6)` returns `1` if the month is January or June, else `0`
+    - `if_month(1,6,12)` returns `1` if the month is January, June, or December, else `0`
   </Accordion>
+  <Accordion title="if_quarter_month(num)" defaultOpen="false">
+    The `if_quarter_month` function returns `1` if the time period is equal to the month number inside a given quarter. E.g., you can input [1;3] into the formula.
 
-  <Accordion title="if_quarter_month(num)" defaultOpen={false}>
-    The `if_quarter_month` function returns `1` if the time period is equal to the month number inside a given quarter. E.g., you can input \[1;3] into the formula.
+    - `if_quarter_month(1)` returns `1` if the month is January, April, July, or October
+    - `if_quarter_month(2)` returns `1` if the month is February, May, August, or November
+    - `if_quarter_month(3)` returns `1` if the month is March, June, September, or December
+  </Accordion>
+  <Accordion title="weekdays()">
+    The `weekdays()` functions returns the numbers of weekdays (Monday through Friday) in a given month.
 
-    * `if_quarter_month(1)` returns `1` if the month is January, April, July, or October
-
-    * `if_quarter_month(2)` returns `1` if the month is February, May, August, or November
-
-    * `if_quarter_month(3)` returns `1` if the month is March, June, September, or December
+    ```typescript
+    // Example
+    weekdays()
+    ```
   </Accordion>
 </AccordionGroup>
