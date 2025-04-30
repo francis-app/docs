@@ -5,7 +5,7 @@ icon: "hand-holding-dollar"
 description: "There are three things you should consider when forecasting taxes"
 ---
 
-<iframe width="720" height="464" src="https://www.loom.com/embed/527e59829b3d4a3989bcc5dfb8f23f2e?sid=8e0c6c20-8cc5-482f-8c5c-9071a3eb3c53" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+<iframe width="720" height="467" src="https://www.loom.com/embed/7b9a464924f046b5943fcfc63c9bfb32?sid=41e6a76c-48c6-4788-aba0-0f8b5f4e3a70" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
 
 ## Overview
 
@@ -23,43 +23,59 @@ When forecasting taxes, it’s important to remember that the final tax expense 
 
 For SMBs, accountants typically manage the tax books in parallel with financial accounting and perform the necessary adjustments at year-end to estimate the final tax expense.
 
-To forecast taxes effectively, finance teams often use financial accounting figures as a basis for forecasting - typically by multiplying pre-tax income by the corporate tax rate. This approach is considered a good enough proxy for forecasting expenses and cash flow impacts. If specific items are expected to result in material tax adjustments, those adjustments can be incorporated into the forecast.
+To forecast taxes effectively, finance teams often use financial accounting figures as a basis for forecasting - typically by multiplying pre-tax income by the corporate tax rate. The consideration is that the resources required to include the tax adjustments typically does not outweigh the improved accuracy on expense and cash flow forecasting. If specific items are expected to result in material tax adjustments, those adjustments can potentially be incorporated into the forecast.
 
 ### Organizing your tax accounts
 
-Typically, at a minimum, tax journal entries are created in the ERP for:
+Most Charts of Accounts start with a single “Tax expense” account, bundling everything tax-related. This limits visibility and makes forecasting harder.
 
-- Advance tax payments (e.g., aconto payments in March and November in Denmark)
-- End-of-year adjustments to reconcile recognized tax expenses with the final tax expense
-- Corrections to previous years
+Instead, separate your tax accounts. Focus on splitting the recognized tax expense for the year from adjustments, so you have a clean, forecastable number. Here are some suggestions:
 
-Most charts of accounts have a single account for all tax-related entries, covering everything above. The problem with this approach is that it bundles items of different nature together, making it difficult to get clear visibility into actual tax payments, expenses, and adjustments.
+Prepaid taxes
 
-Consider splitting taxes into multiple accounts, separating timely tax expenses with after-the-fact adjustments. For example:
+- **Tax expense, prepaid:** Tax expense, prepaid taxes: Debit tax expenses during the year.
+- **Tax payables, taxes:** Credit expenses during the year, debit prepayments. Should net to zero at year-end if expenses match prepayments.
 
-**P&L accounts**
+Residual tax
 
-- **"Tax expense, recognized current year"**: Tax expenses recognized during the fiscal year
-- **"Tax expense, delta recognized vs. final"**: Difference between recognized tax expenses and final tax expenses after year-end (when you’re into the next year)
-- **"Tax expense, correction for previous years"**: Adjustments related to prior years
+- **Tax expense, residual:** Debit any difference between prepaid and EOY estimated tax expenses.
+- **Tax payables, residual:** Credit expenses during the year, debit payments. Should clear once paid.
 
-**Balance sheet accounts:**
+EOY adjustments
 
-- **"Tax payables, recognized current year"**: Where recognized tax expenses are credited and advance tax payments (aconto) are debited. Should net to zero by year-end if your recognized tax expenses match your aconto payments
-- **"Tax payables, delta recognized vs. final"**: The delta to the final tax expense lands here. Goes to zero once settled with the tax authorities.
-- **"Tax payables, correction to historical years":** Adjustments related to prior years lands here. Goes to zero once settled with the tax authorities.
+- **Tax expense, EOY adjustments:** Debit the difference between prepaid and residual expenses vs. final tax expenses once it is known.
+- **Tax expense, interest rate expense: **Debit the interest rate expense due to late payments.
+- **Tax payables, EOY adjustments:** Credit the difference, debit payments. Should clear once paid.
 
-The three categories follow different patterns, so it makes sense to separate them. It’s a small structural change, but makes forecasting far more manageable. 
+Other accounts could cover deferred tax assets/liabilities, etc.
+
+The categories follow different patterns, so it makes sense to separate them. It’s a small structural change, but makes forecasting far more manageable. 
+
+<Info>
+  **Example**
+
+  Here’s one way to use the accounts for a Danish company:
+
+  - **Monthly booking:** Record monthly tax expenses to _Tax Expense, Prepaid_ and _Tax Payables, Prepaid_. The total for the year should equal your aconto payments, which ideally match your expected tax liability for the year.
+  - **Aconto payments (March and November):** When you pay aconto taxes in March (1st installment) and November (2nd installment), credit the bank account and debit _Tax Payables, Prepaid_. If the aconto payments match the recognized expenses, the _Tax Payables, Prepaid_ account will be cleared by year-end.
+  - **Residual tax (November - January): **If you plan to pay residual taxes before February of the following year (3rd installment), debit _Tax Expense, Residual_ and credit _Tax Payables, Residual_.
+  - **Paying the residual tax: **When the payment is made, credit the bank account and debit _Tax Payables, Residual_.
+  - **Year-end adjustments:** When external accountants prepare the annual report in the six months following year-endand calculate the final tax expense, record the difference between the total paid and the final tax expense by debiting _Tax Expense, EOY Adjustments_ and crediting _Tax Payables, EOY Adjustments_.
+  - **Interest expenses (if any): **Debit _Tax Expense, Interest Rate Expense_ and credit _Tax Payables, EOY Adjustments_.
+  - **Final payment (November the following year):** When you pay the EOY adjustment and any interest expense, credit the bank account and debit _Tax Payables, EOY Adjustments_. This account should then be cleared.
+</Info>
 
 ### Forecasting tax expenses
 
-Now that you’ve separated timely tax expenses from after-the-fact adjustments, you can start forecasting tax expenses. We typically see three stages:
+Once you have a clean account for this year’s tax expense, you can forecast properly. Typically, teams evolve through three stages:
 
-1. Not forecasting taxes. This means ignoring the impact on expenses and cash flow. Makes sense if you're a loss-making startup with no near-term tax liability.
-2. Forecasting taxes based on cash payments. Tax expenses are recorded when payments are made, for example, an _aconto_ payment in March, another in November, and an adjustment at year-end. This approach reflects cash movements but can distort reported profitability throughout the year.
-3. Forecasting taxes across months. Tax payable accounts are used on the balance sheet to separate expense recognition from cash outflow, giving a clearer view of both profitability and cash flow.
+1. **Ignoring taxes**: No tax expense or cash flow forecast. Fine for loss-making startups.
+2. **Forecasting based on payments (cash-basis):** Forecast March and November aconto payments and a potential November residual payment. Reflects cash movement but distorts profitability.
+3. **Forecasting monthly taxes (accrual, recommended).** Create monthly tax expenses and use tax payable accounts to separate recognition from payments, giving a clearer view of profitability and cash flow.
 
-If you have taxable income and expect to incur tax liabilities, we recommend forecasting taxes month-by-month. It provides a more accurate view of your financial performance and cash effects. If you prefer forecasting based on cash payments, you can still apply the formulas outlined below.
+<Info>
+  Your forecast pattern must match your bookkeeping pattern. Otherwise, you won’t be able to meaningfully compare budget versus actuals. If not feasible, forecasting by payments will still capture cash flow but will misalign monthly profitability.
+</Info>
 
 **Tax expense**
 
@@ -69,7 +85,7 @@ Forecasted tax expenses are typically calculated by multiplying pre-tax profit b
 = -"Profit before taxes"[0] * "% tax rate"[0]
 ```
 
-Other methods include using actuals from prior years if operations are stable, applying a forecasted effective tax rate based on historical data or external advisor input, or incorporating specific tax adjustments.
+Other methods include using actuals from prior years if operations are stable, forecasts provided by the tax authorities, applying a forecasted effective tax rate based on historical data or external advisor input, or incorporating specific tax adjustments.
 
 **Tax payables**
 
