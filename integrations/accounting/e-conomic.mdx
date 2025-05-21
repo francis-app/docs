@@ -8,15 +8,17 @@ sidebarTitle: "Visma e-conomic"
 
 By connecting your Visma e-conomic instance to Francis, you can automatically import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can map Visma e-conomic accounts to corresponding line items in your financial model for more accurate and consistent reporting.
 
-<Tip>
-  Francis only imports booked transactions. Draft transactions are not currently supported.
-</Tip>
-
 ## Configuration
 
-To set up your Visma e-conomic integration, go to **Settings > Integrations > Visma e-conomic**. After enabling, a prompt will appear asking you to confirm the addition of Francis as an application to your Visma e-conomic account. Completing this authorization step ensures that Francis can securely access the necessary data.
+To set up your Visma e-conomic integration, go to **Settings \> Integrations \> Visma e-conomic**. After enabling, a prompt will appear asking you to confirm the addition of Francis as an application to your Visma e-conomic account. Completing this authorization step ensures that Francis can securely access the necessary data.
 
-### Asset Range
+### Draft entries
+
+To include draft entries, also know as kassekladder or kladdeposteringer, go to **Settings \> Integrations \> Visma e-conomic**, and enable_Include draft entries (kassekladder)_  in the configuration.
+
+Whether to include draft entries depends on your team's workflows. Including draft entires allows you to integrate Francis as part of your controlling workflows. You can then analyze the effects of draft entries on financial reports before finalizing and closing the books for a specific month.
+
+### Asset range
 
 If your Visma e-conomic chart of accounts does not match the default template, Francis will prompt you to confirm the asset account range. You’ll specify the start and end of this range by adjusting the `asset_range_start` and `asset_range_end` settings. This ensures that Francis accurately interprets your accounts during data import.
 
@@ -29,7 +31,7 @@ If your Visma e-conomic chart of accounts does not match the default template, F
 If your chart of accounts differs from Visma e-conomic’s default template, you’ll also be prompted to specify your retained earnings account. In most cases, the retained earnings account is 6130 Retained earnings last year.
 
 <Tip>
-  Unsure which account is used for retained earnings? In Visma e-conomic, navigate to Regnskab > Systemkonti > Årsafslutning to verify your retained earnings configuration.
+  Unsure which account is used for retained earnings? In Visma e-conomic, navigate to Regnskab \> Systemkonti \> Årsafslutning to verify your retained earnings configuration.
 </Tip>
 
 ### Dimensions
@@ -52,19 +54,16 @@ Francis applies several adjustments to ensure your imported data is presented in
   <Tab title="Number convention">
     Francis interprets your accounts based on a consistent convention:
 
-    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ) accounts
-
-    * **Negative (-):** Expense (EX) accounts
+    - **Positive (\+):** Income (I), Asset (A), Liability (L), and Equity (EQ) accounts
+    - **Negative (-):** Expense (EX) accounts
 
     These adjustments create a uniform standard across all models and data sources, simplifying comparisons and ensuring your reports are easy to understand. As Francis relies on the configured asset range to determine each account’s classification, confirming your asset range settings is critical. Once correctly set, your accounts will reliably follow the positive/negative convention outlined above.
   </Tab>
-
   <Tab title="Retained earnings">
     When you close a fiscal year, Visma e-conomic moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis supports this by introducing an additional “Retained earnings this year” account, giving you a clear and accurate picture of your retained earnings over time.
 
     As noted above, you may need to specify which account represents retained earnings from previous years so that this adjustment is correctly applied in Francis.
   </Tab>
-
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import, ensuring that your balance sheet data aligns with common reporting practices.
 
