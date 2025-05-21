@@ -10,15 +10,15 @@ By connecting your Business Central instance to Francis, you can seamlessly impo
 
 ## Configuration
 
-To set up your Business Central integration, go to **Settings > Integrations > Business Central**. After enabling, a prompt will appear asking you to confirm the addition of Francis as an application to your Business Central account. Completing this authorization step ensures that Francis can securely access the necessary data.
+To set up your Business Central integration, go to **Settings \> Integrations \> Business Central**. After enabling, a prompt will appear asking you to confirm the addition of Francis as an application to your Business Central account. Completing this authorization step ensures that Francis can securely access the necessary data.
 
 <Tip>
-  To connect Business Central, you often need Admin rights and may need assistance from IT or external consultants. If you encounter any issues, please reach out to [support@francis.app](mailto:support@francis.app), and we’ll send you a guide on properly configuring your Business Central account.
+  To connect Microsoft Business Central, you often need Admin rights and may need assistance from IT or external consultants. If you encounter any issues, please reach out to [support@francis.app](mailto:support@francis.app), and we’ll share a guide on how to connect your Business Central instance.
 </Tip>
 
 ### Account categories
 
-To ensure that imported transactions are processed correctly, all general ledger accounts in Business Central must have appropriate account categories assigned. If you have not yet categorized your accounts, or if you need to double-check these settings, go to **Finance > G/L Account Categories > Edit list > Account Category** in Business Central to review and confirm that each account is properly classified.
+To ensure that imported transactions are processed correctly, all general ledger accounts in Business Central must have appropriate account categories assigned. If you have not yet categorized your accounts, or if you need to double-check these settings, go to **Finance \> G/L Account Categories \> Edit list \> Account Category** in Business Central to review and confirm that each account is properly classified.
 
 ### Dimensions
 
@@ -36,17 +36,14 @@ Francis applies several adjustments to ensure that imported data is aligned with
   <Tab title="Number convention">
     Francis follows a consistent convention for interpreting accounts:
 
-    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
-
-    * **Negative (-):** Expense (EX)
+    - **Positive (\+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+    - **Negative (-):** Expense (EX)
 
     This standardization simplifies comparisons and ensures that reports remain straightforward to interpret. Since Francis relies on your asset range configuration to determine each account’s classification, it’s critical to confirm that your asset range settings are correct.
   </Tab>
-
   <Tab title="Retained earnings">
     When you close a fiscal year, Business Central moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis supports this by introducing an additional “Retained earnings this year” account, giving you a clear and accurate picture of your retained earnings over time.
   </Tab>
-
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import to ensure your balance sheet data aligns with common reporting conventions.
 
