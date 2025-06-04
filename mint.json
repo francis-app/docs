@@ -166,7 +166,8 @@
         {
           "group": "Chart of accounts",
           "pages": [
-            "masterclasses/Chart-of-accounts/IC-accounts"
+            "masterclasses/Chart-of-accounts/IC-accounts",
+            "masterclasses/Chart-of-accounts/GL-accounts-and-dimensions"
           ]
         },
         {
