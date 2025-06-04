@@ -164,6 +164,12 @@
       "pages": [
         "masterclasses/overview",
         {
+          "group": "Chart of accounts",
+          "pages": [
+            "masterclasses/Chart-of-accounts/IC-accounts"
+          ]
+        },
+        {
           "group": "Financial statements",
           "pages": [
             "masterclasses/financial-statements/profit-loss",
