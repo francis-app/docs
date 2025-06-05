@@ -1,0 +1,54 @@
+---
+title: "Non-cash accounts"
+description: "Create dedicated GL accounts for non-cash transactions."
+---
+
+## Overview
+
+In order to correctly forecast cash flow, you must separate cash from non-cash transactions in your GL accounts. When these transactions share the same accounts, it becomes difficult to create a cash flow statement that automatically captures cash movements.
+
+## Basics
+
+### **The cash flow statement**
+
+In most models, actuals are pulled into the P&L and balance sheet by mapping GL accounts. The cash flow statement is then derived using the indirect method:
+
+- Cash from operations starts with net income, then adjusts for non-cash P&L items and working capital changes.
+- Cash from investing reflects actual cash flows related to asset purchases and sales.
+- Cash from financing includes cash events like loan repayments or dividends.
+
+The key distinction:
+
+- Operations → subtract non-cash P&L items
+- Investing/Financing → include only real cash transactions
+
+### **Common pitfall: cash and non-cash bundled together**
+
+In many ERPs, cash and non-cash entries are recorded in the same accounts, making it difficult for [cash flow statement](/masterclasses/financial-statements/cash-flow) logic to distinguish between them automatically. Examples of non-cash items are:
+
+- Income from subsidiaries (equity pickup) increases net income - but is non-cash.
+- Investment in subsidiaries may include both cash acquisitions and non-cash markups.
+- Fixed asset accounts may record both purchases (cash) and depreciation (non-cash).
+- Equity accounts can include dividend payments (cash) and retained earnings (non-cash).
+- Deferred tax movements affect the P&L and balance sheet but involve no cash.
+- Capitalized salaries represent real cash outflows – but the reclassification is non-cash.
+
+Some CoA templates help by splitting out “asset additions” from “depreciation.” But to fully automate the cash flow, this kind of structure needs to exist wherever cash and non-cash are mixed.
+
+In some cases, both sides of a non-cash transaction flow into the cash flow model and cancel each other out, producing a seemingly correct net cash flow, but for the wrong reasons.
+
+Including non-cash items in the cash flow statement becomes a problem when consolidating, eliminating, or forecasting, becaus they create phantom cash effects that are complex to troubleshoot.
+
+### How to structure your chart of account
+
+Use separate accounts or dimensions in your ERP to distinguish cash and non-cash activity.
+
+Examples:
+
+- Separate dividends paid (cash) from retained earnings (non-cash).
+- Separate asset additions from accumulated depreciation.
+- Separate income from subsidiaries from other P&L income.
+- Separate non-cash revaluations under investments from actual cash movements.
+- Track capitalized salaries in a way that the original cash outflow is preserved.
+
+If needed, you can periodically “clear” or reclass accounts, with manual adjustments handled in Francis.
