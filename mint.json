@@ -164,7 +164,7 @@
       "pages": [
         "masterclasses/overview",
         {
-          "group": "hart-of-account",
+          "group": "chart-of-account",
           "pages": [
             "masterclasses/chart-of-account/gl-accounts-and-dimensions",
             "masterclasses/chart-of-account/ic-accounts",
