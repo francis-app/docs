@@ -164,11 +164,11 @@
       "pages": [
         "masterclasses/overview",
         {
-          "group": "chart-of-account",
+          "group": "chart-of-account-checklist",
           "pages": [
-            "masterclasses/chart-of-account/gl-accounts-and-dimensions",
-            "masterclasses/chart-of-account/ic-accounts",
-            "masterclasses/chart-of-account/non-cash-accounts"
+            "masterclasses/chart-of-account-checklist/gl-accounts-and-dimensions",
+            "masterclasses/chart-of-account-checklist/ic-accounts",
+            "masterclasses/chart-of-account-checklist/non-cash-accounts"
           ]
         },
         {
