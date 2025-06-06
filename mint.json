@@ -164,7 +164,7 @@
       "pages": [
         "masterclasses/overview",
         {
-          "group": "chart-of-account-checklist",
+          "group": "Chart of account",
           "pages": [
             "masterclasses/chart-of-account-checklist/gl-accounts-and-dimensions",
             "masterclasses/chart-of-account-checklist/ic-accounts",
