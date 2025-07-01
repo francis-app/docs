@@ -1,0 +1,45 @@
+---
+title: "Errors"
+description: "Overview of common errors and their explanations."
+---
+
+<AccordionGroup>
+  <Accordion title="#DIV/0">
+    The `#DIV/0` error occurs when an attempt is made to divide a value by zero (0). Division by zero is mathematically undefined and therefore not permitted.
+
+    <Info>
+      To prevent future occurrences of the `#DIV/0` error, use the `IGNORE_DIV_ZERO()` function. Learn more [here](/documentation/features/modeling/functions).
+    </Info>
+  </Accordion>
+  <Accordion title="#NO_FRAC">
+    The `#NO_FRAC` error arises when a row is aggregated using a weighted average (`W.AVG`), but the formula for the row contains something other than a simple fraction (`a/b`)
+  </Accordion>
+  <Accordion title="#ERR">
+    
+  </Accordion>
+  <Accordion title="#INF_LOOP">
+    The `#INF_LOOP` error is triggered when an infinite loop is detected, typically caused by a recursive back-reference. This often happens when a calculation references itself. Since calculations are consistent across all periods (i.e., the same formula applies in each period), self-referencing leads to an infinite loop, which is not supported.
+  </Accordion>
+  <Accordion title="#CIRCULAR">
+    The `#CIRCULAR` error is caused by defining a circular dependency between cells. For example, this might occur when two cells, `a` and `b`, reference each other, or when a series of cells collectively create a circular dependency.
+  </Accordion>
+  <Accordion title="#REF_ERR">
+    The `#REF_ERR` error occurs when a cell references another cell that contains an error. In essence, if your formula points to a cell with any of the errors listed in this document, Francis will return a `#REF_ERR`.
+  </Accordion>
+  <Accordion title="#FUTURE_REF">
+    The `#FUTURE_REF` error happens when references are made to future periods. Francis only supports references to cells in the current period or earlier.
+
+    <Info>
+      If the index in your cell reference is greater than `0`, a `#FUTURE_REF` error will always be thrown. For example, `Revenue[1]` is invalid because it refers to the `Revenue` row one month into the future. However, `Revenue[0]` and `Revenue[-1]` are valid references, as they point to the current and prior months, respectively.
+    </Info>
+  </Accordion>
+  <Accordion title="#INVALID_REF">
+    The `#INVALID_REF` error typically occurs when a reference is made to a cell that does not exist. This is often the result of referencing a cell that was deleted.
+  </Accordion>
+  <Accordion title="#BAD_ARG">
+    
+  </Accordion>
+  <Accordion title="#BAD_TYPE">
+    
+  </Accordion>
+</AccordionGroup>
