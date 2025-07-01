@@ -12,13 +12,13 @@ description: "Overview of common errors and their explanations."
     </Info>
   </Accordion>
   <Accordion title="#NO_FRAC">
-    The `#NO_FRAC` error arises when a row is aggregated using a weighted average (`W.AVG`), but the formula for the row contains something other than a simple fraction (`a/b`)
+    The `#NO_FRAC` error arises when a row is aggregated using a weighted average (W.AVG), but the formula for the row contains something other than a simple fraction (`a/b`)
   </Accordion>
   <Accordion title="#ERR">
     
   </Accordion>
   <Accordion title="#INF_LOOP">
-    The `#INF_LOOP` error is triggered when an infinite loop is detected, typically caused by a recursive back-reference. This often happens when a calculation references itself. Since calculations are consistent across all periods (i.e., the same formula applies in each period), self-referencing leads to an infinite loop, which is not supported.
+    The `#INF_LOOP` error is triggered when an infinite loop is detected, typically caused by a recursive back-reference. This often happens when a calculation references itself. Since calculations are consistent across all periods (the same formula applies in each period), self-referencing leads to an infinite loop, which is not supported.
   </Accordion>
   <Accordion title="#CIRCULAR">
     The `#CIRCULAR` error is caused by defining a circular dependency between cells. For example, this might occur when two cells, `a` and `b`, reference each other, or when a series of cells collectively create a circular dependency.
