@@ -15,16 +15,13 @@ description: "Overview of common errors and their explanations."
     The `#NO_FRAC` error arises when a row is aggregated using a weighted average (W.AVG), but the formula for the row contains something other than a simple fraction (`a/b`)
   </Accordion>
   <Accordion title="#ERR">
-    
+    The `#ERR` error typically indicates an issue with invalid syntax or an incomplete formula. For instance, entering `5+` in the formula editor results in `#ERR` because the plus sign (\+) is incomplete and requires an additional value.
   </Accordion>
   <Accordion title="#INF_LOOP">
     The `#INF_LOOP` error is triggered when an infinite loop is detected, typically caused by a recursive back-reference. This often happens when a calculation references itself. Since calculations are consistent across all periods (the same formula applies in each period), self-referencing leads to an infinite loop, which is not supported.
   </Accordion>
   <Accordion title="#CIRCULAR">
     The `#CIRCULAR` error is caused by defining a circular dependency between cells. For example, this might occur when two cells, `a` and `b`, reference each other, or when a series of cells collectively create a circular dependency.
-  </Accordion>
-  <Accordion title="#REF_ERR">
-    The `#REF_ERR` error occurs when a cell references another cell that contains an error. In essence, if your formula points to a cell with any of the errors listed in this document, Francis will return a `#REF_ERR`.
   </Accordion>
   <Accordion title="#FUTURE_REF">
     The `#FUTURE_REF` error happens when references are made to future periods. Francis only supports references to cells in the current period or earlier.
@@ -34,12 +31,19 @@ description: "Overview of common errors and their explanations."
     </Info>
   </Accordion>
   <Accordion title="#INVALID_REF">
-    The `#INVALID_REF` error typically occurs when a reference is made to a cell that does not exist. This is often the result of referencing a cell that was deleted.
+    The `#INVALID_REF` error typically occurs when a reference is made to a cell that does not exist. This is often the result of referencing a row that was deleted.
   </Accordion>
   <Accordion title="#BAD_ARG">
-    
+    The `#BAD_ARG` error occurs when an argument provided to a function does not match the expected input type. This may include using a boolean value where a number is expected, or vice versa.
+
+    <Info>
+      To avoid the `#BAD_ARG` error, carefully review the Docs on [functions](/documentation/features/modeling/functions) to ensure you are using the correct input types while building your model.
+    </Info>
   </Accordion>
   <Accordion title="#BAD_TYPE">
-    
+    The `#BAD_TYPE` error occurs when an argument provided to a function is of an incompatible type. For example, supplying a number or boolean when the function expects a range.
+  </Accordion>
+  <Accordion title="#REF_ERR">
+    The `#REF_ERR` error is returned when a cell references another cell that contains an error. Essentially, if your formula points to a cell with any of the errors mentioned above, Francis will return a `#REF_ERR`.
   </Accordion>
 </AccordionGroup>
