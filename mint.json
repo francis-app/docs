@@ -96,7 +96,8 @@
             "documentation/features/modeling/formulas",
             "documentation/features/modeling/functions",
             "documentation/features/modeling/manual-entries",
-            "documentation/features/modeling/shortcuts"
+            "documentation/features/modeling/shortcuts",
+            "documentation/features/modeling/errors"
           ]
         },
         {
