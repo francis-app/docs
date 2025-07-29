@@ -128,9 +128,9 @@
         {
           "group": "Collaboration",
           "pages": [
+            "documentation/features/collaboration/comments",
             "documentation/features/collaboration/status-indicators",
-            "documentation/features/collaboration/descriptions",
-            "documentation/features/collaboration/multiplayer"
+            "documentation/features/collaboration/descriptions"
           ]
         },
         {
