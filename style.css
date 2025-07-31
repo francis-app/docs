@@ -1,3 +1,11 @@
 table {
   width: 100%;
 }
+
+tr {
+  width: fill;
+}
+
+td {
+  width: fill;
+}
