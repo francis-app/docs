@@ -136,7 +136,6 @@
         {
           "group": "Confidentiality",
           "pages": [
-            "documentation/features/confidentiality/roles-permissions",
             "documentation/features/confidentiality/limited-viewers"
           ]
         }
