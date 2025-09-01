@@ -32,7 +32,7 @@ icon: "function"
     avg_last_year("Revenue")
     ```
   </Accordion>
-  <Accordion title='avg_last("row_name",num_months)'>
+  <Accordion title='avg_last("row_name", num_months)'>
     The `avg_last()` function returns the average of the values in the time series going back _n_ months, as defined by the `num_months` parameter.
 
     ```typescript
@@ -88,7 +88,7 @@ icon: "function"
     sum_last_year("Revenue")
     ```
   </Accordion>
-  <Accordion title='sum_last("row_name", num_month)'>
+  <Accordion title='sum_last("row_name", num_months)'>
     The `sum_last()` function returns the sum of the values in the time series going back _X_ months, as defined by the `num_months` parameter.
 
     ```typescript
@@ -105,7 +105,7 @@ icon: "function"
     ```
   </Accordion>
   <Accordion title="ignore_div_zero(a/b)">
-    The`ignore_div_zero()` returns a zero if the function's output is a #DIV\!/0 error. The function is used for margin and percentage calculations, where the denominator is occasionally zero.
+    The `ignore_div_zero()` returns a zero if the function's output is a #DIV\!/0 error. The function is used for margin and percentage calculations, where the denominator is occasionally zero.
 
     ```typescript
     ignore_div_zero("Direct cost"[0] / "Revenue"[0])
@@ -174,7 +174,7 @@ icon: "function"
 
     - `if_month(1)` returns `1` if the month is January, else `0`
     - `if_month(1, 6)` returns `1` if the month is January or June, else `0`
-    - `if_month(1,6 , 12)` returns `1` if the month is January, June, or December, else `0`
+    - `if_month(1, 6, 12)` returns `1` if the month is January, June, or December, else `0`
   </Accordion>
   <Accordion title="if_quarter_month(num)">
     The `if_quarter_month` function returns `1` if the time period is equal to the month number inside a given quarter. E.g., you can input [1;3] into the formula.
@@ -184,7 +184,7 @@ icon: "function"
     - `if_quarter_month(3)` returns `1` if the month is March, June, September, or December
   </Accordion>
   <Accordion title="weekdays()">
-    The `weekdays()` functions returns the numbers of weekdays (Monday through Friday) in a given month.
+    The `weekdays()` function returns the number of weekdays (Monday through Friday) in a given month.
 
     ```typescript
     weekdays() // January 2025 returns 23
