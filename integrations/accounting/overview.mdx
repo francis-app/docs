@@ -52,4 +52,10 @@ sidebarTitle: "Overview"
   <Accordion title="Does Francis write any data back to my systems?" defaultOpen={false}>
     No. By design, Francis exclusively *reads* data. For this reason, we always recommend to resolve any data issues at the source, e.g. if you encounter errors in your bookkeeping.
   </Accordion>
+
+  <Accordion title="I synced my data source, but it’s stuck at 0%. What should I do?" defaultOpen={false}>
+    Sometimes, during peak hours, data source syncs are queued if many workspaces are syncing at once. While queued, the progress bar will remain at 0%.
+
+If your sync has been stuck in the queue for more than 30 minutes, contact support@francis.app.
+  </Accordion>
 </AccordionGroup>
