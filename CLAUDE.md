@@ -215,6 +215,20 @@ Every masterclass is written for the self-serve user but structured so FP&A Advi
 
 Each page has a **sub-three-minute video walkthrough** embedded directly below the H1, above the lede. Video is the best medium for many human readers; text is the source of truth for AI agents (in-product, ChatGPT, Claude) reading via MCP and skill.md.
 
+Video embed standard
+Every page video uses this exact embed pattern, placed directly below the H1:
+jsx<video controls className="w-full aspect-video rounded-xl" src="/videos/[page-slug].mp4" />
+Conventions:
+
+Videos live in /videos/ at the repo root
+Filename matches the page slug (e.g. videos/components.mp4 for the Components page, videos/bs-fundamentals.mp4 for BS fundamentals)
+Always include controls — without it, users can't pause, scrub, or adjust volume
+Always include className="w-full aspect-video rounded-xl" — full width, correct aspect ratio, rounded corners to match Mintlify's visual style
+Self-closing tag (/>), not a closing </video>
+Don't use autoPlay, loop, or muted on content videos — those are for decorative background videos, not page walkthroughs
+
+When adding a new video: drop the .mp4 file in /videos/ named to match the page slug, then insert the embed at the top of the page (just below the H1, above the lede).
+
 **Implication:** don't let video do the heavy lifting at the expense of prose. The text must stand alone and answer the user's question completely. Video supplements, never replaces.
 
 This is also why screenshots are used sparingly: with video doing the rich visual job, screenshots earn their place only when they aid comprehension at the precise moment a reader is on that page, in text. A screenshot that exists "for completeness" is just maintenance debt.
