@@ -1,0 +1,268 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Docs",
+  "colors": {
+    "primary": "#202020",
+    "light": "#EEEEEE",
+    "dark": "#202020"
+  },
+  "favicon": "/logo/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "documentation/getting-started/welcome",
+              "documentation/getting-started/onboarding-guide",
+              {
+                "group": "Account",
+                "pages": [
+                  "documentation/getting-started/account/profile",
+                  "documentation/getting-started/account/preferences"
+                ]
+              },
+              {
+                "group": "Administration",
+                "pages": [
+                  "documentation/getting-started/administration/organizations",
+                  "documentation/getting-started/administration/members-roles",
+                  "documentation/getting-started/administration/billing-plans"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "documentation/features/overview",
+              {
+                "group": "Modeling",
+                "pages": [
+                  "documentation/features/modeling/components",
+                  "documentation/features/modeling/mappings",
+                  "documentation/features/modeling/date-settings",
+                  "documentation/features/modeling/formulas",
+                  "documentation/features/modeling/functions",
+                  "documentation/features/modeling/manual-entries",
+                  "documentation/features/modeling/shortcuts",
+                  "documentation/features/modeling/errors"
+                ]
+              },
+              {
+                "group": "Consolidation",
+                "pages": [
+                  "documentation/features/consolidation/splits",
+                  "documentation/features/consolidation/breakdowns"
+                ]
+              },
+              "documentation/features/version-control/version-control",
+              {
+                "group": "Variance analysis",
+                "pages": [
+                  "documentation/features/variance-analysis/three-column-report",
+                  "documentation/features/variance-analysis/month-by-month",
+                  "documentation/features/variance-analysis/transactions-drill-down"
+                ]
+              },
+              {
+                "group": "Reporting",
+                "pages": [
+                  "documentation/features/reporting/charts",
+                  "documentation/features/reporting/dashboards",
+                  "documentation/features/reporting/reports",
+                  "documentation/features/reporting/export-to-excel"
+                ]
+              },
+              {
+                "group": "Collaboration",
+                "pages": [
+                  "documentation/features/collaboration/comments",
+                  "documentation/features/collaboration/status-indicators",
+                  "documentation/features/collaboration/descriptions"
+                ]
+              },
+              {
+                "group": "Confidentiality",
+                "pages": [
+                  "documentation/features/confidentiality/limited-viewers"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Accounting",
+            "pages": [
+              "integrations/accounting/overview",
+              "integrations/accounting/business-central",
+              "integrations/accounting/e-conomic",
+              "integrations/accounting/quickbooks",
+              "integrations/accounting/netsuite",
+              "integrations/accounting/xero"
+            ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "integrations/other/google-sheets",
+              "integrations/other/currency"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Masterclasses",
+        "groups": [
+          {
+            "group": "Topics",
+            "pages": [
+              "masterclasses/overview",
+              {
+                "group": "Chart of account",
+                "pages": [
+                  "masterclasses/chart-of-account-checklist/gl-accounts-and-dimensions",
+                  "masterclasses/chart-of-account-checklist/ic-accounts",
+                  "masterclasses/chart-of-account-checklist/non-cash-accounts"
+                ]
+              },
+              {
+                "group": "Financial statements",
+                "pages": [
+                  "masterclasses/financial-statements/profit-loss",
+                  "masterclasses/financial-statements/balance-sheet",
+                  "masterclasses/financial-statements/cash-flow"
+                ]
+              },
+              {
+                "group": "Consolidation",
+                "pages": [
+                  "masterclasses/consolidation/integrations",
+                  "masterclasses/consolidation/consolidation",
+                  "masterclasses/consolidation/eliminations"
+                ]
+              },
+              {
+                "group": "Forecasting",
+                "pages": [
+                  "masterclasses/forecasting/importing-forecasts",
+                  "masterclasses/forecasting/driver-based-forecasting",
+                  "masterclasses/forecasting/methods",
+                  "masterclasses/forecasting/headcount",
+                  "masterclasses/forecasting/kpis",
+                  "masterclasses/forecasting/receivables",
+                  "masterclasses/forecasting/revenue-recognition",
+                  "masterclasses/forecasting/tax",
+                  "masterclasses/forecasting/vat"
+                ]
+              },
+              "masterclasses/monthly-close/monthly-close",
+              {
+                "group": "Support articles",
+                "pages": [
+                  "masterclasses/support-articles/department-allocations",
+                  "masterclasses/support-articles/retained-earnings",
+                  "masterclasses/support-articles/assign-gl-categories",
+                  "masterclasses/support-articles/cash-flow-check",
+                  "masterclasses/support-articles/currency-adjustments"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/logo-light.svg",
+    "dark": "/logo/logo-dark.svg"
+  },
+  "background": {
+    "color": {
+      "light": "#FCFCFC",
+      "dark": "#191919"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Contact",
+        "href": "mailto:support@francis.app"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Launch",
+      "href": "https://launch.francis.app/"
+    }
+  },
+  "footer": {
+    "socials": {
+      "linkedin": "https://www.linkedin.com/company/francis-app"
+    },
+    "links": [
+      {
+        "header": "Resources",
+        "items": [
+          {
+            "label": "Changelog",
+            "href": "https://roadmap.francis.app/changelog"
+          },
+          {
+            "label": "Roadmap",
+            "href": "https://roadmap.francis.app/roadmap"
+          },
+          {
+            "label": "Customers",
+            "href": "https://www.francis.app/customers"
+          }
+        ]
+      },
+      {
+        "header": "Company",
+        "items": [
+          {
+            "label": "About",
+            "href": "https://www.francis.app/about"
+          },
+          {
+            "label": "Blog",
+            "href": "https://forward.francis.app/"
+          },
+          {
+            "label": "Partners",
+            "href": "https://www.francis.app/partners"
+          }
+        ]
+      },
+      {
+        "header": "Legal",
+        "items": [
+          {
+            "label": "Privacy Policy",
+            "href": "https://www.francis.app/policies/privacy-policy"
+          },
+          {
+            "label": "Terms of Service",
+            "href": "https://www.francis.app/policies/terms-of-service"
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "heading": {
+      "family": "Inter"
+    },
+    "body": {
+      "family": "Inter"
+    }
+  }
+}
