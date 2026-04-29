@@ -111,6 +111,26 @@ The duplication problem isn't caused by having feature docs — it's caused by d
 
 ---
 
+## Content rule: BS forecasting pages
+The BS fundamentals page establishes the core mental model: balance sheet forecasting is always a function of last period's value, additions, and detractions. Last period's value is included because balance sheet values accumulate over time. The additions and detractions — the net movement — are what flow through to the cash flow statement.
+This framing belongs only on the BS fundamentals page. It's the deep source.
+Every specific BS forecasting page (VAT, Tax, Receivables, Prepayments, CAPEX, Inventory, Loans) opens by referencing this framing and then making it concrete for that line item. Use this pattern:
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions — see BS fundamentals. For [line item], this means [last period's value] + [additions for this line item] − [detractions for this line item].
+
+Concrete examples:
+
+Inventory: inventory last period + new inventory purchases − cost of goods sold in period
+Receivables: receivables last period + new invoices issued − customer payments received
+VAT: VAT payable last period + sales VAT in period - cost VAT in period − VAT paid to authorities
+CAPEX: fixed asset value last period + new investments − depreciation
+Loans: loan balance last period + new draws − repayments
+
+Why this rule exists: it's the editorial principle in operation. BS fundamentals is the deep source for the conceptual model. The line-item pages are orchestration — they apply the model to a specific case rather than re-explaining it. A reader landing on the Inventory page first should still find the page complete, because the link to BS fundamentals is right there for the missing context. A reader who's already read BS fundamentals can skim the framing and jump to what's specific.
+This pattern does not apply to BS validation — that page covers checks and failure modes, not forecasting mechanics.
+
+---
+
 ## Page structure
 
 ### Universal pattern
