@@ -1,9 +1,38 @@
 ---
-title: "VAT"
+title: "Forecast VAT"
 sidebarTitle: "VAT"
-description: "TODO"
+description: "Forecast the VAT balance by capturing sales and cost VAT each month and modelling settlements to the tax authorities."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/vat.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "VAT") */}
+Forecast VAT by modelling two movements: sales and cost VAT captured during the month, and settlements paid to the authorities.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions — see [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For VAT, this means VAT payable last period + sales VAT in period − cost VAT in period − VAT paid to authorities.
+
+## Sales and cost VAT captured in the month
+
+Sales VAT and cost VAT typically sit on separate GL accounts and are forecast separately.
+
+To forecast captured **sales VAT**, pick up every P&L and balance sheet income line that includes VAT and multiply by the relevant rate (25% in Denmark). That gives you the sales VAT addition for the month.
+
+Cost VAT works the same way: pick up every P&L and balance sheet expense line that includes VAT, multiply by the rate, and you have the cost VAT addition for the month.
+
+### Approximating instead of mapping every account
+
+Each GL account carries its own VAT code, but most finance teams don't need that granularity in their forecast. The usual approximation is to either:
+
+- Pick the specific [groups or rows](/features-new/using-francis/components) known to include VAT, or
+- Take a percentage of broader groups or rows where VAT exposure is mixed
+
+Both are accurate enough for cash flow forecasting — mapping every VAT code rarely changes the answer.
+
+<Tip>
+Put the **Sales incl. VAT** and **Cost incl. VAT** subtotals in a separate sheet as an intermediate calculation. It keeps the VAT logic out of the P&L and makes the dependency explicit, and the VAT lines on the balance sheet reference those subtotals directly.
+</Tip>
+
+Once the captured amounts are in place, add them to the VAT forecast for the month.
+
+## VAT paid to the authorities
+
+{/* TODO: author this section — covers settlement frequency (monthly, quarterly, annual) and how to model the detraction. The old VAT page (masterclasses/forecasting/vat.mdx) suggests using IF statements to apply different settlement rules per period. */}
