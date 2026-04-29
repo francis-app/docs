@@ -176,6 +176,140 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Features (preview)",
+        "groups": [
+          {
+            "group": "Admin",
+            "pages": [
+              {
+                "group": "Personal account",
+                "pages": [
+                  "features-new/admin/profile",
+                  "features-new/admin/preferences"
+                ]
+              },
+              {
+                "group": "Workspace",
+                "pages": [
+                  "features-new/admin/workspace-management",
+                  "features-new/admin/members-and-roles",
+                  "features-new/admin/billing"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Using Francis",
+            "pages": [
+              "features-new/using-francis/getting-started",
+              "features-new/using-francis/components",
+              "features-new/using-francis/data-mappings",
+              "features-new/using-francis/formulas",
+              "features-new/using-francis/inspect",
+              "features-new/using-francis/shortcuts",
+              "features-new/using-francis/breakdowns",
+              "features-new/using-francis/reports",
+              "features-new/using-francis/charts",
+              "features-new/using-francis/tables",
+              "features-new/using-francis/excel-export",
+              "features-new/using-francis/version-control",
+              "features-new/using-francis/comments",
+              "features-new/using-francis/status-indicators"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Masterclasses (preview)",
+        "groups": [
+          {
+            "group": "Consolidation",
+            "pages": [
+              "masterclasses-new/consolidation/consolidation",
+              "masterclasses-new/consolidation/currency-conversion",
+              "masterclasses-new/consolidation/eliminations",
+              "masterclasses-new/consolidation/dimensions"
+            ]
+          },
+          {
+            "group": "Budgeting & Forecasting",
+            "pages": [
+              "masterclasses-new/budgeting-forecasting/forecasting-approaches",
+              {
+                "group": "P&L forecasting",
+                "pages": [
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/pnl-fundamentals",
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/subscription-revenue",
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/project-revenue",
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/product-revenue",
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/cogs",
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/headcount",
+                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/opex"
+                ]
+              },
+              {
+                "group": "BS forecasting",
+                "pages": [
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/vat",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/tax",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/receivables",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/prepayments",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/capex",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/inventory",
+                  "masterclasses-new/budgeting-forecasting/bs-forecasting/loans"
+                ]
+              },
+              {
+                "group": "CF forecasting",
+                "pages": [
+                  "masterclasses-new/budgeting-forecasting/cf-forecasting/cf-fundamentals",
+                  "masterclasses-new/budgeting-forecasting/cf-forecasting/cf-validation"
+                ]
+              },
+              "masterclasses-new/budgeting-forecasting/budget-and-forecast-versions"
+            ]
+          },
+          {
+            "group": "Reporting",
+            "pages": [
+              "masterclasses-new/reporting/management-report"
+            ]
+          },
+          {
+            "group": "Business partnering",
+            "pages": [
+              "masterclasses-new/business-partnering/gathering-budget-input",
+              "masterclasses-new/business-partnering/limited-manager-access"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Integrations (preview)",
+        "groups": [
+          {
+            "group": "Accounting",
+            "pages": [
+              "integrations-new/accounting/overview",
+              "integrations-new/accounting/business-central",
+              "integrations-new/accounting/e-conomic",
+              "integrations-new/accounting/quickbooks",
+              "integrations-new/accounting/netsuite",
+              "integrations-new/accounting/xero"
+            ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "integrations-new/other/google-sheets",
+              "integrations-new/other/currency"
+            ]
+          }
+        ]
       }
     ]
   },
