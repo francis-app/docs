@@ -1,12 +1,44 @@
 ---
 title: "Consolidate multi-entity financials"
 sidebarTitle: "Consolidation"
-description: "TODO"
+description: "Map your general ledger, split by entity, and set up per-entity forecasting in Francis."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/consolidation.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+A consolidated model in Francis gives you actuals across all entities in one place, with the option to forecast each entity separately. These three steps take you from connected data sources to a working setup.
+
+## Before you start
+
+Each entity needs its own accounting integration connected to Francis before you can map and consolidate actuals.
+
+<Note>
+  If you haven't set up your integrations yet, see [Accounting integrations](/integrations/accounting/overview) first.
+</Note>
+
+## Create your model
+
+Start from a template. Templates give you a reliable structure out of the box and can be edited to fit your chart of accounts and reporting needs — you're not locked into the initial format.
+
+Start from scratch only if you're replicating a detailed financial model you've already built in Excel or Google Sheets. For most users, the template is the faster path.
+
+## Map your general ledger
+
+Go to **Mappings** in the top-left. This view shows all GL accounts from your connected accounting systems alongside your model structure.
+
+Drag accounts onto the relevant line items in your model. The goal is to unify accounts across entities — once mapped, actuals from each integration import and consolidate automatically. Map or ignore every active account to complete the setup.
+
+## Split by entity
+
+Splitting turns your consolidated sheet into a consolidation template with one instance per entity. This is what enables per-entity forecasting.
+
+<Warning>
+  Splitting deletes any pre-existing forecasts and manual entries on the sheet. Do this before you start forecasting, not after.
+</Warning>
+
+Hover over the sheet containing your consolidated actuals, select **...** to open the action menu, then choose **Split by...**. In the modal, select your entities and confirm.
+
+After splitting, the sheet becomes a consolidation template. Structure — rows, groups, formulas — is defined top-down in the template and syncs automatically to all instances. Actuals and forecasts are defined bottom-up in the instances and roll up to the template. You can't edit cell values in the template directly; edit the instances instead.
 
 ## FAQ
 
@@ -14,7 +46,7 @@ description: "TODO"
   <Accordion title="Why can't I map GL accounts to a subsheet?">
     {/* TODO: answer */}
   </Accordion>
-  <Accordion title="Why can't I change lines in a subset?">
+  <Accordion title="Why can't I change lines in an instance?">
     {/* TODO: answer */}
   </Accordion>
 </AccordionGroup>

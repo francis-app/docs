@@ -139,7 +139,6 @@ This pattern does not apply to BS validation — that page covers checks and fai
 2. **Video** — sub-three-minute walkthrough, embedded under the H1 (see *Visual elements* below)
 3. **Lede paragraph, no header** — one or two sentences: what this is, who it's for, what they'll get. The lede *is* the overview; no "Overview" header.
 4. **Descriptive H2s** — never *Basics*, *Introduction*, *Details*, *More info*. Each H2 names what's in the section.
-5. **"Related" or "Next" at the bottom** — links into the next logical page.
 
 Meta-headers describe the section's role rather than its content and fail both scanners and search. Descriptive headers become useful jump targets in the right sidebar and help a skimmer judge page relevance in seconds.
 
@@ -156,7 +155,7 @@ Meta-headers describe the section's role rather than its content and fail both s
 
 - H1 = outcome-oriented
 - Lede states what the user will accomplish and who it's for
-- H2s: *Before you start* (prerequisites, required integrations), then each step named descriptively (*Map your entity accounts*, not *Step 1*), then *Common patterns* / *Advanced scenarios* for progressive disclosure, then *FAQ* scoped to this masterclass, then *Next steps*
+- H2s: *Before you start* (prerequisites, required integrations), then each step named descriptively (*Map your entity accounts*, not *Step 1*), then *Common patterns* / *Advanced scenarios* for progressive disclosure, then *FAQ* scoped to this masterclass
 
 **Reference page** (e.g. *Functions*, *Shortcuts*)
 
