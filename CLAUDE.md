@@ -285,25 +285,33 @@ This single example exercises consolidation, dimensions, multi-channel reporting
 
 ## Linking conventions
 
-### Three patterns
+Links cost the reader something. Every hyperlink is a visual interruption and a "should I click?" decision. Use them when the destination materially helps the reader, not by default.
 
-**Inline links** — for references inside running prose. *"See [components](/features/components) for how rows and calculations behave."* Used liberally: every Francis term that has a feature page should link to it on first mention per page.
+### When to link
 
-**Callout-style links** — for prerequisite or "go read this first" pointers. As a Note callout at the top of a guide: *"This guide assumes you've set up [components](/features/components) and connected your [accounting integration](/integrations/economic)."* Used at the start of masterclass pages.
+- **Cross-tab navigation** that isn't obvious from the sidebar — e.g. a masterclass linking to the relevant Integrations page when setup is a prerequisite
+- **Related masterclass pages** within the same use case — e.g. Eliminations linking to Currency conversion when they interact
+- **External references** when genuinely useful — e.g. an accounting standard, a regulatory page — used sparingly and never as the primary source for a concept
 
-**End-of-page Related section** — bullet list of 2–4 related pages with one-line descriptions of what each contains. Standard at the bottom of every feature and masterclass page:
+### When not to link
 
-> ### Related
->
-> - **[Components](…)** — the building blocks every model uses
-> - **[Formulas](…)** — how calculated rows reference other components
+- **Don't link to Features pages from masterclasses or FAQs.** Features are reference material the reader can find via the sidebar. Linking to *components*, *formulas*, *charts* etc. on every mention adds visual noise without earning the click. Trust the reader to navigate the docs.
+- **Don't link UI element mentions.** *"Click **Save**"* doesn't need a link to the Save button.
+- **Don't link the same destination twice in the same paragraph.** Distracting.
+
+### Patterns
+
+**Inline links** — for genuine cross-references inside running prose. *"Set up your [accounting integration](/integrations/economic) before you start."* Used sparingly, on first meaningful mention per page only.
+
+**Callout-style links** — for prerequisite or "go read this first" pointers. As a Note callout at the top of a guide: *"This guide assumes you've connected your [accounting integration](/integrations/economic)."* Used at the start of masterclass pages when there's a hard prerequisite.
+
+**End-of-page Related section** — bullet list of 2–4 related pages with one-line descriptions. Used at the bottom of masterclass pages to point to the next logical destination, not to dump every related concept.
 
 ### Rules
 
-- **Link the noun, not "click here" or "this page."** *"See [components]"* — not *"See [this page]"*.
-- **Link on first meaningful mention per page, then stop.** Once linked, subsequent uses on the same page are plain text.
-- **Don't link the same destination twice in the same paragraph.** Distracting.
-- **External links sparingly.** Never as the primary source for a concept — readers shouldn't have to leave the docs to understand what we're explaining.
+- **Link the noun, not "click here" or "this page."**
+- **Link on first meaningful mention per page, then stop.**
+- **Don't link to a Feature page just because a Feature is mentioned** — that's the editorial principle inverted into noise.
 
 ---
 
