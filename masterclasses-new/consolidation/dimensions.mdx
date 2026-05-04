@@ -1,12 +1,28 @@
 ---
-title: "Dimensions"
+title: "Forecast and report by dimensions"
 sidebarTitle: "Dimensions"
-description: "TODO"
+description: "Break down entity instances by dimension to enable per-dimension forecasting and reporting in Francis."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/dimensions.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Dimensions") */}
+Dimensions let you forecast and report below the entity level — by department, channel, project, or any dimension your accounting system tracks. This guide takes you from an entity-level breakdown to a working per-dimension model.
+
+## Before you start
+
+Dimension breakdowns build on entity breakdowns. Before you can break down an instance by dimension, you need to have already applied a breakdown by entity on your consolidated sheet — each entity instance is what you'll break down further. If you haven't done that yet, complete the [consolidation setup](/masterclasses-new/consolidation/consolidation) first.
+
+## Breakdown by dimension
+
+Breaking down an entity instance by dimension creates one sub-instance per dimension value. This is what enables forecasting at the dimension level — by department, channel, or whichever dimension you select.
+
+<Warning>
+  Applying a breakdown deletes any pre-existing forecasts and manual entries on the sheet. Do this before you start forecasting, not after.
+</Warning>
+
+Hover over the sheet containing the entity actuals, open the action menu (...), then choose **Breakdown by...**. In the modal, select your dimension and confirm.
+
+Once applied, the entity instance becomes a dimension template. Structure — rows, groups, formulas — is defined top-down in the template and syncs automatically to all sub-instances. Actuals and forecasts are defined bottom-up in the sub-instances and roll up to the template. You can't edit cell values in the template directly; edit the sub-instances instead.
 
 ## FAQ
 
