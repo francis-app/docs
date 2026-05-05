@@ -1,12 +1,30 @@
 ---
-title: "Forecasting approaches"
+title: "Choose your forecasting approach"
 sidebarTitle: "Forecasting approaches"
-description: "TODO"
+description: "The three forecasting approaches in Francis — driver-based, trend-based, and hardcoded — and when to use each."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/forecasting-approaches.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Forecasting approaches") */}
+Before you build, decide how you'll forecast. There are three approaches in Francis — most models use a combination of all three depending on the line item.
+
+## Driver-based
+
+Build calculations linked to underlying assumptions. Revenue grows at a rate, costs scale as a percentage of revenue, headcount drives salary costs. When an assumption changes, everything connected to it updates automatically.
+
+Use this for anything you expect to revisit and adjust — revenue, headcount, working capital. Driver-based models take longer to build but produce forecasts that are easier to stress-test and explain to stakeholders.
+
+## Trend-based
+
+Project forward from historical actuals. Francis looks at past performance — moving averages, year-on-year patterns, last twelve months — and uses that as the baseline. Use this when the near-term future is expected to mirror recent performance and you have enough actuals history to project from.
+
+Trend-based forecasting is the fastest to set up and works well for stable, recurring line items. It becomes less reliable when the business has changed significantly or when you're forecasting a line item with limited history.
+
+## Hardcoded
+
+Enter numbers directly. No formula, no driver — just a value. Fast to set up but static, meaning changes elsewhere in the model don't flow through.
+
+Use hardcoded entries for fixed-cost items with no meaningful driver, or as a starting point when importing an existing budget into Francis.
 
 ## FAQ
 
@@ -17,7 +35,7 @@ description: "TODO"
   <Accordion title="Can I have granular actuals but an aggregate budget?">
     {/* TODO: answer */}
   </Accordion>
-  <Accordion title="Can I apply formulas across multiple sub sheets?">
+  <Accordion title="Can I apply calculations across multiple sub-sheets?">
     {/* TODO: answer */}
   </Accordion>
   <Accordion title="Can I import my Excel budget?">

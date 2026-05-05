@@ -1,7 +1,7 @@
 ---
 title: "Forecast and report by dimensions"
 sidebarTitle: "Dimensions"
-description: "Break down entity instances by dimension to enable per-dimension forecasting and reporting in Francis."
+description: "Break down entity sub-sheets by dimension to enable per-dimension forecasting and reporting in Francis."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/dimensions.mp4" />
@@ -10,11 +10,11 @@ Dimensions let you forecast and report below the entity level — by department,
 
 ## Before you start
 
-Dimension breakdowns build on entity breakdowns. Before you can break down an instance by dimension, you need to have already applied a breakdown by entity on your consolidated sheet — each entity instance is what you'll break down further. If you haven't done that yet, complete the [consolidation setup](/masterclasses-new/consolidation/consolidation) first.
+Dimension breakdowns build on entity breakdowns. Before you can break down a sub-sheet by dimension, you need to have already applied a breakdown by entity on your consolidated sheet — each entity sub-sheet is what you'll break down further. If you haven't done that yet, complete the [consolidation setup](/masterclasses-new/consolidation/consolidation) first.
 
 ## Breakdown by dimension
 
-Breaking down an entity instance by dimension creates one sub-instance per dimension value. This is what enables forecasting at the dimension level — by department, channel, or whichever dimension you select.
+Breaking down an entity sub-sheet by dimension creates one sub-sheet per dimension value. This is what enables forecasting at the dimension level — by department, channel, or whichever dimension you select.
 
 <Warning>
   Applying a breakdown deletes any pre-existing forecasts and manual entries on the sheet. Do this before you start forecasting, not after.
@@ -22,7 +22,7 @@ Breaking down an entity instance by dimension creates one sub-instance per dimen
 
 Hover over the sheet containing the entity actuals, open the action menu (...), then choose **Breakdown by...**. In the modal, select your dimension and confirm.
 
-Once applied, the entity instance becomes a dimension template. Structure — rows, groups, formulas — is defined top-down in the template and syncs automatically to all sub-instances. Actuals and forecasts are defined bottom-up in the sub-instances and roll up to the template. You can't edit cell values in the template directly; edit the sub-instances instead.
+Once applied, the entity sub-sheet becomes a dimension template. Structure — rows, groups, calculations — is defined top-down in the template and syncs automatically to all sub-sheets. Actuals and forecasts are defined bottom-up in the sub-sheets and roll up to the template. You can't edit cell values in the template directly; edit the sub-sheets instead.
 
 ## FAQ
 
