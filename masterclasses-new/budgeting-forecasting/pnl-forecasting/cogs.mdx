@@ -1,9 +1,53 @@
 ---
-title: "COGS"
+title: "Forecast COGS"
 sidebarTitle: "COGS"
-description: "TODO"
+description: "How to forecast cost of goods sold in Francis — driver-based, trend-based, and hardcoded approaches, and when to use a supporting sheet."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/pnl-forecasting/cogs.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "COGS") */}
+COGS moves with revenue more closely than any other P&L line. The right forecasting method depends on how variable your cost structure is and how much granularity the model needs.
+
+## Driver-based
+
+The default for variable direct costs. Add a [formula](/documentation/features/modeling/formulas) to the COGS row that references your revenue group and applies a cost percentage. When revenue assumptions change, COGS updates automatically.
+
+```typescript
+= "Revenue"[0] * "COGS % of Revenue"[0]
+```
+
+For unit-based forecasting — where cost is driven by volume × unit cost rather than a revenue percentage — the same driver logic applies with different inputs. If unit costs vary by product line or are tied to inventory movements, build a supporting sheet and reference the result into the COGS row.
+
+## Trend-based
+
+Project forward from historical COGS actuals. Add a [formula](/documentation/features/modeling/formulas) to the COGS row referencing a prior period — for example, the same month last year with a small adjustment:
+
+```typescript
+= "COGS"[-12] * (1+5%)
+```
+
+This takes the COGS value from 12 months ago and applies a 5% increase. If month-to-month actuals are volatile, a rolling average smooths the baseline:
+
+```typescript
+= AVG_LAST("COGS", 3) * (1+5%)
+```
+
+Use trend-based when your cost structure is stable and the near future is expected to mirror recent history. It becomes unreliable when costs have shifted structurally — a new supplier, a change in product mix, or a step-change in volume.
+
+## Where to forecast COGS
+
+- **Directly on the P&L:** right for most cases. A percentage-of-revenue formula or trend projection lives on the COGS row itself. Simple to set up, easy to maintain.
+- **Supporting sheet:** right when COGS is driven by multiple inputs — unit economics, inventory levels, multiple product lines with different margin profiles. The sheet handles the complexity; the P&L row references the result.
+
+If you're unsure, start directly on the P&L. A supporting sheet is straightforward to add later once the model's complexity justifies it.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My COGS margin varies significantly month to month — which method should I use?">
+    {/* TODO: answer */}
+  </Accordion>
+  <Accordion title="How do I forecast COGS across multiple product lines with different margins?">
+    {/* TODO: answer */}
+  </Accordion>
+</AccordionGroup>

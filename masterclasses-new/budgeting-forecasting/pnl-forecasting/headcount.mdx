@@ -1,9 +1,42 @@
 ---
-title: "Headcount"
+title: "Plan headcount"
 sidebarTitle: "Headcount"
-description: "TODO"
+description: "How to set up a dedicated headcount sheet in Francis, forecast salaries, and keep the P&L in sync."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/pnl-forecasting/headcount.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Headcount") */}
+Salary forecasting has two characteristics that make it worth keeping off the main P&L: it's complex enough — components, hire dates, annual increases — to make the P&L unreadable if forecasted directly, and sensitive enough that many CFOs want it out of shared views.
+
+## Set up a headcount sheet
+
+Create a dedicated sheet. Group by department, with rows for each employee or role beneath — or a single aggregated salary row per department if you don't need that level of detail.
+
+<Tip>If you use dimensions, you can break down actuals by department or employee without splitting GL accounts into separate rows — useful if your chart of accounts doesn't map cleanly to your headcount structure.</Tip>
+
+## Salary increases
+
+For planned increases, reference the prior month and apply a growth rate in the relevant month using `if_month()`:
+
+```typescript
+= "Base salary"[-1] * (1 + if_month(1) * 5%)
+```
+
+This applies a 5% increase in January. Adjust the month and percentage to match your review cycle.
+
+## Connecting to the P&L
+
+P&L OPEX rows reference the headcount sheet rather than containing their own salary forecasts. When you reforecast on the headcount sheet — a new hire, a revised increase — the P&L updates automatically. All headcount forecasting happens in one place.
+
+<Note>As you reforecast and move the forecast start date forward, periods that were forecast become actuals. Enter actual salary values for those periods in the headcount sheet — formulas referencing prior months, such as salary increases, will break if the preceding actuals period is empty.</Note>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I model a new hire joining mid-year?">
+    {/* TODO: answer */}
+  </Accordion>
+  <Accordion title="Can I include employer taxes and benefits in the headcount sheet?">
+    {/* TODO: answer */}
+  </Accordion>
+</AccordionGroup>
