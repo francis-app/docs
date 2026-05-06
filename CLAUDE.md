@@ -55,8 +55,12 @@ What this means in practice:
 
 ## Writing conventions
 
-- **Second person ("you"), present tense.** *"When you import actuals"* — not *"users will import actuals"* or *"after importing actuals."*
+- **Second person ("you"), present tense.** *"When you import actuals"*, not *"users will import actuals"* or *"after importing actuals."*
 - **Average sentence under 25 words.** Short by default. Long sentences are fine when they earn it.
+- **No em dashes (—).** They read as AI-generated and weaken the voice. The right replacement depends on what the dash is doing:
+    - **Parenthetical aside** (`X — Y — Z`): wrap with commas or parentheses. *"The three approaches (driver-based, statistical, and hardcoded), and when to use each."*
+    - **Pivot or punchline** (`X — Y`): use a period and a new sentence, or rewrite. *"That's fine. Hardcoded values get reporting running quickly."*
+    - If a period leaves a dangling fragment ("…and when to use each."), recast the whole sentence rather than keeping the broken half.
 - **Oxford commas.** Lists of three or more get a comma before the final item.
 - **Sentence case for headings.** *Forecasting approaches*, not *Forecasting Approaches*.
 - **Imperative mood for instructions.** *"Click Save"* — not *"You can click Save"* or *"The user clicks Save."*
@@ -135,7 +139,7 @@ This pattern does not apply to BS validation — that page covers checks and fai
 
 ### Universal pattern
 
-1. **H1** — names the thing or outcome, not "Guide to X"
+1. **H1** — names the thing or outcome, not "Guide to X". Must fit on a single line at the default Mintlify content width — keep to roughly 6 words or fewer. If it wraps onto a second line, shorten it and push the detail into the `description` field.
 2. **Video** — sub-three-minute walkthrough, embedded under the H1 (see *Visual elements* below)
 3. **Lede paragraph, no header** — one or two sentences: what this is, who it's for, what they'll get. The lede *is* the overview; no "Overview" header.
 4. **Descriptive H2s** — never *Basics*, *Introduction*, *Details*, *More info*. Each H2 names what's in the section.
