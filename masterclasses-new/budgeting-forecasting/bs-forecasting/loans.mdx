@@ -1,9 +1,46 @@
 ---
-title: "Loans"
+title: "Forecast loans"
 sidebarTitle: "Loans"
-description: "TODO"
+description: "How to model the loan balance in Francis, including new draws, principal repayments, and interest."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/loans.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Loans") */}
+Loans sit on the liability side of the balance sheet and represent outstanding principal owed to lenders. Common examples include term loans, mortgage facilities, and shareholder loans.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For loans, this means loan balance last period + new draws in period − principal repayments in period.
+
+## New draws
+
+A new draw is an addition to the loan balance. Model it in the period the funds are received. Most draws are known in advance. Hardcode the amount in the month it falls due.
+
+For revolving credit facilities where drawdown amounts vary, use a supporting sheet to track each facility separately, then reference the total into the balance sheet row.
+
+## Principal repayments
+
+Principal repayments are the detraction. Most loans follow a fixed repayment schedule, so these can be hardcoded or driven by a simple formula.
+
+For an amortizing loan with equal monthly repayments:
+
+```typescript
+= "Loan amount"[0] / "Loan term (months)"[0]
+```
+
+<Note>
+Interest is not a repayment. It flows to the P&L as a finance cost and does not reduce the loan balance. Only principal repayments affect the balance sheet.
+</Note>
+
+## Impact on cash flow
+
+Loan draws and principal repayments sit in financing activities on the cash flow statement. Interest payments sit in operating activities. Keep these separate. Mixing principal and interest in the loan balance is one of the most common errors in three-statement models.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I model a bullet loan?">
+    A bullet loan has no principal repayments during the term. The full balance is repaid at maturity. Set repayments to zero for all periods except the final month, where you hardcode the full outstanding balance.
+  </Accordion>
+  <Accordion title="How do I handle a loan with a variable repayment schedule?">
+    Use a supporting sheet that lists the repayment amount for each period, then reference it into the balance sheet row. This keeps the schedule easy to update if terms change.
+  </Accordion>
+</AccordionGroup>

@@ -1,9 +1,46 @@
 ---
-title: "Prepayments"
+title: "Forecast prepayments"
 sidebarTitle: "Prepayments"
-description: "TODO"
+description: "How to model the prepaid asset balance in Francis, including new payments and monthly amortization."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/prepayments.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Prepayments") */}
+A prepayment is cash paid in advance for goods or services not yet received. Common examples include insurance premiums, SaaS subscriptions, rent deposits, and annual maintenance contracts.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For prepayments, this means prepaid asset last period + new prepayments made in period − amortization recognized in period.
+
+## New prepayments
+
+A new prepayment is an addition to the prepaid asset. Model it in the period the cash is paid, not when the benefit is received.
+
+Most prepayments are known in advance: the amount, the vendor, and the month are fixed. For one-off payments, hardcode them directly. For recurring contracts, use a supporting sheet that lists each contract with its payment amount and due month, then reference the monthly total into the balance sheet row. This keeps renewals easy to update and gives you a clear view of what's coming.
+
+<Tip>
+A supporting sheet also makes it straightforward to model anticipated contracts: a renewal you expect in Q3, or new software you're planning to sign in H2.
+</Tip>
+
+## Monthly amortization
+
+Amortization is the detraction: the portion of the prepaid asset recognized as expense each period. It flows to the P&L as an operating expense and reduces the balance sheet balance by the same amount.
+
+The standard approach is straight-line: divide the total prepayment by the number of months in the contract.
+
+```typescript
+= "Prepayment total"[0] / "Contract months"[0]
+```
+
+<Note>
+A new prepayment is a cash outflow in working capital; amortization without a new payment releases cash. Both movements must appear in the working capital section of your cash flow statement.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My prepayment balance isn't decreasing each month">
+    Check that the amortization row is deducted from the prepaid asset balance, not added. If amortization flows correctly to the P&L but the balance sheet balance isn't moving, the link between the two is missing. The balance sheet row should reference last period's balance minus the current period's amortization.
+  </Accordion>
+  <Accordion title="How do I model a contract renewal?">
+    Add the renewal payment as a new prepayment addition in the month it falls due. Model the renewal as a fresh prepayment with its own total and duration rather than extending the existing amortization schedule.
+  </Accordion>
+</AccordionGroup>

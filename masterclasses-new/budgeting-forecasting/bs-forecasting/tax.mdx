@@ -1,9 +1,37 @@
 ---
-title: "Tax"
+title: "Forecast tax"
 sidebarTitle: "Tax"
-description: "TODO"
+description: "How to forecast the corporate tax payable in Francis using a simple roll-forward with hardcoded payment events."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/tax.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Tax") */}
+Corporate tax is typically settled once or twice a year. Keep the forecast simple: roll the balance forward, hardcode known payments in the month they fall due, and let the cash flow statement pick up the impact automatically.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For tax, this means tax payable last period + tax expense recognized in period − tax payments made to authorities.
+
+## Before you start
+
+Map your corporate tax payable account in **Account mapping** before forecasting. The roll-forward carries last period's actuals forward — if the account isn't mapped, the opening balance is zero and the forecast will be wrong.
+
+## Roll-forward with payment event
+
+Carry last period's balance forward. In the month the payment falls due, the balance clears to zero and the cash flow statement picks up the outflow automatically.
+
+```typescript
+= if(if_month(11) = 1, 0, "Corporate tax payable"[-1])
+```
+
+This formula reads: if it's November, return zero. Otherwise, carry last period's balance forward. The drop in the balance is what Francis uses to derive the cash outflow — no manual cash flow entry needed.
+
+<Note>
+Adjust the month number to match your payment schedule. If you have two payment events in the year, use `if_month(3, 11)` and set the balance to zero in both months, or hardcode the residual balance after the first payment.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Do I need to account for deferred tax?">
+    Keep deferred tax as a separate balance sheet line. Hold the balance flat in the forecast unless a specific event is expected to trigger a material movement. Don't forecast it the same way as corporate tax payable.
+  </Accordion>
+</AccordionGroup>

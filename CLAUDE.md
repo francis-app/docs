@@ -4,6 +4,12 @@ Authoring guidance for Francis docs. This file lives in the docs repo as the sou
 
 ---
 
+## Working with this repo
+
+- **Keep shell commands simple and readable.** Use the Read tool for known files, and plain `grep` or `find` for targeted lookups. Avoid complex Python or Bash one-liners that would be hard for a non-technical team member to read or understand. If you need to understand the navigation structure, read `docs.json` directly.
+
+---
+
 ## Purpose of the docs
 
 The documentation exists to **improve user activation and enable users to solve problems themselves**. It serves two audiences in one artifact: self-serve users onboarding independently, and FP&A Advisory referencing specific pages during white-glove onboarding. Design for the self-serve user; the white-glove case is served by good anchor links and progressive disclosure.

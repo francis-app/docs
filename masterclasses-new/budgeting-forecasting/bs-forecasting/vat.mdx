@@ -1,14 +1,14 @@
 ---
 title: "Forecast VAT"
 sidebarTitle: "VAT"
-description: "Forecast the VAT balance by capturing sales and cost VAT each month and modelling settlements to the tax authorities."
+description: "Forecast the VAT balance by capturing sales and cost VAT each month and modelling settlements with the tax authority."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/vat.mp4" />
 
-Forecast VAT by modelling two movements: sales and cost VAT captured during the month, and settlements paid to the authorities.
+Forecast VAT by modelling two movements: VAT captured during the month, and settlements with the tax authority (either payments or refunds depending on your VAT position).
 
-Balance sheet forecasting is always a function of last period's value, additions, and detractions — see [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For VAT, this means VAT payable last period + sales VAT in period − cost VAT in period − VAT paid to authorities.
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For VAT, this means VAT balance last period + sales VAT in period − cost VAT in period − settlements with authorities.
 
 ## Sales and cost VAT captured in the month
 
@@ -25,14 +25,41 @@ Each GL account carries its own VAT code, but most finance teams don't need that
 - Pick the specific [groups or rows](/features-new/using-francis/components) known to include VAT, or
 - Take a percentage of broader groups or rows where VAT exposure is mixed
 
-Both are accurate enough for cash flow forecasting — mapping every VAT code rarely changes the answer.
+Both are accurate enough for cash flow forecasting. Mapping every VAT code rarely changes the answer.
 
 <Tip>
 Put the **Sales incl. VAT** and **Cost incl. VAT** subtotals in a separate sheet as an intermediate calculation. It keeps the VAT logic out of the P&L and makes the dependency explicit, and the VAT lines on the balance sheet reference those subtotals directly.
 </Tip>
 
-Once the captured amounts are in place, add them to the VAT forecast for the month.
+## Settlements with the tax authority
 
-## VAT paid to the authorities
+VAT is settled periodically: monthly, quarterly, or annually depending on your jurisdiction and company size. In the settlement period, the outstanding VAT balance is cleared and either paid to or received from the tax authority.
 
-{/* TODO: author this section — covers settlement frequency (monthly, quarterly, annual) and how to model the detraction. The old VAT page (masterclasses/forecasting/vat.mdx) suggests using IF statements to apply different settlement rules per period. */}
+For **monthly settlement**, the prior month's balance clears in full:
+
+```typescript
+= "VAT balance"[-1]
+```
+
+For **quarterly settlement**, three months of accumulation clear at once:
+
+```typescript
+= if(if_quarter_month(1) = 1, "VAT balance"[-1], 0)
+```
+
+When cost VAT consistently exceeds sales VAT (common in export-led, investment-heavy, or B2B businesses with limited domestic sales), the balance carries a receivable rather than a payable. The settlement becomes a cash inflow from the tax authority. The formula logic is the same; the sign of the balance tells Francis whether a payment goes out or a refund comes in.
+
+<Note>
+If you change VAT reporting frequency, for example from quarterly to monthly, historical data will show apparent cash spikes in the transition period that are not structural. Annotate these periods rather than adjusting the underlying data.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My VAT refund doesn't appear as a cash inflow">
+    This happens when the monthly refund received and the new VAT accumulated in the same period are roughly equal. The net movement on the balance sheet is approximately zero, and the cash receipt from the tax authority disappears from the cash flow forecast. Fix it by modelling the refund and the new monthly accumulation as two separate lines rather than letting them net. That makes the cash inflow explicit regardless of how much new VAT accumulates in the same month.
+  </Accordion>
+  <Accordion title="Should I link the VAT forecast dynamically to my cost forecast?">
+    Only if your VAT exposure varies materially month to month. For most businesses, a fixed monthly assumption based on recent actuals is accurate enough and avoids false precision. If costs are growing, apply a modest growth rate to the monthly accumulation figure rather than rebuilding the dynamic link from scratch.
+  </Accordion>
+</AccordionGroup>

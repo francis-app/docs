@@ -1,12 +1,12 @@
 ---
 title: "Eliminate intercompany transactions"
 sidebarTitle: "Eliminations"
-description: "Remove internal group transactions at the consolidated level — for both single-currency and multi-currency groups."
+description: "Remove internal group transactions at the consolidated level, for both single-currency and multi-currency groups."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/eliminations.mp4" />
 
-Intercompany transactions between entities in your group need to be removed at the consolidated level — left in, they inflate group revenue, costs, or both. This guide covers how to identify those transactions in Francis and record the eliminations, whether your group operates in a single currency or multiple.
+Intercompany transactions between entities in your group need to be removed at the consolidated level. Left in, they inflate group revenue, costs, or both. This guide covers how to identify those transactions in Francis and record the eliminations, whether your group operates in a single currency or multiple.
 
 ## Before you start
 
@@ -14,21 +14,21 @@ You need a consolidated model with an entity-level breakdown in place before you
 
 ## Applying eliminations
 
-Intercompany transactions are typically tracked through specific GL accounts or dimension values. Isolate them into their own rows on the consolidated sheet first — this makes it straightforward to target them with offset entries without disturbing the rest of the model. Select the tab that matches your group's currency setup.
+Intercompany transactions are typically tracked through specific GL accounts or dimension values. Isolate them into their own rows on the consolidated sheet first. This makes it straightforward to target them with offset entries without disturbing the rest of the model. Select the tab that matches your group's currency setup.
 
 <Tabs>
   <Tab title="Same currency">
 
-Add a dedicated sheet — call it "Eliminations" — to your consolidation template. For each intercompany transaction, record the opposite sign in the Eliminations sheet. If entity A records IC revenue of 7,300 and entity B records IC costs of −7,300, the two entries cancel out at group level.
+Add a dedicated sheet (call it "Eliminations") to your consolidation template. For each intercompany transaction, record the opposite sign in the Eliminations sheet. If entity A records IC revenue of 7,300 and entity B records IC costs of −7,300, the two entries cancel out at group level.
 
-Keep the intercompany rows intact on the individual entity sheets — those figures are still correct for standalone entity reporting. Only the group level eliminates them.
+Keep the intercompany rows intact on the individual entity sheets. Those figures are still correct for standalone entity reporting. Only the group level eliminates them.
 
   </Tab>
   <Tab title="Different currencies">
 
 Follow the same steps as for single-currency eliminations. Because the two entities record the same IC transaction in different currencies, the converted amounts will often differ slightly once brought into the reporting currency. That difference needs its own row.
 
-Add a row — typically called "FX fluctuation" — to your Eliminations sheet and post the difference there. For example, entity A records IC revenue of −7,563 and entity B records IC costs of 7,300. The 263 difference goes to the FX fluctuation row, so the two sides net to zero at group level.
+Add a row (typically called "FX fluctuation") to your Eliminations sheet and post the difference there. For example, entity A records IC revenue of −7,563 and entity B records IC costs of 7,300. The 263 difference goes to the FX fluctuation row, so the two sides net to zero at group level.
 <Warning>
   This approach assumes all residual differences come from exchange rate movements. If the same GL account is used for multiple purposes, or if there are bookkeeping errors, the residual will be overstated and the FX fluctuation row will absorb more than it should.
 </Warning>

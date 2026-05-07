@@ -1,9 +1,48 @@
 ---
-title: "CAPEX"
+title: "Forecast CAPEX"
 sidebarTitle: "CAPEX"
-description: "TODO"
+description: "How to model fixed asset balances in Francis, including new investments and depreciation."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/capex.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "CAPEX") */}
+CAPEX is spending on fixed assets expected to generate value over multiple periods. Common examples include machinery, equipment, leasehold improvements, and software licences. Unlike operating expenses, CAPEX is capitalized on the balance sheet and depreciated over the asset's useful life.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For CAPEX, this means fixed asset value last period + new investments in period − depreciation in period.
+
+## New investments
+
+A new investment is an addition to the fixed asset balance. Model it in the period the asset is purchased or put into use.
+
+Most investments are project-based and known in advance. Hardcode them in the month they fall due. For businesses with ongoing investment activity across multiple asset classes, use a supporting sheet that lists each asset or project with its cost and expected purchase date, then reference the monthly total into the balance sheet row.
+
+<Tip>
+A supporting sheet also makes it straightforward to model planned investments: equipment tied to a hiring plan, or a fit-out expected in H2.
+</Tip>
+
+## Depreciation
+
+Depreciation is the detraction: the portion of the asset's cost recognized as expense each period. It flows to the P&L as a non-cash operating expense and reduces the balance sheet balance by the same amount.
+
+The standard approach is straight-line: divide the asset cost by its useful life in months.
+
+```typescript
+= "Asset cost"[0] / "Useful life (months)"[0]
+```
+
+If you have multiple asset classes with different useful lives, calculate depreciation per class on a supporting sheet and reference the total into the P&L and balance sheet rows.
+
+<Note>
+CAPEX is a cash outflow in investing activities on the cash flow statement, not in working capital. Depreciation is a non-cash add-back in operating activities. Both must be modeled explicitly for the cash flow statement to balance.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Should I track gross cost and accumulated depreciation separately?">
+    For most Francis models, tracking net book value directly (last period + new investments − depreciation) is sufficient. If your accounting system tracks gross cost and accumulated depreciation separately and you want actuals to reconcile cleanly, map both accounts and model each movement explicitly.
+  </Accordion>
+  <Accordion title="How do I handle an asset disposal?">
+    Model a disposal as a detraction in the period the asset is removed. Deduct the remaining net book value from the fixed asset balance and remove the associated depreciation going forward. If the disposal generates proceeds, those flow through investing activities on the cash flow statement.
+  </Accordion>
+</AccordionGroup>

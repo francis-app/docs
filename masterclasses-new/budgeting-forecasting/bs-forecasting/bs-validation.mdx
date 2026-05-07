@@ -1,17 +1,44 @@
 ---
-title: "BS validation"
+title: "Fix a failing BS validation"
 sidebarTitle: "BS validation"
-description: "TODO"
+description: "How Francis validates your balance sheet and how to troubleshoot a failing check for actuals and forecast months."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/bs-validation.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "BS validation") */}
+Francis automatically validates your balance sheet when you use a template, checking that assets equal liabilities plus equity.
+
+## How the check works
+
+Francis subtracts liabilities and equity from assets. The result should be zero. A non-zero value means the two sides are out of balance by that amount.
+
+<Note>Francis displays liabilities and equity as positive numbers. If you expect liabilities to appear as negative and map accounts to compensate, the check will fail.</Note>
+
+## Check fails for actuals months
+
+1. Have all balance sheet accounts been mapped?
+2. Have you incorrectly mapped P&L accounts to the balance sheet, or vice versa?
+3. Have you mapped asset accounts to the liability side, or vice versa? Francis flips the sign of liability accounts, so a wrong-side mapping causes a mismatch.
+4. Are there manual overrides in the balance sheet that cause totals to diverge from your accounting system?
+5. Does the balance sheet contain line items with values not sourced from your accounting system?
+6. If you use QuickBooks Online, Xero, or NetSuite, have you manually adjusted retained earnings? [See this guide](#).
+
+## Check fails for forecast months
+
+1. Is the check passing for actuals months? If not, resolve that first before troubleshooting forecasts.
+2. Have you forecasted the asset line item **Cash** as ending cash from the cash flow statement? This link ensures consistency between the balance sheet and the cash flow statement. [See this guide](#).
+3. Is the cash flow check passing for actuals months? It feeds directly into the **Cash** line on the balance sheet and must be accurate for the balance sheet to balance.
+4. Have all non-cash line items been forecasted correctly? These don't flow through the cash flow statement but still affect the balance sheet. Common causes:
+   - **Retained earnings** should equal last period's value plus this period's net profit.
+   - **Accumulated depreciation** should equal last period plus this period's depreciation expense.
+   - **Investments in subsidiaries** (equity method) should equal last period plus this period's income from subsidiaries.
+
+<Note>All cash-related P&L and balance sheet line items flow through the cash flow statement and affect the cash asset line. Errors there won't cause the balance sheet to go out of balance, but they may distort the cash value itself.</Note>
 
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="My balance sheet check fails?">
-    {/* TODO: answer */}
+  <Accordion title="My balance sheet check fails">
+    First establish whether the check is failing for actuals months, forecast months, or both. The causes are different. See [Check fails for actuals months](#check-fails-for-actuals-months) and [Check fails for forecast months](#check-fails-for-forecast-months) above. If you've worked through both lists and can't resolve it, contact support@francis.app.
   </Accordion>
 </AccordionGroup>
