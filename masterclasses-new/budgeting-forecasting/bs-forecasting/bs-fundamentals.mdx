@@ -6,7 +6,7 @@ description: "How the Francis Balance Sheet template is structured and how asset
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals.mp4" />
 
-The Balance Sheet gives you a point-in-time picture of what the business owns, what it owes, and what remains for shareholders. In Francis, it stays in sync with your P&L and cash flow so the model always balances.
+The Balance Sheet ties everything together. Actuals map from your GL; the forecast carries each balance forward from the prior period and adjusts when movements occur.
 
 ## The Francis Balance Sheet template
 
@@ -28,12 +28,26 @@ This pattern applies to every BS line item:
 | VAT | VAT payable last period + sales VAT − cost VAT − VAT paid |
 | CAPEX | Fixed asset value last period + new investments − depreciation |
 | Loans | Loan balance last period + new draws − repayments |
+| Cash | Cash last period + cash flow movement in current period |
+| Retained earnings | Retained earnings last period + net profit from P&L |
 
 Each specific line item page covers how additions and detractions work in practice.
 
 ## Connected across sheets
 
-The Balance Sheet, P&L, and cash flow live in the same Francis model, even if they sit on separate sheets. You don't need to reconcile across files to understand your financial position. The Francis template pre-wires the connections. Movements on BS lines flow to the cash flow statement automatically. When a receivable clears, the cash flow statement picks it up without manual intervention.
+The Balance Sheet, P&L, and cash flow live in the same Francis model, even if they sit on separate sheets. You don't need to reconcile across files to understand your financial position.
+
+Two lines need to be wired up manually, as they are the connections that link all three statements together. In Francis, the formulas look like this:
+
+```
+= "Cash"[-1] + "Cash flow movement in period"
+```
+
+```
+= "Retained earnings"[-1] + "Net profit"
+```
+
+Once these are in place, movements on BS lines flow to the cash flow statement automatically. When a receivable clears, the cash flow statement picks it up without manual intervention.
 
 ## FAQ
 

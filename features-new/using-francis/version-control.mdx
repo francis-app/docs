@@ -1,9 +1,34 @@
 ---
 title: "Version control"
-sidebarTitle: "🔴 Version control"
-description: "TODO"
+sidebarTitle: "Version control"
+description: "Save snapshots of your financial model to compare budgets, forecasts, and actuals in charts and reports."
+icon: "clock-rotate-left"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/version-control.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Version control lets you save snapshots of your model at key points in the year. Once saved, versions are available for comparison in charts and reports. Use them to track how your forecast has evolved, or to lock in an anchor budget before the year begins.
+
+## Save a version
+
+Navigate to **Versions** in the top bar and select **Save version** from the side drawer. Name the version and confirm. It appears on the version timeline immediately.
+
+<Tip>
+  Include a time reference in the name. Common conventions are "Q1 Reforecast" or "3+9 Forecast" — these stay meaningful months later when the timeline has multiple entries.
+</Tip>
+
+## Use versions
+
+Saved versions are available in two places:
+
+**Charts** — open a chart and go to **Sources**. Saved versions appear alongside built-in sources (latest forecast, actuals, prior year). Add them to compare budget vs. actuals or budget vs. forecast in the same view.
+
+**Reports** — the variance report takes two inputs: an anchor budget and a forecast. Saved versions are the intended source for both. See [Reports](/features-new/using-francis/reports) for how to configure the report layout.
+
+## Access and editing
+
+All roles can view the version timeline and saved versions. It is not possible to restrict access to specific versions or share individual versions with specific users.
+
+Saved versions are locked. They cannot be edited after saving. The exception is actuals: if new entries are booked to mapped accounts for months prior to the forecast start date, those actuals update in saved versions automatically.
+
+If you need to adjust a recently saved version, save a new version with your changes rather than trying to edit the existing one.

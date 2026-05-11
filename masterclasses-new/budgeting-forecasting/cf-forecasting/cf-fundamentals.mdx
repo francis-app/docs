@@ -1,12 +1,40 @@
 ---
-title: "CF fundamentals"
-sidebarTitle: "🔴 CF fundamentals"
-description: "TODO"
+title: "Cash flow fundamentals"
+sidebarTitle: "CF fundamentals"
+description: "How the Francis Cash Flow template is structured and how operating, investing, and financing activities connect to your P&L and Balance Sheet automatically."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/cf-forecasting/cf-fundamentals.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "CF fundamentals") */}
+The cash flow statement in Francis is fully derived. It pulls net profit from the P&L and movements from the Balance Sheet. You don't enter a single cash flow figure manually.
+
+## The Francis Cash Flow template
+
+Operating, investing, and financing activities are organised into clearly separated sections. The closing cash balance is a pre-built calculation derived from opening cash plus the net movement across all three sections. Map your GL accounts to the relevant rows before you start. Balances won't populate until the mapping is in place.
+
+## How cash flow forecasting works
+
+Francis uses the indirect method. The statement starts from net profit, adjusts for non-cash items such as depreciation and amortisation, then applies working capital movements from the Balance Sheet. Investing and financing flows follow from there.
+
+Each movement is derived from the corresponding Balance Sheet line. You don't enter cash flow figures directly.
+
+| Line item | Formula |
+| :--- | :--- |
+| Depreciation | Depreciation from P&L (positive add-back) |
+| Receivables movement | Receivables opening − receivables closing |
+| Payables movement | Payables closing − payables opening |
+| CAPEX | New fixed asset investments (negative outflow) |
+| Loan movements | New draws − repayments |
+
+Each specific line item page covers how inflows and outflows work in practice.
+
+<Note>
+  The depreciation add-back needs to be set up manually. Reference the depreciation add-back row in the CF statement to the depreciation row in your P&L, rather than hardcoding a value, so the two stay in sync as your forecast changes.
+</Note>
+
+## Connected across sheets
+
+The cash flow, P&L, and Balance Sheet live in the same Francis model, even if they sit on separate sheets. Once the manual connections are in place, the statements stay in sync automatically. When a Balance Sheet line moves, the cash flow updates. When a receivable clears, the operating section picks it up. When a loan is drawn, the financing section reflects it. No manual reconciliation needed.
 
 ## FAQ
 

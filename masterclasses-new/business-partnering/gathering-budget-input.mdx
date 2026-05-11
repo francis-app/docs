@@ -1,12 +1,44 @@
 ---
-title: "Gathering budget input"
-sidebarTitle: "🔴 Gathering budget input"
-description: "TODO"
+title: "Gather budget input from stakeholders"
+sidebarTitle: "Gathering budget input"
+description: "How to collect budget input from department heads and translate it into Francis."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/business-partnering/gathering-budget-input.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Gathering budget input") */}
+Gathering budget input is a coordination problem as much as a modeling problem. Department heads know their numbers; finance owns the model.
+
+## Before you start
+
+Your model needs to be structured before you start collecting input. Break down the P&L by department so each department head sees only their own rows. Set up Limited Viewer access so they can view their sheet and comment. Status indicators should be enabled so you can track which rows are complete.
+
+If these aren't in place, set them up first. See [Share model access with managers](/masterclasses-new/business-partnering/limited-manager-access) for the access setup.
+
+## Collect input
+
+Department heads respond via comments on the relevant rows in Francis. A comment on a headcount row saying "adding two FTEs in Q2" gives you everything you need to update the model. You reply in the same thread, confirm the update, and move on.
+
+For stakeholders who prefer to work outside Francis, collect input via email or a shared spreadsheet and enter it manually. The process is the same. The comment thread in Francis just replaces the email chain.
+
+<Note>
+  Department heads can view their numbers and drill into transactions, but cannot edit the model directly. All updates are made by the finance team based on the input they receive.
+</Note>
+
+## Input to Francis
+
+Once you have the input, translate it into the model. How you update a row depends on how it was set up. If a row is hardcoded, enter the new figure directly. If it is formula or driver-based (a headcount assumption, a growth rate, a unit cost), update the driver so the model recalculates rather than overwriting the formula.
+
+For each row updated:
+
+1. Make the change in the relevant sub-sheet
+2. Reply to the comment thread to confirm the update was made
+3. Mark the row status as **Done**
+
+Replying in the thread creates a record of what was agreed and when. Marking rows Done lets you see progress at a glance without opening every sub-sheet.
+
+## Track progress
+
+Use status indicators to manage the round. At the start of the round, mark rows **To-do**. Move them to **In progress** when input is received but not yet entered, and **Done** when the model reflects the agreed figures. Statuses roll up to group level automatically, so you can see which departments are complete without opening every sub-sheet. See [Status indicators](/features-new/using-francis/status-indicators) for how rollup works.
 
 ## FAQ
 

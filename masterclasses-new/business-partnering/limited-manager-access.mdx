@@ -1,9 +1,36 @@
 ---
-title: "Limited manager access"
-sidebarTitle: "🔴 Limited manager access"
-description: "TODO"
+title: "Share model access with managers"
+sidebarTitle: "Limited manager access"
+description: "Share specific parts of your financial model with department heads and managers without exposing the full model."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/business-partnering/limited-manager-access.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "Limited manager access") */}
+A Limited Viewer sees only the sheets you explicitly grant them access to. On those sheets, they can view data, download reports, drill into transactions, and add comments. The model structure is locked, so there's no risk of a manager accidentally breaking something. Charts are not accessible.
+
+Comments are the primary way business partnering happens in Francis. As Head of FP&A or CFO, you ask questions directly on a forecast row. The department head or location manager replies in the same thread, in the same sheet. The conversation stays attached to the number it's about, not buried in an email chain.
+
+## Before you start
+
+Limited Viewers are only available on the Mastery plan. Before inviting anyone, make sure your model is structured so there is something meaningful to restrict access to. If your P&L or balance sheet is a single consolidated sheet, a Limited Viewer would see the same thing as a regular Viewer. The feature earns its value when sheets are split by entity, department, or location using [breakdowns](/features-new/using-francis/breakdowns).
+
+## Invite a Limited Viewer
+
+Open the sheet or sub-sheet you want to share and click **Share**. Enter the person's email address and invite them. Francis assigns them the Limited Viewer role automatically and restricts their access to that sheet. They receive an email invitation and see only the sheets you have shared with them.
+
+Repeat for each sheet they need. A department head typically gets one or two sub-sheets. A leadership team member might get the consolidated sheet only.
+
+<Note>
+  Grant access at the right level of the hierarchy. If you give a Limited Viewer access to a consolidated sheet that rolls up entity sub-sheets, they see the consolidated totals but not the individual entity detail.
+</Note>
+
+## Common patterns
+
+### Department head
+
+Break down your P&L by department using a sheet breakdown. Invite the department head as a Limited Viewer and grant access to their department sub-sheet only. They see their own costs and headcount in full, with no visibility into other departments or the consolidated view. This is the most common use case for budget input and accountability.
+
+### Leadership and board
+
+Invite senior stakeholders as Limited Viewers on the consolidated sheet. They see the full group view (revenue, costs, EBITDA) without access to the underlying entity or department detail.
+

@@ -12,7 +12,7 @@ Balance sheet forecasting is always a function of last period's value, additions
 
 ## Before you start
 
-Map your corporate tax payable account in **Account mapping** before forecasting. The roll-forward carries last period's actuals forward — if the account isn't mapped, the opening balance is zero and the forecast will be wrong.
+Map your corporate tax payable account in **Account mapping** before forecasting. The roll-forward carries last period's actuals forward. If the account isn't mapped, the opening balance is zero and the forecast will be wrong.
 
 ## Roll-forward with payment event
 
@@ -22,7 +22,7 @@ Carry last period's balance forward. In the month the payment falls due, the bal
 = if(if_month(11) = 1, 0, "Corporate tax payable"[-1])
 ```
 
-This formula reads: if it's November, return zero. Otherwise, carry last period's balance forward. The drop in the balance is what Francis uses to derive the cash outflow — no manual cash flow entry needed.
+This formula reads: if it's November, return zero. Otherwise, carry last period's balance forward. The drop in the balance is what Francis uses to derive the cash outflow. No manual cash flow entry needed.
 
 <Note>
 Adjust the month number to match your payment schedule. If you have two payment events in the year, use `if_month(3, 11)` and set the balance to zero in both months, or hardcode the residual balance after the first payment.
