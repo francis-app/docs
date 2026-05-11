@@ -1,8 +1,26 @@
 ---
 title: "Preferences"
-description: "TODO"
+description: "Adjust your interface theme, number formatting, and zero display in Francis."
+icon: "gear"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/admin/preferences.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Preferences are under **Settings > Account > Preferences**. They control your interface theme, how numbers display, and how zeros appear in your model. These settings apply only to your account and don't affect how other members see their data.
+
+## Interface theme
+
+Choose how Francis appears on your screen: **Light**, **Dark**, or **System**. System follows your device's display settings.
+
+## Number format
+
+Choose between US and EU number formats. The format affects both how numbers display and how you write functions in Francis. US is the default.
+
+|  | US | EU |
+| :--- | :--- | :--- |
+| **Numbers** | Comma as thousands separator, period as decimal (1,234.56) | Period as thousands separator, comma as decimal (1.234,56) |
+| **Functions** | Commas separate function parameters | Semicolons separate function parameters |
+
+## Zeros
+
+Choose how zero values appear in your model: **Dash (-)**, **Blank**, or **Zero (0)**.

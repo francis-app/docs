@@ -1,12 +1,39 @@
 ---
-title: "BS fundamentals"
+title: "Balance Sheet fundamentals"
 sidebarTitle: "BS fundamentals"
-description: "TODO"
+description: "How the Francis Balance Sheet template is structured and how assets, liabilities, and equity work together in one view."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "BS fundamentals") */}
+The Balance Sheet gives you a point-in-time picture of what the business owns, what it owes, and what remains for shareholders. In Francis, it stays in sync with your P&L and cash flow so the model always balances.
+
+## The Francis Balance Sheet template
+
+{/* Screenshot of the Francis Balance Sheet template to be added here */}
+
+Assets, liabilities, and equity are organised into clearly separated sections. The closing balance for each period is a pre-built calculation. Francis derives it from the opening balance plus any movements in the period. Map your GL accounts to the relevant rows before you start. Balances won't populate until the mapping is in place.
+
+## How balance sheet forecasting works
+
+Balance sheet forecasting always follows the same pattern: last period's value, plus additions, minus detractions.
+
+Last period's value is included because balance sheet items accumulate. A receivables balance doesn't reset to zero each month. It carries forward from the previous period and changes only when new invoices are issued or payments come in. The net movement (additions minus detractions) is what flows through to the cash flow statement.
+
+This pattern applies to every BS line item:
+
+| Line item | Formula |
+| :--- | :--- |
+| Receivables | Receivables last period + invoices issued − payments received |
+| VAT | VAT payable last period + sales VAT − cost VAT − VAT paid |
+| CAPEX | Fixed asset value last period + new investments − depreciation |
+| Loans | Loan balance last period + new draws − repayments |
+
+Each specific line item page covers how additions and detractions work in practice.
+
+## Connected across sheets
+
+The Balance Sheet, P&L, and cash flow live in the same Francis model, even if they sit on separate sheets. You don't need to reconcile across files to understand your financial position. The Francis template pre-wires the connections. Movements on BS lines flow to the cash flow statement automatically. When a receivable clears, the cash flow statement picks it up without manual intervention.
 
 ## FAQ
 

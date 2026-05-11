@@ -1,17 +1,62 @@
 ---
-title: "CF validation"
+title: "Fix a failing CF validation"
 sidebarTitle: "CF validation"
-description: "TODO"
+description: "How Francis validates your cash flow statement and how to troubleshoot a failing check for actuals and forecast months."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/cf-forecasting/cf-validation.mp4" />
 
-{/* TODO: author this page per CLAUDE.md — reframe title as outcome H1 (must contain "CF validation") */}
+Francis validates your cash flow statement by comparing the ending cash balance on the statement to the cash asset account from your accounting system. A passing check for actuals gives strong confidence that the cash flow statement is set up correctly, and that the forecast is built on solid foundations.
+
+## How the check works
+
+Francis subtracts the ending balance on the cash asset line item (mapped to your GL) from the ending cash on the cash flow statement. The result should be zero. A non-zero result means either the cash flow statement is structured incorrectly, or there is an issue in your bookkeeping data.
+
+## Check fails for actuals months
+
+Work through these steps in order. The earlier steps catch structural errors; the later steps catch transaction-level issues.
+
+### P&L and balance sheet prerequisites
+
+1. Have all P&L and balance sheet accounts been mapped? The cash flow statement depends on these mappings.
+2. Are there manual overrides in the P&L or balance sheet that cause calculated values to diverge from your accounting system?
+3. Are the P&L subtotals set up correctly, producing an accurate net profit line? This line feeds directly into the cash flow statement.
+4. Is the balance sheet check passing? [Resolve that first.](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation)
+5. Does the P&L or balance sheet contain line items with values not sourced from your accounting system?
+
+### Cash flow statement line items
+
+6. Are all line items that represent cash movements included in the cash flow statement?
+7. Are all non-cash line items excluded? Common items incorrectly included:
+   - Depreciation (P&L) and accumulated depreciation (contra-asset)
+   - Income from subsidiaries (P&L) and investment in subsidiaries (asset)
+8. If you use multiple currencies, have you made the relevant adjustments? [See the currency conversion guide.](/masterclasses-new/consolidation/currency-conversion)
+
+### Cash flow statement formulas
+
+9. Are any formulas missing? Check for cells that are blank where a formula should be.
+10. Are the signs correct? Asset formulas need a minus sign; liability and equity formulas need a plus sign. An increase in liabilities or equity means you've gained or kept liquidity. An increase in assets means you've tied up liquidity.
+11. Are balance sheet movement deltas set up correctly (this period minus previous period)?
+
+### Transactions
+
+12. Have any cash transactions been posted to non-cash line items, causing them to be excluded from the cash flow statement? Look for transaction descriptions that suggest cash activity: *invoice allocation*, *expense*.
+13. Have any non-cash transactions been posted to cash line items, causing them to be incorrectly included? Look for descriptions that indicate non-cash activity: *depreciation*, *subsidiary*, *adjustment entry*.
+
+<Note>
+  If the check is off in only one or a few months rather than consistently, the issue is likely a specific transaction rather than a structural error.
+</Note>
+
+## Check fails for forecast months
+
+Forecast the cash asset line item by referencing ending cash on the cash flow statement. This links the two statements together, a method called using cash as a plug. [See this guide.](/masterclasses-new/budgeting-forecasting/cf-forecasting/cf-fundamentals)
+
+When the cash asset value equals ending cash on the cash flow statement, the check is always zero.
 
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="My cash flow check fails?">
-    {/* TODO: answer */}
+  <Accordion title="My cash flow check fails">
+    First establish whether the check is failing for actuals months, forecast months, or both. The causes are different. See [Check fails for actuals months](#check-fails-for-actuals-months) and [Check fails for forecast months](#check-fails-for-forecast-months) above. If you've worked through both lists and the check still fails, contact support@francis.app.
   </Accordion>
 </AccordionGroup>

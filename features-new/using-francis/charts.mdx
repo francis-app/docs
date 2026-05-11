@@ -1,11 +1,43 @@
 ---
 title: "Charts"
-description: "TODO"
+description: "Visualize model data, compare versions, and include charts in PDF reports."
+icon: "chart-line"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/charts.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Charts visualize data from your model and feed directly into dashboards and PDF reports. All charts in Francis are linked to a dashboard, which controls the date range for all charts within it.
+
+## Chart types
+
+Francis supports four chart types:
+
+- Line
+- Column
+- Stacked column
+- Stacked area
+
+## Create a chart
+
+Navigate to **Charts** in the top bar of the model view. This opens a side drawer showing all available dashboards. Select a dashboard, choose a chart type, then drag rows, groups, or calculations from your model into the chart area. Francis generates the chart automatically from the data in your model.
+
+<Note>
+  Date ranges are set at the dashboard level and apply to all charts within it. To show charts with different date ranges, create separate dashboards.
+</Note>
+
+## Compare versions
+
+Open a chart and go to **Sources** to compare the current view against other data. Built-in source options include:
+
+- Latest forecast for the year
+- Actuals for the period
+- Actuals for the same period in the prior year
+
+If you have saved versions — an anchor budget or saved forecasts — those are also available in Sources. This lets you compare, for example, budgeted revenue against the latest forecast alongside current actuals.
+
+## Include in reports
+
+All charts can be included in PDF reports. When downloading a report, select which charts to include. Charts are available in both the month-by-month and budget variance report formats.
 
 ## FAQ
 

@@ -1,8 +1,21 @@
 ---
 title: "Inspect"
-description: "TODO"
+description: "See the underlying transactions behind any cell in your model."
+icon: "magnifying-glass"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/inspect.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Inspect shows the transactions behind any cell in your model. Select a cell and open the Inspect panel to see every transaction posted from the accounts mapped to that row for the selected month.
+
+## Open Inspect
+
+Select the cell you want to investigate, then click **Inspect** in the top bar. A side drawer opens with a complete list of transactions posted from the accounts mapped to that row in the selected month.
+
+## Converted transactions
+
+If your actuals use currency conversion, Inspect shows both the converted value and the original transaction in the source currency. This lets you trace any number back to its source.
+
+## Balance sheet accounts
+
+Francis accumulates balance sheet values from your accounting integration month over month. Inspect shows monthly posted transactions only, not opening balances. If a balance sheet account had no movement in a given month, no transactions appear.

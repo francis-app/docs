@@ -1,8 +1,49 @@
 ---
 title: "Breakdowns"
-description: "TODO"
+description: "Split your financial model across entities, departments, or locations to see data per sub-unit."
+sidebarTitle: "Breakdowns"
+icon: "list-tree"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/breakdowns.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Breakdowns split a sheet into sub-sheets so you can plan and review data per sub-unit. There are two levels: entity and [dimension](/masterclasses-new/consolidation/dimensions). Entity comes first and is always the foundation. Dimension breakdowns (by department, channel, or project) are applied on top of entity sub-sheets, not on the consolidated sheet directly.
+
+## How breakdowns work
+
+When you apply a breakdown, Francis creates one sub-sheet per value in the chosen dimension. The parent sheet becomes a read-only roll-up. Any manually entered values on the parent sheet are removed. The data now lives on the sub-sheets. Calculations and formulas are preserved at all levels.
+
+<Warning>
+  Removing a breakdown permanently deletes any data entered on the sub-sheets. This cannot be undone.
+</Warning>
+
+## Build top-down, work bottom-up
+
+Structure flows top-down: rows, groups, and calculations defined on the consolidated sheet sync to all sub-sheets automatically. You build the model once, at the top level, and every sub-sheet inherits it.
+
+Forecasting flows bottom-up: actuals and forecasts are entered on the sub-sheets and roll up automatically. You never edit the consolidated sheet directly.
+
+
+## Entity breakdown
+
+The entity breakdown is always the starting point. Apply it to your consolidated sheet and Francis creates one sub-sheet per entity. The consolidated sheet rolls up all entity sub-sheets automatically. This is what makes per-entity forecasting possible.
+
+## Dimension breakdown
+
+Once entity sub-sheets are in place, you can break each one down further by dimension: department, channel, project, or any dimension your accounting system tracks. The entity sub-sheet becomes a template, and Francis creates one sub-sheet per dimension value beneath it.
+
+Apply dimension breakdowns to the entity sub-sheets, not to the consolidated sheet. The hierarchy is: consolidated sheet > entity sub-sheets > dimension sub-sheets.
+
+## Sheet breakdown vs line item breakdown
+
+Both entity and dimension breakdowns can be applied at two levels:
+
+**Sheet breakdown** applies to the entire sheet. Every row is tracked per sub-unit. Use this when you need a full financial view per entity or department.
+
+**Line item breakdown** applies to a single row. Use this when only one specific line needs to be split and the rest of the sheet stays consolidated. A common case: headcount is tracked per department, but all other P&L lines stay at the entity level.
+
+## Access control
+
+Because breakdowns split data onto separate sub-sheets, you can invite budget owners to only their own sub-sheet. A department head sees their own dimension sub-sheet and nothing else. The entity-level and consolidated views stay with Finance.
+
+This is the natural structure for a distributed budgeting process: each owner works in their own slice, Finance owns the roll-up.

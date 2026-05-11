@@ -1,8 +1,94 @@
 ---
 title: "Members and roles"
-description: "TODO"
+description: "Invite and manage team members, and control what each role can access in Francis."
+icon: "users"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/admin/members-and-roles.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+The Members page is under **Settings > Organization > Members**. It shows all current and invited members, their roles, and any pending invitations. Owners and Admins can invite new members and manage existing ones.
+
+## Invite members
+
+1. Go to **Settings > Organization > Members**
+2. Click **Invite member**
+3. Enter the invitee's email address
+4. Select their role
+5. Click **Invite**
+
+The invitee receives an email with steps to join your organization.
+
+<Note>
+  Some email servers filter invitation emails as spam. Whitelist [hi@francis.app](mailto:hi@francis.app) as a trusted sender if invites aren't getting through.
+</Note>
+
+## Remove members
+
+1. Go to **Settings > Organization > Members**
+2. Click the gear icon next to the member's name
+3. Select **Remove from organization**
+
+The member loses access immediately. Any work they contributed stays in place. Re-invite them if they need access again.
+
+## Roles
+
+Francis has five roles: Owner, Admin, Editor, Viewer, and Limited Viewer. Change a member's role at any time by clicking the gear icon next to their name on the Members page.
+
+| Permission | Owner | Admin | Editor | Viewer |
+| :--- | :---: | :---: | :---: | :---: |
+| Transfer ownership | X | | | |
+| Delete organization | X | | | |
+| Invite and manage Owners | X | | | |
+| Invite and manage Admins, Editors, and Viewers | X | X | | |
+| Rename organization | X | X | | |
+| Manage and update subscription | X | X | | |
+| Manage and update billing details | X | X | | |
+| View billing history and invoices | X | X | | |
+| Connect and configure data sources | X | X | X | |
+| Sync connected data sources | X | X | X | |
+| Update account mappings | X | X | X | |
+| Create and edit models | X | X | X | |
+| Create and edit charts and dashboards | X | X | X | |
+| Set status indicators and row descriptions | X | X | X | |
+| Configure breakdowns | X | X | X | |
+| Update forecast start and last close | X | X | X | |
+| View models and reports | X | X | X | X |
+| Download reports and export to Excel | X | X | X | X |
+| View saved versions | X | X | X | X |
+| View transaction drill-down | X | X | X | X |
+| Comment and resolve threads | X | X | X | X |
+
+### Owner
+
+The member who creates the organization is assigned Owner and holds the highest level of access. Owners can invite, remove, promote, or demote any member and are the only role that can delete the organization. Francis supports multiple Owners.
+
+### Admin
+
+Admins share nearly all Owner permissions but cannot delete the organization or modify the Owner's role. They can invite, remove, promote, or demote any member except the Owner.
+
+### Editor
+
+Editors have full access to all models and can collaborate on modeling, account mapping, forecasting, and consolidation. They cannot manage members or delete the organization.
+
+### Viewer
+
+Viewers can see all models, download reports, and view transaction details. They cannot make changes to models or manage members.
+
+### Limited Viewer
+
+<Note>
+  Limited Viewers are only available on the Mastery plan.
+</Note>
+
+Limited Viewers have the same access as Viewers but restricted to the specific sheets or models you grant them. Use this role for department heads or budget owners who need access to their own slice of the model without seeing the full financials.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I transfer ownership of my organization?">
+    Go to **Settings > Organization > Members**, click the gear icon next to the new Owner's name, and promote them to Owner. Then change your own role to Admin, Editor, or Viewer as appropriate. Francis supports multiple Owners, so you don't need to remove yourself first.
+  </Accordion>
+  <Accordion title="Can I have multiple Owners?">
+    Yes. Francis supports multiple Owners in the same organization.
+  </Accordion>
+</AccordionGroup>

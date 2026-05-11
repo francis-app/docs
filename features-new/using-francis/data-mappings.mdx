@@ -1,16 +1,47 @@
 ---
 title: "Data mappings"
-description: "TODO"
+description: "Connect your general ledger accounts to your Francis model to pull in actuals automatically."
+sidebarTitle: "Data mappings"
+icon: "list-tree"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/data-mappings.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Data mappings connect your general ledger accounts to rows and groups in your model. Once mapped, actuals flow in automatically from your accounting system whenever Francis syncs.
+
+## How mappings work
+
+Open the **Mappings** view to see all GL accounts from your connected accounting systems. Drag an account onto an existing row or group to map it. To create a new row at the same time, drag the account all the way to the row name area and release it.
+
+You can map multiple accounts to the same line item (useful when consolidating accounts that belong together in your model but are tracked separately in your GL).
+
+<Note>
+  Rows and groups with at least one mapped account show a green connection indicator. No mapping shows gray.
+</Note>
+
+## Account categories
+
+Francis categorizes each account as Income (I), Expense (EX), Asset (A), Liability (L), or Equity (EQ). This categorization comes directly from your accounting system. Francis doesn't reclassify accounts. The category determines how Francis handles signs, so map accounts to the correct side of your model.
+
+## Active and unused accounts
+
+Accounts in the Mappings view are split into two groups:
+
+- **Active**: accounts with at least one journal entry. Map or ignore every active account.
+- **Unused**: accounts with no journal entries. Nothing needed. If entries are booked to an unused account later, it moves to active automatically.
+
+The notification count on the **Mappings** button shows how many active accounts still need attention. Map or ignore accounts to clear it.
+
+## Ignoring accounts
+
+Ignore accounts you don't want in your model: old accounts, discontinued entities, or anything not relevant to your current reporting structure. Ignored accounts are excluded from the notification count.
+
+If new entries are booked to an ignored account, Francis automatically un-ignores it and adds it back to the notification count.
 
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="I have an asset that I want to present as a liability (or vice versa)?">
+  <Accordion title="I have an asset account I want to present as a liability (or vice versa)">
     {/* TODO: answer */}
   </Accordion>
 </AccordionGroup>

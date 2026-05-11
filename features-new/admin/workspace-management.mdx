@@ -1,8 +1,48 @@
 ---
 title: "Workspace management"
-description: "TODO"
+description: "Configure your organization name, branding, and access settings in Francis."
+icon: "building"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/admin/workspace-management.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Workspace settings are under **Settings > Organization > General**. Only Owners can access and edit these settings.
+
+## Organization name
+
+Update the display name of your organization. This is what members see when switching between organizations.
+
+## Brand color
+
+Set your company's brand color for custom-branded PDF reports. The color you choose is applied to report headers and accents.
+
+## Francis branding
+
+Toggle the "Powered by Francis" label in PDF reports on or off. It is enabled by default.
+
+## Allow viewers to refresh data sources
+
+When enabled, viewers can pull the latest data from connected data sources directly. When disabled, only Editors and above can trigger a data refresh.
+
+## Multiple organizations
+
+You can run multiple organizations under a single Francis account. This is common for fractional CFOs managing several clients from one login.
+
+To create an additional organization:
+
+1. Click your organization name in the top left
+2. Hover over **Switch organization**
+3. Select **Create or join organization**
+4. Enter the name of the new organization
+
+<Note>
+  The person who creates an organization is automatically assigned as Owner. To transfer ownership to another member, contact [support@francis.app](mailto:support@francis.app).
+</Note>
+
+## Delete your organization
+
+Go to **Settings > Organization > General** and select **Delete this organization** in the Danger Zone.
+
+<Warning>
+  Deleting an organization permanently removes all content and user data within it. This cannot be undone.
+</Warning>
