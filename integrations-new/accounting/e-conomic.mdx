@@ -1,8 +1,68 @@
 ---
 title: "Visma e-conomic"
-description: "TODO"
+description: "Connect Visma e-conomic to import actuals and map your chart of accounts."
+sidebarTitle: "Visma e-conomic"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/e-conomic.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Connect your Visma e-conomic account to import actuals into Francis. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map e-conomic accounts to line items in your model.
+
+## Connect Visma e-conomic
+
+Go to **Settings > Integrations > Visma e-conomic**. After enabling, the e-conomic authorization page will open in a new tab asking you to confirm Francis as an application on your account.
+
+<Tip>
+  Open your e-conomic account in a separate tab before starting. The connection flow will toggle to the instance you have open. If you operate multiple e-conomic accounts, repeat the connection for each one with the relevant account open.
+</Tip>
+
+### Draft entries (kassekladder)
+
+To include draft entries (kassekladder or kladdeposteringer), go to **Settings > Integrations > Visma e-conomic** and enable **Include draft entries (kassekladder)**.
+
+Including draft entries lets you analyze the effect of entries on financial reports before closing the books for a month.
+
+### Asset range
+
+If your chart of accounts does not match the default e-conomic template, Francis will prompt you to confirm the asset account range. Adjust `asset_range_start` and `asset_range_end` to match your setup.
+
+<Tip>
+  The default asset range for Visma e-conomic is 5000 to 5990. Francis may still prompt you to confirm these settings even if your chart of accounts follows this default.
+</Tip>
+
+### Retained earnings
+
+If your chart of accounts differs from the e-conomic default template, you will also be prompted to specify your retained earnings account. In most cases this is account 6130 Retained earnings last year.
+
+<Tip>
+  To verify your retained earnings account in e-conomic, go to **Regnskab > Systemkonti > Årsafslutning**.
+</Tip>
+
+### Dimensions
+
+Francis automatically detects dimensions in Visma e-conomic. The department dimension (Afdelinger) is available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis. Support for additional dimensions is coming soon.
+
+## Adjustments
+
+Francis adjusts imported data in three ways.
+
+<Tabs>
+  <Tab title="Number convention">
+    Francis uses a consistent sign convention:
+
+    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+    * **Negative (-):** Expense (EX)
+
+    Account classification is based on your asset range settings. Verify this configuration before importing.
+  </Tab>
+  <Tab title="Balance sheet">
+    Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
+
+    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+  </Tab>
+  <Tab title="Retained earnings">
+    When you close a fiscal year, e-conomic moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis supports this by introducing an additional "Retained earnings this year" account.
+
+    If you specified a retained earnings account during setup, this adjustment is applied automatically.
+  </Tab>
+</Tabs>

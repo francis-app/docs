@@ -1,8 +1,78 @@
 ---
 title: "Business Central"
-description: "TODO"
+description: "Connect Microsoft Dynamics 365 Business Central to import actuals and map your chart of accounts."
+sidebarTitle: "Microsoft Business Central"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/business-central.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Connect your Business Central instance to import actuals into Francis. You can connect multiple instances if you operate across several companies. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map Business Central accounts to line items in your model.
+
+## Connect Business Central
+
+Business Central supports two connection methods. Both give Francis the same access to your data.
+
+### Method 1: Standard connection
+
+Go to **Settings > Integrations > Business Central**. After enabling, a prompt will appear asking you to authorize Francis as an application in your Business Central account. This requires Admin rights. If your setup doesn't allow it, use Method 2.
+
+### Method 2: App installation
+
+Register the Francis app directly in Business Central via Microsoft Entra. This requires Azure Admin rights.
+
+<Accordion title="Show installation steps">
+  1. Log in to Business Central at [businesscentral.dynamics.com](https://businesscentral.dynamics.com) and select your company.
+  2. Click the **Search** icon and type "Entra".
+  3. Select **Microsoft Entra Applications**.
+  4. Click **+ New**.
+  5. Set **Client ID** to `7a116fc0-e506-453f-b354-5c5b48af13a3`.
+  6. Set **Description** to "Francis App".
+  7. Change **State** to "Enabled".
+  8. Accept the automatic creation of a new user.
+  9. Set the permission set to `D365 READ`.
+  10. Click **Grant Consent** and then **Accept** when prompted.
+  11. Go to the BC Admin Center, select your environment, and copy the **URL** property.
+  12. Send that URL to [support@francis.app](mailto:support@francis.app) to complete the setup.
+</Accordion>
+
+## What Francis sources
+
+Francis pulls the following data from Business Central:
+
+- Journal entries (amount, date, and description)
+- Dimension tags, available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis
+- GL accounts
+
+## Adjustments
+
+Francis adjusts imported data in three ways. Francis also removes system postings on import.
+
+<Tabs>
+  <Tab title="Number convention">
+    Francis uses a consistent sign convention:
+
+    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+    * **Negative (-):** Expense (EX)
+
+    Account classification is based on your asset range settings. Verify this configuration before importing.
+  </Tab>
+  <Tab title="Balance sheet">
+    Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
+
+    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+  </Tab>
+  <Tab title="Retained earnings">
+    When you close a fiscal year, Business Central moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis supports this by introducing an additional "Retained earnings this year" account, giving you an accurate picture of retained earnings over time.
+  </Tab>
+</Tabs>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My accounts don't have categories assigned in Business Central">
+    {/* TODO */}
+  </Accordion>
+  <Accordion title="My actuals aren't showing up after connecting">
+    {/* TODO */}
+  </Accordion>
+</AccordionGroup>

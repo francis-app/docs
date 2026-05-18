@@ -1,8 +1,44 @@
 ---
 title: "Accounting integrations"
-description: "TODO"
+description: "Connect your accounting system to import actuals into Francis."
+sidebarTitle: "Overview"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/overview.mp4" />
+<CardGroup cols={2}>
+  <Card title="Microsoft Business Central" href="/integrations-new/accounting/business-central" />
+  <Card title="Visma e-conomic" href="/integrations-new/accounting/e-conomic" />
+  <Card title="QuickBooks" href="/integrations-new/accounting/quickbooks" />
+  <Card title="Oracle NetSuite" href="/integrations-new/accounting/netsuite" />
+  <Card title="Xero" href="/integrations-new/accounting/xero" />
+  <Card title="Non-supported ERP" href="/integrations-new/accounting/other-erp" />
+</CardGroup>
 
-{/* TODO: author this page per CLAUDE.md */}
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Does Francis support dimensional planning?">
+    Dimensional planning is available on Advanced and Mastery plans. Francis automatically detects dimensions in your accounting system, making them available for [breakdowns](/documentation/features/consolidation/breakdowns) in your model.
+  </Accordion>
+
+  <Accordion title="Can I connect multiple accounting systems?">
+    Yes. You can connect multiple instances from the same or different accounting systems. Use [Mappings](/documentation/features/modeling/mappings) to unify general ledgers across entities.
+  </Accordion>
+
+  <Accordion title="Can I add more connections to my plan?">
+    * On the Core plan, upgrade to Advanced or Mastery to add more connections.
+    * On the Advanced plan, upgrade to Mastery or add connections to your existing plan.
+    * On the Mastery plan, add connections directly to your existing plan.
+  </Accordion>
+
+  <Accordion title="How often does Francis sync my data?">
+    There is no limit on sync frequency. Francis does not currently support scheduled syncs. Initiate a sync manually when you want to pull the latest actuals.
+  </Accordion>
+
+  <Accordion title="Does Francis write any data back to my systems?">
+    No. Francis reads data only. Resolve any data issues at the source before syncing.
+  </Accordion>
+
+  <Accordion title="My sync is stuck at 0%. What should I do?">
+    During peak hours, syncs are queued when many workspaces sync at once. The progress bar stays at 0% while queued. If your sync has been stuck for more than 30 minutes, reach out at [support@francis.app](mailto:support@francis.app).
+  </Accordion>
+</AccordionGroup>

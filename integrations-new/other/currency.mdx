@@ -1,8 +1,215 @@
 ---
 title: "Currency"
-description: "TODO"
+description: "Convert actuals using market rates from the European Central Bank or custom rates."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/other/currency.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Francis supports currency conversion for actuals, translating data from your accounting system's base currency into a target reporting currency. Use market rates from the European Central Bank (ECB) or enter custom rates. Both average and closing rates are supported.
+
+## Set up currency
+
+Go to **Settings > Integrations** and add a currency data source. Rates are configured on a monthly basis.
+
+<Tabs>
+  <Tab title="Market rates">
+    Market rates are sourced automatically from the European Central Bank.
+
+    * **Monthly closing rates:** Imported directly from the ECB.
+    * **Monthly average rates:** Calculated as the arithmetic mean of the month's daily closing rates.
+  </Tab>
+  <Tab title="Custom rates">
+    Custom rates are entered manually. Use these if your group applies standardized exchange rates.
+
+    * Define the currency cross (e.g., EUR/USD) and input monthly rates.
+    * The first rate you provide is extrapolated backward for all prior months.
+    * Rates are not extrapolated forward. Provide rates for each month up to your most recent closed month. If a rate is missing, Francis defaults to zero for that period.
+    * You can supply both average and closing rates.
+  </Tab>
+</Tabs>
+
+Once you have added a rate source, open the configuration settings for the relevant accounting integration. Francis automatically detects the base currency. Specify the exchange rate source and select your target currency. If you are importing from Google Sheets, define the base currency manually.
+
+## Conversion method
+
+Francis applies a standard conversion approach:
+
+* **P&L (income and expenses):** Translated at the monthly average rate, approximating transaction-date exchange rates.
+* **Balance sheet (assets, liabilities, and equity):** Translated at the monthly closing rate, reflecting the financial position at period end.
+
+Two effects result from this approach.
+
+### Current and historical rates
+
+Opening balance sheet amounts are translated at the current month's closing rate. This means balance sheet values can fluctuate due to exchange rate movements alone, even without new transactions.
+
+<Accordion title="Show example">
+  <table style={{tableLayout: "fixed", width: "100%"}}>
+    <thead>
+      <tr>
+        <th style={{textAlign: "left", width: "50%"}}>Base currency</th>
+        <th style={{textAlign: "left", width: "16%"}}>Jan 25</th>
+        <th style={{textAlign: "left", width: "16%"}}>Feb 25</th>
+        <th style={{textAlign: "left", width: "16%"}}>Mar 25</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Long-term loan, starting value</td>
+        <td>0</td>
+        <td>5,000</td>
+        <td>5,500</td>
+      </tr>
+      <tr>
+        <td>Long-term loan, delta</td>
+        <td>5,000</td>
+        <td>500</td>
+        <td>200</td>
+      </tr>
+      <tr>
+        <td>Long-term loan, ending value</td>
+        <td>5,000</td>
+        <td>5,500</td>
+        <td>5,700</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style={{tableLayout: "fixed", width: "100%"}}>
+    <thead>
+      <tr>
+        <th style={{textAlign: "left", width: "50%"}}>Target currency</th>
+        <th style={{textAlign: "left", width: "16%"}}>Jan 25</th>
+        <th style={{textAlign: "left", width: "16%"}}>Feb 25</th>
+        <th style={{textAlign: "left", width: "16%"}}>Mar 25</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Long-term loan, starting value</td>
+        <td>0</td>
+        <td>5,250</td>
+        <td>6,235</td>
+      </tr>
+      <tr style={{color: "#A8C0F8"}}>
+        <td>Exchange rate adjustment, starting value</td>
+        <td>0</td>
+        <td>500</td>
+        <td>1,925</td>
+      </tr>
+      <tr>
+        <td>Long-term loan, delta</td>
+        <td>5,250</td>
+        <td>575</td>
+        <td>300</td>
+      </tr>
+      <tr>
+        <td>Long-term loan, ending value</td>
+        <td>5,250</td>
+        <td>6,235</td>
+        <td>8,550</td>
+      </tr>
+      <tr>
+        <td>FX closing rate</td>
+        <td>1.05</td>
+        <td>1.15</td>
+        <td>1.50</td>
+      </tr>
+    </tbody>
+  </table>
+
+  ```
+  // Calculating exchange rate adjustment, starting value
+  5000 * (1.15 - 1.05) = 500
+  ```
+</Accordion>
+
+### Average and closing rates
+
+P&L items are translated at average monthly rates while their corresponding balance sheet entries use closing rates. This means the P&L and balance sheet may apply slightly different rates to the same underlying transactions.
+
+<Accordion title="Show example">
+  <table style={{tableLayout: "fixed", width: "100%"}}>
+    <thead>
+      <tr>
+        <th style={{textAlign: "left", width: "40%"}}>Profit and loss</th>
+        <th style={{textAlign: "left", width: "20%"}}>Base currency</th>
+        <th style={{textAlign: "left", width: "15%"}}>Rate</th>
+        <th style={{textAlign: "left", width: "25%"}}>Target currency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Revenue</td>
+        <td>10,000</td>
+        <td></td>
+        <td>10,500</td>
+      </tr>
+      <tr>
+        <td>Costs</td>
+        <td>-5,000</td>
+        <td></td>
+        <td>-5,250</td>
+      </tr>
+      <tr style={{color: "#A8C0F8"}}>
+        <td>Net income</td>
+        <td>5,000</td>
+        <td>× 1.05</td>
+        <td>5,250</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style={{tableLayout: "fixed", width: "100%"}}>
+    <thead>
+      <tr>
+        <th style={{textAlign: "left", width: "40%"}}>Balance sheet</th>
+        <th style={{textAlign: "left", width: "20%"}}>Base currency</th>
+        <th style={{textAlign: "left", width: "15%"}}>Rate</th>
+        <th style={{textAlign: "left", width: "25%"}}>Target currency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Retained earnings, starting value</td>
+        <td>0</td>
+        <td></td>
+        <td>0</td>
+      </tr>
+      <tr style={{color: "#A8C0F8"}}>
+        <td>Retained earnings, delta</td>
+        <td>5,000</td>
+        <td>× 1.10</td>
+        <td>5,500</td>
+      </tr>
+      <tr>
+        <td>Retained earnings, ending value</td>
+        <td>5,000</td>
+        <td></td>
+        <td>5,500</td>
+      </tr>
+      <tr>
+        <td>FX average rate</td>
+        <td>1.05</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>FX closing rate</td>
+        <td>1.10</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  ```
+  // Exchange rate effect, average to closing rates
+  5000 * (1.10 - 1.05) = 250
+  ```
+
+  <Note>
+    The **5,500** difference in retained earnings breaks down into **5,250** (retained earnings at average rates) and **250** (the adjustment from average to closing rate).
+  </Note>
+</Accordion>
+

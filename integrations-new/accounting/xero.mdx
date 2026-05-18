@@ -1,8 +1,45 @@
 ---
 title: "Xero"
-description: "TODO"
+description: "Connect Xero to import actuals and map your chart of accounts."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/xero.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Connect your Xero instance to import actuals into Francis. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map Xero accounts to line items in your model.
+
+## Connect Xero
+
+Go to **Settings > Integrations > Xero**. Authorize Francis as an application when prompted. Dimensional planning for Xero is coming soon.
+
+## Adjustments
+
+Francis adjusts imported data in two ways.
+
+<Tabs>
+  <Tab title="Number convention">
+    Francis uses a consistent sign convention:
+
+    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+    * **Negative (-):** Expense (EX)
+
+    Account classification is based on your asset range settings. Verify this configuration before importing.
+  </Tab>
+
+  <Tab title="Balance sheet">
+    Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
+
+    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+  </Tab>
+</Tabs>
+
+### Retained earnings
+
+Francis does not automatically include a retained earnings account when importing from Xero. Calculate it manually by adding net profit to the opening retained earnings balance:
+
+```typescript
+= "Retained earnings"[-1] + "Net profit"[0]
+```
+
+<Note>
+  Automatic retained earnings for Xero is coming soon. Reach out at [support@francis.app](mailto:support@francis.app) with questions.
+</Note>

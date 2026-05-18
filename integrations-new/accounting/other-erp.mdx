@@ -1,0 +1,55 @@
+---
+title: "Non-supported ERP"
+description: "Import actuals from ERP systems not natively supported by Francis using Google Sheets."
+sidebarTitle: "Non-supported ERP"
+---
+
+<video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/other-erp.mp4" />
+
+Use Google Sheets as a bridge to import actuals from ERP systems Francis does not natively support. Upload your financial data to the Francis Data Source sheet in Google Sheets, then sync in Francis to import it as actuals.
+
+## Before you start
+
+Set up the Google Sheets integration first. Go to **Settings > Integrations > Google Sheets** and connect your Google account. Francis will create a **Francis Data Source** sheet in your Google Drive.
+
+## Import your ERP data
+
+<Steps>
+  <Step title="Format your data">
+    Export your data from your ERP and format it to match Francis' sign convention before uploading:
+
+    - **Income** accounts: negative (-) values
+    - **Expense** accounts: positive (+) values
+    - **Asset** accounts: positive (+) values
+    - **Liability** accounts: negative (-) values
+    - **Equity** accounts: negative (-) values
+
+    Balance sheet accounts are automatically accumulated on import. Provide **delta values**, not cumulative totals.
+  </Step>
+  <Step title="Upload your data">
+    Paste your formatted ERP export into the **Francis Data Source** sheet in Google Sheets.
+  </Step>
+  <Step title="Enable Treat as entity">
+    In Francis, go to **Settings > Integrations > Google Sheets** and turn on **Treat as entity**. This tells Francis the data represents accounting information and triggers the correct transformations.
+
+    <Note>
+      Connecting Google Sheets as an entity counts toward your plan's limit on active accounting connections.
+    </Note>
+  </Step>
+  <Step title="Categorize accounts">
+    Francis will prompt you to categorize each account as income, expense, asset, liability, or equity. Once categorized, Francis converts the values to its standard sign convention:
+
+    - **Income** accounts: converted to positive (+) values
+    - **Expense** accounts: converted to negative (-) values
+    - **Asset** accounts: converted to positive (+) values
+    - **Liability** accounts: converted to positive (+) values
+    - **Equity** accounts: converted to positive (+) values
+  </Step>
+  <Step title="Add to your consolidation (optional)">
+    If you are already consolidating actuals across entities, adjust your consolidation to include the new data source. Open your consolidation template, select **Adjust split** from the action menu, choose **Add new sheet**, and drag the Google Sheets chip from **Not yet assigned** to the new sheet. Click **Apply** to confirm.
+  </Step>
+</Steps>
+
+## Syncing
+
+Update the data in your Google Sheets file, then sync the connection in Francis to pull the latest actuals.

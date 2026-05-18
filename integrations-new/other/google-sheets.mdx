@@ -1,8 +1,51 @@
 ---
 title: "Google Sheets"
-description: "TODO"
+description: "Import data from any business tool into Francis using Google Sheets."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/other/google-sheets.mp4" />
 
-{/* TODO: author this page per CLAUDE.md */}
+Use Google Sheets to import data from business tools not natively supported by Francis. By pairing Google Sheets with third-party integrations, you can connect CRMs, data warehouses, or any tool that can export to a spreadsheet.
+
+## Common use cases
+
+| Data type | How Google Sheets is used |
+|---|---|
+| **Sales data** | Manual or automated input of revenue actuals and customer counts |
+| **CRM / Pipeline** | Pull deal and pipeline data from HubSpot, Pipedrive, or similar tools via export or a connector like Weld |
+| **Salary / Headcount** | Import employee salary data from payroll or HR tools not connected to Francis |
+
+## Connect Google Sheets
+
+Go to **Settings > Integrations > Google Sheets** and connect your Google account. Francis will create a **Francis Data Source** sheet in your Google Drive. Use this sheet to input your data.
+
+To share the sheet with team members, update its permissions in Google Sheets or move it to a shared drive.
+
+<Tip>
+  Francis can only view, edit, create, and delete the specific Google Drive files it creates. It does not access any of your other Google Drive files.
+</Tip>
+
+## Data formats
+
+When setting up the connection, choose one of two templates based on how your data is organized.
+
+<Tabs>
+  <Tab title="Monthly totals">
+    Use monthly totals if your data is already aggregated by month and does not require drilling down into individual records.
+  </Tab>
+  <Tab title="Transactions">
+    Use transactions if your data consists of individual records that have not been aggregated into monthly totals. Data imported via this template supports drill-downs in Francis for more detailed analysis.
+  </Tab>
+</Tabs>
+
+## Microsoft users
+
+If you use Microsoft 365, create a Google account with your Microsoft email address to connect Google Sheets to Francis.
+
+<Note>
+  Excel Online support is coming soon. Reach out at [support@francis.app](mailto:support@francis.app) with questions.
+</Note>
+
+## Syncing
+
+Changes in Google Sheets do not sync automatically. Initiate a sync in Francis to pull the latest data.

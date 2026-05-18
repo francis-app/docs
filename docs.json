@@ -225,6 +225,12 @@
         "tab": "Masterclasses (preview)",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "masterclasses-new/overview"
+            ]
+          },
+          {
             "group": "Consolidation",
             "pages": [
               "masterclasses-new/consolidation/consolidation",
@@ -298,7 +304,8 @@
               "integrations-new/accounting/e-conomic",
               "integrations-new/accounting/quickbooks",
               "integrations-new/accounting/netsuite",
-              "integrations-new/accounting/xero"
+              "integrations-new/accounting/xero",
+              "integrations-new/accounting/other-erp"
             ]
           },
           {
