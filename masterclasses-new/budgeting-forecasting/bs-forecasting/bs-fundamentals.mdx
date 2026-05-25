@@ -6,13 +6,17 @@ description: "How the Francis Balance Sheet template is structured and how asset
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals.mp4" />
 
-The Balance Sheet ties everything together. Actuals map from your GL; the forecast carries each balance forward from the prior period and adjusts when movements occur.
+The Balance Sheet shows what the business owns, what it owes, and what remains for equity holders. Actuals map from your GL; the forecast carries each balance forward and adjusts when movements occur.
 
 ## The Francis Balance Sheet template
 
-{/* Screenshot of the Francis Balance Sheet template to be added here */}
+The template covers assets (non-current and current), liabilities (long-term and short-term), and equity (share capital, dividends, and retained earnings). Every section is editable: add rows, rename groups, or remove sections you don't use.
 
-Assets, liabilities, and equity are organised into clearly separated sections. The closing balance for each period is a pre-built calculation. Francis derives it from the opening balance plus any movements in the period. Map your GL accounts to the relevant rows before you start. Balances won't populate until the mapping is in place.
+Add specific rows for each balance sheet item you want to track: receivables, inventory, prepayments, and VAT under current assets; bank debt and shareholder loans under long-term liabilities. The level of detail depends on what you need to report and forecast.
+
+A **Validation** row sits at the bottom. It checks that assets equal liabilities plus equity. If it shows a non-zero value, something in the model is out of balance. See [BS validation](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation) for how to diagnose and fix it.
+
+Map your GL accounts to the relevant rows before you start. Balances won't populate until the mapping is in place.
 
 ## How balance sheet forecasting works
 
@@ -24,27 +28,25 @@ This pattern applies to every BS line item:
 
 | Line item | Formula |
 | :--- | :--- |
-| Receivables | Receivables last period + invoices issued − payments received |
-| VAT | VAT payable last period + sales VAT − cost VAT − VAT paid |
-| CAPEX | Fixed asset value last period + new investments − depreciation |
-| Loans | Loan balance last period + new draws − repayments |
-| Cash | Cash last period + cash flow movement in current period |
-| Retained earnings | Retained earnings last period + net profit from P&L |
+| Receivables | `"Receivables"[-1] + "Invoices issued"[0] - "Payments received"[0]` |
+| VAT | `"VAT payable"[-1] + "Sales VAT"[0] - "Cost VAT"[0] - "VAT paid"[0]` |
+| CAPEX | `"Fixed assets"[-1] + "New investments"[0] - "Depreciation"[0]` |
+| Loans | `"Loan balance"[-1] + "New draws"[0] - "Repayments"[0]` |
+| Cash | `"Cash end period"[0]` |
+| Retained earnings | `"Retained earnings"[-1] + "Net profit"[0]` |
 
-Each specific line item page covers how additions and detractions work in practice.
+Each line item page covers how additions and detractions work in practice. Actuals and forecast columns are determined by the **Forecast Start** date, visible in the top right of the model. Move it forward as you close each period to reforecast.
 
 ## Connected across sheets
 
-The Balance Sheet, P&L, and cash flow live in the same Francis model, even if they sit on separate sheets. You don't need to reconcile across files to understand your financial position.
+In forecast periods, **Cash** and **Retained earnings** need to be wired up manually. These are the two connections that link all three statements. In actuals periods, both rows populate from your GL mapping like any other balance sheet row. In Francis, the formulas look like this:
 
-Two lines need to be wired up manually, as they are the connections that link all three statements together. In Francis, the formulas look like this:
-
-```
-= "Cash"[-1] + "Cash flow movement in period"
+```typescript
+= "Cash end period"[0]
 ```
 
-```
-= "Retained earnings"[-1] + "Net profit"
+```typescript
+= "Retained earnings"[-1] + "Net profit"[0]
 ```
 
 Once these are in place, movements on BS lines flow to the cash flow statement automatically. When a receivable clears, the cash flow statement picks it up without manual intervention.

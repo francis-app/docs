@@ -10,7 +10,9 @@ The P&L is the center of gravity in most Francis models. Actuals flow in from yo
 
 ## The Francis P&L template
 
-The template is a starting point. Add rows, rename groups, remove metrics you don't use. The structure is yours to adapt. If your business reports contribution margin instead of gross margin, change it. If you don't track EBITDA, remove it.
+The template is a starting point. Every block is editable: add rows, rename groups, remove sections you don't use.
+
+If your business reports contribution margin instead of gross margin, change it. Remove EBIT if you don't use it. Rename the groups under operating costs to match your department structure, or rename "Revenue" to match your business, like "Fees" or "Subscription revenue."
 
 Gross margin, EBITDA margin, and net profit margin are pre-built calculations. In the annual total column these show as weighted averages rather than sums, which is the correct treatment when margins vary month to month.
 
@@ -18,11 +20,13 @@ Map your GL accounts to the relevant rows before you start forecasting. Actuals 
 
 ## How P&L forecasting works
 
-Each row in the P&L can use a different forecasting approach. Revenue rows might use a growth rate or a driver-based model. OPEX rows might be hardcoded or linked to headcount. The structure is set once; the method is chosen per row. Actuals from your accounting system populate automatically once GL accounts are mapped, and sit alongside the forecast in the same view. Each line item page covers which forecasting approaches work best for that row.
+Each row in the P&L can use a different forecasting approach. The structure is set once; the method is chosen per row. Revenue rows might use a growth rate or a driver-based model. Operating costs rows might be hardcoded or linked to headcount.
+
+Actuals from your accounting system sit alongside the forecast in the same view. Actuals and forecast columns are determined by the **Forecast Start** date, visible in the top right of the model. Move it forward as you close each period to reforecast.
 
 ## Connected across sheets
 
-The P&L is the source that the Balance Sheet and cash flow draw from. Net profit flows into retained earnings on the Balance Sheet. Depreciation flows into the cash flow statement as a non-cash add-back.
+The P&L is the source that the Balance Sheet and cash flow statement draw from. Net profit flows into retained earnings on the Balance Sheet. Depreciation flows into the cash flow statement as a non-cash add-back. Tax and interest from the P&L feed the corresponding Balance Sheet liabilities. Getting the P&L structure right before building the Balance Sheet and cash flow saves significant rework.
 
 ## FAQ
 

@@ -6,11 +6,11 @@ description: "Break down entity sub-sheets by dimension to enable per-dimension 
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/dimensions.mp4" />
 
-Dimensions let you forecast and report below the entity level: by department, channel, project, or any dimension your accounting system tracks. This guide takes you from an entity-level breakdown to a working per-dimension model.
+Dimensions let you forecast and report below the entity level: by department, channel, project, or any dimension your accounting system tracks. Francis imports them automatically when you sync. This guide takes you from an entity-level breakdown to a working per-dimension model.
 
 ## Before you start
 
-Dimension breakdowns build on entity breakdowns. Before you can break down a sub-sheet by dimension, you need to have already applied a breakdown by entity on your consolidated sheet. Each entity sub-sheet is what you'll break down further. If you haven't done that yet, complete the [consolidation setup](/masterclasses-new/consolidation/consolidation) first.
+Before breaking down by dimension, complete the [consolidation setup](/masterclasses-new/consolidation/consolidation) to apply an entity breakdown. If you only have one entity, you can apply a dimension breakdown directly. On a multi-entity model, applying a dimension breakdown before entity breakdown only affects the first entity. You won't get unified dimensions across entities that way.
 
 ## Breakdown by dimension
 
@@ -20,9 +20,13 @@ Breaking down an entity sub-sheet by dimension creates one sub-sheet per dimensi
   Applying a breakdown deletes any pre-existing forecasts and manual entries on the sheet. Do this before you start forecasting, not after.
 </Warning>
 
-Hover over the sheet containing the entity actuals, open the action menu (...), then choose **Breakdown by...**. In the modal, select your dimension and confirm.
+Hover over the sheet containing the entity actuals, open the action menu (...), then choose **Breakdown** and select your dimension. Francis creates one sub-sheet for each of the first 20 dimension values. If you have more than 20, the remainder are grouped into an **Other** bucket. You can adjust the breakdown afterward to add sub-sheets for the remaining values.
 
 Once applied, the entity sub-sheet becomes a dimension template. Structure (rows, groups, calculations) is defined top-down in the template and syncs automatically to all sub-sheets. Actuals and forecasts are defined bottom-up in the sub-sheets and roll up to the template. You can't edit cell values in the template directly; edit the sub-sheets instead.
+
+## Sub-consolidation by dimension
+
+If you need a consolidated view of a subset of dimension values, open the action menu (...) on the dimension template and choose **Add rollup**. Drag the relevant dimension sub-sheets into it. The rollup shows a consolidated view of those dimension values; the individual sub-sheets remain accessible within it.
 
 ## FAQ
 

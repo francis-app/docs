@@ -10,13 +10,13 @@ A consolidated model in Francis gives you actuals across all entities in one pla
 
 ## Before you start
 
-Connect an [accounting integration](/integrations-new/accounting/overview) for each entity. If entities operate in different base currencies, set up [currency conversion](/integrations-new/other/currency) at this stage. Create your model from a [template](/features-new/using-francis/getting-started) or from scratch. Templates give you a reliable, editable framework; starting from scratch is an option if you're replicating an existing model. A template is the faster path for most. Then go to [Mappings](/features-new/using-francis/data-mappings) and drag GL accounts onto the relevant line items.
+Connect an [accounting integration](/integrations-new/accounting/overview) for each entity. If entities operate in different base currencies, set up [currency conversion](/integrations-new/other/currency) first. Create your model from a template or from scratch. Templates give you a reliable, editable framework; starting from scratch is an option if you're replicating an existing model. A template is the faster path for most. Then map GL accounts onto the relevant line items in Mappings.
 
 ## Breakdown by entity
 
 Breaking down your consolidated sheet creates a consolidation template with one sub-sheet per entity. This is what enables per-entity forecasting.
 
-Hover over the sheet containing your consolidated actuals, open the action menu (...), then choose **Breakdown by...**. In the modal, select your entities and confirm.
+Hover over the sheet containing your consolidated actuals, open the action menu (...), then choose **Breakdown** and select **Entity**. Francis creates one sub-sheet for each of the first 20 entities. If you have more than 20, the remainder are grouped into an **Other** bucket. You can adjust the breakdown afterward to add sub-sheets for the remaining entities.
 
 <Warning>
   Applying a breakdown deletes any pre-existing forecasts and manual entries on the sheet. Do this before you start forecasting, not after.
@@ -26,7 +26,7 @@ Once applied, the sheet becomes a consolidation template. Structure (rows, group
 
 ## Sub-consolidation
 
-If you need a view that covers only a subset of entities (a regional P&L or a specific holding structure), create a sub-consolidation alongside the main consolidation. Add a new sheet and use calculations to reference the specific sub-sheets you want to include. The consolidation template handles the full group view; the sub-consolidation sits next to it as a separate sheet without affecting the underlying structure.
+If you need a consolidated view of a subset of entities (a regional P&L or a specific holding structure), open the action menu (...) on the consolidation template and choose **Add rollup**. This option is only available after a breakdown has been applied. Drag the relevant entity sub-sheets into the rollup. It shows a consolidated view of those entities; the individual sub-sheets remain accessible within it. The rollup name can be changed. Structure is inherited from the main consolidation template and is not affected.
 
 ## FAQ
 
