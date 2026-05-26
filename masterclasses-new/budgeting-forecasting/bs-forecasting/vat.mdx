@@ -12,16 +12,16 @@ Balance sheet forecasting is always a function of last period's value, additions
 
 ## Sales and cost VAT captured in the month
 
-To forecast captured **sales VAT**, pick up every P&L and balance sheet income line that includes VAT and multiply by the relevant rate (25% in Denmark). That gives you the sales VAT addition for the month.
+To forecast captured **sales VAT**, pick up every P&L income line that includes VAT and multiply by the relevant rate (25% in Denmark). That gives you the sales VAT addition for the month.
 
-To forecast **cost VAT**, pick up every P&L and balance sheet expense line that includes VAT and multiply by the rate. That gives you the cost VAT deduction for the month.
+To forecast **cost VAT**, pick up every P&L expense line that includes VAT and multiply by the rate. That gives you the cost VAT deduction for the month.
 
 Each GL account carries its own VAT code, but most finance teams don't need that granularity in their forecast. The usual approximation is to either:
 
 - Pick the specific groups or rows known to include VAT, or
 - Take a percentage of broader groups or rows where VAT exposure is mixed
 
-Both are accurate enough for cash flow forecasting. Mapping every VAT code rarely changes the answer.
+Mapping every VAT code rarely changes the answer.
 
 <Tip>
 Put the **Sales incl. VAT** and **Cost incl. VAT** subtotals in a separate sheet as an intermediate calculation. It keeps the VAT logic out of the P&L and makes the dependency explicit, and the VAT lines on the balance sheet reference those subtotals directly.
