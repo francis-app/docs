@@ -173,6 +173,21 @@ Meta-headers describe the section's role rather than its content and fail both s
 - One-paragraph lede on conventions (syntax style, argument types)
 - No prose between entries — alphabetical list, each item as a collapsible H2 or H3 with syntax, one-line description, arguments, one example
 
+**Accounting integration page** (e.g. *Business Central*, *Xero*)
+
+Applies to each supported accounting system page under `integrations/accounting/` and `integrations-new/accounting/`. Does **not** apply to the *Overview* page or the *Non-supported ERPs* / *other-erp* page — those follow their own structure.
+
+- H1 = the accounting system's name
+- Lede states what connecting enables and where the chart of accounts surfaces in Francis
+- H2s, in this exact order:
+    1. *Connect [system]* — auth flow and any connection variants
+    2. *What Francis sources* — the data Francis pulls (journal entries, dimensions, GL accounts, etc.)
+    3. *Adjustments* — automatic transformations Francis applies on import (typically a `<Tabs>` block)
+    4. *Settings to enable adjustments* — user-configurable settings the adjustments depend on
+    5. *Status checks* — automated checks Francis runs on imported data, usually an `<AccordionGroup>`
+- If a section has no content for a given integration, keep the heading and write a one-line placeholder (*"No automated status checks for this integration yet."*) so the structure stays consistent across pages
+- Anything that doesn't fit one of the five sections goes at the bottom under its own descriptive H2
+
 ---
 
 ## FAQs
