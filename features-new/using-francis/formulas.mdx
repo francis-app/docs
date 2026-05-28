@@ -57,9 +57,27 @@ Not this:
 
 Direct costs are already negative, so adding them reduces the total correctly. The same logic applies down the P&L: every subtotal is a sum, and the signs in the source rows do the work.
 
-## Cross-sheet references
+## Formula paths
 
-{/* TODO: add syntax for cross-sheet references */}
+A row name alone is enough when it is unique in the model. When the same row name appears in multiple sheets, groups, or breakdowns, Francis qualifies the reference with a formula path. The path keeps every cell reference unique even when row names repeat across entities, dimensions, or sections.
+
+Two separators can appear in the path:
+
+- **Sheet (`!`):** the sheet name sits before `!` when the row lives on a different sheet.
+- **Container (`.`):** a group or section name sits before `.` when the row lives inside a nested container.
+
+Example:
+
+```
+= "Cost VAT"."Cost VAT"[-1] + "VAT"!"VAT calculations"."Cost VAT addition"[0]
+```
+
+This formula references two rows:
+
+- `"Cost VAT"."Cost VAT"[-1]`: the `"Cost VAT"` row inside the `"Cost VAT"` group on the current sheet, previous period.
+- `"VAT"!"VAT calculations"."Cost VAT addition"[0]`: the `"Cost VAT addition"` row inside the `"VAT calculations"` group on the `"VAT"` sheet, current period.
+
+Francis builds the path automatically when you click a target cell in edit mode, so you rarely need to type one by hand.
 
 ## Comments
 
