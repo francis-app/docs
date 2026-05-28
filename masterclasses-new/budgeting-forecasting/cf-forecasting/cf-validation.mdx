@@ -14,7 +14,7 @@ Francis subtracts the ending balance on the cash asset line item (mapped to your
 
 ## Check fails for actuals months
 
-Work through these steps in order. The earlier steps catch structural errors; the later steps catch transaction-level issues.
+Work through these steps in order. The earlier steps catch structural errors; the later steps catch journal-entry-level issues.
 
 ### P&L and balance sheet prerequisites
 
@@ -38,13 +38,13 @@ Work through these steps in order. The earlier steps catch structural errors; th
 10. Are the signs correct? Asset formulas need a minus sign; liability and equity formulas need a plus sign. An increase in liabilities or equity means you've gained or kept liquidity. An increase in assets means you've tied up liquidity.
 11. Are balance sheet movement deltas set up correctly (this period minus previous period)?
 
-### Transactions
+### Journal entries
 
-12. Have any cash transactions been posted to non-cash line items, causing them to be excluded from the cash flow statement? Look for transaction descriptions that suggest cash activity: *invoice allocation*, *expense*.
-13. Have any non-cash transactions been posted to cash line items, causing them to be incorrectly included? Look for descriptions that indicate non-cash activity: *depreciation*, *subsidiary*, *adjustment entry*.
+12. Have any cash journal entries been posted to non-cash line items, causing them to be excluded from the cash flow statement? Look for journal entry descriptions that suggest cash activity: *invoice allocation*, *expense*.
+13. Have any non-cash journal entries been posted to cash line items, causing them to be incorrectly included? Look for descriptions that indicate non-cash activity: *depreciation*, *subsidiary*, *adjustment entry*.
 
 <Note>
-  If the check is off in only one or a few months rather than consistently, the issue is likely a specific transaction rather than a structural error.
+  If the check is off in only one or a few months rather than consistently, the issue is likely a specific journal entry rather than a structural error.
 </Note>
 
 ## Check fails for forecast months
