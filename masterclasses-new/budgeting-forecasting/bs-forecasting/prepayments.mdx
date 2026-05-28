@@ -29,40 +29,37 @@ Hardcoded is acceptable for specific contracts with known amounts and timing. Us
   <Tab title="Driver-based">
     **Set up the supporting sheet**
 
-    Build the prepayments model on a supporting sheet. Group contracts by their coverage period (annual and quarterly are the most common) so each group uses the correct expense formula.
+    Build the prepayments model on a supporting sheet. Group contracts by their coverage period so each group uses the correct expense formula. Name each group by period: **Prepayments** for annual contracts, **Quarterly prepayments** for quarterly.
 
-    For each group, add one row per contract. Enter cash payments as hardcoded values in the month they fall due. Add a subtotal row for each group:
+    Within each group, add one row per contract and hardcode the cash payment in the month it falls due.
 
-    - **Annual additions:** sum of all annual contract payments
-    - **Quarterly additions:** sum of all quarterly contract payments
+    **P&L recognized**
 
-    **Expense formula**
-
-    The expense row takes the rolling sum of the last 12 months of additions and divides by 12. This amortises all active annual prepayments evenly across their coverage period:
+    Add a **P&L recognized** row below each group. The formula takes the rolling sum of the last 12 months of cash payments and divides by 12:
 
     ```typescript
-    = sum("Annual additions" [-11:0]) / 12
+    = -sum("Prepayments" [-11:0]) / 12
     ```
 
     For quarterly contracts, use the last 3 months divided by 3:
 
     ```typescript
-    = sum("Quarterly additions" [-2:0]) / 3
+    = -sum("Quarterly prepayments" [-2:0]) / 3
     ```
 
-    When a new contract is added, the expense row picks it up automatically in the current period and amortises it going forward. A 120k annual subscription added in January produces a 10k monthly expense from that month onwards.
+    The formula is negative because it is an expense. When a new contract is added, the row picks it up in the current period and amortises it going forward. A 120k annual contract added in February produces a 10k monthly expense from that month onwards.
 
     **Balance sheet roll-forward**
 
-    The balance sheet row references the total expense and total additions from the supporting sheet:
+    The balance sheet row references the P&L recognized row and the group directly:
 
     ```typescript
-    = "Prepayments"[-1]
-    - "Total expense"[0]
-    + "Total additions"[0]
+    = "Amount on BS"[-1]
+    + "P&L recognized"[0]
+    + "Prepayments"[0]
     ```
 
-    Driver-based gives you scenario flexibility, auditability (every balance traces back to a payment and a coverage period), and automatic P&L and cash flow linkage.
+    The group addition is positive (cash paid in); P&L recognized is negative (expense flowing out). Driver-based gives you scenario flexibility, auditability (every balance traces back to a cash payment and a coverage period), and automatic P&L and cash flow linkage.
   </Tab>
   <Tab title="Statistical">
     Use statistical as a cross-check on driver-based results, not as the primary method. A rolling average of recent actuals can flag when the driver-based output looks off:
