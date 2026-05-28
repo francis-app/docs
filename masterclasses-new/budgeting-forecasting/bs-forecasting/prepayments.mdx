@@ -41,15 +41,13 @@ Hardcoded is acceptable for specific contracts with known amounts and timing. Us
     The expense row takes the rolling sum of the last 12 months of additions and divides by 12. This amortises all active annual prepayments evenly across their coverage period:
 
     ```typescript
-    = sum("Annual additions" [-11:0])
-    / 12
+    = sum("Annual additions" [-11:0]) / 12
     ```
 
     For quarterly contracts, use the last 3 months divided by 3:
 
     ```typescript
-    = sum("Quarterly additions" [-2:0])
-    / 3
+    = sum("Quarterly additions" [-2:0]) / 3
     ```
 
     When a new contract is added, the expense row picks it up automatically in the current period and amortises it going forward. A 120k annual subscription added in January produces a 10k monthly expense from that month onwards.
