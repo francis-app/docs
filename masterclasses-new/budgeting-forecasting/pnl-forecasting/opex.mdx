@@ -23,16 +23,16 @@ Avoid forcing a driver where the relationship is weak. A loose correlation produ
 Use this approach for most OPEX lines. When costs are stable and historical patterns are a reliable guide, a rolling average smooths short-term volatility:
 
 ```typescript
-= AVG_LAST("Software subscriptions", 3)
+= avg_last("Software subscriptions", 3)
 ```
 
 Where seasonal patterns matter, reference the same month last year with a growth adjustment instead:
 
 ```typescript
-= "Marketing"[-12] * (1+10%)
+= "Marketing"[-12] * (1 + 10%)
 ```
 
-For lines where trend and seasonality interact, `PREDICT()` handles both automatically.
+For lines where trend and seasonality interact, `predict()` handles both automatically.
 
 Statistical becomes unreliable when a cost line has changed structurally: a renegotiated contract, a shift in spend policy, or a significant scale change.
 

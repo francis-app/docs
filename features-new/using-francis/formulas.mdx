@@ -66,7 +66,7 @@ Direct costs are already negative, so adding them reduces the total correctly. T
 Add `#` at the end of any formula to insert a comment. Everything after `#` is highlighted and ignored by the calculation.
 
 ```
-=IF("Revenue"[0]=0, 0, "Gross profit"[0] / "Revenue"[0]) # Returns zero if revenue is zero to avoid dividing by zero
+=if("Revenue"[0] = 0, 0, "Gross profit"[0] / "Revenue"[0]) # Returns zero if revenue is zero to avoid dividing by zero
 ```
 
 Use comments to document non-obvious logic: a sign flip, a hardcoded assumption, a workaround for a specific edge case. A reader opening your model six months later will thank you.
@@ -229,7 +229,7 @@ Use comments to document non-obvious logic: a sign flip, a hardcoded assumption,
     Conditional calculation, similar to IF in Excel or Google Sheets.
 
     ```
-    if("Revenue"[0]=0, 0, "Gross profit"[0] / "Revenue"[0])
+    if("Revenue"[0] = 0, 0, "Gross profit"[0] / "Revenue"[0])
     ```
   </Accordion>
   <Accordion title="if_month(a, b, ...)">

@@ -88,6 +88,11 @@ Hyperlink the first mention of a Francis concept on each page to its concept pag
 
 This replaces a capitalization convention — the link does the disambiguation work, lowercase keeps the prose clean.
 
+### Formula syntax
+
+- **Function names are lowercase.** Francis function names use lowercase everywhere — in code blocks, inline code, and prose references. *`if`, `avg_last`, `predict`, `sum_ytd`* — never *`IF`, `AVG_LAST`, `PREDICT`*. The exception is when explicitly referencing a function name from another tool (e.g. *"similar to IF in Excel"*), where the source tool's capitalization is preserved.
+- **Spaces around binary operators.** Put a single space on each side of binary operators (`+`, `-`, `*`, `/`, `=`) when they sit between operands, including comparison `=` inside function arguments. *`"Revenue"[0] = 0`* and *`"Marketing"[-12] * (1 + 10%)`* — never *`"Revenue"[0]=0`* or *`(1+10%)`*. No space inside slice notation (*`[-3:0]`*).
+
 ---
 
 ## Information architecture

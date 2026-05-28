@@ -27,16 +27,16 @@ Use driver-based when costs are genuinely variable and move with revenue or volu
 Use this approach when costs are stable and the near future is expected to mirror recent history. The simplest setup is a YoY reference with a growth adjustment:
 
 ```typescript
-= "COGS"[-12] * (1+5%)
+= "COGS"[-12] * (1 + 5%)
 ```
 
 If month-to-month actuals are volatile, a rolling average smooths the baseline:
 
 ```typescript
-= AVG_LAST("COGS", 3) * (1+5%)
+= avg_last("COGS", 3) * (1 + 5%)
 ```
 
-For lines where trend and seasonality interact, `PREDICT()` handles both automatically.
+For lines where trend and seasonality interact, `predict()` handles both automatically.
 
 Statistical becomes unreliable when costs have shifted structurally: a new supplier, a change in product mix, or a step-change in volume.
 
