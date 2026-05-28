@@ -70,7 +70,7 @@ Hardcoded is acceptable for specific contracts with known amounts and timing. Us
     Use statistical as a cross-check on driver-based results, not as the primary method. A rolling average of recent actuals can flag when the driver-based output looks off:
 
     ```typescript
-    = AVG_LAST("Prepayments", 3)
+    = avg_last("Prepayments", 3)
     ```
 
     If the balance follows a seasonal pattern, reference the same month last year with a growth adjustment:
