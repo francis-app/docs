@@ -5,43 +5,43 @@ description: "Convert actuals using market rates from the European Central Bank 
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/other/currency.mp4" />
 
-Francis supports currency conversion for actuals, translating data from your accounting system's base currency into a target reporting currency. Use market rates from the European Central Bank (ECB) or enter custom rates. Both average and closing rates are supported.
+Francis converts actuals from your accounting system's base currency into a target reporting currency. Use market rates from the European Central Bank (ECB) or enter your own. Both average and closing rates are supported.
 
 ## Set up currency
 
-Go to **Settings > Integrations** and add a currency data source. Rates are configured on a monthly basis.
+Go to **Settings > Integrations** and add a currency data source. You configure rates monthly.
 
 <Tabs>
   <Tab title="Market rates">
-    Market rates are sourced automatically from the European Central Bank.
+    Francis sources market rates automatically from the European Central Bank.
 
-    * **Monthly closing rates:** Imported directly from the ECB.
-    * **Monthly average rates:** Calculated as the arithmetic mean of the month's daily closing rates.
+    * **Monthly closing rates:** imported directly from the ECB.
+    * **Monthly average rates:** the arithmetic mean of the month's daily closing rates.
   </Tab>
   <Tab title="Custom rates">
-    Custom rates are entered manually. Use these if your group applies standardized exchange rates.
+    Enter custom rates manually if your group applies standardized exchange rates.
 
-    * Define the currency cross (e.g., EUR/USD) and input monthly rates.
-    * The first rate you provide is extrapolated backward for all prior months.
-    * Rates are not extrapolated forward. Provide rates for each month up to your most recent closed month. If a rate is missing, Francis defaults to zero for that period.
+    * Define the currency cross (for example, EUR/USD) and enter monthly rates.
+    * Francis extrapolates the first rate you enter backward across all prior months.
+    * Francis does not extrapolate forward. Enter a rate for every month up to your most recent closed month. Where a rate is missing, Francis uses zero for that period.
     * You can supply both average and closing rates.
   </Tab>
 </Tabs>
 
-Once you have added a rate source, open the configuration settings for the relevant accounting integration. Francis automatically detects the base currency. Specify the exchange rate source and select your target currency. If you are importing from Google Sheets, define the base currency manually.
+Once you have added a rate source, open the configuration settings for the relevant accounting integration. Francis detects the base currency automatically. Set the exchange rate source and select your target currency. If you import from Google Sheets, set the base currency manually.
 
 ## Conversion method
 
 Francis applies a standard conversion approach:
 
-* **P&L (income and expenses):** Translated at the monthly average rate, approximating transaction-date exchange rates.
-* **Balance sheet (assets, liabilities, and equity):** Translated at the monthly closing rate, reflecting the financial position at period end.
+* **P&L (income and expenses):** translated at the monthly average rate, which approximates transaction-date rates.
+* **Balance sheet (assets, liabilities, and equity):** translated at the monthly closing rate, which reflects the financial position at period end.
 
-Two effects result from this approach.
+This approach has two effects.
 
 ### Current and historical rates
 
-Opening balance sheet amounts are translated at the current month's closing rate. This means balance sheet values can fluctuate due to exchange rate movements alone, even without new transactions.
+Francis translates opening balance sheet amounts at the current month's closing rate. So balance sheet values can move on exchange rate shifts alone, even with no new transactions.
 
 <Accordion title="Show example">
   <table style={{tableLayout: "fixed", width: "100%"}}>
@@ -126,7 +126,7 @@ Opening balance sheet amounts are translated at the current month's closing rate
 
 ### Average and closing rates
 
-P&L items are translated at average monthly rates while their corresponding balance sheet entries use closing rates. This means the P&L and balance sheet may apply slightly different rates to the same underlying transactions.
+Francis translates P&L items at average monthly rates, while the matching balance sheet entries use closing rates. So the P&L and balance sheet can apply slightly different rates to the same underlying transactions.
 
 <Accordion title="Show example">
   <table style={{tableLayout: "fixed", width: "100%"}}>

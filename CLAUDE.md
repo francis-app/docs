@@ -175,7 +175,7 @@ Meta-headers describe the section's role rather than its content and fail both s
 
 **Accounting integration page** (e.g. *Business Central*, *Xero*)
 
-Applies to each supported accounting system page under `integrations/accounting/` and `integrations-new/accounting/`. Does **not** apply to the *Overview* page or the *Non-supported ERPs* / *other-erp* page — those follow their own structure.
+Applies to each supported accounting system page under `integrations/accounting/` and `integrations-new/accounting/`, and to the *Non-supported ERP* / *other-erp* page (with one extra section, noted below). Does **not** apply to the *Overview* page — it follows its own structure.
 
 - H1 = the accounting system's name
 - Lede states what connecting enables and where the chart of accounts surfaces in Francis
@@ -187,6 +187,8 @@ Applies to each supported accounting system page under `integrations/accounting/
     5. *Status checks* — automated checks Francis runs on imported data, usually an `<AccordionGroup>`
 - If a section has no content for a given integration, keep the heading and write a one-line placeholder (*"No automated status checks for this integration yet."*) so the structure stays consistent across pages
 - Anything that doesn't fit one of the five sections goes at the bottom under its own descriptive H2
+
+**Non-supported ERP page exception:** because data arrives via a Google Sheet the user fills in by hand rather than via an API, this page adds a *Required data format* section between *What Francis sources* and *Adjustments*. It covers the sign convention and delta-value rules the user must follow when entering data. The other five sections stay in the same order. Here *Connect [system]* is *Connect Google Sheets* (Google Sheets is the bridge).
 
 ---
 
