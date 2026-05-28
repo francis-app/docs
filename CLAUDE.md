@@ -124,14 +124,14 @@ The duplication problem isn't caused by having feature docs — it's caused by d
 ## Content rule: BS forecasting pages
 The BS fundamentals page establishes the core mental model: balance sheet forecasting is always a function of last period's value, additions, and detractions. Last period's value is included because balance sheet values accumulate over time. The additions and detractions — the net movement — are what flow through to the cash flow statement.
 This framing belongs only on the BS fundamentals page. It's the deep source.
-Every specific BS forecasting page (VAT, Tax, Receivables, Prepayments, CAPEX, Inventory, Loans) opens by referencing this framing and then making it concrete for that line item. Use this pattern:
+Every specific BS forecasting page (VAT, Tax, Trade receivables, Prepayments, CAPEX, Inventory, Loans) opens by referencing this framing and then making it concrete for that line item. Use this pattern:
 
 Balance sheet forecasting is always a function of last period's value, additions, and detractions — see BS fundamentals. For [line item], this means [last period's value] + [additions for this line item] − [detractions for this line item].
 
 Concrete examples:
 
 Inventory: inventory last period + new inventory purchases − cost of goods sold in period
-Receivables: receivables last period + new invoices issued − customer payments received
+Trade receivables: trade receivables last period + new invoices issued − customer payments received
 VAT: VAT payable last period + sales VAT in period - cost VAT in period − VAT paid to authorities
 CAPEX: fixed asset value last period + new investments − depreciation
 Loans: loan balance last period + new draws − repayments

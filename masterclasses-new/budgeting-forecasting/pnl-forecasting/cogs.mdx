@@ -8,45 +8,7 @@ description: "How to forecast cost of goods sold in Francis: driver-based, stati
 
 COGS moves with revenue more closely than any other P&L line. The right forecasting method depends on how variable your cost structure is and how much granularity the model needs.
 
-## Driver-based
-
-The default for variable direct costs. Add a formula to the COGS row that references your revenue group and applies a cost percentage. When revenue assumptions change, COGS updates automatically.
-
-```typescript
-= "Revenue"[0] * "COGS % of Revenue"[0]
-```
-
-Add your COGS % of Revenue assumption to a separate assumptions sheet. The formula references it directly.
-
-For unit-based forecasting, the same driver logic applies with volume × unit cost as inputs instead of a revenue percentage. If unit costs vary by product line or are tied to inventory movements, build a supporting sheet and reference the total into the COGS row.
-
-Use driver-based when costs are genuinely variable and move with revenue or volume. It breaks down when the cost-to-revenue relationship is unstable: a business going through a significant change in cost structure, or where purchasing is lumpy and doesn't track revenue closely.
-
-## Statistical
-
-Use this approach when costs are stable and the near future is expected to mirror recent history. The simplest setup is a YoY reference with a growth adjustment:
-
-```typescript
-= "COGS"[-12] * (1+5%)
-```
-
-If month-to-month actuals are volatile, a rolling average smooths the baseline:
-
-```typescript
-= AVG_LAST("COGS", 3) * (1+5%)
-```
-
-For lines where trend and seasonality interact, `PREDICT()` handles both automatically.
-
-Statistical becomes unreliable when costs have shifted structurally: a new supplier, a change in product mix, or a step-change in volume.
-
-## Hardcoded
-
-Enter a value directly on the COGS row. No formula needed.
-
-Use hardcoded values for fixed costs that don't scale with revenue or volume: a fixed-price supply contract, a one-off bulk purchase, or a licensing fee with a fixed annual amount. Outside these cases, hardcoded COGS becomes a maintenance problem as volumes change.
-
-## Choosing an approach
+## What approach to use
 
 Driver-based is the right default for most COGS lines. If you can express cost as a function of revenue or volume, model it that way.
 
@@ -60,6 +22,46 @@ Hardcoded is for exceptions: a fixed contract, a one-off cost, or a fallback whe
 - **Supporting sheet:** right when COGS is driven by multiple inputs (unit economics, inventory levels, multiple product lines with different margin profiles). The sheet handles the complexity; the P&L row references the result.
 
 If you're unsure, start directly on the P&L. A supporting sheet is straightforward to add later once the model's complexity justifies it.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    The default for variable direct costs. Add a formula to the COGS row that references your revenue group and applies a cost percentage. When revenue assumptions change, COGS updates automatically.
+
+    ```typescript
+    = "Revenue"[0] * "COGS % of Revenue"[0]
+    ```
+
+    Add your COGS % of Revenue assumption to a separate assumptions sheet. The formula references it directly.
+
+    For unit-based forecasting, the same driver logic applies with volume × unit cost as inputs instead of a revenue percentage. If unit costs vary by product line or are tied to inventory movements, build a supporting sheet and reference the total into the COGS row.
+
+    Driver-based breaks down when the cost-to-revenue relationship is unstable: a business going through a significant change in cost structure, or where purchasing is lumpy and doesn't track revenue closely.
+  </Tab>
+  <Tab title="Statistical">
+    Use this approach when costs are stable and the near future is expected to mirror recent history. The simplest setup is a YoY reference with a growth adjustment:
+
+    ```typescript
+    = "COGS"[-12] * (1+5%)
+    ```
+
+    If month-to-month actuals are volatile, a rolling average smooths the baseline:
+
+    ```typescript
+    = AVG_LAST("COGS", 3) * (1+5%)
+    ```
+
+    For lines where trend and seasonality interact, `PREDICT()` handles both automatically.
+
+    Statistical becomes unreliable when costs have shifted structurally: a new supplier, a change in product mix, or a step-change in volume.
+  </Tab>
+  <Tab title="Hardcoded">
+    Enter a value directly on the COGS row. No formula needed.
+
+    Use hardcoded values for fixed costs that don't scale with revenue or volume: a fixed-price supply contract, a one-off bulk purchase, or a licensing fee with a fixed annual amount. Outside these cases, hardcoded COGS becomes a maintenance problem as volumes change.
+  </Tab>
+</Tabs>
 
 ## FAQ
 

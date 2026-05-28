@@ -10,31 +10,62 @@ CAPEX is spending on fixed assets expected to generate value over multiple perio
 
 Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For CAPEX, this means fixed asset value last period + new investments in period − depreciation in period.
 
-## New investments
+## What approach to use
 
-A new investment is an addition to the fixed asset balance. Model it in the period the asset is purchased or put into use.
+Hardcoded is the right default. Most CAPEX is project-based with known amounts and timing.
 
-Most investments are project-based and known in advance. Hardcode them in the month they fall due. For businesses with ongoing investment activity across multiple asset classes, use a supporting sheet that lists each asset or project with its cost and expected purchase date, then reference the monthly total into the balance sheet row.
+Use driver-based when investment scales predictably with business activity: equipment per new hire, or a CAPEX budget as a percentage of revenue.
 
-<Tip>
-A supporting sheet also makes it straightforward to model planned investments: equipment tied to a hiring plan, or a fit-out expected in H2.
-</Tip>
+Statistical rarely fits CAPEX. Investment is lumpy and project-driven, making historical averages an unreliable guide.
 
-## Depreciation
+## Where to forecast CAPEX
 
-Depreciation is the detraction: the portion of the asset's cost recognized as expense each period. It flows to the P&L as a non-cash operating expense and reduces the balance sheet balance by the same amount.
+- **Supporting sheet:** right for most cases, especially with multiple asset classes or projects. List each asset or project with its cost, purchase date, and useful life. The balance sheet row references the total.
+- **Directly on the balance sheet:** right for simple setups with a single asset class.
 
-The standard approach is straight-line: divide the asset cost by its useful life in months.
+## Forecasting approaches
 
-```typescript
-= "Asset cost"[0] / "Useful life (months)"[0]
-```
+<Tabs>
+  <Tab title="Driver-based">
+    Link new investment to a business driver. For equipment that scales with headcount:
 
-If you have multiple asset classes with different useful lives, calculate depreciation per class on a supporting sheet and reference the total into the P&L and balance sheet rows.
+    ```typescript
+    = "New hires"[0] * "Equipment cost per hire"[0]
+    ```
 
-<Note>
-CAPEX is a cash outflow in investing activities on the cash flow statement, not in working capital. Depreciation is a non-cash add-back in operating activities. Both must be modeled explicitly for the cash flow statement to balance.
-</Note>
+    Or as a percentage of revenue for businesses with systematic investment patterns:
+
+    ```typescript
+    = "Revenue"[0] * "CAPEX %"[0]
+    ```
+
+    Add the rate to an assumptions sheet. Driver-based works when the investment pattern is genuinely predictable. It breaks down for lumpy, project-specific spending.
+
+    **Depreciation**
+
+    Depreciation is the detraction: the portion of the asset's cost recognized as expense each period. It flows to the P&L as a non-cash operating expense and reduces the balance sheet balance by the same amount.
+
+    The standard approach is straight-line: divide the asset cost by its useful life in months.
+
+    ```typescript
+    = "Asset cost"[0] / "Useful life (months)"[0]
+    ```
+
+    If you have multiple asset classes with different useful lives, calculate depreciation per class on a supporting sheet and reference the total into the P&L and balance sheet rows.
+
+    <Note>CAPEX is a cash outflow in investing activities on the cash flow statement, not in working capital. Depreciation is a non-cash add-back in operating activities. Both must be modeled explicitly for the cash flow statement to balance.</Note>
+  </Tab>
+  <Tab title="Statistical">
+    Statistical rarely fits CAPEX well. Investment is project-driven and lumpy; historical averages smooth out the timing in ways that don't reflect how the business actually invests.
+
+    If you need a placeholder, reference last year's total with a growth rate. Migrate to hardcoded or driver-based once you have visibility on the investment plan.
+  </Tab>
+  <Tab title="Hardcoded">
+    Hardcode each investment in the month it falls due. For businesses with ongoing investment activity across multiple asset classes, use a supporting sheet that lists each asset or project with its cost and expected purchase date, then reference the monthly total into the balance sheet row.
+
+    <Tip>A supporting sheet also makes it straightforward to model planned investments: equipment tied to a hiring plan, or a fit-out expected in H2.</Tip>
+  </Tab>
+</Tabs>
 
 ## FAQ
 

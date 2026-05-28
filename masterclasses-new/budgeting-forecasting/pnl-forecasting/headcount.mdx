@@ -6,67 +6,90 @@ description: "How to set up a dedicated headcount sheet in Francis, forecast sal
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/pnl-forecasting/headcount.mp4" />
 
-Salary forecasting is complex enough (components, hire dates, annual increases) to make the P&L unreadable if forecast directly, and sensitive enough that many CFOs want it out of shared views. A dedicated headcount sheet keeps the complexity contained and the P&L clean.
+Salary forecasting involves enough moving parts (hire dates, increase cycles, pension rates, employer costs) that it needs its own sheet. A dedicated headcount sheet keeps the complexity contained and the P&L clean.
 
-## Set up the sheet structure
+## What approach to use
 
-Create a dedicated sheet. A common structure has two sections: **Assumptions** at the top and salary totals below.
+Driver-based is the right default for headcount. Salary costs are determined by known inputs you control directly: hire dates, salary levels, increase cycles, pension rates. Model them explicitly rather than projecting from history.
 
-In the **Assumptions** section, add rows for variables that apply across all employees: salary increase percentage, pension percentage, or any other shared inputs. These become the single inputs that drive calculations across the sheet.
+Use statistical when headcount is stable and salary increases follow a predictable annual pattern. It doesn't account for new hires or departures.
 
-For the salary section, group by department. A common approach adds a group per employee or role underneath, with rows for base salary, pension, and other employer costs. The exact structure depends on what your business tracks. You might group by role rather than individual, or use a single aggregated row per department if you don't need that level of detail.
+Hardcoded is for discrete, known costs that don't follow a formula: bonuses, one-off contractor fees, signing bonuses. Not the right fit for recurring salary costs.
 
-<Tip>If you use dimensions, you can break down actuals by department or employee without splitting GL accounts into separate rows, which is useful if your chart of accounts doesn't map cleanly to your headcount structure.</Tip>
+## Where to forecast headcount
 
-## Enter starting salaries
+- **Dedicated sheet:** right for most cases. Salary data is sensitive, individual costs have multiple components, and a dedicated sheet gives you a single place to model and update across the team. The P&L row references the total.
+- **Directly on the P&L:** right for simpler cases: a stable team on statistical, or a one-off cost like a bonus hardcoded to a specific month.
 
-For each current employee, enter their monthly salary directly on the **Salary** row. This is the baseline the forecast builds from.
+## Forecasting approaches
 
-## Forecast ongoing salaries
+<Tabs>
+  <Tab title="Driver-based">
+    **Set up the sheet structure**
 
-On each salary row, reference the prior month and apply the salary increase assumption:
+    Create a dedicated sheet with two sections: **Assumptions** at the top and salary totals below.
 
-```typescript
-= "Salary"[-1] + ("Salary"[-1] * "Salary increase"[0])
-```
+    In the **Assumptions** section, add rows for variables that apply across all employees: salary increase percentage, pension percentage, or any other shared inputs. These become the single inputs that drive calculations across the sheet.
 
-In months where the salary increase assumption is zero, the salary carries forward unchanged. When the assumption fires, the increase is applied automatically.
+    For the salary section, group by department. A common approach adds a group per employee or role with rows for base salary, pension, and other employer costs. The exact structure depends on what your business tracks — you might group by role rather than individual, or use a single aggregated row per department if you don't need that level of detail.
 
-## Model salary increases
+    <Tip>If you use dimensions, you can break down actuals by department or employee without splitting GL accounts into separate rows. This is useful if your chart of accounts doesn't map cleanly to your headcount structure.</Tip>
 
-The `if_month()` logic lives on the **Salary increase** row in the Assumptions section, not on the salary row itself:
+    **Enter starting salaries**
 
-```typescript
-= if_month(6) * 3%
-```
+    For each current employee, enter their monthly salary directly on the **Salary** row. This is the baseline the forecast builds from.
 
-This sets the increase to 3% in month 6 and zero in all other months. Adjust the month number and percentage to match your review cycle. Because every salary row references the same assumption, updating it in one place updates every employee automatically.
+    **Forecast ongoing salaries**
 
-## Add pension and employer costs
+    On each salary row, reference the prior month and apply the salary increase assumption:
 
-Reference the salary row and apply the pension percentage from the Assumptions section:
+    ```typescript
+    = "Salary"[-1] + ("Salary"[-1] * "Salary increase"[0])
+    ```
 
-```typescript
-= "Salary"[0] * "Pension %"[0]
-```
+    In months where the salary increase assumption is zero, the salary carries forward unchanged. When the assumption fires, the increase is applied automatically.
 
-Add a row for other salary-related costs using the same pattern with the relevant percentage.
+    **Model salary increases**
 
-## Model new hires
+    The `if_month()` logic lives on the **Salary increase** row in the Assumptions section, not on the salary row itself:
 
-For a new hire joining mid-year, leave the **Salary** row empty for months before their start date. Enter their salary directly in the month they join, then apply the ongoing salary formula from the following month forward.
+    ```typescript
+    = if_month(6) * 3%
+    ```
 
-## Connect to the P&L
+    This sets the increase to 3% in month 6 and zero in all other months. Adjust the month number and percentage to match your review cycle. Because every salary row references the same assumption, updating it in one place updates every employee automatically.
 
-On the relevant row in the P&L, add a formula that references the total salary cost from the headcount sheet:
+    **Add pension and employer costs**
 
-```typescript
-= "Total salary cost"[0]
-```
+    Reference the salary row and apply the pension percentage from the Assumptions section:
 
-When you reforecast on the headcount sheet (a new hire, a revised increase), the P&L updates automatically. All headcount forecasting happens in one place.
+    ```typescript
+    = "Salary"[0] * "Pension %"[0]
+    ```
 
-<Note>As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual salary values for those periods on the headcount sheet. Formulas referencing prior months will break if the preceding actuals period is empty.</Note>
+    Add a row for other salary-related costs using the same pattern with the relevant percentage.
+
+    **Model new hires**
+
+    For a new hire joining mid-year, leave the **Salary** row empty for months before their start date. Enter their salary directly in the month they join, then apply the ongoing salary formula from the following month forward.
+
+    <Note>As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual salary values for those periods on the headcount sheet. Formulas referencing prior months will break if the preceding actuals period is empty.</Note>
+  </Tab>
+  <Tab title="Statistical">
+    The right fit for a stable workforce with predictable annual salary increases. If headcount is steady and increases follow a known pattern, a YoY reference with a growth rate captures the forecast accurately:
+
+    ```typescript
+    = "Total salary cost"[-12] * (1+5%)
+    ```
+
+    Statistical loses individual visibility: you can't see specific salaries or model hires and departures. It breaks down when headcount is changing — new teams, rapid hiring, or significant restructuring all make the historical pattern an unreliable base.
+  </Tab>
+  <Tab title="Hardcoded">
+    The right fit for discrete, known costs that don't follow a formula: bonuses paid at a specific time, a one-off contractor engagement, or a signing fee. Enter the value directly on the relevant row in the month it applies.
+
+    For recurring salary costs, hardcoded values become a maintenance problem quickly: any hire, departure, or salary change requires a manual update across every future month. Use driver-based for those.
+  </Tab>
+</Tabs>
 
 ## FAQ
 

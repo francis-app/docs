@@ -10,29 +10,46 @@ Loans sit on the liability side of the balance sheet and represent outstanding p
 
 Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For loans, this means loan balance last period + new draws in period − principal repayments in period.
 
-## New draws
+## What approach to use
 
-A new draw is an addition to the loan balance. Model it in the period the funds are received. Most draws are known in advance. Hardcode the amount in the month it falls due.
+Hardcoded is the right default. Loan terms are contractual: draws, repayment schedules, and maturity dates are known in advance.
 
-For revolving credit facilities where drawdown amounts vary, use a supporting sheet to track each facility separately, then reference the total into the balance sheet row.
+Use driver-based for amortizing loans where repayments follow a formula, or for revolving credit facilities where drawdowns depend on the cash position.
 
-## Principal repayments
+Statistical is not applicable to loans. The balance is determined by contract terms, not historical patterns.
 
-Principal repayments are the detraction. Most loans follow a fixed repayment schedule, so these can be hardcoded or driven by a simple formula.
+## Where to forecast loans
 
-For an amortizing loan with equal monthly repayments:
+- **Directly on the balance sheet:** right for most cases. Draws, repayments, and the roll-forward live on the loan balance row.
+- **Supporting sheet:** right for revolving facilities or multiple loan tranches with different terms and repayment schedules.
 
-```typescript
-= "Loan amount"[0] / "Loan term (months)"[0]
-```
+## Forecasting approaches
 
-<Note>
-Interest is not a repayment. It flows to the P&L as a finance cost and does not reduce the loan balance. Only principal repayments affect the balance sheet.
-</Note>
+<Tabs>
+  <Tab title="Driver-based">
+    For amortizing loans with equal monthly repayments, drive the repayment from the loan amount and term:
 
-## Impact on cash flow
+    ```typescript
+    = "Loan amount"[0] / "Loan term (months)"[0]
+    ```
 
-Loan draws and principal repayments sit in financing activities on the cash flow statement. Interest payments sit in operating activities. Keep these separate. Mixing principal and interest in the loan balance is one of the most common errors in three-statement models.
+    For revolving credit facilities, link the drawdown to the cash position or a minimum cash balance assumption on an assumptions sheet.
+
+    **Impact on cash flow**
+
+    Loan draws and principal repayments sit in financing activities on the cash flow statement. Interest payments sit in operating activities. Keep these separate. Mixing principal and interest in the loan balance is one of the most common errors in three-statement models.
+
+    <Note>Interest is not a repayment. It flows to the P&L as a finance cost and does not reduce the loan balance. Only principal repayments affect the balance sheet.</Note>
+  </Tab>
+  <Tab title="Statistical">
+    Statistical forecasting is not applicable to loans. Draws and repayments are contractual; historical patterns don't predict future loan activity.
+  </Tab>
+  <Tab title="Hardcoded">
+    Hardcode draws in the month the funds are received and repayments directly from the loan schedule. For a bullet loan, set repayments to zero for all periods except the final month.
+
+    For multiple loan tranches or complex repayment schedules, use a supporting sheet that lists each facility with its draw amounts, repayment schedule, and maturity date.
+  </Tab>
+</Tabs>
 
 ## FAQ
 
