@@ -94,13 +94,13 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
     Use a rolling average of recent actuals when VAT exposure is stable month to month:
 
     ```typescript
-    = AVG_LAST("VAT balance movement", 3)
+    = avg_last("VAT balance movement", 3)
     ```
 
     If costs are growing, apply a modest growth rate to the monthly accumulation figure rather than rebuilding the dynamic link:
 
     ```typescript
-    = "VAT balance movement"[-12] * (1+5%)
+    = "VAT balance movement"[-12] * (1 + 5%)
     ```
 
     Statistical becomes unreliable when the business is growing quickly, when the product or cost mix is shifting, or when VAT rates change.

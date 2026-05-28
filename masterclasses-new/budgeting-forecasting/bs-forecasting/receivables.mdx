@@ -58,7 +58,7 @@ Hardcoded is often the most accurate in practice. Payment delays, disputes, and 
     A rolling average works when the receivables balance is steady with no significant spikes or seasonal swings:
 
     ```typescript
-    = AVG_LAST("Trade receivables", 3)
+    = avg_last("Trade receivables", 3)
     ```
 
     If the balance follows a seasonal pattern, reference the same month last year and apply an expected growth rate:
