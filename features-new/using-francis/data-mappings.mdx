@@ -1,42 +1,45 @@
 ---
 title: "Data mappings"
-description: "Connect your general ledger accounts to your Francis model to pull in actuals automatically."
+description: "Map your GL accounts to your Francis model to pull in actuals automatically."
 sidebarTitle: "Data mappings"
 icon: "list-tree"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/data-mappings.mp4" />
 
-Data mappings connect your general ledger accounts to rows and groups in your model. Once mapped, actuals flow in automatically from your accounting system whenever Francis syncs.
+Data mappings connect your GL accounts to rows in your model. Once mapped, actuals flow in automatically from your accounting system every time Francis syncs.
 
 ## How mappings work
 
-Open the **Mappings** view to see all GL accounts from your connected accounting systems. Drag an account onto an existing row or group to map it. To create a new row at the same time, drag the account all the way to the row name area and release it.
+Open the **Mappings** view to see all GL accounts from your connected accounting systems, along with accounts from any other data sources. Drag an account onto an existing row to map it. To create a new row, drag the account all the way to the row name area and release it.
 
-You can map multiple accounts to the same line item (useful when consolidating accounts that belong together in your model but are tracked separately in your GL).
+You can bundle multiple accounts on a single row. This serves two purposes:
+
+1. **Keeping the model clean.** There are two approaches in Francis: mirror your chart of accounts 1:1, or bundle GL accounts into categories. Bundle by default. It keeps the model readable and lean. Charts of accounts are designed for accounting workflows, and that structure rarely needs to carry into the FP&A model. You can always inspect a row to see where the numbers come from.
+2. **Matching GL accounts across entities.** When you consolidate multiple entities, map equivalent GL accounts from each entity to the same row in Francis.
 
 <Note>
   Rows and groups with at least one mapped account show a green connection indicator. No mapping shows gray.
 </Note>
 
-## Account categories
-
-Francis categorizes each account as Income (I), Expense (EX), Asset (A), Liability (L), or Equity (EQ). This categorization comes directly from your accounting system. Francis doesn't reclassify accounts. The category determines how Francis handles signs, so map accounts to the correct side of your model.
-
 ## Active and unused accounts
 
-Accounts in the Mappings view are split into two groups:
+GL accounts in the Mappings view are split into two groups:
 
-- **Active**: accounts with at least one journal entry. Map or ignore every active account.
-- **Unused**: accounts with no journal entries. Nothing needed. If entries are booked to an unused account later, it moves to active automatically.
+- **Active:** GL accounts with at least one journal entry. Francis notifies you to map them for completeness.
+- **Unused:** GL accounts with no journal entries. No action required. If an entry is later booked to an unused account, it moves to the active group automatically.
 
-The notification count on the **Mappings** button shows how many active accounts still need attention. Map or ignore accounts to clear it.
+The **Mappings** button shows a notification count for unmapped active accounts. Treat it as your to-do list.
 
-## Ignoring accounts
+The Mappings view also shows the last entry date for each account, which for some accounts can be far in the past. Map all active accounts to keep your historicals complete. For old or retired accounts, map them to an "Other" row to preserve historical accuracy without cluttering the model. You can also ignore an account, which clears the notification until a new entry is posted to it. Avoid this in most cases.
 
-Ignore accounts you don't want in your model: old accounts, discontinued entities, or anything not relevant to your current reporting structure. Ignored accounts are excluded from the notification count.
+When new GL accounts are created, or unused accounts start receiving entries, they appear in the Active section and trigger a notification.
 
-If new entries are booked to an ignored account, Francis automatically un-ignores it and adds it back to the notification count.
+Accounts from non-accounting data sources do not generate notifications, since they aren't treated as a completeness checklist the way GL accounts are.
+
+## Map to top-level for breakdowns
+
+When you [break down](/features-new/using-francis/breakdowns) a sheet, you map GL accounts to the template sheet at the top, and the data automatically flows to your subsheets based on your breakdown configuration. You cannot map to subsheets directly.
 
 ## FAQ
 

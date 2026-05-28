@@ -6,11 +6,20 @@ sidebarTitle: "Oracle NetSuite"
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/netsuite.mp4" />
 
-Connect your Oracle NetSuite instance to import actuals into Francis. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map NetSuite accounts to line items in your model.
+Connect your NetSuite account to import actuals into Francis. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map NetSuite accounts to line items in your model.
 
 ## Connect NetSuite
 
-Go to **Settings > Integrations > Oracle NetSuite**. Authorize Francis as an application when prompted. Dimensional planning for Oracle NetSuite is coming soon.
+Go to **Settings > Integrations > NetSuite > Connect**. A prompt will appear asking you to authorize Francis as an application in your NetSuite account. This requires Admin rights.
+
+## What Francis sources
+
+Francis pulls the following data from NetSuite:
+
+- Journal entries: amount, date, and description
+- GL accounts
+
+Dimensions ("tracking categories") are not currently supported for NetSuite, but are coming soon.
 
 ## Adjustments
 
@@ -18,12 +27,10 @@ Francis adjusts imported data in two ways.
 
 <Tabs>
   <Tab title="Number convention">
-    Francis uses a consistent sign convention:
+    Francis flips the sign for income, expenses, liabilities, and equity accounts to follow the Francis sign convention:
 
     * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
     * **Negative (-):** Expense (EX)
-
-    Account classification is based on your asset range settings. Verify this configuration before importing.
   </Tab>
 
   <Tab title="Balance sheet">
@@ -35,12 +42,10 @@ Francis adjusts imported data in two ways.
 
 ### Retained earnings
 
-Francis does not automatically include a retained earnings account when importing from NetSuite. Calculate it manually by adding net profit to the opening retained earnings balance:
+NetSuite does not expose its retained earnings account via the API. Francis automatically adjusts for this on other accounting systems, but it is not yet supported for NetSuite. For now, calculate retained earnings manually by adding net profit to the opening balance:
 
 ```typescript
 = "Retained earnings"[-1] + "Net profit"[0]
 ```
 
-<Note>
-  Automatic retained earnings for NetSuite is coming soon. Reach out at [support@francis.app](mailto:support@francis.app) with questions.
-</Note>
+Reach out to [support@francis.app](mailto:support@francis.app) if you have questions.

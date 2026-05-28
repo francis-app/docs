@@ -88,6 +88,11 @@ Hyperlink the first mention of a Francis concept on each page to its concept pag
 
 This replaces a capitalization convention — the link does the disambiguation work, lowercase keeps the prose clean.
 
+### Formula syntax
+
+- **Function names are lowercase.** Francis function names use lowercase everywhere — in code blocks, inline code, and prose references. *`if`, `avg_last`, `predict`, `sum_ytd`* — never *`IF`, `AVG_LAST`, `PREDICT`*. The exception is when explicitly referencing a function name from another tool (e.g. *"similar to IF in Excel"*), where the source tool's capitalization is preserved.
+- **Spaces around binary operators.** Put a single space on each side of binary operators (`+`, `-`, `*`, `/`, `=`) when they sit between operands, including comparison `=` inside function arguments. *`"Revenue"[0] = 0`* and *`"Marketing"[-12] * (1 + 10%)`* — never *`"Revenue"[0]=0`* or *`(1+10%)`*. No space inside slice notation (*`[-3:0]`*).
+
 ---
 
 ## Information architecture
@@ -172,6 +177,23 @@ Meta-headers describe the section's role rather than its content and fail both s
 - H1 = the reference category
 - One-paragraph lede on conventions (syntax style, argument types)
 - No prose between entries — alphabetical list, each item as a collapsible H2 or H3 with syntax, one-line description, arguments, one example
+
+**Accounting integration page** (e.g. *Business Central*, *Xero*)
+
+Applies to each supported accounting system page under `integrations/accounting/` and `integrations-new/accounting/`, and to the *Non-supported ERP* / *other-erp* page (with one extra section, noted below). Does **not** apply to the *Overview* page — it follows its own structure.
+
+- H1 = the accounting system's name
+- Lede states what connecting enables and where the chart of accounts surfaces in Francis
+- H2s, in this exact order:
+    1. *Connect [system]* — auth flow and any connection variants
+    2. *What Francis sources* — the data Francis pulls (journal entries, dimensions, GL accounts, etc.)
+    3. *Adjustments* — automatic transformations Francis applies on import (typically a `<Tabs>` block)
+    4. *Settings to enable adjustments* — user-configurable settings the adjustments depend on
+    5. *Status checks* — automated checks Francis runs on imported data, usually an `<AccordionGroup>`
+- If a section has no content for a given integration, keep the heading and write a one-line placeholder (*"No automated status checks for this integration yet."*) so the structure stays consistent across pages
+- Anything that doesn't fit one of the five sections goes at the bottom under its own descriptive H2
+
+**Non-supported ERP page exception:** because data arrives via a Google Sheet the user fills in by hand rather than via an API, this page adds a *Required data format* section between *What Francis sources* and *Adjustments*. It covers the sign convention and delta-value rules the user must follow when entering data. The other five sections stay in the same order. Here *Connect [system]* is *Connect Google Sheets* (Google Sheets is the bridge).
 
 ---
 

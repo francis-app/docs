@@ -11,32 +11,26 @@ Use Google Sheets to import data from business tools not natively supported by F
 
 | Data type | How Google Sheets is used |
 |---|---|
-| **Sales data** | Manual or automated input of revenue actuals and customer counts |
-| **CRM / Pipeline** | Pull deal and pipeline data from HubSpot, Pipedrive, or similar tools via export or a connector like Weld |
-| **Salary / Headcount** | Import employee salary data from payroll or HR tools not connected to Francis |
+| **CRM** | Import pipeline and customers, like deals, contracts, etc. |
+| **Headcount** | Import detailed employee salary data from payroll/HRIS tools |
+| **Operations** | Import production data used in forecasting and/or reporting |
 
 ## Connect Google Sheets
 
-Go to **Settings > Integrations > Google Sheets** and connect your Google account. Francis will create a **Francis Data Source** sheet in your Google Drive. Use this sheet to input your data.
+Go to **Settings > Integrations > Google Sheets > Connect**. A prompt asks you to choose a template:
 
-To share the sheet with team members, update its permissions in Google Sheets or move it to a shared drive.
+- **Monthly totals:** upload monthly values (high-level).
+- **Detailed entries:** upload journal entries (detailed).
+
+Monthly totals is often the right choice for business data. Detailed entries is used mainly for ERP data where you want to import journal entries, but it can also capture granular transactions for other kinds of business data.
+
+Francis creates a sheet in your Google Drive and live-syncs it to Francis on every refresh. Francis must create the sheet. You cannot create your own sheet and then connect it. Enter your data into the sheet Francis creates.
+
+To share the sheet with team members, update permissions under **Share** in Google Sheets, or move the sheet to a shared drive.
 
 <Tip>
   Francis can only view, edit, create, and delete the specific Google Drive files it creates. It does not access any of your other Google Drive files.
 </Tip>
-
-## Data formats
-
-When setting up the connection, choose one of two templates based on how your data is organized.
-
-<Tabs>
-  <Tab title="Monthly totals">
-    Use monthly totals if your data is already aggregated by month and does not require drilling down into individual records.
-  </Tab>
-  <Tab title="Transactions">
-    Use transactions if your data consists of individual records that have not been aggregated into monthly totals. Data imported via this template supports drill-downs in Francis for more detailed analysis.
-  </Tab>
-</Tabs>
 
 ## Microsoft users
 
@@ -46,6 +40,42 @@ If you use Microsoft 365, create a Google account with your Microsoft email addr
   Excel Online support is coming soon. Reach out at [support@francis.app](mailto:support@francis.app) with questions.
 </Note>
 
-## Syncing
+## Status checks
 
-Changes in Google Sheets do not sync automatically. Initiate a sync in Francis to pull the latest data.
+Francis runs tests on each sync to flag formatting issues before they distort your numbers. The checks depend on the template you chose.
+
+<Tabs>
+  <Tab title="Monthly totals">
+    <AccordionGroup>
+      <Accordion title="Month headers">
+        Month headers must begin at cell **B1** and follow the `YYYY-MM` format. This check fails when the headers start in the wrong cell or use a different format. Reformat the affected headers and sync again.
+      </Accordion>
+      <Accordion title="Unique accounts">
+        Every account name must be unique. This check fails when the same account name appears more than once. Merge the duplicate rows into one before syncing.
+      </Accordion>
+      <Accordion title="Account names">
+        Every row must have an account name. This check fails when an account name is left blank. Fill in the account name for each row before syncing.
+      </Accordion>
+      <Accordion title="Amount format">
+        Amounts must be in numeric format. This check fails when a value contains text, currency symbols, or other non-numeric characters. Remove the formatting so each amount is a plain number.
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+
+  <Tab title="Detailed entries">
+    <AccordionGroup>
+      <Accordion title="Headers">
+        Row 1 must have the column headers **Date**, **Account**, **Amount**, and **Description**. This check fails when a header is missing or renamed. Restore the exact header names in row 1 of Sheet 1.
+      </Accordion>
+      <Accordion title="Account names">
+        Every row must have an account name. This check fails when an account name is left blank. Fill in the account name for each row before syncing.
+      </Accordion>
+      <Accordion title="Amount format">
+        Amounts must be in numeric format. This check fails when a value contains text, currency symbols, or other non-numeric characters. Remove the formatting so each amount is a plain number.
+      </Accordion>
+      <Accordion title="Date format">
+        Dates must follow the `YYYY-MM-DD` format. This check fails when a date uses a different format. Reformat the affected dates and sync again.
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+</Tabs>

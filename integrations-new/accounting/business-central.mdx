@@ -14,7 +14,7 @@ Business Central supports two connection methods.
 
 ### Method 1: Standard connection
 
-Go to **Settings > Integrations > Business Central**. A prompt will appear asking you to authorize Francis as an application in your Business Central account. This requires Admin rights.
+Go to **Settings > Integrations > Business Central > Connect**. A prompt will appear asking you to authorize Francis as an application in your Business Central account. This requires Admin rights.
 
 The connection is tied to the user who authorizes it and inherits their permissions. If that user is later deactivated (for example, when they leave the company), the connection breaks and must be reestablished via **Reconnect** in Francis.
 
@@ -43,9 +43,9 @@ Register the Francis app directly in Business Central via Microsoft Entra. This 
 
 Francis pulls the following data from Business Central:
 
-- Journal entries (amount, date, and description)
-- Dimension tags, available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis
+- Journal entries: amount, date, and description
 - GL accounts
+- Dimension tags, available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis
 
 ## Adjustments
 
@@ -53,7 +53,7 @@ Francis automatically adjusts imported data in three ways. All adjustments are b
 
 <Tabs>
   <Tab title="Number convention">
-    Francis uses a consistent sign convention:
+    Francis flips the sign for income, expenses, liabilities, and equity accounts to follow the Francis sign convention:
 
     * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
     * **Negative (-):** Expense (EX)
@@ -70,26 +70,34 @@ Francis automatically adjusts imported data in three ways. All adjustments are b
   </Tab>
 </Tabs>
 
+## Settings to enable adjustments
+
+### Account categories
+
+Francis applies its adjustments based on account categories (Income, Cost of Goods Sold, Expense, Asset, Liability, or Equity), so every posting account in Business Central needs one assigned.
+
+To set account categories:
+
+1. Navigate to **Chart of Accounts**.
+2. Choose **Edit List**.
+3. Update **Account Category** for all **Posting** accounts. **Account Subcategory** and **Total** accounts can be left blank.
+
+![Setting account categories in the Business Central Chart of Accounts](/images/integrations/accounting/business-central/account-categories.svg)
+
 ## Status checks
 
 Francis runs tests on your imported data to flag setup issues before they distort your numbers.
 
 <AccordionGroup>
   <Accordion title="Missing account categories">
-    Francis applies its [adjustments](#adjustments) based on account categories (Income, Cost of Goods Sold, Expense, Asset, Liability, or Equity), so every GL account needs one assigned. This check fails when any posting account is missing a category.
-
-    To set account categories:
-
-    1. Navigate to **Chart of Accounts**.
-    2. Choose **Edit List**.
-    3. Update **Account Category** for all **Posting** accounts. **Account Subcategory** and **Total** accounts can be left blank.
-
-    ![Setting account categories in the Business Central Chart of Accounts](/images/integrations/accounting/business-central/account-categories.svg)
+    This check fails when any posting account is missing a category. Without categories, adjustments can't be applied correctly. Set them in Business Central under **Chart of Accounts > Edit List**.
   </Accordion>
   <Accordion title="Missing journal entries">
-    In rare cases, the user setting up a Standard connection has permission to connect but not to access the journal entry table. This check fails when Francis detects this permission setup. When that happens, the Chart of Accounts imports correctly, but no journal entries appear, making it look like there's no activity in the company.
+    In rare cases, the user setting up the connection has admin permission to connect to the BC instance but not to access the journal entry table in the BC environment. This check fails when Francis detects this permission setup. When that happens, the Chart of Accounts imports correctly, but no journal entries appear, making it look like there's no activity in the company.
 
     To resolve this, either grant the user the missing permissions in Business Central, or replace the connection: use a user with broader permissions, or switch to Method 2 (App installation). Delete the old connection afterwards.
   </Accordion>
+  <Accordion title="Deleted dimension values">
+    In rare cases, some journal entries are tagged with a dimension value that no longer exists, because it has been deleted. When that happens, the BC sync will fail, and you will be notified about which dimension value has been deleted. To fix this, you must create the missing dimension value again.
+  </Accordion>
 </AccordionGroup>
-
