@@ -1,53 +1,94 @@
 ---
 title: "Forecast loans"
 sidebarTitle: "Loans"
-description: "How to model the loan balance in Francis, including new draws, principal repayments, and interest."
+description: "How to model the loan balance in Francis, including opening balance, interest, principal repayments, and new draws."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/loans.mp4" />
 
-Loans sit on the liability side of the balance sheet and represent outstanding principal owed to lenders. Common examples include term loans, mortgage facilities, and shareholder loans.
+Loans sit on the liability side of the balance sheet and represent outstanding principal owed to lenders. Common examples include term loans, mortgage facilities, and revolving credit facilities.
 
 Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For loans, this means loan balance last period + new draws in period − principal repayments in period.
 
 ## What approach to use
 
-Hardcoded is the right default. Loan terms are contractual: draws, repayment schedules, and maturity dates are known in advance.
+Driver-based is the right default. Build the amortisation schedule from the total payment and interest rate, and let the interest charge and principal split calculate automatically. When rate assumptions change, the balance updates throughout the forecast.
 
-Use driver-based for amortizing loans where repayments follow a formula, or for revolving credit facilities where drawdowns depend on the cash position.
+Use hardcoded when you have a complete repayment schedule from your lender with exact draws, repayments, and interest charges per period already calculated.
 
-Statistical is not applicable to loans. The balance is determined by contract terms, not historical patterns.
+Statistical is not applicable to loans. Balances are contractual, not pattern-driven.
 
 ## Where to forecast loans
 
-- **Directly on the balance sheet:** right for most cases. Draws, repayments, and the roll-forward live on the loan balance row.
-- **Supporting sheet:** right for revolving facilities or multiple loan tranches with different terms and repayment schedules.
+- **Supporting sheet:** right for most cases. One section per loan facility, with opening balance, total payment, monthly rate, interest, and principal. The balance sheet references the ending balance from each section.
+- **Directly on the balance sheet:** right for a single simple loan with no interest calculation needed.
 
 ## Forecasting approaches
 
 <Tabs>
   <Tab title="Driver-based">
-    For amortizing loans with equal monthly repayments, drive the repayment from the loan amount and term:
+    **Set up the supporting sheet**
+
+    Create one section per loan facility with seven rows: Annual interest rate %, Monthly interest rate %, Starting value, Total payment, Interest, Principal repayment, and Ending value.
+
+    **Annual interest rate %**
+
+    Hardcode the annual rate. This is a fixed assumption for the facility.
+
+    **Monthly interest rate %**
 
     ```typescript
-    = "Loan amount"[0] / "Loan term (months)"[0]
+    = "Annual interest rate %"[0] / 12
     ```
 
-    For revolving credit facilities, link the drawdown to the cash position or a minimum cash balance assumption on an assumptions sheet.
+    **Starting value**
 
-    **Impact on cash flow**
+    Hardcode the loan balance in the first forecast period. From the second period onwards:
 
-    Loan draws and principal repayments sit in financing activities on the cash flow statement. Interest payments sit in operating activities. Keep these separate. Mixing principal and interest in the loan balance is one of the most common errors in three-statement models.
+    ```typescript
+    = "Ending value"[-1]
+    ```
 
-    <Note>Interest is not a repayment. It flows to the P&L as a finance cost and does not reduce the loan balance. Only principal repayments affect the balance sheet.</Note>
+    When forecasting for the first time, this formula will break because there is no prior ending value in the forecast. Fix it in one of two ways: hardcode the loan balance in the last actuals period so the formula picks it up, or reference `"Ending value"[-1]` to the corresponding balance on the balance sheet.
+
+    **Total payment**
+
+    Hardcode the monthly payment from the loan agreement. This stays constant for a fixed-rate amortising loan.
+
+    **Interest**
+
+    ```typescript
+    = "Starting value"[0]
+    * "Monthly interest rate %"[0]
+    ```
+
+    Interest flows to the P&L as a finance cost. It does not reduce the loan balance.
+
+    **Principal repayment**
+
+    ```typescript
+    = "Total payment"[0]
+    - "Interest"[0]
+    ```
+
+    **Ending value**
+
+    ```typescript
+    = "Starting value"[0]
+    - "Principal repayment"[0]
+    ```
+
+    The balance sheet row references this ending value.
+
+    <Note>Total payment flows to financing activities. Interest flows to operating activities. Keep these separate. Mixing principal and interest in the loan balance is one of the most common errors in three-statement models.</Note>
   </Tab>
   <Tab title="Statistical">
-    Statistical forecasting is not applicable to loans. Draws and repayments are contractual; historical patterns don't predict future loan activity.
+    Statistical is not applicable to loans. Repayments are contractual; historical patterns do not predict future loan activity.
   </Tab>
   <Tab title="Hardcoded">
-    Hardcode draws in the month the funds are received and repayments directly from the loan schedule. For a bullet loan, set repayments to zero for all periods except the final month.
+    Enter management estimates directly on the balance sheet for each period: the expected draw, repayment, and closing balance. This works when you have a known schedule and do not need the interest and principal calculation built into the model.
 
-    For multiple loan tranches or complex repayment schedules, use a supporting sheet that lists each facility with its draw amounts, repayment schedule, and maturity date.
+    Document the facility name, original principal, maturity date, and interest rate in a formula note. Hardcoded values require a manual update if terms are renegotiated.
   </Tab>
 </Tabs>
 
@@ -55,7 +96,7 @@ Statistical is not applicable to loans. The balance is determined by contract te
 
 <AccordionGroup>
   <Accordion title="How do I model a bullet loan?">
-    A bullet loan has no principal repayments during the term. The full balance is repaid at maturity. Set repayments to zero for all periods except the final month, where you hardcode the full outstanding balance.
+    A bullet loan has no principal repayments during the term. The full balance is repaid at maturity. Set repayments to zero for all periods except the final month, where you enter the full outstanding balance as a repayment.
   </Accordion>
   <Accordion title="How do I handle a loan with a variable repayment schedule?">
     Use a supporting sheet that lists the repayment amount for each period, then reference it into the balance sheet row. This keeps the schedule easy to update if terms change.

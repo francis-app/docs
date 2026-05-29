@@ -62,22 +62,15 @@ Hardcoded is acceptable for specific contracts with known amounts and timing. Us
     The group addition is positive (cash paid in); P&L recognized is negative (expense flowing out). Driver-based gives you scenario flexibility, auditability (every balance traces back to a cash payment and a coverage period), and automatic P&L and cash flow linkage.
   </Tab>
   <Tab title="Statistical">
-    Use statistical as a cross-check on driver-based results, not as the primary method. A rolling average of recent actuals can flag when the driver-based output looks off:
+    Statistical works when the same contracts renew at roughly the same time each year with a small price increase. Rather than re-entering every contract, reference the prior year's balance and apply an expected growth rate:
 
     ```typescript
-    = avg_last("Prepayments", 3)
+    = "Prepayments"[-12] * (1 + 5%)
     ```
 
-    If the balance follows a seasonal pattern, reference the same month last year with a growth adjustment:
+    Replace 5% with the expected price increase across your contract base.
 
-    ```typescript
-    = "Prepayments"[-12]
-    * (1 + 5%)
-    ```
-
-    Replace 5% with the growth rate that reflects your cost expectations.
-
-    Statistical should not be the primary forecasting method for prepayments. It has no driver linkage and will not flex when scenarios change. A structural break (a new contract, a cancellation, or a rate change) makes the historical average unreliable immediately.
+    This approach breaks down as soon as the contract mix changes. A new contract, a cancellation, or a shift in renewal timing makes the prior year balance an unreliable starting point. If you are adding suppliers or renegotiating terms, rebuild with driver-based instead.
   </Tab>
   <Tab title="Hardcoded">
     Hardcoded is acceptable for specific contracts where the amount and timing are fixed in advance. Enter the cash payment in the month it falls due and the monthly amortisation for the contract period.
