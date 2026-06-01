@@ -1,21 +1,23 @@
 ---
 title: "Inspect"
-description: "See the underlying journal entries behind any cell in your model."
+description: "See the journal entries behind every actual from your accounting system."
 icon: "magnifying-glass"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/inspect.mp4" />
 
-Inspect shows the journal entries behind any cell in your model. Select a cell and open the Inspect panel to see every journal entry posted from the accounts mapped to that row for the selected month.
+Inspect shows the journal entries behind any actuals value in your model. Select a cell and open the Inspect panel to see every journal entry posted from the accounts mapped to that row for the selected month.
 
 ## Open Inspect
 
-Select the cell you want to investigate, then click **Inspect** in the top bar. A side drawer opens with a complete list of journal entries posted from the accounts mapped to that row in the selected month.
+Select the cell you want to investigate, then click **Inspect** in the top bar. A side drawer opens with a complete list of journal entries posted from the accounts mapped to that row in the selected month, sorted from highest amount to lowest. The list is limited to the top 100 entries.
 
-## Converted journal entries
-
-If your actuals use currency conversion, Inspect shows both the converted value and the original journal entry in the source currency. This lets you trace any number back to its source.
+Each entry shows the date, description, and amount, so you can look up the journal entry in your accounting system.
 
 ## Balance sheet accounts
 
 Francis accumulates balance sheet values from your accounting integration month over month. Inspect shows monthly posted journal entries only, not opening balances. If a balance sheet account had no movement in a given month, no journal entries appear.
+
+## Converted journal entries
+
+If you convert your actuals from a foreign currency to a reporting currency, Inspect shows the original amount, the converted amount, and the FX rate. This lets you trace any number back to its source.
