@@ -36,29 +36,25 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
     5. Add a **Captured cost VAT** row below the groups:
 
     ```typescript
-    = "Costs incl. VAT"[0]
-    * "VAT %"[0]
+    = "Costs incl. VAT"[0] * "VAT %"[0]
     ```
 
     6. Add a **Captured income VAT** row:
 
     ```typescript
-    = "Income incl. VAT"[0]
-    * "VAT %"[0]
+    = "Income incl. VAT"[0] * "VAT %"[0]
     ```
 
     On the balance sheet, use three rows. **Cost VAT** takes last month's balance and adds this month's newly captured cost VAT:
 
     ```typescript
-    = "Cost VAT"[-1]
-    + "Captured cost VAT"[0]
+    = "Cost VAT"[-1] + "Captured cost VAT"[0]
     ```
 
     **Sales VAT** does the same for income:
 
     ```typescript
-    = "Sales VAT"[-1]
-    + "Captured income VAT"[0]
+    = "Sales VAT"[-1] + "Captured income VAT"[0]
     ```
 
     The **Settlement** row formula depends on your settlement frequency.
@@ -81,7 +77,7 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
 
     ```typescript
     = "Settlement"[-1]
-    + if_quarter_month(3) × ("Sales VAT"[-3] + "Cost VAT"[-3] - "Sales VAT"[-6] - "Cost VAT"[-6])
+    + if_quarter_month(3) * ("Sales VAT"[-3] + "Cost VAT"[-3] - "Sales VAT"[-6] - "Cost VAT"[-6])
     ```
 
     This settles Q1 in June, Q2 in September, Q3 in December, and Q4 in March, aligned with the standard Danish quarterly VAT schedule. Adjust the month offset if your jurisdiction settles on a different cycle. Between settlements, the NET VAT balance accumulates and represents the outstanding obligation for the current quarter to date.

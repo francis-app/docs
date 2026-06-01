@@ -30,7 +30,7 @@ The right use case is a known one-off event at a specific time: a big accountant
 
 Driver-based is often preferred because it models causality between drivers and the line item. As a general pattern, the biggest items on the P&L, balance sheet, and cash flow warrant driver-based forecasting. These are typically items such as revenue, headcount, receivables, and VAT. Driver-based also matters more when the business is changing in ways history doesn't capture: startups or new business areas.
 
-Statistical fits better when a line item is pattern-based or when your data isn't granular enough for a clean driver. Smaller items like many OPEX categories, or static items like many balance sheet items, are fine on statistical.
+Statistical fits better when a line item is pattern-based or when your data isn't granular enough for a clean driver. Smaller items like many OPEX categories, or static items like many balance sheet items, are fine on statistical. It works well for working capital items such as inventory, trade receivables, and prepayments, where historical patterns tend to hold. It does not fit contractual items like loans, where future movements are set by agreement rather than by trend.
 
 Hardcoded is the right choice for known one-off events at specific times, the fallback when there's no signal worth modeling, or a starting point during onboarding.
 
