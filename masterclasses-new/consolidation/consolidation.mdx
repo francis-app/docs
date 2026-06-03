@@ -1,32 +1,26 @@
 ---
 title: "Consolidate multi-entity financials"
 sidebarTitle: "Consolidation"
-description: "Map your GL accounts, break down by entity, and set up per-entity forecasting in Francis."
+description: "Set up entity breakdowns and sub-consolidations to reflect your group structure in Francis."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/consolidation.mp4" />
 
-A consolidated model in Francis gives you actuals across all entities in one place, with the option to forecast each entity separately. This guide takes you from connected data sources to a working consolidated model.
+Once your entity breakdown is in place, sub-consolidations let you create consolidated views below the group level. Use them to reflect legal holding structures, regional groupings, or any other slice of the group that needs its own view. See [Breakdowns](/features-new/using-francis/breakdowns) for how to apply an entity breakdown.
 
-## Before you start
+## Common use cases
 
-Connect an [accounting integration](/integrations-new/accounting/overview) for each entity. If entities operate in different base currencies, set up [currency conversion](/integrations-new/other/currency) first. Create your model from a template or from scratch. Templates give you a reliable, editable framework; starting from scratch is an option if you're replicating an existing model. A template is the faster path for most. Then map GL accounts onto the relevant line items in Mappings.
+### Sub-consolidations for legal structures
 
-## Breakdown by entity
+If your group has a holding entity owning operating entities, create a roll-up for each layer. Open the action menu (...) on the consolidation template, choose **Add rollup**, and drag the relevant entity sub-sheets into it. Repeat for each layer. Each layer gets its own clean consolidated view without duplicating the model structure.
 
-Breaking down your consolidated sheet creates a consolidation template with one sub-sheet per entity. This is what enables per-entity forecasting.
+### Regional splits
 
-Hover over the sheet containing your consolidated actuals, open the action menu (...), then choose **Breakdown** and select **Entity**. Francis creates one sub-sheet for each of the first 20 entities. If you have more than 20, the remainder are grouped into an **Other** bucket. You can adjust the breakdown afterward to add sub-sheets for the remaining entities.
+Group entities by geography using sub-consolidations. Add an EMEA roll-up and an Asia roll-up, then drag the relevant entity sub-sheets into each. The top-level consolidated sheet rolls up all regions. This gives leadership a regional P&L alongside the group view in the same model.
 
-<Warning>
-  Applying a breakdown deletes any pre-existing forecasts and manual entries on the sheet. Do this before you start forecasting, not after.
-</Warning>
+### Single entity with department breakdown
 
-Once applied, the sheet becomes a consolidation template. Structure (rows, groups, calculations) is defined top-down in the template and syncs automatically to all sub-sheets. Actuals and forecasts are defined bottom-up in the sub-sheets and roll up to the template. You can't edit cell values in the template directly; edit the sub-sheets instead.
-
-## Sub-consolidation
-
-If you need a consolidated view of a subset of entities (a regional P&L or a specific holding structure), open the action menu (...) on the consolidation template and choose **Add rollup**. This option is only available after a breakdown has been applied. Drag the relevant entity sub-sheets into the rollup. It shows a consolidated view of those entities; the individual sub-sheets remain accessible within it. The rollup name can be changed. Structure is inherited from the main consolidation template and is not affected.
+If you operate as a single legal entity, skip the entity breakdown and go straight to a [dimension breakdown](/masterclasses-new/consolidation/dimensions) by department. You get the same per-department forecasting without the consolidation layer.
 
 ## FAQ
 

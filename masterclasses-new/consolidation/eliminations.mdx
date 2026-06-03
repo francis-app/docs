@@ -6,33 +6,33 @@ description: "Remove internal group transactions at the consolidated level, for 
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/eliminations.mp4" />
 
-Intercompany transactions between entities in your group need to be removed at the consolidated level. Left in, they inflate group revenue, costs, or both. This guide covers how to identify those transactions in Francis and record the eliminations, whether your group operates in a single currency or multiple.
+Eliminations remove intercompany transactions from the consolidated view. Each elimination is an offset entry on a dedicated Eliminations sheet that references the IC value from an entity sub-sheet and negates it. The entity sub-sheets are not touched. The figures there remain correct for standalone entity reporting.
 
-## Before you start
+## Common use cases
 
-You need a consolidated model with an entity-level breakdown in place before you can record eliminations. If you haven't done that yet, complete the [consolidation setup](/masterclasses-new/consolidation/consolidation) first.
+### IC revenue and costs
 
-## Applying eliminations
+The most common case. One entity bills another for services or goods. Entity A records IC revenue; entity B records the corresponding IC cost. Add one offset row per IC pair on the Eliminations sheet, referencing the IC value from the relevant entity sub-sheet and negating it. Both sides cancel out at group level.
 
-Intercompany transactions are typically tracked through specific GL accounts or dimension values. Isolate them into their own rows on the consolidated sheet first. This makes it straightforward to target them with offset entries without disturbing the rest of the model. Select the tab that matches your group's currency setup.
+### Management fees
 
-<Tabs>
-  <Tab title="Same currency">
+A parent entity charges subsidiaries a management fee. The fee appears as income on the parent and as a cost on each subsidiary. Eliminate both sides. If the fee is a fixed monthly amount, the elimination row can reference a fixed value rather than a GL row.
 
-Add a dedicated sheet (call it "Eliminations") to your consolidation template. For each intercompany transaction, add a row to the Eliminations sheet and use a formula to reference the IC row from the relevant entity sub-sheet, negated. For example, if entity A records IC revenue of 7,300, the Eliminations row references that value from the entity sub-sheet and applies a minus sign. The two entries cancel out at group level. To extend the formula to future months, use Fill right (`⇧ + Tab`). Once filled, those months update automatically as actuals come in.
+### IC loans
 
-Keep the intercompany rows intact on the individual entity sheets. Those figures are still correct for standalone entity reporting. Only the group level eliminates them.
+An intercompany loan appears as a financial asset on the lender's balance sheet and as a liability on the borrower's. Eliminate both on the consolidated balance sheet. Interest on the loan also needs to be eliminated from both the P&L and the balance sheet.
 
-  </Tab>
-  <Tab title="Different currencies">
+### Multi-currency groups
 
-Follow the same steps as for single-currency eliminations. Because the two entities record the same IC transaction in different base currencies, Francis converts each side separately to the reporting currency using its configured exchange rates. The converted amounts will often differ slightly. That difference needs its own row.
+Because each entity records the same IC transaction in its own base currency, Francis converts each side separately to the reporting currency. The converted amounts often differ slightly due to exchange rate movements. Add an FX fluctuation row to the Eliminations sheet to capture the residual difference, so the two sides net to zero at group level.
 
-Add a row (typically called "FX fluctuation") to your Eliminations sheet and use a formula to calculate the difference between the two converted amounts. For example, entity A records IC revenue of −7,563 and entity B records IC costs of 7,300. The 263 difference goes to the FX fluctuation row, so the two sides net to zero at group level. Use Fill right (`⇧ + Tab`) to extend the formula to future months.
+## FAQ
 
-<Warning>
-  This approach assumes all residual differences come from exchange rate movements. If the same GL account is used for multiple purposes, or if there are bookkeeping errors, the residual will be overstated and the FX fluctuation row will absorb more than it should.
-</Warning>
-
-  </Tab>
-</Tabs>
+<AccordionGroup>
+  <Accordion title="Do I need to eliminate IC transactions in the forecast too?">
+    {/* TODO: answer */}
+  </Accordion>
+  <Accordion title="How do I handle partial ownership in eliminations?">
+    {/* TODO: answer */}
+  </Accordion>
+</AccordionGroup>

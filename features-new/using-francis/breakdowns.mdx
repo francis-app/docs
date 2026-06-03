@@ -9,44 +9,46 @@ icon: "list-tree"
 
 Breakdowns split your model so you can plan and review data per sub-unit. You can apply a breakdown to an entire sheet or to a single row.
 
-## How breakdowns work
-
-When you apply a breakdown, Francis creates sub-units: a sub-sheet for a sheet breakdown, a sub-row for a line item breakdown. The parent becomes a read-only roll-up, and the data now lives on the sub-units.
-
-<Warning>
-  Creating a breakdown removes forecast values, as the sheet becomes a read-only roll-up. Removing a breakdown removes forecasts entered on the sub-sheets.
-</Warning>
-
 ## Sheet breakdown vs. line item breakdown
 
 A breakdown applies at one of two levels.
 
 **Sheet breakdown** splits the entire sheet. The sheet becomes a template deployed across sub-units. Use this when you want to apply a template across entities, departments, or similar. An example is creating a P&L template per entity or department.
 
-**Line item breakdown** splits a single row. Use this when only one line needs to be split. Examples include splitting a revenue line by products or splitting CAPEX by projects.
+**Line item breakdown** splits a single row. Use this when only one line needs to be split. Examples include splitting a revenue line by product or splitting CAPEX by project.
 
 ## Sheet breakdown
 
-Sheet breakdowns come in two types: entity and [dimension](/masterclasses-new/consolidation/dimensions). Entity comes first and is always the foundation. Dimension breakdowns, by department, channel, or project, sit under entity sub-sheets.
+Sheet breakdowns come in two types: entity and dimension. Entity comes first and is always the foundation. Dimension breakdowns, by department, channel, or project, sit under entity sub-sheets.
 
-### Breakdowns create a template
+### How it works
 
-When you break down a sheet, it becomes a template. With this template, you build top-down and work bottom-up.
+When you apply a sheet breakdown, the sheet becomes a template. Structure flows top-down: rows, groups, and calculations you define on the template sync automatically to all sub-sheets. You build the model once and every sub-sheet inherits it.
 
-Structure flows top-down: rows, groups, and calculations defined on the consolidated sheet sync to all sub-sheets automatically. You build the model once, at the top level, and every sub-sheet inherits it.
+Data flows bottom-up: actuals and forecasts live on the sub-sheets and roll up to the template automatically. You cannot edit row values directly on the template.
 
-Forecasting flows bottom-up: actuals and forecasts are entered on the sub-sheets and roll up automatically. You never directly edit row values in the consolidated sheet.
+<Warning>
+  Applying a breakdown removes any forecasts and manual entries on the sheet. Apply breakdowns before you start forecasting, not after.
+</Warning>
 
-These restrictions ensure that the system stays manageable as the model grows.
+### Apply an entity breakdown
 
-### Entity breakdown
+Hover over the consolidated sheet, open the action menu (...), choose **Breakdown**, and select **Entity**. Francis creates one sub-sheet for each of the first 20 entities. If you have more than 20, the remainder are grouped into an **Other** bucket. Adjust the breakdown afterward to add sub-sheets for the remaining entities.
 
-The entity breakdown is always the starting point. Apply it to your sheet and Francis creates one sub-sheet per entity, together with a consolidation. The consolidated sheet rolls up all entity sub-sheets automatically. This is what makes per-entity forecasting possible.
+### Apply a dimension breakdown
 
-### Dimension breakdown
+Hover over the entity sub-sheet you want to break down, open the action menu (...), choose **Breakdown**, and select your dimension. Francis creates one sub-sheet for each of the first 20 dimension values. If you have more than 20, the remainder are grouped into an **Other** bucket. Adjust the breakdown afterward to add sub-sheets for the remaining values.
 
-Once entity sub-sheets are in place, you can break each one down further by dimension: department, channel, project, or any dimension your accounting system tracks.
+Entity breakdown must be in place before you apply a dimension breakdown on a multi-entity model. Applying a dimension breakdown before entity breakdown only affects the first entity and won't give you unified dimensions across entities.
+
+### Add a sub-consolidation
+
+To create a consolidated view of a subset of sub-sheets, open the action menu (...) on the template and choose **Add rollup**. Drag the relevant sub-sheets into it. The rollup shows a consolidated view of those sub-sheets; the individual sub-sheets remain accessible within it.
 
 ## Line item breakdown
 
-A line item breakdown splits a single row rather than the whole sheet. It's designed for splitting a line into its dimensions: revenue into product groups, or CAPEX into projects.
+A line item breakdown splits a single row rather than the whole sheet. Hover over the row, open the action menu (...), choose **Breakdown**, and select the dimension to split by. Francis creates one sub-row per dimension value directly below the parent row. The parent row becomes a read-only roll-up of all sub-rows.
+
+<Warning>
+  Removing a breakdown removes forecasts entered on the sub-sheets.
+</Warning>
