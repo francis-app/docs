@@ -6,7 +6,7 @@ Authoring guidance for Francis docs. This file lives in the docs repo as the sou
 
 ## Working with this repo
 
-- **Keep shell commands simple and readable.** Use the Read tool for known files, and plain `grep` or `find` for targeted lookups. Avoid complex Python or Bash one-liners that would be hard for a non-technical team member to read or understand. If you need to understand the navigation structure, read `docs.json` directly.
+- **Keep shell commands simple and readable.** Use the Read tool for known files, and plain `grep` or `find` for targeted lookups. Never use Python to read or inspect files. Avoid complex Python or Bash one-liners that would be hard for a non-technical team member to read or understand. If you need to understand the navigation structure, read `docs.json` directly.
 
 ---
 
