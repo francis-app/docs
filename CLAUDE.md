@@ -46,7 +46,7 @@ What this means in practice:
 - **Confident, not promotional.** "Use SUMIFS for this." Not "you can leverage the powerful SUMIFS function."
 - **Opinionated where it helps.** When there's a clearly better path, say so. *"Forecast VAT as a percentage of revenue unless your business has unusual VAT exposure — the precision rarely pays off."*
 - **Concrete over abstract.** *"A €2M ARR SaaS business with monthly billing"* beats *"your revenue forecast."*
-- **Respects the reader's time.** Cut sentences that don't earn their place. If a paragraph can be deleted without loss, delete it.
+- **Respects the reader's time.** Cut sentences that don't earn their place. If a paragraph can be deleted without loss, delete it. This targets filler, hedging, and restated basics, not substance. On feature pages a fact an AI agent would need always earns its place (see *The editorial principle*) — completeness wins there, so don't invoke this to thin out behavioral detail.
 - **Plain English over jargon-as-decoration.** *"The model rolls up monthly to annual"* beats *"the model aggregates with hierarchical roll-up logic."*
 
 ### Avoid
@@ -124,6 +124,14 @@ Feature behavior is explained once, in Features. Masterclasses link *into* featu
 
 The duplication problem isn't caused by having feature docs — it's caused by depth living in multiple places. Single source of truth for each concept, with masterclasses as thin orchestration, is the resolution.
 
+### Feature pages are written for the AI agent first
+
+Because Features is the deep source, feature pages carry a second audience that outweighs the human skimmer: the AI agents (in-product, ChatGPT, Claude) that read this content via MCP, `llms-full.txt`, and `skill.md`. On feature pages, **optimize for completeness over brevity.** An agent answering a user's question can only work from what the prose states explicitly — it can't infer behavior from a screenshot, a video, or the UI.
+
+This means: enrich the detail throughout the prose, not in a separate reference dump at the end. Cover the full behavior of the feature — every meaningful option and state, what each setting does, edge cases, limits, defaults, and how the feature interacts with other Francis features. Write it inline, as natural fuller prose, so the page reads as one continuous explanation rather than a thin narrative followed by an appendix.
+
+The brevity instincts elsewhere in this file (cut what doesn't earn its place, short by default) still govern *quality* — no filler, no marketing-speak, no restating accounting basics. They do **not** license omitting behavioral detail an agent would need. On a feature page, a fact an agent needs always earns its place. This trade-off applies to feature pages specifically. Masterclasses stay human-first and lean on links into feature pages for depth.
+
 ---
 
 ## Content rule: BS forecasting pages
@@ -163,7 +171,9 @@ Meta-headers describe the section's role rather than its content and fail both s
 
 - H1 = the feature's name
 - Lede defines it by what it enables, not by abstraction
-- H2s cover: how it works, key decisions, common patterns or gotchas
+- H2s cover: how it works, every meaningful option and state, key decisions, common patterns, gotchas, edge cases, limits, and interactions with other features
+- **Optimize for completeness over brevity, inline.** This is the AI-first page type (see *The editorial principle*). Enrich the detail throughout the prose so an agent can answer from the page alone — don't strand the detail in a closing reference block, and don't lean on the video or screenshots to carry behavior. The prose must stand alone.
+- State the full behavior explicitly: what each setting does, defaults, what happens at the boundaries, and what the feature can't do. If a behavior would surprise a careful reader, document it.
 - Ends with links to relevant masterclasses
 
 **Masterclass page** (e.g. *Consolidate multi-entity financials*)
@@ -353,6 +363,7 @@ The docs are read by AI agents as well as humans — Mintlify auto-generates `ll
 This shapes a few things:
 
 - **Text is the source of truth.** Video and screenshots help humans but are invisible to AI. Anything important must be in prose.
+- **Feature pages favor completeness over brevity.** They are the deep source and the primary surface agents query, so document the full behavior of each feature inline (see *The editorial principle* and the *Feature page* variant). This is the one place the default brevity bias yields to thoroughness.
 - **Each paragraph stands alone.** Avoid implicit context that only makes sense after reading the previous three paragraphs. AI retrieval often surfaces single chunks.
 - **Consistent terminology.** Same concept, same word, every time. *"Sub-sheet"* throughout, not *"sub-sheet"* in some pages and *"subsheet"* in others. (See the glossary for canonical forms.)
 - **Frontmatter matters.** Every page's `title` and `description` should be searchable, descriptive, and self-contained.
