@@ -27,17 +27,19 @@ When you apply a sheet breakdown, the sheet becomes a template. Structure flows 
 
 Data flows bottom-up: actuals and forecasts live on the sub-sheets and roll up to the template automatically. You cannot edit row values directly on the template.
 
+Formulas on sub-sheets can reference other sheets in your model using standard Francis formula syntax. References resolve correctly per sub-sheet.
+
 <Warning>
   Applying a breakdown removes any forecasts and manual entries on the sheet. Apply breakdowns before you start forecasting, not after.
 </Warning>
 
 ### Apply an entity breakdown
 
-Hover over the consolidated sheet, open the action menu (...), choose **Breakdown**, and select **Entity**. Francis creates one sub-sheet for each of the first 20 entities. If you have more than 20, the remainder are grouped into an **Other** bucket. Adjust the breakdown afterward to add sub-sheets for the remaining entities.
+Hover over the consolidated sheet, open the action menu (...), choose **Breakdown**, and select **Entity**. Francis creates one sub-sheet for each of the first 20 entities. If you have more than 20, the remainder roll up into an **Unallocated** sub-sheet. Use **Adjust breakdown** to add individual sub-sheets for entities 21, 22, and so on.
 
 ### Apply a dimension breakdown
 
-Hover over the entity sub-sheet you want to break down, open the action menu (...), choose **Breakdown**, and select your dimension. Francis creates one sub-sheet for each of the first 20 dimension values. If you have more than 20, the remainder are grouped into an **Other** bucket. Adjust the breakdown afterward to add sub-sheets for the remaining values.
+Hover over the entity sub-sheet you want to break down, open the action menu (...), choose **Breakdown**, and select your dimension. Francis creates one sub-sheet for each of the first 20 dimension values. If you have more than 20, the remainder roll up into an **Unallocated** sub-sheet. Use **Adjust breakdown** to add individual sub-sheets for additional values.
 
 Entity breakdown must be in place before you apply a dimension breakdown on a multi-entity model. Applying a dimension breakdown before entity breakdown only affects the first entity and won't give you unified dimensions across entities.
 
@@ -53,7 +55,7 @@ Once a breakdown is applied, three additional options appear in the action menu 
 
 ## Line item breakdown
 
-A line item breakdown splits a single row rather than the whole sheet. Hover over the row, open the action menu (...), choose **Breakdown**, and select the dimension to split by. Francis creates one sub-row per dimension value directly below the parent row. The parent row becomes a read-only roll-up of all sub-rows.
+A line item breakdown splits a single row rather than the whole sheet. Hover over the row, open the action menu (...), choose **Breakdown**, and select the dimension to split by. Francis creates one sub-row per dimension value directly below the parent row. The parent row becomes a read-only roll-up of all sub-rows. The same 20-value limit applies: if the dimension has more than 20 values, the remainder roll up into an **Unallocated** sub-row. Use **Adjust breakdown** to add sub-rows for additional values.
 
 <Warning>
   Removing a breakdown removes forecasts entered on the sub-sheets.
