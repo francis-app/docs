@@ -39,6 +39,10 @@ Because all references are relative, rolling forecasts work without any maintena
 
 Francis also supports a set of built-in functions (`avg()`, `sum()`, `if()`, and others) for more complex logic. See [Functions](#functions) below.
 
+<Tip>
+  A group sums its contents, so reference the group rather than the individual rows inside it. When you add a new row to the group, any formula pointing at the group picks it up automatically, with no manual updates as the model grows.
+</Tip>
+
 ## Sign conventions
 
 Income and balance sheet items are entered as positive values. Expenses are entered as negative values. This matches how actuals arrive from your accounting system.

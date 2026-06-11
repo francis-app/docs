@@ -1,67 +1,168 @@
 ---
 title: "Components"
-description: "The five building blocks of every Francis model: rows, calculations, groups, sections, and sheets."
+description: "The five building blocks of every Francis model: sheets, sections, groups, rows, and calculations."
 sidebarTitle: "Components"
 icon: "diamonds-4"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/components.mp4" />
 
-Components are the five building blocks of every Francis model: rows, calculations, groups, sections, and sheets. Knowing which to use, and where, is the main lever on how quickly you can build and how easy the model is to maintain.
+Components are the five building blocks of every Francis model: sheets, sections, groups, rows, and calculations. Knowing which to use, and where, is the main lever on how quickly you can build and how easy the model is to maintain.
 
-## Rows
-
-Rows are your primary forecast lines. Write formulas in each period cell to build your forecast, and map rows to your GL accounts via data mappings to pull in actuals automatically.
-
-<Note>
-  A row mapped to an external data source shows a green connection indicator. Unmapped rows show gray.
-</Note>
-
-Common use cases:
-- P&L line items
-- Balance sheet line items
-- Assumptions and drivers
-
-## Calculations
-
-Calculations are time-consistent: whatever formula or value you enter applies identically across every period, in both the actuals and forecast layer. Use a calculation when the same logic should hold everywhere a value is derived from other rows.
-
-Common use cases:
-- Subtotals and margins
-- KPIs such as headcount ratios, CAC, and LTV
-- Cash flow statement line items built using the indirect method
-
-Use a row instead when you need values to vary:
-- Different formula or value across periods
-- Different values between actuals and forecast
-- Forecast values with no corresponding actuals to show
-
-## Groups
-
-Groups are containers for rows and calculations. By default, a group sums everything inside it.
-
-Common uses:
-- Revenue streams
-- Direct costs
-- OPEX categories
-- Asset, liability, and equity buckets
-
-<Tip>
-  Reference groups in formulas rather than individual rows. When you add a new row to a group, any formula pointing to the group picks it up automatically. No manual updates needed as the model grows.
-</Tip>
-
-## Sections
-
-Sections define the layout of your model and don't affect numbers or calculations. They contain groups, rows, and calculations.
-
-Common sections:
-- Profit and loss
-- Balance sheet
-- Cash flow
-- Revenue breakdown
-- Assumptions and drivers
-- Headcount
+The five types nest in a fixed hierarchy. Sheets contain sections, sections contain groups, rows, and calculations, and groups can contain rows, calculations, and other groups. That hierarchy drives how settings inherit, covered at the end of this page.
 
 ## Sheets
 
-Sheets behave like tabs in Excel or Google Sheets and are a way to organize your model. You can reference components across sheets using Francis formula syntax. You can break down a sheet to apply its contents across multiple units, such as entities or dimension values.
+Sheets behave like tabs in Excel or Google Sheets and are a way to organize your model. Reference components across sheets using Francis formula syntax.
+
+## Sections
+
+Sections define the layout within a sheet and don't affect numbers or calculations. A section contains groups, rows, and calculations.
+
+Sheets and sections are both organizing primitives, so the choice between them is about granularity, not behavior. A sheet is a top-level tab you switch between; a section is a labeled block inside a sheet. A sheet can hold one section or several related ones.
+
+## Groups
+
+Groups are containers for rows, calculations, and other groups. By default, a group sums everything inside it.
+
+## Rows
+
+Rows are your primary forecast lines. Each period cell holds its own formula or value, so a row's logic can change from one period to the next. Map a row to your GL accounts through data mappings to pull actuals in automatically; the forecast periods stay driven by your formulas.
+
+## Calculations
+
+Calculations are time-consistent: one formula applies identically across every period, in both the actuals and forecast layers. Use a calculation when the same logic should hold everywhere a value is derived from other components.
+
+Reach for a row instead when values must vary: a different formula or value per period, different values between actuals and forecast, or forecast values with no corresponding actuals to display. See [Choosing between rows and calculations](#choosing-between-rows-and-calculations) for the full decision.
+
+## Common use cases
+
+| Component | Common use cases | Common denominator |
+|---|---|---|
+| Sheet | Financial statements (P&L, balance sheet, cash flow) or supporting schedules (revenue forecast, headcount plan, loan table) | The top-level tabs you navigate between; can hold one section or several related ones |
+| Section | Profit and loss, balance sheet, cash flow statement, revenue breakdown, assumptions and drivers, headcount | A labeled division within a single sheet |
+| Group | Revenue, OPEX, asset, liability, and equity buckets | A container that holds line items or other groups |
+| Row | P&L line items, balance sheet line items, assumptions and drivers | Formulas may differ from period to period, including between actuals and forecast periods, and you may map data to bring in actuals |
+| Calculation | Subtotals, margins, cash flow statement line items, KPIs | The logic is identical across every period and across actuals and forecast |
+
+## Choosing between rows and calculations
+
+This is the most common modeling decision. As a general rule, rows give the most flexibility, since every cell value can vary, while calculations are more convenient but apply in only a few cases. A line is a row if it needs either of these:
+
+- A formula that varies by period, including having different logics across the forecast and actuals layer.
+- Actuals mapped from your GL.
+
+If neither applies and a single formula holds everywhere, it's a calculation. That would be subtotals, margins, cash flow statement line items and KPIs.
+
+A single metric can play two roles. Take revenue growth %:
+
+- **As a driver, it's a row:** the actuals formula computes growth from the P&L revenue lines, while the forecast formula extrapolates that growth and drives forecasted revenue, so the two layers run different logic.
+- **As a KPI, it's a calculation:** one formula reports growth for both actuals and forecast, reading revenue rather than driving it.
+
+If you want both, it's fine to keep a row and a calculation, both labeled "revenue growth".
+
+### Rows vs calculations in breakdowns
+
+The base rule still applies in a [breakdown](/features-new/using-francis/breakdowns): a row when the line is mapped to actuals or needs its own formula, a calculation when one formula holds everywhere. Breakdowns add one caveat.
+
+A breakdown makes the sheet a template, and each calculation runs locally on every sub-sheet. For example, gross profit is calculated locally across all subsheets. Same-sheet references resolve per sub-sheet, which is what you want. But a reference to another sheet points every sub-sheet at the same cell and double-counts on roll-up. So when a line references out of the sheet, make it a row even when it would otherwise be a calculation.
+
+For example, your model keeps the P&L on one sheet and the balance sheet and cash flow on another, broken down by entity. Most cash flow lines reference the balance sheet on the same sheet and break down cleanly. But lines drawn from the P&L, like net income and the depreciation add-back, would pull the same consolidated figure into every entity. Make those rows.
+
+Converting a calculation to a row drops the auto-fill, so do two things by hand: start the formula way back, often years back, and use the blue arrow to extend the formula across every period and copy it into the forecast layer, since a row keeps actuals and forecast separate.
+
+## Adding components
+
+How you add a component depends on its type:
+
+- **Sheets**: in the left sidebar, use **+ Add sheet** at the bottom of the sheet list, or the **+** next to the Sheets title.
+- **Sections**: use the add button below each section. On a sheet with no sections yet, the button appears at the top of the sheet.
+- **Groups, rows, and calculations**: open the action menu of an existing component and choose **Add row**, **Add calculation**, or **Add group**; use keyboard shortcuts; or use the add buttons below each section. The new component appears beneath the one you acted on.
+
+You can also create a row while mapping GL accounts: drag a GL account onto the row-name area and drop it. Francis creates a row named after the GL account, with that account already mapped.
+
+## Moving and reorganizing components
+
+Drag and drop components to reorganize your model, for example moving a row into a different group or a section onto another sheet. Francis's formula syntax keeps references intact when a component changes position, so moving things doesn't break your model.
+
+You can also move a component from its action menu with **Move to sheet**. Moving a section, you choose the destination sheet. Moving a group, row, or calculation, you choose both the destination sheet and the destination section.
+
+## Component settings
+
+Open the action menu on any component to reach its settings. Not every setting applies to every component; see [Setting availability](#setting-availability) below.
+
+### Actions
+
+- **Rename**: renames the component.
+- **Duplicate**: copies the component and places the copy directly beneath it.
+- **Delete**: removes the component.
+- **Add row / Add calculation / Add group**: inserts a new component of that type directly beneath the current one.
+- **Move to sheet**: moves the component to another sheet, choosing the destination section as well for groups, rows, and calculations.
+- **Breakdown**: breaks the component down by entity or dimension. See [breakdowns](/features-new/using-francis/breakdowns).
+- **Status**: sets a progress status (To-do, In progress, or Done) on the row or calculation to track work and flag items that need attention.
+- **Description**: records the intent behind a row, group, or calculation. When the component is part of a breakdown, set the description on the parent sheet, not on an individual unit.
+- **Aggregate by**: sets how a component's values aggregate across spans longer than a month, such as YTD, quarterly, or full year. This affects both the displayed figure and the value used in calculations over those spans. Options are SUM, AVG, W. AVG (weighted average), MIN, MAX, START, END, DELTA, and NONE. SUM suits P&L and cash flow, END suits balance sheet values, and W. AVG suits margins. W. AVG is only available on calculations that express a fraction, since that's the only case where Francis can compute a weighted average.
+- **Autosum**: on by default, so the group sums everything inside it. Turn it off and the group shows zero, leaving it as a container for organizing only, with no calculation. Available on groups.
+
+### Display settings
+
+Display settings only affect presentation, never the underlying value. Every cell keeps the full-precision number for calculations, which you can see in the formula bar when you select the cell.
+
+- **Type**: the unit on the component: number, percentage, or a currency (DKK, EUR, USD, or GBP).
+- **Scale**: the scale factor: Default, no scaling, thousands, millions, or billions. Default inherits the model-wide scale set in model settings, reached from the three-dot menu next to the model name in the top-left corner.
+- **Decimals**: Auto, or a fixed precision from 0 to 6 decimal places (0, 0.1, 0.12, 0.123, 0.1234, 0.12345, 0.123456). Auto shows no decimals for values above 100, and otherwise targets three significant digits, so 99.532 displays as 99.5 and 4.514 as 4.51. For consistent decimals across a block, set this at the section level.
+- **Format**: visual emphasis: none, bold, or italic. Bold suits subtotals, italic suits margins.
+
+### Setting availability
+
+<table width="680">
+  <thead>
+    <tr>
+      <th align="left">Setting</th>
+      <th width="92" align="center">Sheet</th>
+      <th width="92" align="center">Section</th>
+      <th width="92" align="center">Group</th>
+      <th width="84" align="center">Row</th>
+      <th width="112" align="center">Calculation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Rename</td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Duplicate</td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Delete</td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Breakdown</td><td align="center">X</td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center"></td></tr>
+    <tr><td>Add row</td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Add calculation</td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Add group</td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Move to sheet</td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Type</td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Decimals</td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Scale</td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Format</td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Aggregate by</td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Autosum</td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center"></td><td align="center"></td></tr>
+    <tr><td>Status</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center">X</td></tr>
+    <tr><td>Description</td><td align="center"></td><td align="center"></td><td align="center">X</td><td align="center">X</td><td align="center">X</td></tr>
+  </tbody>
+</table>
+
+### Inherited and propagated settings
+
+Display settings inherit down the hierarchy. Set a setting on a parent and every component beneath it inherits it: set the type on a section and it applies to all groups, rows, and calculations within it; set the decimals on a group and every row and calculation under it inherits that value. To override an inherited setting, declare it on the component itself. The rule is simple: a component's own setting always wins, otherwise it falls back to the parent.
+
+Statuses propagate the other way, up to groups. If any row within a group has a status set, the most critical status across those rows shows at the group level when the group is collapsed. To-do is treated as the most critical status, so a group containing a mix of To-do, In progress, and Done rows displays To-do. This keeps parts of your model that still need attention visible, even when rows are collapsed inside nested groups.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why can't I duplicate a component inside a breakdown?" id="faq-duplicate-in-breakdown">
+    Coming soon.
+  </Accordion>
+  <Accordion title="Why can't I move a component inside a breakdown?" id="faq-move-in-breakdown">
+    Coming soon.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  See components in practice in the [Forecasting approaches](/masterclasses-new/budgeting-forecasting/forecasting-approaches) masterclass.
+</Note>
