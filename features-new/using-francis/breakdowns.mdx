@@ -41,9 +41,15 @@ Hover over the entity sub-sheet you want to break down, open the action menu (..
 
 Entity breakdown must be in place before you apply a dimension breakdown on a multi-entity model. Applying a dimension breakdown before entity breakdown only affects the first entity and won't give you unified dimensions across entities.
 
-### Add a sub-consolidation
+### Additional settings
 
-To create a consolidated view of a subset of sub-sheets, open the action menu (...) on the template and choose **Add rollup**. Drag the relevant sub-sheets into it. The rollup shows a consolidated view of those sub-sheets; the individual sub-sheets remain accessible within it.
+Once a breakdown is applied, three additional options appear in the action menu (...) on the template sheet.
+
+**Add sheet** creates a synthetic sub-sheet that is not tied to an entity or dimension value. Name it anything. Use this for consolidation adjustments that should only affect the consolidated view: eliminations, intercompany corrections, or top-level adjustments that must not flow back to individual entity or department P&Ls.
+
+**Add roll-up** creates a consolidated view of a subset of sub-sheets. Open the action menu on the template, choose **Add roll-up**, and drag the relevant sub-sheets into it. The roll-up shows a combined view of those sub-sheets without affecting the individual sub-sheets themselves. Use this when you want a regional or functional consolidation sitting below the full consolidated view.
+
+**Adjust breakdown** lets you rename breakdown values and group multiple values together. Use this to combine departments or dimension values that you want to report as one (for example, grouping Sales and Marketing into a single sub-sheet). Values you don't need can be grouped into an unallocated bucket to keep the model clean without losing the underlying data.
 
 ## Line item breakdown
 
