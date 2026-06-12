@@ -18,11 +18,13 @@ If your group has a holding entity owning operating entities, create a roll-up f
 
 Group entities by geography using sub-consolidations. Add an EMEA roll-up and an Asia roll-up, then drag the relevant entity sub-sheets into each. The top-level consolidated sheet rolls up all regions. You get a regional P&L alongside the group view in the same model.
 
-### Entities with different revenue streams
+### Entities with different revenue streams or COGS structures
 
-If your entities have different revenue models (one sells software subscriptions, another delivers professional services), build all revenue streams into the consolidated template as separate groups. On each entity sub-sheet, map only the GL accounts relevant to that entity. Rows for revenue streams the entity doesn't have will show zero.
+Not every GL account exists across all entities. This is most common in revenue and COGS, where entities have different products, billing models, or cost structures. Build all variants into the consolidated template as separate groups and map only the relevant GL accounts on each entity sub-sheet. Rows that don't apply to a given entity will show zero.
 
-At the consolidated level, all revenue streams appear together and aggregate correctly. On individual entity sub-sheets the zero rows add visual noise, but collapsing the total revenue group removes the bloat. Each entity shows its own revenue cleanly, and the consolidated sheet shows the full picture.
+Accept the zero rows. They don't distort the consolidation. Empty rows roll up as zero and the group totals remain correct. To reduce visual noise on entity sub-sheets, keep revenue and COGS lines inside collapsible groups. An entity with a single revenue stream can collapse the group and see one clean revenue line; the consolidated sheet still shows all streams side by side.
+
+If your entities share the same chart of accounts for a line item, map it uniformly across all entity sub-sheets. The same row carries the same GL account on every entity and the consolidation rolls up without any zero rows.
 
 ### Single entity with department breakdown
 

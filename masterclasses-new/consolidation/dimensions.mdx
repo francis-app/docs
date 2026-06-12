@@ -14,6 +14,12 @@ Applying a dimension breakdown gives you planning and reporting below entity lev
 
 Break down each entity sub-sheet by department. Each department gets its own sub-sheet for forecasting. Department heads manage their own numbers; the entity sub-sheet rolls them up; the consolidated sheet rolls up all entities. This is the most common use of dimension breakdowns.
 
+### Departments as cost centres
+
+If departments are used as cost centres, the breakdown only makes sense for OPEX. Revenue, COGS, and below-EBITDA items are not owned at department level. The P&L template still carries those lines, so department sub-sheets will show zero for revenue, COGS, and anything below EBITDA.
+
+Accept the zero rows. They roll up correctly and won't affect totals. The department sub-sheet becomes an OPEX planning view by default, which is usually exactly what department heads need. The entity sub-sheet and consolidated sheet show the full P&L.
+
 ### Revenue by product
 
 Apply a line item breakdown to the revenue row using product as the dimension. Each product gets its own sub-row. If you also apply the same breakdown to COGS, the gross profit row at the parent level reflects gross profit per product automatically, without a separate sheet or calculation.
