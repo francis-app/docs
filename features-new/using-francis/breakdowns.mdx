@@ -29,6 +29,23 @@ Data flows bottom-up: actuals and forecasts live on the sub-sheets and roll up t
 
 Formulas on sub-sheets can reference other sheets in your model using standard Francis formula syntax. References resolve correctly per sub-sheet.
 
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="Holding ApS" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+    <Tree.Folder name="Holding Inc" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+<Note>Holding ApS and Holding Inc are created by an entity breakdown. Sales, Marketing, and Finance are created by a dimension breakdown on each entity.</Note>
+
 <Warning>
   Applying a breakdown removes any forecasts and manual entries on the sheet. Apply breakdowns before you start forecasting, not after.
 </Warning>
@@ -43,15 +60,93 @@ Hover over the entity sub-sheet you want to break down, open the action menu (..
 
 Entity breakdown must be in place before you apply a dimension breakdown on a multi-entity model. Applying a dimension breakdown before entity breakdown only affects the first entity and won't give you unified dimensions across entities.
 
+Each breakdown layer multiplies the total number of sub-sheets you maintain. Two entities broken down by three dimension values gives six sub-sheets. Break each of those down by three further values and you have eighteen. Plan your breakdown structure before you start. Adding layers later means more sub-sheets to update, and removing a layer drops all forecasts entered on those sub-sheets.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="Holding ApS" defaultOpen>
+      <Tree.Folder name="Sales" defaultOpen>
+        <Tree.File name="Copenhagen" />
+        <Tree.File name="London" />
+        <Tree.File name="New York" />
+      </Tree.Folder>
+      <Tree.Folder name="Marketing">
+        <Tree.File name="Copenhagen" />
+        <Tree.File name="London" />
+        <Tree.File name="New York" />
+      </Tree.Folder>
+      <Tree.Folder name="Finance">
+        <Tree.File name="Copenhagen" />
+        <Tree.File name="London" />
+        <Tree.File name="New York" />
+      </Tree.Folder>
+    </Tree.Folder>
+    <Tree.Folder name="Holding Inc" defaultOpen>
+      <Tree.Folder name="Sales" defaultOpen>
+        <Tree.File name="Copenhagen" />
+        <Tree.File name="London" />
+        <Tree.File name="New York" />
+      </Tree.Folder>
+      <Tree.Folder name="Marketing">
+        <Tree.File name="Copenhagen" />
+        <Tree.File name="London" />
+        <Tree.File name="New York" />
+      </Tree.Folder>
+      <Tree.Folder name="Finance">
+        <Tree.File name="Copenhagen" />
+        <Tree.File name="London" />
+        <Tree.File name="New York" />
+      </Tree.Folder>
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+<Note>Entity breakdown: Holding ApS and Holding Inc. Dimension breakdown (department): Sales, Marketing, Finance. Dimension breakdown (location): Copenhagen, London, New York. Each additional layer multiplies the number of sub-sheets to maintain.</Note>
+
 ### Additional settings
 
 Once a breakdown is applied, three additional options appear in the action menu (...) on the template sheet.
 
 **Add sheet** creates a synthetic sub-sheet that is not tied to an entity or dimension value. Name it anything. Use this for consolidation adjustments that should only affect the consolidated view: eliminations, intercompany corrections, or top-level adjustments that must not flow back to individual entity or department P&Ls.
 
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.File name="Holding ApS" />
+    <Tree.File name="Holding Inc" />
+    <Tree.File name="Eliminations" />
+  </Tree.Folder>
+</Tree>
+
+<Note>Eliminations is a synthetic sheet added manually. It is not created by the breakdown and does not roll up entity data.</Note>
+
 **Add roll-up** creates a consolidated view of a subset of sub-sheets. Open the action menu on the template, choose **Add roll-up**, and drag the relevant sub-sheets into it. The roll-up shows a combined view of those sub-sheets without affecting the individual sub-sheets themselves. Use this when you want a regional or functional consolidation sitting below the full consolidated view.
 
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="Sales & Marketing (roll-up)" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+    </Tree.Folder>
+    <Tree.File name="Finance" />
+    <Tree.File name="Operations" />
+    <Tree.File name="HR" />
+  </Tree.Folder>
+</Tree>
+
+<Note>The Sales & Marketing roll-up shows a combined view of those two sub-sheets. Finance, Operations, and HR remain independent. The roll-up does not affect any of the individual sub-sheets.</Note>
+
 **Adjust breakdown** lets you rename breakdown values and group multiple values together. Use this to combine departments or dimension values that you want to report as one (for example, grouping Sales and Marketing into a single sub-sheet). Values you don't need can be grouped into an unallocated bucket to keep the model clean without losing the underlying data.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.File name="Sales & Marketing" />
+    <Tree.File name="Finance" />
+    <Tree.File name="Operations" />
+    <Tree.File name="Unallocated" />
+  </Tree.Folder>
+</Tree>
+
+<Note>Sales and Marketing have been grouped into a single sub-sheet using Adjust breakdown. The underlying data from both dimension values is preserved and rolls up into the combined sheet.</Note>
 
 ## Line item breakdown
 
