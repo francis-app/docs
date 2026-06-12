@@ -13,22 +13,25 @@ Breakdowns split your model so you can plan and review data per sub-unit. You ca
 
 A breakdown applies at one of two levels.
 
-**Sheet breakdown** splits the entire sheet. The sheet becomes a template deployed across sub-units. Use this when you want to apply a template across entities, departments, or similar. An example is creating a P&L template per entity or department.
+**Sheet breakdown** splits the entire sheet. The sheet becomes the parent sheet, its structure deployed across subsheets. Use this when you want a consistent structure across entities, departments, or similar. An example is a P&L per entity or department.
 
 **Line item breakdown** splits a single row. Use this when only one line needs to be split. Examples include splitting a revenue line by product or splitting CAPEX by project.
 
 ## Sheet breakdown
 
-Sheet breakdowns come in two types: entity and dimension. Entity comes first and is always the foundation. Dimension breakdowns, by department, channel, or project, sit under entity sub-sheets.
+Sheet breakdowns come in two types: entity and dimension. Entity comes first and is always the foundation. Dimension breakdowns, by department, channel, or project, sit under entity subsheets.
 
 ### How it works
 
-When you apply a sheet breakdown, the sheet becomes a template. Structure flows top-down: rows, groups, and calculations you define on the template sync automatically to all sub-sheets. You build the model once and every sub-sheet inherits it.
+When you apply a sheet breakdown, the sheet becomes the parent sheet.
 
-Data flows bottom-up: actuals and forecasts live on the sub-sheets and roll up to the template automatically. You cannot edit row values directly on the template.
+Structure flows top-down: sections, groups, rows, and calculations you define on the parent sheet sync automatically to all subsheets. Calculations run locally on each subsheet against that subsheet's data. You build the structure once and every subsheet inherits it.
 
-Formulas on sub-sheets can reference other sheets in your model using standard Francis formula syntax. References resolve correctly per sub-sheet.
+Data flows bottom-up: actuals, budget and forecast data in rows live on the subsheets and roll up to the parent sheet automatically. You cannot edit row values directly on the parent sheet.
 
+Actuals filter automatically to each subsheet based on your account mappings. Set up the mappings on the parent sheet and the breakdown routes each entity's and dimension's actuals to the correct subsheet.
+
+Formulas on subsheets can reference other sheets in your model using standard Francis formula syntax.
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
     <Tree.Folder name="Holding ApS" defaultOpen>
@@ -52,15 +55,15 @@ Formulas on sub-sheets can reference other sheets in your model using standard F
 
 ### Apply an entity breakdown
 
-Hover over the consolidated sheet, open the action menu (...), choose **Breakdown**, and select **Entity**. Francis creates one sub-sheet for each of the first 20 entities. If you have more than 20, the remainder roll up into an **Unallocated** sub-sheet. Use **Adjust breakdown** to add individual sub-sheets for entities 21, 22, and so on.
+Hover over the consolidated sheet, open the action menu (...), choose **Breakdown**, and select **Entity**. Francis creates one subsheet for each of the first 20 entities. If you have more than 20, the remainder roll up into an **Unallocated** subsheet. Use **Adjust breakdown** to add individual subsheets for entities 21, 22, and so on.
 
 ### Apply a dimension breakdown
 
-Hover over the entity sub-sheet you want to break down, open the action menu (...), choose **Breakdown**, and select your dimension. Francis creates one sub-sheet for each of the first 20 dimension values. If you have more than 20, the remainder roll up into an **Unallocated** sub-sheet. Use **Adjust breakdown** to add individual sub-sheets for additional values.
+Hover over the entity subsheet you want to break down, open the action menu (...), choose **Breakdown**, and select your dimension. Francis creates one subsheet for each of the first 20 dimension values. If you have more than 20, the remainder roll up into an **Unallocated** subsheet. Use **Adjust breakdown** to add individual subsheets for additional values.
 
 Entity breakdown must be in place before you apply a dimension breakdown on a multi-entity model. Applying a dimension breakdown before entity breakdown only affects the first entity and won't give you unified dimensions across entities.
 
-Each breakdown layer multiplies the total number of sub-sheets you maintain. Two entities broken down by three dimension values gives six sub-sheets. Break each of those down by three further values and you have eighteen. Plan your breakdown structure before you start. Adding layers later means more sub-sheets to update, and removing a layer drops all forecasts entered on those sub-sheets.
+Each breakdown layer multiplies the total number of subsheets you maintain. Two entities broken down by three dimension values gives six subsheets. Break each of those down by three further values and you have eighteen. Plan your breakdown structure before you start. Adding layers later means more subsheets to update, and removing a layer drops all forecasts entered on those subsheets.
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -101,13 +104,13 @@ Each breakdown layer multiplies the total number of sub-sheets you maintain. Two
   </Tree.Folder>
 </Tree>
 
-<Note>Entity breakdown: Holding ApS and Holding Inc. Dimension breakdown (department): Sales, Marketing, Finance. Dimension breakdown (location): Copenhagen, London, New York. Each additional layer multiplies the number of sub-sheets to maintain.</Note>
+<Note>Entity breakdown: Holding ApS and Holding Inc. Dimension breakdown (department): Sales, Marketing, Finance. Dimension breakdown (location): Copenhagen, London, New York. Each additional layer multiplies the number of subsheets to maintain.</Note>
 
 ### Additional settings
 
-Once a breakdown is applied, three additional options appear in the action menu (...) on the template sheet.
+Once a breakdown is applied, three additional options appear in the action menu (...) on the parent sheet.
 
-**Add sheet** creates a synthetic sub-sheet that is not tied to an entity or dimension value. Name it anything. Use this for consolidation adjustments that should only affect the consolidated view: eliminations, intercompany corrections, or top-level adjustments that must not flow back to individual entity or department P&Ls.
+**Add sheet** creates a synthetic subsheet that is not tied to an entity or dimension value. Name it anything. Use this for consolidation adjustments that should only affect the consolidated view: eliminations, intercompany corrections, or top-level adjustments that must not flow back to individual entity or department P&Ls.
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -119,7 +122,7 @@ Once a breakdown is applied, three additional options appear in the action menu 
 
 <Note>Eliminations is a synthetic sheet added manually. It is not created by the breakdown and does not roll up entity data.</Note>
 
-**Add roll-up** creates a consolidated view of a subset of sub-sheets. Open the action menu on the template, choose **Add roll-up**, and drag the relevant sub-sheets into it. The roll-up shows a combined view of those sub-sheets without affecting the individual sub-sheets themselves. Use this when you want a regional or functional consolidation sitting below the full consolidated view.
+**Add roll-up** creates a consolidated view of a subset of subsheets. Open the action menu on the parent sheet, choose **Add roll-up**, and drag the relevant subsheets into it. The roll-up shows a combined view of those subsheets without affecting the individual subsheets themselves. Use this when you want a regional or functional consolidation sitting below the full consolidated view.
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -133,9 +136,9 @@ Once a breakdown is applied, three additional options appear in the action menu 
   </Tree.Folder>
 </Tree>
 
-<Note>The Sales & Marketing roll-up shows a combined view of those two sub-sheets. Finance, Operations, and HR remain independent. The roll-up does not affect any of the individual sub-sheets.</Note>
+<Note>The Sales & Marketing roll-up shows a combined view of those two subsheets. Finance, Operations, and HR remain independent. The roll-up does not affect any of the individual subsheets.</Note>
 
-**Adjust breakdown** lets you rename breakdown values and group multiple values together. Use this to combine departments or dimension values that you want to report as one (for example, grouping Sales and Marketing into a single sub-sheet). Values you don't need can be grouped into an unallocated bucket to keep the model clean without losing the underlying data.
+**Adjust breakdown** lets you rename breakdown values and group multiple values together. Use this to combine departments or dimension values that you want to report as one (for example, grouping Sales and Marketing into a single subsheet). Values you don't need can be grouped into an unallocated bucket to keep the model clean without losing the underlying data.
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -146,18 +149,18 @@ Once a breakdown is applied, three additional options appear in the action menu 
   </Tree.Folder>
 </Tree>
 
-<Note>Sales and Marketing have been grouped into a single sub-sheet using Adjust breakdown. The underlying data from both dimension values is preserved and rolls up into the combined sheet.</Note>
+<Note>Sales and Marketing have been grouped into a single subsheet using Adjust breakdown. The underlying data from both dimension values is preserved and rolls up into the combined sheet.</Note>
 
 ## Line item breakdown
 
-A line item breakdown splits a single row rather than the whole sheet. Hover over the row, open the action menu (...), choose **Breakdown**, and select the dimension to split by. Francis creates one sub-row per dimension value directly below the parent row. The parent row becomes a read-only roll-up of all sub-rows. The same 20-value limit applies: if the dimension has more than 20 values, the remainder roll up into an **Unallocated** sub-row. Use **Adjust breakdown** to add sub-rows for additional values.
+A line item breakdown splits a single row rather than the whole sheet. Hover over the row, open the action menu (...), choose **Breakdown**, and select the dimension to split by. Francis creates one subrow per dimension value directly below the parent row. The parent row becomes a read-only roll-up of all subrows. The same 20-value limit applies: if the dimension has more than 20 values, the remainder roll up into an **Unallocated** subrow. Use **Adjust breakdown** to add subrows for additional values.
 
 <Warning>
-  Removing a breakdown removes forecasts entered on the sub-sheets.
+  Removing a breakdown removes forecasts entered on the subsheets.
 </Warning>
 
-## See it in use
+## See in action
 
 <Note>
-  See breakdowns in practice in the [Consolidation](/masterclasses/consolidation/consolidation) and [Forecasting](/masterclasses/forecasting/methods) masterclasses.
+  See breakdowns in practice in the [Consolidation](/masterclasses-new/consolidation/consolidation) and [Dimensions](/masterclasses-new/consolidation/dimensions) masterclasses.
 </Note>
