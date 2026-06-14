@@ -1,6 +1,6 @@
 ---
 title: "Breakdowns"
-description: "Split your financial model across entities or dimensions like departments or locations."
+description: "Split your financial model across entities or dimensions like departments or projects."
 sidebarTitle: "Breakdowns"
 icon: "list-tree"
 ---
@@ -61,7 +61,7 @@ Hover over the consolidated sheet, open the action menu (...), choose **Breakdow
 
 Hover over the entity subsheet you want to break down, open the action menu (...), choose **Breakdown**, and select your dimension. Francis creates one subsheet for each of the first 20 dimension values. If you have more than 20, the remainder roll up into an **Unallocated** subsheet. Use **Adjust breakdown** to add individual subsheets for additional values.
 
-Entity breakdown must be in place before you apply a dimension breakdown on a multi-entity model. Applying a dimension breakdown before entity breakdown only affects the first entity and won't give you unified dimensions across entities.
+On a multi-entity model, apply the entity breakdown before the dimension breakdown. Applying a dimension breakdown first only affects the first entity and won't give you unified dimensions across entities.
 
 Each breakdown layer multiplies the total number of subsheets you maintain. Two entities broken down by three dimension values gives six subsheets. Break each of those down by three further values and you have eighteen. Plan your breakdown structure before you start. Adding layers later means more subsheets to update, and removing a layer drops all forecasts entered on those subsheets.
 
@@ -69,48 +69,48 @@ Each breakdown layer multiplies the total number of subsheets you maintain. Two 
   <Tree.Folder name="Consolidated" defaultOpen>
     <Tree.Folder name="Holding ApS" defaultOpen>
       <Tree.Folder name="Sales" defaultOpen>
-        <Tree.File name="Copenhagen" />
-        <Tree.File name="London" />
-        <Tree.File name="New York" />
+        <Tree.File name="Project Apollo" />
+        <Tree.File name="Project Bison" />
+        <Tree.File name="Project Candy" />
       </Tree.Folder>
       <Tree.Folder name="Marketing">
-        <Tree.File name="Copenhagen" />
-        <Tree.File name="London" />
-        <Tree.File name="New York" />
+        <Tree.File name="Project Apollo" />
+        <Tree.File name="Project Bison" />
+        <Tree.File name="Project Candy" />
       </Tree.Folder>
       <Tree.Folder name="Finance">
-        <Tree.File name="Copenhagen" />
-        <Tree.File name="London" />
-        <Tree.File name="New York" />
+        <Tree.File name="Project Apollo" />
+        <Tree.File name="Project Bison" />
+        <Tree.File name="Project Candy" />
       </Tree.Folder>
     </Tree.Folder>
     <Tree.Folder name="Holding Inc" defaultOpen>
       <Tree.Folder name="Sales" defaultOpen>
-        <Tree.File name="Copenhagen" />
-        <Tree.File name="London" />
-        <Tree.File name="New York" />
+        <Tree.File name="Project Apollo" />
+        <Tree.File name="Project Bison" />
+        <Tree.File name="Project Candy" />
       </Tree.Folder>
       <Tree.Folder name="Marketing">
-        <Tree.File name="Copenhagen" />
-        <Tree.File name="London" />
-        <Tree.File name="New York" />
+        <Tree.File name="Project Apollo" />
+        <Tree.File name="Project Bison" />
+        <Tree.File name="Project Candy" />
       </Tree.Folder>
       <Tree.Folder name="Finance">
-        <Tree.File name="Copenhagen" />
-        <Tree.File name="London" />
-        <Tree.File name="New York" />
+        <Tree.File name="Project Apollo" />
+        <Tree.File name="Project Bison" />
+        <Tree.File name="Project Candy" />
       </Tree.Folder>
     </Tree.Folder>
   </Tree.Folder>
 </Tree>
 
-<Note>Entity breakdown: Holding ApS and Holding Inc. Dimension breakdown (department): Sales, Marketing, Finance. Dimension breakdown (location): Copenhagen, London, New York. Each additional layer multiplies the number of subsheets to maintain.</Note>
+<Note>Entity breakdown: Holding ApS and Holding Inc. Dimension breakdown (department): Sales, Marketing, Finance. Dimension breakdown (project): Project Apollo, Project Bison, Project Candy. Each additional layer multiplies the number of subsheets to maintain.</Note>
 
 ### Additional settings
 
 Once a breakdown is applied, three additional options appear in the action menu (...) on the parent sheet.
 
-**Add sheet** creates a synthetic subsheet that is not tied to an entity or dimension value. Name it anything. Use this for consolidation adjustments that should only affect the consolidated view: eliminations, intercompany corrections, or top-level adjustments that must not flow back to individual entity or department P&Ls.
+**Add sheet** creates a synthetic subsheet that is not tied to an entity or dimension value. Name it anything. Use this for consolidation adjustments that should only affect the consolidated view: eliminations, intercompany corrections, or top-level adjustments that must not flow back to individual entity or department P&Ls. It also makes it easy to add new entities or departments over time. Build out the subsheet manually and connect the ERP integration later.
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -122,7 +122,7 @@ Once a breakdown is applied, three additional options appear in the action menu 
 
 <Note>Eliminations is a synthetic sheet added manually. It is not created by the breakdown and does not roll up entity data.</Note>
 
-**Add roll-up** creates a consolidated view of a subset of subsheets. Open the action menu on the parent sheet, choose **Add roll-up**, and drag the relevant subsheets into it. The roll-up shows a combined view of those subsheets without affecting the individual subsheets themselves. Use this when you want a regional or functional consolidation sitting below the full consolidated view.
+**Add roll-up** creates a consolidated view of a subset of subsheets. Open the action menu on the parent sheet, choose **Add roll-up**, and drag the relevant subsheets into it. The roll-up shows a combined view of those subsheets without affecting the individual subsheets themselves. Use this when you want a subconsolidation sitting below the full consolidated view.
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -138,7 +138,11 @@ Once a breakdown is applied, three additional options appear in the action menu 
 
 <Note>The Sales & Marketing roll-up shows a combined view of those two subsheets. Finance, Operations, and HR remain independent. The roll-up does not affect any of the individual subsheets.</Note>
 
-**Adjust breakdown** lets you rename breakdown values and group multiple values together. Use this to combine departments or dimension values that you want to report as one (for example, grouping Sales and Marketing into a single subsheet). Values you don't need can be grouped into an unallocated bucket to keep the model clean without losing the underlying data.
+**Adjust breakdown** lets you rename breakdown values and group multiple values together. Use this to combine departments or dimension values that you want to report as one (for example, grouping Sales and Marketing into a single subsheet). Values you don't need can be grouped into an unallocated bucket to keep the model clean while ensuring completeness.
+
+<Note>
+  When a new entity or dimension value appears in your data, Francis shows a notification on the relevant subsheet. To add it to your breakdown: open **Adjust breakdown**, click **Add sheet**, then drag the unassigned value onto the new sheet. You can also rename the sheet from here.
+</Note>
 
 <Tree>
   <Tree.Folder name="Consolidated" defaultOpen>
@@ -161,6 +165,12 @@ A line item breakdown splits a single row rather than the whole sheet. Hover ove
 
 ## See in action
 
-<Note>
-  See breakdowns in practice in the [Consolidation](/masterclasses-new/consolidation/consolidation) and [Dimensions](/masterclasses-new/consolidation/dimensions) masterclasses.
-</Note>
+See breakdowns in practice in the [Consolidation](/masterclasses-new/consolidation/consolidation) and [Dimensions](/masterclasses-new/consolidation/dimensions) masterclasses.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="What if I want to see a combined view of a specific department across entities?">
+    Use **Add roll-up** on the parent sheet and drag the relevant department subsheets from each entity into it. The roll-up shows a combined view without affecting any of the individual subsheets.
+  </Accordion>
+</AccordionGroup>
