@@ -7,6 +7,8 @@ icon: "code"
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/formulas.mp4" />
 
+When you edit a cell, you write a formula. In Francis, a hardcoded value is also considered a formula - just a simple one.
+
 Francis formulas reference rows by name and period rather than by cell position. Rename a row, move a section, reorganize an entire sheet. No references break. This is the main practical difference from Excel, and it matters most when your model evolves mid-cycle.
 
 ## Syntax
@@ -60,6 +62,16 @@ Not this:
 ```
 
 Direct costs are already negative, so adding them reduces the total correctly. The same logic applies down the P&L: every subtotal is a sum, and the signs in the source rows do the work.
+
+## Fill right
+
+Write the formula logic once, then fill right to apply it to every future period. You don't need to repeat the formula cell by cell. The same formula carries forward, and because references are relative, each period resolves against its own neighbors. It's a small mechanic that most users come to rely on heavily once it's part of their workflow.
+
+Override individual cells whenever you need to. To make a step change at a point in time, write a new formula in that period and fill right again. Everything from that period forward picks up the new logic, and the periods before it keep the old.
+
+Fill right works within the layer you're in. Fill right in the actuals layer and the formula applies to all future periods of the actuals layer, so when you close a new month the formula is already in place. Fill right in the forecast layer and it applies to future forecast periods.
+
+To run the same formula across both layers, enter it in each layer and fill right in both. In the actuals layer, start from far enough back, because fill right only carries forward, as the name says. Begin at the earliest period you want the formula to cover, otherwise the periods to its left stay untouched.
 
 ## Formula paths
 

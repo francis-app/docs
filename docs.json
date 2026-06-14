@@ -213,6 +213,7 @@
               "features-new/using-francis/reports",
               "features-new/using-francis/charts",
               "features-new/using-francis/tables",
+              "features-new/using-francis/total-column",
               "features-new/using-francis/excel-export",
               "features-new/using-francis/version-control",
               "features-new/using-francis/comments"
