@@ -77,7 +77,7 @@ What this means in practice:
 
 ### Formatting
 
-- **Bold** — UI elements (buttons, fields, menu items)
+- **Bold** — UI elements (buttons, fields, menu items). Only at the start of a label or combined with a link. Do not bold mid-sentence for emphasis — use italic sparingly instead.
 - *Italic* — in-sentence emphasis, used sparingly
 - `Inline code` — formulas, function names, file paths, keyboard shortcuts
 - Code block — multi-line formulas or anything that benefits from monospace
@@ -269,7 +269,7 @@ Every masterclass is written for the self-serve user but structured so FP&A Advi
 | **Accordions** | FAQs at the bottom of pages |
 | **Code blocks** | Formulas, function syntax, anything with syntax that benefits from monospace |
 | **Inline code** | Single function names, keyboard shortcuts, file paths, formula snippets within prose |
-| **Bold** | UI elements (buttons, fields, menu items) |
+| **Bold** | UI elements (buttons, fields, menu items). Only at the start of a label or combined with a link. Not mid-sentence for emphasis. |
 | **Italic** | Light in-sentence emphasis only; rare |
 | **Screenshots** | Sparingly. Use when the UI is genuinely complex enough that prose can't describe it efficiently — typically the first encounter with a new screen, not every step |
 

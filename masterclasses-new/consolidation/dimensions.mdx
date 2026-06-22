@@ -8,11 +8,62 @@ description: "Break down entity sub-sheets and individual line items by dimensio
 
 Applying a dimension breakdown gives you planning and reporting below entity level. A sheet breakdown deploys your model across departments, channels, or similar units. A line item breakdown splits a single row by product, project, or any other dimension. See [Breakdowns](/features-new/using-francis/breakdowns) to apply either type.
 
+## Each dimension value gets a sub-sheet
+
+Applying a dimension breakdown to an entity sub-sheet deploys the sheet structure across sub-sheets, one per dimension value. Structure flows top-down: rows and calculations you define on the entity sub-sheet sync automatically to all dimension sub-sheets. Data flows bottom-up: actuals, budget, and forecast data roll up from dimension sub-sheets to the entity sub-sheet.
+
+On a multi-entity model, apply the entity breakdown first. A dimension breakdown sits under an entity sub-sheet, not the consolidated sheet.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="DK" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+    <Tree.Folder name="UK" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+## Group inactive dimension values
+
+Not every dimension value needs its own planned sub-sheet. When some values exist in your data but don't require active forecasting, group them into a single "Other" or "Not in use" sub-sheet using **Adjust breakdown**. The underlying actuals still roll up correctly, and your active sub-sheets stay clean.
+
+<Tree>
+  <Tree.Folder name="DK" defaultOpen>
+    <Tree.File name="Sales" />
+    <Tree.File name="Marketing" />
+    <Tree.File name="Finance" />
+    <Tree.File name="Other" />
+  </Tree.Folder>
+</Tree>
+
 ## Common use cases
 
 ### Department P&L
 
 Break down each entity sub-sheet by department. Each department gets its own sub-sheet for forecasting. Department heads manage their own numbers; the entity sub-sheet rolls them up; the consolidated sheet rolls up all entities. This is the most common use of dimension breakdowns.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="DK" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+      <Tree.File name="Operations" />
+    </Tree.Folder>
+    <Tree.Folder name="UK" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+      <Tree.File name="Operations" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
 
 ### Departments as cost centres
 
@@ -31,6 +82,21 @@ Apply a line item breakdown to the CAPEX row using project as the dimension. Eac
 ### Channel reporting
 
 Break down entity sub-sheets by channel (retail, wholesale, e-commerce). Use this when revenue mix and margin profile differ significantly by channel and you want channel-level forecasting alongside the entity view.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="DK" defaultOpen>
+      <Tree.File name="Retail" />
+      <Tree.File name="Wholesale" />
+      <Tree.File name="E-commerce" />
+    </Tree.Folder>
+    <Tree.Folder name="UK" defaultOpen>
+      <Tree.File name="Retail" />
+      <Tree.File name="Wholesale" />
+      <Tree.File name="E-commerce" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
 
 ## FAQ
 

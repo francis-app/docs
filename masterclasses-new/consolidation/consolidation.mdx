@@ -82,17 +82,68 @@ Handle other consolidation adjustments the same way as eliminations: on separate
 
 The common case is three entities and an elimination sheet. Give each entity its own sub-sheet and add one sheet for eliminations. The top-level sheet consolidates all three entities net of eliminations.
 
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.File name="DK" />
+    <Tree.File name="UK" />
+    <Tree.File name="US" />
+    <Tree.File name="Eliminations" />
+  </Tree.Folder>
+</Tree>
+
 ### Consolidation with subgroups
 
 For a group with subgroups, the holding entity sits at the top and each subgroup gets its own roll-up. Take a holding company over two subgroups, each with three operating companies. Build a roll-up per subgroup, drag its three operating-entity sub-sheets in, and the top level rolls the two subgroups and the holding into the group view. Place an elimination sheet inside each subgroup for the IC transactions within it, and one at the top for cross-subgroup eliminations. That way every subtotal, subgroup and group, comes out right.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.File name="Holding" />
+    <Tree.Folder name="Europe (roll-up)" defaultOpen>
+      <Tree.File name="DK" />
+      <Tree.File name="UK" />
+      <Tree.File name="DE" />
+      <Tree.File name="IC Eliminations – Europe" />
+    </Tree.Folder>
+    <Tree.Folder name="Americas (roll-up)" defaultOpen>
+      <Tree.File name="US" />
+      <Tree.File name="CA" />
+      <Tree.File name="MX" />
+      <Tree.File name="IC Eliminations – Americas" />
+    </Tree.Folder>
+    <Tree.File name="IC Eliminations – Consolidated" />
+  </Tree.Folder>
+</Tree>
 
 ### Regional splits
 
 Group entities by geography with roll-ups. Add a roll-up per region, for example EMEA and Americas, and drag each region's entity sub-sheets in. The top-level sheet rolls up all regions, giving you a regional P&L alongside the group view in one model.
 
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="EMEA (roll-up)" defaultOpen>
+      <Tree.File name="DK" />
+      <Tree.File name="UK" />
+      <Tree.File name="DE" />
+    </Tree.Folder>
+    <Tree.Folder name="Americas (roll-up)" defaultOpen>
+      <Tree.File name="US" />
+      <Tree.File name="CA" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
 ### Single entity with department breakdown
 
 If you run as a single legal entity, skip the entity breakdown and use a [dimension breakdown](/masterclasses-new/consolidation/dimensions) by department instead. You get the same per-department forecasting without a consolidation layer.
+
+<Tree>
+  <Tree.Folder name="P&L" defaultOpen>
+    <Tree.File name="Sales" />
+    <Tree.File name="Marketing" />
+    <Tree.File name="Operations" />
+    <Tree.File name="Finance" />
+  </Tree.Folder>
+</Tree>
 
 ## FAQ
 

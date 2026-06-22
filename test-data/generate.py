@@ -1,13 +1,31 @@
 #!/usr/bin/env python3
 """
-Veloton Group — complete double-entry test data.
-Every journal entry posts both sides. Trial balance sums to zero always.
-Entities: Veloton Holding ApS (DKK), Veloton ApS (DKK), Veloton Ltd (GBP)
-Period: 2023-01 – 2027-12
+Veloton Group — proper double-entry test data.
+
+Every P&L entry posts its exact BS counterpart so the balance sheet
+reconciles naturally (Assets - Liabilities - Equity = 0).
+
+Revenue recognised → DR Receivables / CR Income
+Cash collected    → DR Cash / CR Receivables
+Inventory bought  → DR Inventory / CR Payables
+COGS consumed     → DR COGS / CR Inventory
+Cash expenses     → DR Expense / CR Cash
+Accrued expenses  → DR Expense / CR Payables, then DR Payables / CR Cash
+Depreciation      → DR Depreciation / CR Accumulated Dep
+Tax               → DR Tax / CR Tax Payable
+RE                → 5030 Retained earnings = monthly P&L net (negative = profit)
+
+Account ranges:
+  Income:      1000–1999
+  Expenses:    2000–2999
+  Assets:      3000–3999
+  Liabilities: 4000–4999
+  Equity:      5000–5999
 """
 import csv, random, os
 from datetime import date
 from calendar import monthrange
+from collections import defaultdict
 
 random.seed(42)
 
@@ -21,255 +39,128 @@ SEASONAL = [1.20,0.85,0.90,1.00,1.05,0.90,0.75,0.95,1.00,1.05,1.05,1.30]
 S = sum(SEASONAL)
 
 DK_REV_M   = {2023:135., 2024:157., 2025:180., 2026:202., 2027:225.}
-UK_REV_GBP = {2023:5.2,  2024:6.1,  2025:7.0,  2026:7.9,  2027:8.6 }
+UK_REV_GBP = {2023:5.2,  2024:6.1,  2025:7.0,  2026:7.9,  2027:8.6}
 IC_LOAN_DK = {2023:20_000_000, 2024:22_000_000, 2025:24_000_000,
               2026:24_000_000, 2027:24_000_000}
-IC_RATE    = 0.04
+IC_RATE = 0.04
+PAY_RATE     = 0.82   # % of payables paid same month
+
+def collect_rate(mi):
+    """Seasonal DSO: peak months leave more outstanding (lower collection rate)."""
+    s = SEASONAL[mi]
+    if s >= 1.15:   return 0.72   # Dec/Jan peak — lots of outstanding AR
+    elif s >= 1.00: return 0.80   # Above-average months
+    elif s >= 0.90: return 0.87   # Near-average
+    else:           return 0.93   # Low season — easier to collect
+
+def purchase_ratio(mi):
+    """Seasonal inventory build/draw: stock up before peak, draw down after."""
+    # SEASONAL pattern: builds toward Dec peak, draws down Jan-Mar
+    if mi in (7, 8, 9, 10):  return rnd(1.12, 1.20)  # Aug-Nov: pre-peak build
+    elif mi in (0, 1, 2):    return rnd(0.85, 0.95)  # Jan-Mar: post-peak draw-down
+    else:                    return rnd(1.00, 1.07)   # normal replenishment
 
 rows = []
 
 def r2(x): return round(x, 2)
-def mo(m, mi): return m*1_000_000*SEASONAL[mi]/S
-def rnd(lo=.95,hi=1.05): return random.uniform(lo,hi)
+def mo(m, mi): return m * 1_000_000 * SEASONAL[mi] / S
+def rnd(lo=.95, hi=1.05): return random.uniform(lo, hi)
+def fmt(x): return f"{x:.2f}".replace(".", ",")
 
-def je(ent, d, entries, base_desc, dept="", proj=""):
-    """
-    Post a balanced journal entry.
-    entries = list of (code, account_name, amount)  — positive=debit, negative=credit
-    Raises if unbalanced.
-    """
-    total = sum(e[2] for e in entries)
-    if abs(total) > 0.02:
-        raise ValueError(f"Unbalanced by {total:.2f}: {base_desc}")
-    for code, name, amt in entries:
-        rows.append({
-            "Date":         d.strftime("%Y-%m-%d"),
-            "Entity":       ent,
-            "Account Code": code,
-            "Account":      name,
-            "Amount":       r2(amt),
-            "Description":  f"Test transaction – {base_desc}",
-            "Department":   dept,
-            "Project":      proj,
-        })
+def add(ent, d, code, name, amt, dept="", proj=""):
+    rows.append({
+        "Date":        date(d.year, d.month, 1).strftime("%Y-%m-%d"),
+        "Account":     f"{code} {name}",
+        "Amount":      r2(amt),
+        "Description": "Test transaction",
+        "Entity":      ent,
+        "Department":  dept,
+        "Project":     proj,
+    })
 
-# ── shorthand journals ────────────────────────────────────────────────────────
-def rev_rec(ent, d, rev_code, rev_name, amount, desc, dept="Sales", proj=""):
-    """CR Revenue / DR Trade Receivables"""
-    je(ent, d, [(rev_code, rev_name, -r2(amount)),
-                ("20060","Trade receivables", r2(amount))], desc, dept, proj)
+def is_pnl(account_field):
+    code = int(account_field.split()[0])
+    return 1000 <= code <= 2999
 
-def collect(ent, d, amount, desc):
-    """DR Cash / CR Trade Receivables"""
-    je(ent, d, [("20010","Cash", r2(amount)),
-                ("20060","Trade receivables", -r2(amount))], desc, "Finance")
+# helpers: post an income entry AND its receivables counterpart
+def income(ent, d, code, name, amount, dept="Sales", proj=""):
+    """CR Income / DR Receivables"""
+    add(ent, d, code,  name,               -r2(amount), dept, proj)
+    add(ent, d, 3340, "Trade receivables",  r2(amount), dept, proj)
 
-def ic_recv_raise(ent, d, rev_code, amount_lcy, desc):
-    """DK IC: CR IC Revenue / DR IC Receivable (other receivables)"""
-    je(ent, d, [(rev_code,"IC revenue", -r2(amount_lcy)),
-                ("20070","Other receivables", r2(amount_lcy))], desc, "Sales")
+def income_ic(ent, d, amount):
+    """CR IC Revenue / DR IC Receivable, then settle to Cash"""
+    add(ent, d, 1090, "IC revenue",        -r2(amount), "Sales")
+    add(ent, d, 3350, "Other receivables",  r2(amount), "Sales")
+    # Settle IC in same month
+    add(ent, d, 3900, "Cash",               r2(amount), "Finance")
+    add(ent, d, 3350, "Other receivables", -r2(amount), "Finance")
 
-def ic_recv_settle(ent, d, amount_lcy, desc):
-    """DK IC cash settlement: DR Cash / CR IC Receivable"""
-    je(ent, d, [("20010","Cash", r2(amount_lcy)),
-                ("20070","Other receivables", -r2(amount_lcy))], desc, "Finance")
+def collect_receivables(ent, d, total_invoiced, rate=None):
+    """DR Cash / CR Receivables — rate defaults to seasonal DSO."""
+    if rate is None: rate = collect_rate(d.month - 1)
+    collected = r2(total_invoiced * rate)
+    add(ent, d, 3900, "Cash",               collected, "Finance")
+    add(ent, d, 3340, "Trade receivables", -collected, "Finance")
 
-def ic_pay_raise(ent, d, cogs_code, amount_lcy, desc):
-    """UK IC: DR IC COGS / CR IC Payable (other liabilities)"""
-    je(ent, d, [(cogs_code,"IC COGS - purchases from DK", r2(amount_lcy)),
-                ("40011","IC payables", -r2(amount_lcy))], desc, "Operations")
-
-def ic_pay_settle(ent, d, amount_lcy, desc):
-    """UK IC payment: DR IC Payable / CR Cash"""
-    je(ent, d, [("40011","IC payables", r2(amount_lcy)),
-                ("20010","Cash", -r2(amount_lcy))], desc, "Finance")
-
-def exp_payable(ent, d, code, name, amount, desc, dept="Finance", proj=""):
-    """DR Expense / CR Trade Payables"""
-    je(ent, d, [(code, name, r2(amount)),
-                ("40010","Trade payables", -r2(amount))], desc, dept, proj)
-
-def exp_cash(ent, d, code, name, amount, desc, dept="Finance", proj=""):
+def expense_cash(ent, d, code, name, amount, dept="Finance"):
     """DR Expense / CR Cash"""
-    je(ent, d, [(code, name, r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, dept, proj)
+    add(ent, d, code, name,   r2(amount), dept)
+    add(ent, d, 3900, "Cash", -r2(amount), "Finance")  # cash always Finance dept
 
-def pay_payables(ent, d, amount, desc):
-    """DR Trade Payables / CR Cash"""
-    je(ent, d, [("40010","Trade payables", r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, "Finance")
+def expense_payable(ent, d, code, name, amount, dept="Finance"):
+    """DR Expense / CR Trade Payables, then pay PAY_RATE of it same month"""
+    add(ent, d, code,  name,               r2(amount), dept)
+    add(ent, d, 4310, "Trade payables",   -r2(amount), dept)
+    paid = r2(amount * PAY_RATE)
+    add(ent, d, 4310, "Trade payables",    paid, dept)
+    add(ent, d, 3900, "Cash",             -paid, "Finance")  # cash always Finance
 
-def depn(ent, d, exp_code, exp_name, acc_code, acc_name, amount, desc):
-    """DR Depreciation / CR Accumulated Depreciation"""
-    je(ent, d, [(exp_code, exp_name, r2(amount)),
-                (acc_code, acc_name, -r2(amount))], desc, "Operations")
+def cogs_material(ent, d, code, name, amount, mi=None):
+    """DR COGS / CR Inventory (consume), DR Inventory / CR Payables (purchase)."""
+    add(ent, d, code, name,                   r2(amount), "Operations")
+    add(ent, d, 3310, "Inventory - raw materials", -r2(amount), "Operations")
+    # Seasonal purchase ratio: build stock pre-peak, draw down post-peak
+    ratio = purchase_ratio(mi) if mi is not None else rnd(1.00, 1.08)
+    purchase = r2(amount * ratio)
+    add(ent, d, 3310, "Inventory - raw materials",  purchase,  "Operations")
+    add(ent, d, 4310, "Trade payables",            -purchase,  "Operations")
+    paid = r2(purchase * PAY_RATE)
+    add(ent, d, 4310, "Trade payables",  paid, "Operations")
+    add(ent, d, 3900, "Cash",           -paid, "Finance")
 
-def capex_cash(ent, d, code, name, amount, desc, dept="Operations", proj=""):
-    """DR Fixed Asset / CR Cash"""
-    je(ent, d, [(code, name, r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, dept, proj)
+def depreciation(ent, d, exp_code, exp_name, acc_code, acc_name, amount):
+    """DR Depreciation / CR Accumulated Dep"""
+    add(ent, d, exp_code, exp_name,   r2(amount), "Operations")
+    add(ent, d, acc_code, acc_name,  -r2(amount), "Operations")
 
-def deferred_sub_collect(ent, d, amount, desc):
-    """Annual sub cash: DR Cash / CR Deferred Revenue"""
-    je(ent, d, [("20010","Cash", r2(amount)),
-                ("40030","Deferred revenue - subscriptions", -r2(amount))], desc, "Sales")
-
-def sub_recognize(ent, d, amount, desc):
-    """Monthly recognition: DR Deferred Revenue / CR Revenue"""
-    je(ent, d, [("40030","Deferred revenue - subscriptions", r2(amount)),
-                ("1060","Digital membership - annual", -r2(amount))], desc, "Sales")
-
-def tax_accrual(ent, d, amount, desc):
+def tax_accrual(ent, d, amount):
     """DR Tax Expense / CR Tax Payable"""
-    je(ent, d, [("9600","Tax expense", r2(amount)),
-                ("40040","Corporate tax payables", -r2(amount))], desc, "Finance")
+    add(ent, d, 2900, "Tax expense",            r2(amount), "Finance")
+    add(ent, d, 4350, "Corporate tax payables", -r2(amount), "Finance")
 
-def tax_pay(ent, d, amount, desc):
+def tax_pay(ent, d, amount):
     """DR Tax Payable / CR Cash"""
-    je(ent, d, [("40040","Corporate tax payables", r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, "Finance")
+    add(ent, d, 4350, "Corporate tax payables",  r2(amount), "Finance")
+    add(ent, d, 3900, "Cash",                   -r2(amount), "Finance")
 
-def vat_accrual(ent, d, output_vat, input_vat, desc):
-    """Net VAT accrual: CR VAT Payable (output - input)"""
-    net = output_vat - input_vat
-    je(ent, d, [("40060","VAT payable", -r2(net))], desc, "Finance") if abs(net)>1 else None
-    # Balance via cash (simplified — VAT was collected/paid embedded in receivables/payables)
-    # Handled in settlement
+def capex(ent, d, code, name, amount, proj=""):
+    """DR Asset / CR Cash"""
+    add(ent, d, code, name,    r2(amount), "Operations", proj)
+    add(ent, d, 3900, "Cash", -r2(amount), "Finance")
 
-def vat_settle(ent, d, net_amount, desc):
-    """VAT settlement: DR VAT Payable / CR Cash"""
-    je(ent, d, [("40040","Corporate tax payables", r2(0)),   # noop placeholder
-                ("40060","VAT payable", r2(net_amount)),
-                ("20010","Cash", -r2(net_amount))], desc, "Finance") if net_amount > 0 else None
+def loan_draw(ent, d, code, name, amount):
+    """DR Cash / CR Loan (liability increases)"""
+    add(ent, d, 3900, "Cash",  r2(amount), "Finance")
+    add(ent, d, code, name,   -r2(amount), "Finance")
 
-def loan_draw(ent, d, loan_code, loan_name, amount, desc):
-    """DR Cash / CR Loan"""
-    je(ent, d, [("20010","Cash", r2(amount)),
-                (loan_code, loan_name, -r2(amount))], desc, "Finance")
+def loan_repay(ent, d, code, name, amount):
+    """DR Loan / CR Cash"""
+    add(ent, d, code, name,    r2(amount), "Finance")
+    add(ent, d, 3900, "Cash", -r2(amount), "Finance")
 
-def loan_interest_pay(ent, d, exp_code, exp_name, amount, desc):
-    """DR Interest Expense / CR Cash"""
-    exp_cash(ent, d, exp_code, exp_name, amount, desc, "Finance")
-
-def loan_principal_pay(ent, d, loan_code, loan_name, amount, desc):
-    """DR Loan / CR Cash (principal repayment)"""
-    je(ent, d, [(loan_code, loan_name, r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, "Finance")
-
-def ic_interest_accrual_holding(ent, d, amount, desc):
-    """Holding: DR IC Loans Receivable / CR IC Interest Income"""
-    je(ent, d, [("10350","IC loans receivable", r2(amount)),
-                ("9515","IC interest income", -r2(amount))], desc, "Finance")
-
-def ic_interest_pay_dk(ent, d, amount, desc):
-    """DK: DR IC Interest Expense / CR Cash (to Holding)"""
-    exp_cash(ent, d, "9525","IC interest expense", amount, desc, "Finance")
-
-def holding_collect_ic_interest(ent, d, amount, desc):
-    """Holding: DR Cash / CR IC Loans Receivable (interest collected)"""
-    je(ent, d, [("20010","Cash", r2(amount)),
-                ("10350","IC loans receivable", -r2(amount))], desc, "Finance")
-
-def mgmt_fee_dk(ent, d, amount, desc):
-    """DK/UK: DR Misc Admin / CR Other Payables (mgmt fee to Holding)"""
-    je(ent, d, [("6050","Miscellaneous admin", r2(amount)),
-                ("40020","Other payables", -r2(amount))], desc, "Finance")
-
-def mgmt_fee_pay(ent, d, amount, desc):
-    """DK/UK: pay mgmt fee: DR Other Payables / CR Cash"""
-    je(ent, d, [("40020","Other payables", r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, "Finance")
-
-def holding_receive_mgmt(ent, d, amount, desc):
-    """Holding: DR Cash / CR Financial Income"""
-    je(ent, d, [("20010","Cash", r2(amount)),
-                ("9510","Financial income", -r2(amount))], desc, "Finance")
-
-def prepaid_pay(ent, d, amount, desc):
-    """DR Prepaid Expenses / CR Cash"""
-    je(ent, d, [("20080","Prepaid expenses", r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, "Finance")
-
-def prepaid_amortise(ent, d, code, name, amount, desc):
-    """DR Expense / CR Prepaid"""
-    je(ent, d, [(code, name, r2(amount)),
-                ("20080","Prepaid expenses", -r2(amount))], desc, "Finance")
-
-def inventory_purchase(ent, d, amount, desc):
-    """DR Raw Materials Inventory / CR Trade Payables"""
-    je(ent, d, [("20030","Inventory - raw materials", r2(amount)),
-                ("40010","Trade payables", -r2(amount))], desc, "Operations")
-
-def inventory_consume(ent, d, code, name, amount, desc):
-    """DR COGS account / CR Raw Materials Inventory"""
-    je(ent, d, [(code, name, r2(amount)),
-                ("20030","Inventory - raw materials", -r2(amount))], desc, "Operations")
-
-def fg_movement(ent, d, net_amount, desc):
-    """Net FG movement: positive = increase (DR FG Inv / CR Payables proxy), negative = decrease (DR COGS / CR FG)"""
-    if abs(net_amount) < 1: return
-    if net_amount > 0:
-        je(ent, d, [("20050","Inventory - finished goods", r2(net_amount)),
-                    ("40010","Trade payables", -r2(net_amount))], desc, "Operations")
-    else:
-        je(ent, d, [("2070","Manufacturing overhead", -r2(net_amount)),
-                    ("20050","Inventory - finished goods", r2(net_amount))], desc, "Operations")
-
-def wip_project_move(ent, d, net_amount, desc, proj=""):
-    """WIP project revenue movement"""
-    if abs(net_amount) < 1: return
-    if net_amount > 0:
-        je(ent, d, [("20090","WIP - project revenue", r2(net_amount)),
-                    ("40010","Trade payables", -r2(net_amount))], desc, "Operations", proj)
-    else:
-        je(ent, d, [("20090","WIP - project revenue", r2(net_amount)),
-                    ("20060","Trade receivables", -r2(net_amount))], desc, "Operations", proj)
-
-def payroll_tax_pay(ent, d, amount, desc):
-    """Payroll tax: DR Payroll Tax Payable / CR Cash"""
-    je(ent, d, [("40050","Payroll tax payables", r2(amount)),
-                ("20010","Cash", -r2(amount))], desc, "Finance")
-
-def share_capital(ent, d, amount, desc):
-    """DR Cash / CR Share Capital"""
-    je(ent, d, [("20010","Cash", r2(amount)),
-                ("50010","Share capital", -r2(amount))], desc, "Finance")
-
-def retained_earnings_close(ent, d, amount, desc):
-    """Year-end: DR (if positive profit net in P&L sign convention) / CR Retained Earnings.
-    amount = absolute profit value (positive number).
-    Profit increases equity → CR Retained Earnings (negative in our convention).
-    Balancing DR goes to a clearing/offset — use trade receivables as proxy for
-    'net asset build-up from profit'. In practice this is absorbed across all asset/liability moves.
-    """
-    # We close by: DR clearing (20060 or other) + CR Retained Earnings
-    # But in proper double-entry this isn't needed if all transactions are already posted with both sides.
-    # The BS will balance because double-entry was maintained throughout.
-    # We just post a memo RE entry to make equity explicit.
-    # Use "profit distribution" against dividends/retained account:
-    je(ent, d, [("50030","Retained earnings", -r2(amount)),
-                ("50040","Current year profit", r2(amount))], desc, "Finance")
-
-def cyp_monthly(ent, d, pnl_sum, desc):
-    """Close monthly P&L to Current Year Profit equity account."""
-    # pnl_sum = sum of P&L entries for this entity-month (negative = profitable)
-    # We need to offset this in equity: if profit (pnl_sum negative), CR CYP (negative = equity increases)
-    # CYP entry = pnl_sum (same sign, which for profit is negative = credit to equity)
-    # Counterbalancing debit goes to a balance-sheet clearing account...
-    # Actually in double-entry this is automatic because BOTH sides of every P&L
-    # transaction are already posted. No explicit CYP needed.
-    pass  # Not needed with proper double-entry
-
-# ════════════════════════════════════════════════════════════════════════════════
-# MAIN LOOP
-# ════════════════════════════════════════════════════════════════════════════════
-
+# ─────────────────────────────────────────────────────────────────────────────
 for year in range(2023, 2028):
-
-    # Annual subscription cash collected in January (DK)
-    annual_sub_dk = DK_REV_M[year] * 1_000_000 * 0.07
-    jan_eom = date(year, 1, monthrange(year, 1)[1])
-
     for month in range(1, 13):
         mi  = month - 1
         dim = monthrange(year, month)[1]
@@ -277,557 +168,580 @@ for year in range(2023, 2028):
         fx  = FX[year]
         qe  = (month % 3 == 0)
 
-        dk_rev  = mo(DK_REV_M[year], mi)
-        uk_gbp  = mo(UK_REV_GBP[year], mi)
-        ic_dkk  = uk_gbp * fx * 0.65
-        ic_gbp  = ic_dkk / fx * random.uniform(0.997, 1.003)
+        dk   = mo(DK_REV_M[year], mi)
+        uk   = mo(UK_REV_GBP[year], mi)
+        ic_d = uk * fx * 0.65
+        ic_g = ic_d / fx * random.uniform(0.997, 1.003)
 
-        dk_sal      = (40_000_000 + (year-2023)*3_000_000) / 12
-        uk_sal      = (1_200_000  + (year-2023)*100_000)   / 12
-        ic_loan     = IC_LOAN_DK[year]
-        ic_int_m    = ic_loan * IC_RATE / 12
-        mf_dk       = dk_rev * 0.015
-        mf_uk_gbp   = uk_gbp * fx * 0.015 / fx  # in GBP
+        dk_sal  = (40_000_000 + (year-2023)*3_000_000) / 12
+        uk_sal  = (1_200_000  + (year-2023)*100_000)   / 12
+        loan    = IC_LOAN_DK[year]
+        ic_int  = loan * IC_RATE / 12
+        mf_dk   = dk  * 0.015
+        mf_uk   = uk * fx * 0.015
+        mf_uk_g = mf_uk / fx
 
-        def rd(lo=1, hi=None):
-            return date(year, month, random.randint(lo, min(hi or dim, dim)))
-
-        # ════════════════════════════════════════════════════════════════
+        # ══════════════════════════════════════════════════════════════════
         # DK OPERATING
-        # ════════════════════════════════════════════════════════════════
+        # ══════════════════════════════════════════════════════════════════
 
-        # ── Revenue recognition (monthly core) ────────────────────────
+        # Revenue — monthly core
+        # 1010/1020: product sales → receivables then cash collection
+        monthly_rev_dk = 0
         for code, name, pct in [
-            ("1010","Hardware sales - bikes",       0.33),
-            ("1020","Hardware sales - treadmills",  0.18),
-            ("1050","Digital membership - monthly", 0.08),
+            (1010,"Hardware sales - bikes",       0.33),
+            (1020,"Hardware sales - treadmills",  0.18),
         ]:
-            rev_rec(DK, rd(), code, name, dk_rev*pct, name)
+            amt = dk * pct
+            income(DK, eom, code, name, amt)   # CR Income / DR Receivables
+            monthly_rev_dk += amt
 
-        # Annual sub recognition (DR Deferred Revenue / CR Revenue)
-        sub_recognize(DK, rd(), annual_sub_dk/12, "Annual sub monthly recognition")
+        # 1050: digital monthly sub → direct cash (recurring auto-debit, no AR)
+        sub_m = dk * 0.08
+        add(DK, eom, 1050,"Digital membership - monthly", -r2(sub_m), "Sales")
+        add(DK, eom, 3900,"Cash",                          r2(sub_m), "Sales")
 
-        # Annual sub cash collected in January
-        if month == 1:
-            deferred_sub_collect(DK, date(year,1,5), annual_sub_dk,
-                                 f"Annual digital memberships collected – {year}")
+        # 1060 annual sub: handled entirely via deferred revenue below — do NOT post here
 
-        # IC Revenue (DR IC Receivable / CR Revenue)
-        ic_recv_raise(DK, rd(), "1090", ic_dkk,
-                      f"IC sale to Veloton Ltd – {year}-{month:02d}")
-        ic_recv_settle(DK, eom, ic_dkk,
-                       f"IC settlement received – {year}-{month:02d}")
+        # IC revenue (income + IC receivable + cash settlement)
+        income_ic(DK, eom, ic_d)
 
-        # Customer collections (~88 % same month)
-        monthly_rev = dk_rev * (0.33 + 0.18 + 0.08)
-        collect(DK, eom, monthly_rev * 0.88,
-                f"Customer collections – {year}-{month:02d}")
+        # Revenue — product/subscription monthly (direct recognition)
+        for code, name, pct in [
+            (1030,"Hardware sales - accessories",          0.09),
+            (1040,"Hardware sales - refurbished equipment",0.04),
+            (1080,"Corporate wellness - maintenance contract",0.04),
+        ]:
+            amt = dk * pct
+            income(DK, eom, code, name, amt, "Sales")
+            monthly_rev_dk += amt
 
-        # ── Quarterly revenue ──────────────────────────────────────────
+        # 1070 Studio fit-out → goes through WIP (not direct revenue)
+        # Monthly: costs accumulate in WIP (3370); project completes quarterly
+        wip_project_rev = dk * 0.06   # revenue value of ongoing projects
+        wip_cost_ratio  = 0.65        # costs = 65% of revenue value
+        wip_cost_m = r2(wip_project_rev * wip_cost_ratio)
+        proj = random.choice(PROJECTS)
+        add(DK, eom, 3370,"WIP - project revenue",  wip_cost_m, "Operations", proj)
+        add(DK, eom, 4310,"Trade payables",         -wip_cost_m, "Operations", proj)
+        paid_wip = r2(wip_cost_m * PAY_RATE)
+        add(DK, eom, 4310,"Trade payables",  paid_wip, "Operations", proj)
+        add(DK, eom, 3900,"Cash",           -paid_wip, "Finance",    proj)
+
+        # Quarterly project completion: release WIP → recognise revenue + COGS
+        # Use actual sum of the 3 months in the quarter (not 3× current month)
         if qe:
-            for code, name, pct in [
-                ("1030","Hardware sales - accessories",           0.09),
-                ("1040","Hardware sales - refurbished equipment", 0.04),
-                ("1070","Corporate wellness - studio fit-out",    0.06),
-                ("1080","Corporate wellness - maintenance contract",0.04),
-            ]:
-                proj = random.choice(PROJECTS) if "wellness" in name else ""
-                rev_rec(DK, eom, code, name, dk_rev*3*pct, f"Quarterly: {name}", "Sales", proj)
-            # Discounts (contra-revenue): DR Discounts / CR Trade Receivables
-            je(DK, eom, [("1099","Discounts & returns", r2(dk_rev*3*0.05)),
-                          ("20060","Trade receivables",  -r2(dk_rev*3*0.05))],
-               "Quarterly: discounts issued", "Sales")
-            # Quarterly collections
-            q_rev = dk_rev * 3 * (0.09+0.04+0.06+0.04)
-            collect(DK, eom, q_rev*0.85, f"Q collections – {year}-{month:02d}")
+            dk_m1 = mo(DK_REV_M[year], (mi-2) % 12)
+            dk_m2 = mo(DK_REV_M[year], (mi-1) % 12)
+            q_proj_rev = r2((dk_m1 + dk_m2 + dk) * 0.06)
+            q_wip_cost = r2(q_proj_rev * wip_cost_ratio)
+            add(DK, eom, 3340,"Trade receivables",          r2(q_proj_rev), "Sales",      proj)
+            add(DK, eom, 1070,"Corporate wellness - studio fit-out", -r2(q_proj_rev), "Sales", proj)
+            add(DK, eom, 3370,"WIP - project revenue",     -r2(q_wip_cost), "Operations", proj)
+            add(DK, eom, 2070,"Manufacturing overhead",     r2(q_wip_cost), "Operations",  proj)
+            monthly_rev_dk += q_proj_rev  # include in collections this quarter-end
 
-        # ── COGS — material cycle ──────────────────────────────────────
-        dk_cogs = dk_rev * 0.45
-        mat_pct  = 0.52  # materials as share of COGS
-        # Purchase raw materials → inventory
-        inventory_purchase(DK, rd(1,15), dk_cogs*mat_pct*rnd(),
-                           f"RM purchase – {year}-{month:02d}")
-        # Consume into COGS (frames/mechanical — main material account)
-        inventory_consume(DK, rd(16,dim), "2010","Raw materials - frames & mechanical",
-                          dk_cogs*0.40, f"RM consumption – {year}-{month:02d}")
+        # Discounts — monthly
+        disc = dk * 0.05
+        add(DK, eom, 1099, "Discounts & returns",  disc, "Sales")
+        add(DK, eom, 3340, "Trade receivables",   -disc, "Sales")
 
-        # ── COGS — labour (direct cash) ────────────────────────────────
-        exp_cash(DK, rd(), "2050","Direct labour - production",
-                 dk_cogs*0.32, "Direct labour payroll", "Operations")
+        # Collections: cash in, receivables down — seasonal DSO
+        collect_receivables(DK, eom, monthly_rev_dk, rate=collect_rate(mi))
 
-        # ── COGS — quarterly detail ────────────────────────────────────
-        if qe:
-            for code, name, pct in [
-                ("2020","Raw materials - electronics & screens", 0.20),
-                ("2030","Raw materials - fabric & upholstery",   0.08),
-                ("2040","Raw materials - packaging",             0.04),
-            ]:
-                inventory_consume(DK, eom, code, name, dk_cogs*3*pct,
-                                  f"Quarterly: {name}")
-            for code, name, pct in [
-                ("2060","Direct labour - assembly",   0.12),
-                ("2070","Manufacturing overhead",     0.10),
-                ("2080","Freight & logistics",        0.08),
-                ("2099","Inventory write-down",       0.02),
-            ]:
-                exp_payable(DK, eom, code, name, dk_cogs*3*pct*rnd(),
-                            f"Quarterly: {name}", "Operations")
-            # FG movement
-            fg_movement(DK, eom, dk_cogs*3*random.uniform(-0.02, 0.04),
-                        "Quarterly: FG net movement")
+        # DK pays management fee to Holding — monthly
+        expense_cash(DK, eom, 2450,"Miscellaneous admin", mf_dk, "Finance")
 
-        # ── Salary (direct cash) ───────────────────────────────────────
-        exp_cash(DK, date(year,month,min(25,dim)), "3010","Salaries & wages",
-                 dk_sal*0.85, "Monthly salaries", "Operations")
-        if qe:
-            exp_cash(DK, eom, "3020","Pension contributions",
-                     dk_sal*0.10*3, "Quarterly pension", "Operations")
-            exp_cash(DK, eom, "3030","Other payroll costs",
-                     dk_sal*0.05*3*rnd(), "Quarterly payroll costs", "Operations")
-            # Payroll tax (separate liability)
-            je(DK, eom, [("3030","Other payroll costs",    r2(dk_sal*0.08*3)),
-                          ("40050","Payroll tax payables",  -r2(dk_sal*0.08*3))],
-               "Quarterly payroll tax accrual", "Finance")
-            payroll_tax_pay(DK, eom, dk_sal*0.08*3*0.95, "Quarterly payroll tax payment")
+        # COGS — monthly with seasonal purchase ratio
+        dk_cogs = dk * 0.45
+        cogs_material(DK, eom, 2010,"Raw materials - frames & mechanical",    dk_cogs*0.28, mi)
+        cogs_material(DK, eom, 2020,"Raw materials - electronics & screens",  dk_cogs*0.16, mi)
+        cogs_material(DK, eom, 2030,"Raw materials - fabric & upholstery",    dk_cogs*0.07, mi)
+        cogs_material(DK, eom, 2040,"Raw materials - packaging",              dk_cogs*0.03, mi)
+        expense_cash(DK, eom,  2050,"Direct labour - production",             dk_cogs*0.23, "Operations")
+        expense_cash(DK, eom,  2060,"Direct labour - assembly",               dk_cogs*0.10, "Operations")
+        expense_payable(DK, eom, 2080,"Freight & logistics",                  dk_cogs*0.11*rnd(), "Operations")
+        expense_payable(DK, eom, 2099,"Inventory write-down",                 dk_cogs*0.02*rnd(0.7,1.3), "Operations")
 
-        # ── Rent (direct cash) ─────────────────────────────────────────
-        exp_cash(DK, date(year,month,1), "4010","Rent & leasing",
-                 800_000/12, "Monthly factory & office rent", "Operations")
+        # Salary — split across departments
+        dk_sal_gross = dk_sal * 0.85
+        for dept, pct in [("Sales",0.25),("Marketing",0.15),("Finance",0.15),("Operations",0.35),("HR",0.10)]:
+            add(DK, eom, 2110,"Salaries & wages",     r2(dk_sal_gross*pct), dept)
+            add(DK, eom, 3900,"Cash",                -r2(dk_sal_gross*pct), "Finance")
+        # Pension and payroll costs
+        expense_cash(DK, eom, 2120,"Pension contributions",  dk_sal*0.10, "Operations")
+        expense_cash(DK, eom, 2130,"Other payroll costs",    dk_sal*0.05*rnd(), "Operations")
 
-        # ── Marketing ─────────────────────────────────────────────────
-        exp_payable(DK, rd(), "5010","Digital marketing & advertising",
-                    dk_rev*0.08*0.45, "Digital advertising", "Marketing")
-        if qe:
-            exp_payable(DK, eom, "5020","Events & sponsorships",
-                        dk_rev*0.08*0.20*3*rnd(), "Quarterly: events", "Marketing")
-            exp_cash(DK, eom, "5030","Sales commissions",
-                     dk_rev*0.08*0.25*3, "Quarterly: commissions", "Sales")
-            exp_payable(DK, eom, "5040","CRM & marketing tools",
-                        dk_rev*0.08*0.10*3, "Quarterly: CRM", "Marketing")
+        # Payroll tax — monthly expense + liability accrual + cash settlement
+        prt = r2(dk_sal * 0.08)
+        add(DK, eom, 2130,"Other payroll costs",    prt, "Operations")
+        add(DK, eom, 4360,"Payroll tax payables",  -prt, "Finance")
+        paid_prt = r2(prt * 0.95)
+        add(DK, eom, 4360,"Payroll tax payables",  paid_prt, "Finance")
+        add(DK, eom, 3900,"Cash",                 -paid_prt, "Finance")
 
-        # ── Admin ──────────────────────────────────────────────────────
-        exp_payable(DK, rd(), "6010","IT & software",
-                    3_600_000/12*rnd(), "IT & software subscriptions", "Finance")
-        if qe:
-            # Insurance paid as prepayment
-            prepaid_pay(DK, eom, 1_200_000/4*rnd(), "Quarterly insurance prepayment")
-            prepaid_amortise(DK, eom, "6020","Insurance", 1_200_000/4*rnd(), "Insurance amortisation")
-            exp_cash(DK, eom, "6030","Bank charges & fees", 600_000/4*rnd(), "Bank charges", "Finance")
-            exp_payable(DK, eom, "6040","Office supplies", 480_000/4*rnd(), "Office supplies", "Finance")
+        # Rent & office — monthly
+        expense_cash(DK, eom, 2210,"Rent & leasing",  800_000/12, "Operations")
+        expense_payable(DK, eom, 2220,"Office expenses", 150_000/12*rnd(), "Operations")
 
-        # ── Management fee to Holding ──────────────────────────────────
-        if qe:
-            mgmt_fee_dk(DK, eom, mf_dk*3, f"Quarterly mgmt fee to {HOLDING}")
-            mgmt_fee_pay(DK, eom, mf_dk*3*0.95, f"Quarterly mgmt fee paid")
+        # Marketing — monthly
+        dk_mktg = dk * 0.08
+        expense_payable(DK, eom, 2310,"Digital marketing & advertising", dk_mktg*0.45, "Marketing")
+        expense_payable(DK, eom, 2320,"Events & sponsorships",  dk_mktg*0.20*rnd(), "Marketing")
+        expense_cash(DK, eom,    2330,"Sales commissions",       dk_mktg*0.25, "Sales")
+        expense_payable(DK, eom, 2340,"CRM & marketing tools",   dk_mktg*0.10, "Marketing")
 
-        # ── Travel & professional (quarterly) ─────────────────────────
-        if qe:
-            exp_payable(DK, eom, "7010","Travel & accommodation",
-                        2_400_000/4*rnd(0.8,1.2), "Quarterly travel", "Sales")
-            exp_payable(DK, eom, "7020","Meals & entertainment",
-                        600_000/4*rnd(), "Quarterly meals", "Sales")
-            af = 2.5 if month==3 else 0.83
-            exp_payable(DK, eom, "8010","Audit & accounting fees",
-                        1_800_000/4*af*rnd(), "Audit fees", "Finance")
-            exp_payable(DK, eom, "8020","Legal fees",
-                        900_000/4*rnd(0.7,1.3), "Legal fees", "Finance")
-            exp_payable(DK, eom, "8030","Consulting fees",
-                        2_400_000/4*rnd(0.8,1.2), "Consulting fees", "Finance")
+        # Admin — monthly
+        expense_payable(DK, eom, 2410,"IT & software",        3_600_000/12*rnd(), "Finance")
+        expense_payable(DK, eom, 2420,"Insurance",             1_200_000/12*rnd(), "Finance")
+        expense_cash(DK, eom,    2430,"Bank charges & fees",     600_000/12*rnd(), "Finance")
+        expense_payable(DK, eom, 2440,"Office supplies",         480_000/12*rnd(), "Finance")
 
-        # ── Pay trade payables (~80 % monthly) ────────────────────────
-        pay_payables(DK, eom, dk_cogs*mat_pct*0.80 + dk_rev*0.08*0.45*0.80,
-                     f"Supplier payment run – {year}-{month:02d}")
-        if qe:
-            pay_payables(DK, eom,
-                         (dk_cogs*3*(0.10+0.08+0.02) + 2_400_000/4 + 3_600_000/12*3)*0.80,
-                         f"Quarterly supplier payment – {year}-{month:02d}")
+        # Travel & professional — monthly
+        expense_payable(DK, eom, 2510,"Travel & accommodation", 2_400_000/12*rnd(0.8,1.2), "Sales")
+        expense_payable(DK, eom, 2520,"Meals & entertainment",    600_000/12*rnd(), "Sales")
+        expense_payable(DK, eom, 2610,"Audit & accounting fees", 1_800_000/12*rnd(), "Finance")
+        expense_payable(DK, eom, 2620,"Legal fees",               900_000/12*rnd(0.7,1.3), "Finance")
+        expense_payable(DK, eom, 2630,"Consulting fees",         2_400_000/12*rnd(0.8,1.2), "Finance")
 
-        # ── Depreciation (monthly, all assets) ────────────────────────
-        depn(DK, eom, "9010","Depreciation - operating assets",
-             "10020","Accumulated depreciation - operating assets", 250_000,
-             f"Depreciation – {year}-{month:02d}")
-        depn(DK, eom, "9030","Depreciation - vehicles",
-             "10060","Accumulated depreciation - vehicles", 30_000,
-             f"Depreciation – {year}-{month:02d}")
-        depn(DK, eom, "9040","Depreciation - fixtures & fittings",
-             "10080","Accumulated depreciation - fixtures & fittings", 20_000,
-             f"Depreciation – {year}-{month:02d}")
-        depn(DK, eom, "9050","Depreciation - IT equipment",
-             "10100","Accumulated depreciation - IT equipment", 40_000,
-             f"Depreciation – {year}-{month:02d}")
+        # Depreciation (monthly)
+        depreciation(DK, eom, 2710,"Depreciation - operating assets",
+                              3112,"Accumulated dep - operating assets, delta", 250_000)
+        depreciation(DK, eom, 2730,"Depreciation - vehicles",
+                              3152,"Accumulated dep - vehicles, delta", 30_000)
+        depreciation(DK, eom, 2740,"Depreciation - fixtures & fittings",
+                              3172,"Accumulated dep - fixtures & fittings, delta", 20_000)
+        depreciation(DK, eom, 2750,"Depreciation - IT equipment",
+                              3192,"Accumulated dep - IT equipment, delta", 40_000)
 
-        # ── Interest (quarterly) ───────────────────────────────────────
-        if qe:
-            loan_interest_pay(DK, eom, "9520","Financial expenses",
-                              ic_int_m*0.75*3, "Quarterly bank interest")
-            ic_interest_pay_dk(DK, eom, ic_int_m*0.25*3,
-                               f"Quarterly IC interest to {HOLDING}")
-            # Holding receives the IC interest
-            ic_interest_accrual_holding(HOLDING, eom, ic_int_m*3,
-                                        f"Quarterly IC interest from {DK}")
-            holding_collect_ic_interest(HOLDING, eom, ic_int_m*3,
-                                        f"IC interest collected")
+        # Financial expenses — monthly
+        expense_cash(DK, eom, 2810,"Financial expenses",  ic_int*0.75, "Finance")
+        expense_cash(DK, eom, 2820,"IC interest expense", ic_int*0.25, "Finance")
+        fx_amt = r2(dk*0.002*random.uniform(-1,1))
+        if abs(fx_amt) > 1:
+            if fx_amt > 0:
+                add(DK, eom, 2830,"Currency & exchange rates",  fx_amt, "Finance")
+                add(DK, eom, 3900,"Cash",                      -fx_amt, "Finance")
+            else:
+                add(DK, eom, 1930,"Currency & exchange rates",  fx_amt, "Finance")
+                add(DK, eom, 3900,"Cash",                      -fx_amt, "Finance")
 
-        # ── FX (quarterly, net P&L entry balanced via trade receivables) ─
-        if qe:
-            fx_amt = dk_rev*0.002*random.uniform(-1,1)*3
-            if abs(fx_amt) > 1:
-                je(DK, eom, [("9530","Currency & exchange rates", r2(fx_amt)),
-                              ("20060","Trade receivables", -r2(fx_amt))],
-                   "Quarterly FX revaluation", "Finance")
-
-        # ── Tax (monthly accrual, aconto in Mar/Sep) ───────────────────
-        dk_tax = max(0, dk_rev*0.12*0.22)
-        tax_accrual(DK, eom, dk_tax, f"Tax accrual – {year}-{month:02d}")
+        # Tax
+        dk_tax = max(0, dk*0.12*0.22)
+        tax_accrual(DK, eom, dk_tax)
         if month == 3:
-            tax_pay(DK, date(year,3,20), dk_tax*5, "Aconto tax – March")
+            tax_pay(DK, date(year,3,1),  dk_tax*5)
         if month == 9:
-            tax_pay(DK, date(year,9,20), dk_tax*5, "Aconto tax – November")
+            tax_pay(DK, date(year,9,1),  dk_tax*5)
 
-        # ── VAT (quarterly: net payable accrual + settlement) ─────────
+        # VAT (quarterly): net VAT payable accrual + cash settlement
+        # Output VAT > input VAT = net liability. Settle from cash.
         if qe:
-            vat_out = dk_rev*3*0.95*0.25
-            vat_in  = dk_cogs*mat_pct*3*0.25
-            vat_net = vat_out - vat_in
-            je(DK, eom, [("40060","VAT payable", -r2(vat_net*rnd(0.95,1.0)))],
-               "Quarterly VAT payable accrual", "Finance") if vat_net > 0 else None
-            # Offset: the VAT was already embedded in receivables/payables above
-            # We balance the VAT payable accrual against other receivables
+            vat_net = r2((dk*0.95*0.25 - dk_cogs*0.52*0.25)*3*rnd(0.9,1.0))
             if vat_net > 0:
-                je(DK, eom, [("20070","Other receivables",  r2(vat_net*rnd(0.95,1.0))),
-                              ("40060","VAT payable",       -r2(vat_net*rnd(0.95,1.0)))],
-                   "Quarterly VAT accrual offset", "Finance")
-                # Settlement
-                vat_settle_amt = vat_net * 3 * 0.90
-                je(DK, eom, [("40060","VAT payable",  r2(vat_settle_amt)),
-                              ("20010","Cash",         -r2(vat_settle_amt))],
-                   "VAT settlement to SKAT", "Finance")
+                add(DK, eom, 4370,"VAT payable",  -vat_net, "Finance")   # CR VAT payable
+                add(DK, eom, 3900,"Cash",           vat_net, "Finance")   # DR Cash (embedded in payables)
+                # Settlement to tax authority
+                settle = r2(vat_net*0.92)
+                add(DK, eom, 4370,"VAT payable",   settle, "Finance")    # DR VAT payable
+                add(DK, eom, 3900,"Cash",          -settle, "Finance")   # CR Cash
 
-        # ── WIP project revenue ───────────────────────────────────────
-        if qe:
-            proj = random.choice(PROJECTS)
-            wip_project_move(DK, eom, dk_rev*3*0.04*random.uniform(-1,1),
-                             "Quarterly: project WIP movement", proj)
+        # Deferred revenue — subscriptions (cash in, defer, recognise)
+        if month == 1:
+            annual_sub = dk * 12 * 0.07  # full year collected in Jan
+            add(DK, date(year,1,1), 3900, "Cash",                        r2(annual_sub), "Sales")
+            add(DK, date(year,1,1), 4340,"Deferred revenue - subscriptions", -r2(annual_sub), "Sales")
+        # Monthly recognition: DR Deferred Revenue / CR Income (not cash)
+        sub_recog = dk * 0.07
+        add(DK, eom, 4340,"Deferred revenue - subscriptions",  r2(sub_recog), "Sales")
+        add(DK, eom, 1060,"Digital membership - annual",       -r2(sub_recog), "Sales")
 
-        # ── Loan: principal repayment (quarterly) ─────────────────────
-        if qe:
-            loan_principal_pay(DK, eom, "30010","Loans - bank",
-                               15_000_000/(5*12)*3, "Quarterly bank loan repayment")
-            # IC loan interest accrual on DK payable side
-            je(DK, eom, [("9525","IC interest expense",   r2(ic_int_m*0.25*3)),
-                          ("30020","IC loans payable",    -r2(ic_int_m*0.25*3))],
-               "IC loan interest accrued", "Finance")
-
-        # ── CAPEX events ───────────────────────────────────────────────
+        # CAPEX additions (DR Asset / CR Cash)
+        # CAPEX additions — separate account per asset class (3x01 = addition)
+        # DR CAPEX addition / CR Cash
         capex_dk = {
-            (2023,3):(5_000_000,"Production line upgrade","10010","CAPEX - operating assets","Project Apollo"),
-            (2024,6):(3_500_000,"New assembly equipment","10010","CAPEX - operating assets","Project Bison"),
-            (2025,9):(4_000_000,"Expanded production facility","10010","CAPEX - operating assets","Project Candy"),
-            (2026,4):(2_500_000,"Automated packaging line","10010","CAPEX - operating assets","Project Apollo"),
-            (2027,2):(3_000_000,"Next-gen assembly robot","10010","CAPEX - operating assets","Project Bison"),
-            (2023,1):(900_000,"Fleet vehicle replacement","10050","CAPEX - vehicles",""),
-            (2025,1):(950_000,"Fleet vehicle replacement","10050","CAPEX - vehicles",""),
-            (2024,2):(1_200_000,"Factory showroom refit","10070","CAPEX - fixtures & fittings",""),
-            (2023,9):(600_000,"IT equipment refresh","10090","CAPEX - IT equipment",""),
-            (2025,9):(660_000,"IT equipment refresh","10090","CAPEX - IT equipment",""),
-            (2027,9):(726_000,"IT equipment refresh","10090","CAPEX - IT equipment",""),
+            (2023,3):(5_000_000, 3101,"CAPEX - operating assets, addition","Project Apollo"),
+            (2024,6):(3_500_000, 3101,"CAPEX - operating assets, addition","Project Bison"),
+            (2025,9):(4_000_000, 3101,"CAPEX - operating assets, addition","Project Candy"),
+            (2026,4):(2_500_000, 3101,"CAPEX - operating assets, addition","Project Apollo"),
+            (2027,2):(3_000_000, 3101,"CAPEX - operating assets, addition","Project Bison"),
+            (2023,1):(900_000,   3141,"CAPEX - vehicles, addition",""),
+            (2025,1):(950_000,   3141,"CAPEX - vehicles, addition",""),
+            (2024,2):(1_200_000, 3161,"CAPEX - fixtures & fittings, addition",""),
+            (2023,9):(600_000,   3181,"CAPEX - IT equipment, addition",""),
+            (2025,9):(660_000,   3181,"CAPEX - IT equipment, addition",""),
+            (2027,9):(726_000,   3181,"CAPEX - IT equipment, addition",""),
         }
         if (year,month) in capex_dk:
-            amt,desc,code,name,proj = capex_dk[(year,month)]
-            capex_cash(DK, rd(5,20), code, name, amt, desc, "Operations", proj)
+            amt,code,name,proj = capex_dk[(year,month)]
+            capex(DK, eom, code, name, amt, proj)
 
-        # ── One-time opening entries ───────────────────────────────────
+        # CAPEX detractions — separate account per asset class (3x02 = detraction)
+        # DR Accumulated Dep / CR CAPEX detraction (removes asset at cost)
+        capex_detr_dk = {
+            # Dispose 2023 fleet vehicle (cost 900k, fully depreciated → net 0)
+            (2026,1): [(3150,"Accumulated dep - vehicles",          900_000),
+                       (3142,"CAPEX - vehicles, detraction",       -900_000)],
+            # Dispose 2023 IT equipment (cost 600k, fully depreciated → net 0)
+            (2026,9): [(3190,"Accumulated dep - IT equipment",      600_000),
+                       (3182,"CAPEX - IT equipment, detraction",   -600_000)],
+            # Dispose 2024 showroom fixtures (cost 1.2M, NBV 720k → loss on disposal, no cash proceeds)
+            # DR Accum dep 480k / DR Loss on disposal 720k / CR CAPEX detraction -1.2M
+            (2027,6): [(3170,"Accumulated dep - fixtures & fittings", 480_000),
+                       (3162,"CAPEX - fixtures & fittings, detraction", -1_200_000),
+                       (2740,"Depreciation - fixtures & fittings",  720_000)],
+        }
+        if (year,month) in capex_detr_dk:
+            for c, n, a in capex_detr_dk[(year,month)]:
+                add(DK, eom, c, n, a, "Operations" if n.startswith("3") else "Finance")
+
+        # Opening entries
         if month==1 and year==2023:
-            loan_draw(DK, date(2023,1,1), "30010","Loans - bank",
-                      15_000_000, "Bank term loan drawdown")
-            loan_draw(DK, date(2023,1,1), "30020","IC loans payable",
-                      20_000_000, f"IC loan from {HOLDING}")
-            je(DK, date(2023,1,1), [("10300","Deposits", r2(2_400_000)),
-                                     ("20010","Cash",     -r2(2_400_000))],
-               "Office lease deposit", "Finance")
-            share_capital(DK, date(2023,1,1), 10_000_000, "Registered share capital")
-            je(DK, date(2023,1,1), [("10200","Deferred tax assets",    r2(500_000)),
-                                     ("30030","Deferred tax liabilities", -r2(200_000)),
-                                     ("50030","Retained earnings",      -r2(300_000))],
-               "Opening deferred tax balances", "Finance")
+            loan_draw(DK, date(2023,1,1), 4110,"Loans - bank",     15_000_000)
+            loan_draw(DK, date(2023,1,1), 4120,"IC loans payable", 20_000_000)
+            add(DK, date(2023,1,1), 3210,"Deposits",              2_400_000, "Finance")
+            add(DK, date(2023,1,1), 3900,"Cash",                 -2_400_000, "Finance")
+            add(DK, date(2023,1,1), 5010,"Share capital",        -10_000_000, "Finance")
+            add(DK, date(2023,1,1), 3900,"Cash",                 10_000_000, "Finance")
+            # Immediately invest the IC loan in factory and production line
+            capex(DK, date(2023,1,1), 3101,"CAPEX - operating assets, addition", 18_000_000, "Project Apollo")
+            # DK provides working capital IC loan to UK (6M DKK = ~694k GBP at opening FX)
+            add(DK, date(2023,1,1), 3221,"IC loan to subsidiary - UK",  6_000_000, "Finance")
+            add(DK, date(2023,1,1), 3900,"Cash",                       -6_000_000, "Finance")
         if month==1 and year in (2024,2025):
-            loan_draw(DK, date(year,1,1), "30020","IC loans payable",
-                      2_000_000, "IC loan drawdown")
+            loan_draw(DK, date(year,1,1), 4120,"IC loans payable", 2_000_000)
 
-        # ── Year-end: retained earnings close ─────────────────────────
-        if month == 12:
-            # Close current year profit to retained earnings
-            # CYP (50040) accumulates P&L net; transfer to RE (50030)
-            annual_profit = DK_REV_M[year]*1_000_000*0.09
-            je(DK, date(year,12,31),
-               [("50040","Current year profit", r2(annual_profit)),
-                ("50030","Retained earnings",   -r2(annual_profit))],
-               f"FY{year} profit to retained earnings", "Finance")
+        # Regular annual equipment CAPEX (production capacity and replacement)
+        annual_equip = {
+            (2023,7): 2_000_000, (2024,3): 3_500_000, (2024,10): 2_000_000,
+            (2025,5): 4_000_000, (2025,11): 2_000_000,
+            (2026,2): 4_000_000, (2026,8):  2_000_000,
+            (2027,4): 4_000_000, (2027,10): 2_000_000,
+        }
+        if (year,month) in annual_equip:
+            capex(DK, eom, 3101,"CAPEX - operating assets, addition",
+                  annual_equip[(year,month)], "Project Bison" if year in (2024,2025) else "Project Candy")
 
-        # ════════════════════════════════════════════════════════════════
+        # Loan repayment (monthly — bank loan over 5 years)
+        loan_repay(DK, eom, 4110,"Loans - bank", 15_000_000/(5*12))
+
+        # IC loan repayment to Holding (annual, July) — returning capital as profits build
+        ic_repayments_dk = {2024:4_000_000, 2025:5_000_000, 2026:5_000_000, 2027:5_000_000}
+        if month==7 and year in ic_repayments_dk:
+            repay = ic_repayments_dk[year]
+            add(DK, date(year,7,1), 4120,"IC loans payable",       repay, "Finance")
+            add(DK, date(year,7,1), 3900,"Cash",                  -repay, "Finance")
+            # Mirror in Holding
+            add(HOLDING, date(year,7,1), 3220,"IC loans receivable", -repay, "Finance")
+            add(HOLDING, date(year,7,1), 3900,"Cash",                 repay, "Finance")
+
+        # Annual dividend DK → Holding (April, for prior year profit)
+        dk_dividends = {2024:4_000_000, 2025:14_000_000, 2026:20_000_000, 2027:25_000_000}
+        if month==4 and year in dk_dividends:
+            div = dk_dividends[year]
+            add(DK, date(year,4,1), 5020,"Dividends",  r2(div), "Finance")
+            add(DK, date(year,4,1), 3900,"Cash",       -r2(div), "Finance")
+
+        # ══════════════════════════════════════════════════════════════════
         # UK OPERATING
-        # ════════════════════════════════════════════════════════════════
+        # ══════════════════════════════════════════════════════════════════
 
+        monthly_rev_uk = 0
         for code, name, pct in [
-            ("1010","Hardware sales - bikes",       0.52),
-            ("1020","Hardware sales - treadmills",  0.30),
+            (1010,"Hardware sales - bikes",       0.52),
+            (1020,"Hardware sales - treadmills",  0.30),
         ]:
-            rev_rec(UK, rd(), code, name, uk_gbp*pct, f"UK {name}", "Sales")
+            amt = uk * pct
+            income(UK, eom, code, name, amt)
+            monthly_rev_uk += amt
 
-        if qe:
-            for code, name, pct in [
-                ("1030","Hardware sales - accessories", 0.13),
-            ]:
-                rev_rec(UK, eom, code, name, uk_gbp*3*pct, f"Quarterly UK {name}", "Sales")
-            je(UK, eom, [("1099","Discounts & returns",  r2(uk_gbp*3*0.05)),
-                          ("20060","Trade receivables",  -r2(uk_gbp*3*0.05))],
-               "Quarterly: UK discounts", "Sales")
+        # UK accessories revenue — monthly
+        amt = uk * 0.13
+        income(UK, eom, 1030,"Hardware sales - accessories", amt)
+        disc = uk * 0.05
+        add(UK, eom, 1099,"Discounts & returns",  disc, "Sales")
+        add(UK, eom, 3340,"Trade receivables",   -disc, "Sales")
 
-        collect(UK, eom, uk_gbp*(0.52+0.30)*0.87, f"UK collections – {year}-{month:02d}")
-        if qe:
-            collect(UK, eom, uk_gbp*3*0.13*0.85, f"UK quarterly collections")
+        collect_receivables(UK, eom, monthly_rev_uk + uk*0.13, rate=collect_rate(mi))
 
-        # IC COGS
-        ic_pay_raise(UK, rd(), "2090", ic_gbp, f"IC purchase from {DK} – {year}-{month:02d}")
-        ic_pay_settle(UK, eom, ic_gbp, f"IC payment to {DK} – {year}-{month:02d}")
+        # IC COGS (payable to DK)
+        add(UK, eom, 2090,"IC COGS - purchases from DK",  r2(ic_g), "Operations")
+        add(UK, eom, 4320,"IC payables",                 -r2(ic_g), "Operations")
+        paid_ic = r2(ic_g * 0.95)
+        add(UK, eom, 4320,"IC payables",  paid_ic, "Finance")
+        add(UK, eom, 3900,"Cash",         -paid_ic, "Finance")
 
-        # Local freight
-        exp_payable(UK, rd(), "2080","Freight & logistics",
-                    uk_gbp*0.07, "UK logistics", "Operations")
+        expense_payable(UK, eom, 2080,"Freight & logistics", uk*0.07, "Operations")
+        # UK salary — split across departments
+        uk_sal_gross = uk_sal * 0.85
+        for dept, pct in [("Sales",0.40),("Operations",0.35),("Finance",0.25)]:
+            add(UK, eom, 2110,"Salaries & wages",    r2(uk_sal_gross*pct), dept)
+            add(UK, eom, 3900,"Cash",               -r2(uk_sal_gross*pct), "Finance")
+        expense_cash(UK, eom, 2120,"Pension contributions", uk_sal*0.10, "Operations")
+        expense_cash(UK, eom, 2130,"Other payroll costs",   uk_sal*0.05*rnd(), "Operations")
+        # UK NI payroll tax — monthly
+        uk_ni = r2(uk_sal * 0.138)
+        add(UK, eom, 2130,"Other payroll costs",    uk_ni, "Operations")
+        add(UK, eom, 4360,"Payroll tax payables",  -uk_ni, "Finance")
+        paid_ni = r2(uk_ni * 0.95)
+        add(UK, eom, 4360,"Payroll tax payables",  paid_ni, "Finance")
+        add(UK, eom, 3900,"Cash",                 -paid_ni, "Finance")
 
-        # Salary
-        exp_cash(UK, date(year,month,min(25,dim)), "3010","Salaries & wages",
-                 uk_sal*0.85, "UK salaries", "Operations")
-        if qe:
-            exp_cash(UK, eom, "3020","Pension contributions", uk_sal*0.10*3, "UK pension","Operations")
-            exp_cash(UK, eom, "3030","Other payroll costs",   uk_sal*0.05*3*rnd(), "UK payroll","Operations")
-            je(UK, eom, [("3030","Other payroll costs",  r2(uk_sal*0.138*3)),
-                          ("40050","Payroll tax payables",-r2(uk_sal*0.138*3))],
-               "UK NI employer accrual", "Finance")
-            payroll_tax_pay(UK, eom, uk_sal*0.138*3*0.95, "UK NI payment")
+        expense_cash(UK, eom, 2210,"Rent & leasing", 80_000/12, "Operations")
+        expense_payable(UK, eom, 2310,"Digital marketing & advertising", uk*0.06*0.60, "Marketing")
+        expense_cash(UK, eom,    2330,"Sales commissions",   uk*0.06*0.40, "Sales")
+        expense_payable(UK, eom, 2410,"IT & software",       15_000/12*rnd(), "Finance")
+        expense_payable(UK, eom, 2420,"Insurance",           12_000/12*rnd(), "Finance")
+        expense_cash(UK, eom,    2430,"Bank charges & fees",  6_000/12*rnd(), "Finance")
+        expense_cash(UK, eom,    2450,"Miscellaneous admin",  mf_uk_g, "Finance")
+        expense_payable(UK, eom, 2510,"Travel & accommodation", uk*0.012*rnd(0.8,1.2), "Sales")
+        expense_payable(UK, eom, 2610,"Audit & accounting fees", 8_000/12*rnd(), "Finance")
+        expense_payable(UK, eom, 2620,"Legal fees", 5_000/12*rnd(0.7,1.3), "Finance")
 
-        exp_cash(UK, date(year,month,1), "4010","Rent & leasing", 80_000/12, "UK rent","Operations")
-        exp_payable(UK, rd(), "5010","Digital marketing & advertising", uk_gbp*0.06*0.60, "UK digital marketing","Marketing")
-        exp_payable(UK, rd(), "6010","IT & software", 15_000/12*rnd(), "UK IT","Finance")
+        depreciation(UK, eom, 2730,"Depreciation - vehicles",           3152,"Accumulated dep - vehicles, delta", 3_500)
+        depreciation(UK, eom, 2740,"Depreciation - fixtures & fittings",3172,"Accumulated dep - fixtures & fittings, delta", 2_000)
+        depreciation(UK, eom, 2750,"Depreciation - IT equipment",       3192,"Accumulated dep - IT equipment, delta", 4_000)
 
-        if qe:
-            exp_cash(UK, eom, "5030","Sales commissions", uk_gbp*0.06*0.40*3, "UK commissions","Sales")
-            prepaid_pay(UK, eom, 60_000*rnd(), "UK insurance prepayment") if month in (3,9) else None
-            prepaid_amortise(UK, eom, "6020","Insurance", 60_000/6*rnd(), "UK insurance amortisation")
-            exp_cash(UK, eom, "6030","Bank charges & fees", 6_000/4*rnd(), "UK bank charges","Finance")
-            mgmt_fee_dk(UK, eom, mf_uk_gbp*3, f"Quarterly mgmt fee to {HOLDING}")
-            mgmt_fee_pay(UK, eom, mf_uk_gbp*3*0.95, "Quarterly mgmt fee paid")
-            exp_payable(UK, eom, "7010","Travel & accommodation", uk_gbp*0.012*3*rnd(0.8,1.2),"UK travel","Sales")
-            af = 2.5 if month==3 else 0.83
-            exp_payable(UK, eom, "8010","Audit & accounting fees", 8_000/4*af*rnd(),"UK accounting","Finance")
-            exp_payable(UK, eom, "8020","Legal fees", 5_000/4*rnd(0.7,1.3),"UK legal","Finance")
-
-        pay_payables(UK, eom, uk_gbp*0.07*0.80, f"UK supplier payments – {year}-{month:02d}")
-        if qe:
-            pay_payables(UK, eom, (uk_gbp*0.06*0.60 + 15_000/12)*3*0.80, "UK quarterly payments")
-
-        depn(UK, eom,"9030","Depreciation - vehicles","10060","Accumulated depreciation - vehicles",3_500,f"UK dep – {year}-{month:02d}")
-        depn(UK, eom,"9040","Depreciation - fixtures & fittings","10080","Accumulated depreciation - fixtures & fittings",2_000,f"UK dep – {year}-{month:02d}")
-        depn(UK, eom,"9050","Depreciation - IT equipment","10100","Accumulated depreciation - IT equipment",4_000,f"UK dep – {year}-{month:02d}")
-
-        uk_tax = max(0, uk_gbp*0.08*0.25)
-        tax_accrual(UK, eom, uk_tax, f"UK tax accrual – {year}-{month:02d}")
+        uk_tax = max(0, uk*0.08*0.25)
+        tax_accrual(UK, eom, uk_tax)
         if month == 9:
-            tax_pay(UK, eom, uk_tax*3, "UK quarterly tax payment")
+            tax_pay(UK, eom, uk_tax*3)
 
+        # UK financial — monthly
+        uk_ic_int = (loan*0.40/fx)*IC_RATE/12
+        expense_cash(UK, eom, 2810,"Financial expenses",  uk_ic_int*0.50, "Finance")
+        expense_cash(UK, eom, 2820,"IC interest expense", uk_ic_int*0.50, "Finance")
+
+        # UK VAT — quarterly (legal settlement cycle)
         if qe:
-            uk_ic_int = (ic_loan*0.40/fx)*IC_RATE/12
-            loan_interest_pay(UK, eom, "9520","Financial expenses", uk_ic_int*0.50*3,"UK bank interest")
-            loan_interest_pay(UK, eom, "9525","IC interest expense",uk_ic_int*0.50*3,f"IC interest to {HOLDING}")
-            fx_uk = uk_gbp*0.002*random.uniform(-1,1)*3
-            if abs(fx_uk) > 0.01:
-                je(UK, eom, [("9530","Currency & exchange rates", r2(fx_uk)),
-                              ("20060","Trade receivables", -r2(fx_uk))],
-                   "Quarterly FX revaluation","Finance")
-            # UK VAT
-            uk_vat = uk_gbp*3*0.95*0.20
-            je(UK, eom, [("40060","VAT payable", -r2(uk_vat*rnd(0.95,1.0))),
-                          ("20070","Other receivables",r2(uk_vat*rnd(0.95,1.0)))],
-               "Quarterly UK VAT accrual","Finance")
-            je(UK, eom, [("40060","VAT payable",r2(uk_vat*0.90)),
-                          ("20010","Cash",      -r2(uk_vat*0.90))],
-               "UK VAT settlement to HMRC","Finance")
+            uk_vat = r2(uk*0.95*0.20*3*rnd(0.9,1.0))
+            add(UK, eom, 4370,"VAT payable",  -uk_vat, "Finance")
+            add(UK, eom, 3900,"Cash",          uk_vat, "Finance")
+            settle_vat = r2(uk_vat*0.90)
+            add(UK, eom, 4370,"VAT payable",   settle_vat, "Finance")
+            add(UK, eom, 3900,"Cash",          -settle_vat, "Finance")
 
-        # UK CAPEX
         uk_capex = {
-            (2023,2):(80_000,"UK fleet vehicle","10050","CAPEX - vehicles"),
-            (2025,3):(150_000,"UK showroom refurbishment","10070","CAPEX - fixtures & fittings"),
-            (2023,10):(50_000,"UK IT equipment","10090","CAPEX - IT equipment"),
-            (2025,10):(55_000,"UK IT equipment refresh","10090","CAPEX - IT equipment"),
-            (2027,10):(60_000,"UK IT equipment refresh","10090","CAPEX - IT equipment"),
+            (2023,2):(80_000, 3140,"CAPEX - vehicles"),
+            (2025,3):(150_000,3160,"CAPEX - fixtures & fittings"),
+            (2023,10):(50_000,3180,"CAPEX - IT equipment"),
+            (2025,10):(55_000,3180,"CAPEX - IT equipment"),
+            (2027,10):(60_000,3180,"CAPEX - IT equipment"),
         }
         if (year,month) in uk_capex:
-            amt,desc,code,name = uk_capex[(year,month)]
-            capex_cash(UK, rd(10,20), code, name, amt, desc)
+            amt,code,name = uk_capex[(year,month)]
+            capex(UK, eom, code, name, amt)
 
         if month==1 and year==2023:
-            loan_draw(UK, date(2023,1,1),"30020","IC loans payable",
-                      3_000_000/fx, f"IC loan from {HOLDING}")
-            je(UK, date(2023,1,1),[("10300","Deposits",r2(160_000)),
-                                    ("20010","Cash",   -r2(160_000))],"UK office deposit","Finance")
-            share_capital(UK, date(2023,1,1), 500_000, "UK share capital")
+            loan_draw(UK, date(2023,1,1), 4120,"IC loans payable", 3_000_000/fx)
+            add(UK, date(2023,1,1), 3210,"Deposits",  160_000, "Finance")
+            add(UK, date(2023,1,1), 3900,"Cash",      -160_000, "Finance")
+            # UK SC = 1M GBP (realistic startup distribution subsidiary)
+            # Funded by Holding as equity investment
+            add(UK, date(2023,1,1), 5010,"Share capital",  -1_000_000, "Finance")
+            add(UK, date(2023,1,1), 3900,"Cash",            1_000_000, "Finance")
+            # Working capital IC loan from DK to UK (covers UK cash needs)
+            add(UK, date(2023,1,1), 4120,"IC loans payable",  -6_000_000/fx, "Finance")
+            add(UK, date(2023,1,1), 3900,"Cash",               6_000_000/fx, "Finance")
 
-        if month == 12:
-            annual_uk = UK_REV_GBP[year]*1_000_000*0.07
-            je(UK, date(year,12,31),
-               [("50040","Current year profit", r2(annual_uk)),
-                ("50030","Retained earnings",   -r2(annual_uk))],
-               f"FY{year} profit to retained earnings","Finance")
-
-        # ════════════════════════════════════════════════════════════════
+        # ══════════════════════════════════════════════════════════════════
         # HOLDING
-        # ════════════════════════════════════════════════════════════════
+        # ══════════════════════════════════════════════════════════════════
 
-        # Management fee income (collected quarterly)
-        if qe:
-            mf_total_dkk = mf_dk*3 + mf_uk_gbp*3*fx
-            holding_receive_mgmt(HOLDING, eom, mf_total_dkk,
-                                 "Quarterly management fees collected")
+        # Management fee income — monthly
+        total_mf = mf_dk + mf_uk
+        add(HOLDING, eom, 3900, "Cash",               r2(total_mf), "Finance")
+        add(HOLDING, eom, 1910, "Financial income",  -r2(total_mf), "Finance")
+        # IC interest income — monthly
+        add(HOLDING, eom, 3900, "Cash",               r2(ic_int), "Finance")
+        add(HOLDING, eom, 1920, "IC interest income", -r2(ic_int), "Finance")
 
-        # Salary
-        exp_cash(HOLDING, date(year,month,min(25,dim)), "3010","Salaries & wages",
-                 3_000_000/12*0.85, "Board salaries","Finance")
-        if qe:
-            exp_cash(HOLDING, eom, "3020","Pension contributions",
-                     3_000_000/12*0.10*3,"Board pension","Finance")
+        # Holding costs — all monthly
+        expense_cash(HOLDING, eom, 2110,"Salaries & wages",      3_000_000/12*0.85, "Finance")
+        expense_cash(HOLDING, eom, 2120,"Pension contributions",  3_000_000/12*0.10, "Finance")
+        expense_payable(HOLDING, eom, 2410,"IT & software",       60_000/12*rnd(), "Finance")
+        expense_payable(HOLDING, eom, 2610,"Audit & accounting fees", 80_000/12*rnd(), "Finance")
+        expense_payable(HOLDING, eom, 2620,"Legal fees",          60_000/12*rnd(0.7,1.3), "Finance")
 
-        # Admin (quarterly)
-        if qe:
-            exp_payable(HOLDING, eom, "6010","IT & software",   60_000/4*rnd(),"Holding IT","Finance")
-            af = 2.5 if month==3 else 0.83
-            exp_payable(HOLDING, eom, "8010","Audit & accounting fees",80_000/4*af*rnd(),"Holding audit","Finance")
-            exp_payable(HOLDING, eom, "8020","Legal fees",      60_000/4*rnd(0.7,1.3),"Holding legal","Finance")
-            pay_payables(HOLDING, eom, (60_000/4 + 80_000/4 + 60_000/4)*0.90, "Holding quarterly payments")
+        gw = 15_000_000/(20*12)
+        depreciation(HOLDING, eom, 2720,"Depreciation - goodwill",  3132,"Accumulated dep - goodwill, delta", gw)
+        depreciation(HOLDING, eom, 2750,"Depreciation - IT equipment",3192,"Accumulated dep - IT equipment, delta", 5_000)
 
-        # Goodwill + IT depreciation
-        depn(HOLDING, eom, "9020","Depreciation - goodwill",
-             "10040","Accumulated depreciation - goodwill",
-             15_000_000/(20*12), f"Goodwill amortisation – {year}-{month:02d}")
-        depn(HOLDING, eom, "9050","Depreciation - IT equipment",
-             "10100","Accumulated depreciation - IT equipment",
-             5_000, f"IT depreciation – {year}-{month:02d}")
-
-        # Dividends (April following year)
+        # Dividends (April)
         if month==4 and year>2023:
             div = DK_REV_M[year-1]*1_000_000*0.04
-            je(HOLDING, date(year,4,15),
-               [("50020","Dividends",   r2(div)),
-                ("20010","Cash",       -r2(div))],
-               f"Dividend distribution – FY{year-1}","Finance")
+            add(HOLDING, date(year,4,1), 5020,"Dividends",  r2(div), "Finance")
+            add(HOLDING, date(year,4,1), 3900,"Cash",       -r2(div), "Finance")
 
-        # One-time opening entries
+        # Dividend received from DK (April, same timing as DK payment)
+        if month==4 and year in dk_dividends:
+            div_h = dk_dividends[year]
+            add(HOLDING, date(year,4,1), 3900,"Cash",              r2(div_h), "Finance")
+            add(HOLDING, date(year,4,1), 1950,"Dividend income",  -r2(div_h), "Finance")
+
         if month==1 and year==2023:
-            je(HOLDING, date(2023,1,1),
-               [("10030","CAPEX - goodwill",    r2(15_000_000)),
-                ("20010","Cash",               -r2(15_000_000))],
-               "Goodwill on acquisition","Finance")
-            # Initial IC loans issued to subsidiaries (asset)
-            je(HOLDING, date(2023,1,1),
-               [("10350","IC loans receivable", r2(23_000_000)),
-                ("20010","Cash",               -r2(23_000_000))],
-               "IC loans issued to operating entities","Finance")
-            share_capital(HOLDING, date(2023,1,1), 30_000_000, "Holding share capital")
-
+            # Goodwill acquisition paid in cash (premium over book value of subsidiaries)
+            add(HOLDING, date(2023,1,1), 3120,"CAPEX - goodwill",   15_000_000, "Finance")
+            add(HOLDING, date(2023,1,1), 3900,"Cash",               -15_000_000, "Finance")
+            # IC loans issued to operating subsidiaries
+            add(HOLDING, date(2023,1,1), 3220,"IC loans receivable", 23_000_000, "Finance")
+            add(HOLDING, date(2023,1,1), 3900,"Cash",               -23_000_000, "Finance")
+            # Investment in subsidiaries (at cost = their share capital in DKK)
+            # DK ApS: 10M DKK share capital
+            # UK Ltd: 1M GBP × 8.65 = 8.65M DKK share capital
+            inv_dk = 10_000_000
+            inv_uk = r2(1_000_000 * fx)   # 1M GBP at opening FX
+            add(HOLDING, date(2023,1,1), 3240,"Investment in subsidiaries", inv_dk + inv_uk, "Finance")
+            add(HOLDING, date(2023,1,1), 3900,"Cash",                      -(inv_dk + inv_uk), "Finance")
+            # Share capital (larger to fund all investments: 15M goodwill + 18.65M subs + 23M IC loans = 56.65M)
+            add(HOLDING, date(2023,1,1), 5010,"Share capital",      -60_000_000, "Finance")
+            add(HOLDING, date(2023,1,1), 3900,"Cash",                60_000_000, "Finance")
         if month==1 and year in (2024,2025):
-            je(HOLDING, date(year,1,1),
-               [("10350","IC loans receivable", r2(2_000_000)),
-                ("20010","Cash",               -r2(2_000_000))],
-               "Additional IC loan to DK","Finance")
+            add(HOLDING, date(year,1,1), 3220,"IC loans receivable",  2_000_000, "Finance")
+            add(HOLDING, date(year,1,1), 3900,"Cash",                -2_000_000, "Finance")
 
-        if month == 12:
-            h_profit = (mf_dk + mf_uk_gbp*fx)*12*0.65
-            je(HOLDING, date(year,12,31),
-               [("50040","Current year profit", r2(h_profit)),
-                ("50030","Retained earnings",   -r2(h_profit))],
-               f"FY{year} profit to retained earnings","Finance")
-
-# ── Post DK: Current Year Profit accumulation ────────────────────────────────
-# For each entity-month, accumulate the monthly P&L net into 50040 (CYP).
-# This ensures A - L - E = 0 at every period-end (CYP in equity absorbs running P&L).
-from collections import defaultdict
-
-def is_pnl(code):
-    return len(code) <= 4  # 4-digit = P&L, 5-digit = BS
-
-# Group rows by entity+month
+# ─────────────────────────────────────────────────────────────────────────────
+# POST-PROCESSING: add Retained Earnings = monthly P&L net
+# RE = pnl (same sign: negative for profitable month = credit to equity)
+# With proper pairs, BS already = 0 from the transaction entries alone.
+# RE closes the P&L into equity. No cash plug needed.
+# ─────────────────────────────────────────────────────────────────────────────
 by_em = defaultdict(list)
 for r in rows:
     by_em[(r["Entity"], r["Date"][:7])].append(r)
 
-cyp_entries = []
+extra = []
 for (ent, ym), em_rows in sorted(by_em.items()):
-    pnl_sum = sum(float(r["Amount"]) for r in em_rows if is_pnl(r["Account Code"]))
-    if abs(pnl_sum) < 0.01:
-        continue
-    yr, mo_s = int(ym[:4]), int(ym[5:])
-    dim = monthrange(yr, mo_s)[1]
-    d = date(yr, mo_s, dim)
-    # CYP = -pnl_sum → makes BS + CYP = 0 since trial balance already = 0
-    # Counterpart: the "other side" is already in BS via double-entry transactions.
-    # We only need to post CYP to make it explicit in equity.
-    # Balance CYP against Other Receivables (a proxy for the net BS asset build-up from profit).
-    cyp_entries.append({
-        "Date": d.strftime("%Y-%m-%d"), "Entity": ent,
-        "Account Code": "50040", "Account": "Current year profit",
-        "Amount": r2(-pnl_sum),
-        "Description": f"Test transaction – Monthly P&L to current year profit – {ym}",
-        "Department": "Finance", "Project": ""
-    })
-    cyp_entries.append({
-        "Date": d.strftime("%Y-%m-%d"), "Entity": ent,
-        "Account Code": "20070", "Account": "Other receivables",
-        "Amount": r2(pnl_sum),
-        "Description": f"Test transaction – Offset current year profit – {ym}",
-        "Department": "Finance", "Project": ""
-    })
+    pnl = sum(float(r["Amount"]) for r in em_rows if is_pnl(r["Account"]))
+    if abs(pnl) > 0.01:
+        extra.append({
+            "Date": f"{ym}-01", "Account": "5030 Retained earnings",
+            "Amount": r2(pnl), "Description": "Test transaction",
+            "Entity": ent, "Department": "Finance", "Project": ""
+        })
 
-rows.extend(cyp_entries)
+rows.extend(extra)
 
-# ── WRITE ─────────────────────────────────────────────────────────────────────
-output = "/Users/anton/Documents/GitHub/docs/test-data/test-data.csv"
-os.makedirs(os.path.dirname(output), exist_ok=True)
-fields = ["Date","Entity","Account Code","Account","Amount","Description","Department","Project"]
-with open(output,"w",newline="",encoding="utf-8") as f:
-    w = csv.DictWriter(f,fieldnames=fields)
-    w.writeheader()
-    w.writerows(rows)
+# ─── CAPEX opening balances ───────────────────────────────────────────────────
+# At January 1 of each year (2024-2027), carry forward the prior cumulative
+# gross cost and accumulated depreciation into dedicated "opening" accounts.
+# Each pair is balanced:
+#   DR 3x00 "opening" = +prior_net_capex  (asset opening increases)
+#   CR 3x01 "addition" = -prior_net_capex  (removes prior from addition account)
+# And for accumulated dep:
+#   DR 3x12 "delta" = +prior_dep           (removes prior charges from delta)
+#   CR 3x10 "opening" = -prior_dep         (contra-asset opening increases)
 
-print(f"Rows: {len(rows):,}")
+CAPEX_OPENING_MAP = {
+    # (entity, addition_code, opening_code, dep_delta_code, dep_opening_code, detraction_code)
+    DK: [
+        (3101,"CAPEX - operating assets, addition",    3100,"CAPEX - operating assets, opening",
+         3112,"Accumulated dep - operating assets, delta", 3110,"Accumulated dep - operating assets, opening", 3102),
+        (3141,"CAPEX - vehicles, addition",            3140,"CAPEX - vehicles, opening",
+         3152,"Accumulated dep - vehicles, delta",      3150,"Accumulated dep - vehicles, opening", 3142),
+        (3161,"CAPEX - fixtures & fittings, addition", 3160,"CAPEX - fixtures & fittings, opening",
+         3172,"Accumulated dep - fixtures & fittings, delta", 3170,"Accumulated dep - fixtures & fittings, opening", 3162),
+        (3181,"CAPEX - IT equipment, addition",        3180,"CAPEX - IT equipment, opening",
+         3192,"Accumulated dep - IT equipment, delta",  3190,"Accumulated dep - IT equipment, opening", 3182),
+    ],
+    UK: [
+        (3141,"CAPEX - vehicles, addition",            3140,"CAPEX - vehicles, opening",
+         3152,"Accumulated dep - vehicles, delta",      3150,"Accumulated dep - vehicles, opening", 3142),
+        (3161,"CAPEX - fixtures & fittings, addition", 3160,"CAPEX - fixtures & fittings, opening",
+         3172,"Accumulated dep - fixtures & fittings, delta", 3170,"Accumulated dep - fixtures & fittings, opening", 3162),
+        (3181,"CAPEX - IT equipment, addition",        3180,"CAPEX - IT equipment, opening",
+         3192,"Accumulated dep - IT equipment, delta",  3190,"Accumulated dep - IT equipment, opening", 3182),
+    ],
+    HOLDING: [
+        (3181,"CAPEX - IT equipment, addition",        3180,"CAPEX - IT equipment, opening",
+         3192,"Accumulated dep - IT equipment, delta",  3190,"Accumulated dep - IT equipment, opening", 3182),
+    ],
+}
+
+opening_entries = []
+for ent, classes in CAPEX_OPENING_MAP.items():
+    for (add_c, add_n, open_c, open_n, dep_delta_c, dep_delta_n, dep_open_c, dep_open_n, detr_c) in classes:
+        # Compute cumulative by year-end for each year 2023-2026
+        cum_add = 0.0
+        cum_dep = 0.0
+        for yr in range(2023, 2027):
+            # Sum all addition and detraction entries for this year
+            yr_add = sum(float(r["Amount"]) for r in rows
+                         if r["Entity"]==ent and r["Date"][:4]==str(yr)
+                         and (int(r["Account"].split()[0]) in (add_c, detr_c)))
+            yr_dep = sum(float(r["Amount"]) for r in rows
+                         if r["Entity"]==ent and r["Date"][:4]==str(yr)
+                         and int(r["Account"].split()[0]) == dep_delta_c)
+            cum_add += yr_add
+            cum_dep += yr_dep
+            # Post opening entries on Jan 1 of next year
+            next_yr = yr + 1
+            d = f"{next_yr}-01-01"
+            if abs(cum_add) > 0.01:
+                opening_entries.append({
+                    "Date": d, "Account": f"{open_c} {open_n}",
+                    "Amount": fmt(cum_add), "Description": "Test transaction",
+                    "Entity": ent, "Department": "Operations", "Project": ""
+                })
+                opening_entries.append({
+                    "Date": d, "Account": f"{add_c} {add_n}",
+                    "Amount": fmt(-cum_add), "Description": "Test transaction",
+                    "Entity": ent, "Department": "Operations", "Project": ""
+                })
+            if abs(cum_dep) > 0.01:
+                opening_entries.append({
+                    "Date": d, "Account": f"{dep_open_c} {dep_open_n}",
+                    "Amount": fmt(cum_dep), "Description": "Test transaction",
+                    "Entity": ent, "Department": "Operations", "Project": ""
+                })
+                opening_entries.append({
+                    "Date": d, "Account": f"{dep_delta_c} {dep_delta_n}",
+                    "Amount": fmt(-cum_dep), "Description": "Test transaction",
+                    "Entity": ent, "Department": "Operations", "Project": ""
+                })
+
+# ─── Verification ────────────────────────────────────────────────────────────
+total_rows = len(rows) + len(opening_entries)
+print(f"Rows: {total_rows:,}  ({len(rows):,} transactional + {len(opening_entries)} CAPEX opening)")
 from collections import Counter
-for ent,cnt in Counter(r["Entity"] for r in rows).items():
+for ent,cnt in Counter(r["Entity"] for r in rows+opening_entries).items():
     print(f"  {ent}: {cnt:,}")
 
-# Balance check
-totals = defaultdict(float)
+# BS balance check: sum of asset+liability+equity accounts should = 0 per period
+def acct_range(acct):
+    c = int(acct.split()[0])
+    if 1000 <= c <= 2999: return "pnl"
+    if 3000 <= c <= 3999: return "asset"
+    if 4000 <= c <= 4999: return "liability"
+    if 5000 <= c <= 5999: return "equity"
+
+cum_bs = defaultdict(float)
 for r in rows:
-    totals[(r["Entity"],r["Date"][:7])] += float(r["Amount"])
-nonzero = [(k,v) for k,v in totals.items() if abs(v)>0.05]
-print(f"Trial balance violations (>0.05): {len(nonzero)}")
+    t = acct_range(r["Account"])
+    if t in ("asset","liability","equity"):
+        cum_bs[(r["Entity"], r["Date"][:7], t)] += float(r["Amount"])
 
-# BS balance check at quarter-ends
-def acct_type(code):
-    if len(code)<=4: return "pnl"
-    n=int(code)
-    if 10000<=n<=29999: return "asset"
-    if 30000<=n<=49999: return "liability"
-    if 50000<=n<=59999: return "equity"
-    return "other"
+print("\nBS check (Dec-2025):")
+for ent in [DK, UK, HOLDING]:
+    periods = sorted(set(k[1] for k in cum_bs if k[0]==ent and k[1]<="2025-12"))
+    a = l = e = 0
+    for p in periods:
+        a += cum_bs.get((ent,p,"asset"),0)
+        l += cum_bs.get((ent,p,"liability"),0)
+        e += cum_bs.get((ent,p,"equity"),0)
+    print(f"  {ent[:12]}: A={a/1e6:+.1f}M  L={l/1e6:+.1f}M  E={e/1e6:+.1f}M  A+L+E={( a+l+e)/1e3:+.0f}k")
 
-for ent in [DK,UK,HOLDING]:
-    er = [r for r in rows if r["Entity"]==ent]
-    cum = defaultdict(float)
-    for r in er: cum[(r["Date"][:7],acct_type(r["Account Code"]))] += float(r["Amount"])
-    # check Dec 2025
-    ym="2025-12"
-    periods = sorted(set(r["Date"][:7] for r in er))
-    a=l=e=0
-    for p in [x for x in periods if x<="2025-12"]:
-        a+=cum.get((p,"asset"),0); l+=cum.get((p,"liability"),0); e+=cum.get((p,"equity"),0)
-    print(f"{ent[:12]} 2025-12: A={a/1e6:+.1f}M L={l/1e6:+.1f}M E={e/1e6:+.1f}M  A+L+E={( a+l+e)/1e6:+.2f}M")
-
-print(f"Unique accounts: {len(set(r['Account Code'] for r in rows))}")
+# ─── Write ────────────────────────────────────────────────────────────────────
+output = "/Users/anton/Documents/GitHub/docs/test-data/test-data.csv"
+os.makedirs(os.path.dirname(output), exist_ok=True)
+fields = ["Date","Account","Amount","Description","Entity","Department","Project"]
+all_rows = sorted(rows + opening_entries, key=lambda r: r["Date"])
+with open(output,"w",newline="",encoding="utf-8-sig") as f:
+    w = csv.DictWriter(f, fieldnames=fields, delimiter=";")
+    w.writeheader()
+    for r in all_rows:
+        # opening_entries already have amounts as formatted strings; rows still have floats
+        if isinstance(r["Amount"], float):
+            r["Amount"] = fmt(r["Amount"])
+        w.writerow(r)
+print(f"\nWritten: {output}")
