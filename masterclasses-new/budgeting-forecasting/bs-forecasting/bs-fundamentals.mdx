@@ -1,7 +1,7 @@
 ---
 title: "Balance Sheet fundamentals"
 sidebarTitle: "BS fundamentals"
-description: "How the Francis Balance Sheet template is structured and how assets, liabilities, and equity work together in one view."
+description: "How to work with the Balance Sheet in Francis: structuring the template, mapping GL accounts, and forecasting balances forward."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals.mp4" />
@@ -10,13 +10,13 @@ The Balance Sheet shows what the business owns, what it owes, and what remains f
 
 ## The Francis Balance Sheet template
 
-The template covers assets (non-current and current), liabilities (long-term and short-term), and equity (share capital, dividends, and retained earnings). Every section is editable: add rows, rename groups, or remove sections you don't use.
+The template includes the classic balance sheet categories you'll find in most charts of accounts: assets (non-current and current), liabilities (long-term and short-term), and equity (share capital, dividends, and retained earnings). That structure makes it easy to map your general ledger accounts onto the template.
 
-Add specific rows for each balance sheet item you want to track: receivables, inventory, prepayments, and VAT under current assets; bank debt and shareholder loans under long-term liabilities. The level of detail depends on what you need to report and forecast.
+Redesign the balance sheet with components however suits your business. Add specific rows for the items you track, like receivables, inventory, prepayments, and VAT under current assets, or bank debt and shareholder loans under long-term liabilities. Rename, regroup, or remove sections as you see fit. The level of detail depends on what you need to report and forecast.
 
 A **Validation** row sits at the bottom. It checks that assets equal liabilities plus equity. If it shows a non-zero value, something in the model is out of balance. See [BS validation](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation) for how to diagnose and fix it.
 
-Map your GL accounts to the relevant rows before you start. Balances won't populate until the mapping is in place.
+Map all your balance sheet GL accounts to the BS. There are two schools of thought in Francis. Some prefer a clean balance sheet, where GL accounts are grouped into reader-friendly lines. Others prefer an accounting-oriented layout, with one line per GL account for a direct link to the chart of accounts. We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget.
 
 ## How balance sheet forecasting works
 
@@ -32,24 +32,18 @@ This pattern applies to every BS line item:
 | VAT | `"VAT payable"[-1] + "Sales VAT"[0] - "Cost VAT"[0] - "VAT paid"[0]` |
 | CAPEX | `"Fixed assets"[-1] + "New investments"[0] - "Depreciation"[0]` |
 | Loans | `"Loan balance"[-1] + "New draws"[0] - "Repayments"[0]` |
-| Cash | `"Cash end period"[0]` |
-| Retained earnings | `"Retained earnings"[-1] + "Net profit"[0]` |
 
 Each line item page covers how additions and detractions work in practice. Actuals and forecast columns are determined by the **Forecast Start** date, visible in the top right of the model. Move it forward as you close each period to reforecast.
 
-## Connected across sheets
+## Sign conventions
 
-In forecast periods, **Cash** and **Retained earnings** need to be wired up manually. These are the two connections that link all three statements. In actuals periods, both rows populate from your GL mapping like any other balance sheet row. In Francis, the formulas look like this:
+When you budget and forecast, follow the sign convention: assets, liabilities, and equity are all entered as positive figures. This matches how balances arrive from your accounting system.
 
-```typescript
-= "Cash end period"[0]
-```
+## Connected across statements
 
-```typescript
-= "Retained earnings"[-1] + "Net profit"[0]
-```
+In forecast periods, the formulas for **Cash**, **Retained earnings**, and **accumulated depreciation** must be linked to the other statements in order for the balance sheet to match. Cash pulls from the cash flow statement, retained earnings from the net profit on the P&L, and depreciation from the depreciation expense on the P&L.
 
-Once these are in place, movements on BS lines flow to the cash flow statement automatically. When a receivable clears, the cash flow statement picks it up without manual intervention.
+In actuals periods, these rows populate from your GL mapping like any other balance sheet row.
 
 ## FAQ
 

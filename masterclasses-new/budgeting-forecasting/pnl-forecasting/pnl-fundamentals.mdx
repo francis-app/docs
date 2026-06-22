@@ -1,32 +1,34 @@
 ---
 title: "P&L fundamentals"
 sidebarTitle: "P&L fundamentals"
-description: "How the Francis P&L template is structured and how actuals and forecast work together in one view."
+description: "How to work with the P&L in Francis: structuring the template, mapping GL accounts, and setting margins and sign conventions."
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/pnl-forecasting/pnl-fundamentals.mp4" />
 
-The P&L is the center of gravity in most Francis models. Actuals flow in from your accounting system; the forecast builds forward from the structure you set.
+The P&L is often where you start in Francis. It's where you forecast and report income and expenses, and it sets the structure the rest of the model builds on.
 
 ## The Francis P&L template
 
-The template is a starting point. Every block is editable: add rows, rename groups, remove sections you don't use.
+The template includes the classic P&L categories you'll find in most charts of accounts: revenue, COGS, OPEX, financial items, depreciation, and taxes. OPEX is split further into sales and marketing, admin, rent, and professional services. That structure makes it easy to map your general ledger accounts onto the template. It also includes margins such as gross margin and profit margin.
 
-If your business reports contribution margin instead of gross margin, change it. Remove EBIT if you don't use it. Rename the groups under operating costs to match your department structure, or rename "Revenue" to match your business, like "Fees" or "Subscription revenue."
+Redesign the P&L with components however suits your business. Some teams split gross profit into Gross profit I, II, and III. Others report contribution margin instead of gross profit. Add, rename, and regroup lines as you see fit.
 
-Gross margin, EBITDA margin, and net profit margin are pre-built calculations. In the annual total column these show as weighted averages rather than sums, which is the correct treatment when margins vary month to month.
+## Map your GL accounts to the P&L
 
-Map your GL accounts to the relevant rows before you start forecasting. Actuals won't populate until the mapping is in place.
+Map all your P&L GL accounts to the P&L. There are two schools of thought in Francis. Some prefer a clean P&L, where GL accounts are grouped into reader-friendly lines. Others prefer an accounting-oriented layout, with one line per GL account for a direct link to the chart of accounts.
 
-## How P&L forecasting works
+We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget. GL accounts are often created with a different purpose in mind than the one you're planning toward.
 
-Each row in the P&L can use a different forecasting approach. The structure is set once; the method is chosen per row. Revenue rows might use a growth rate or a driver-based model. Operating costs rows might be hardcoded or linked to headcount.
+## Margins and aggregation
 
-Actuals from your accounting system sit alongside the forecast in the same view. Actuals and forecast columns are determined by the **Forecast Start** date, visible in the top right of the model. Move it forward as you close each period to reforecast.
+For margin rows, wrap the formula in `ignore_div_zero()` so it returns zero in periods where revenue is zero, rather than a `#DIV/0` error.
 
-## Connected across sheets
+Aggregate P&L lines by SUM, since the P&L reflects performance over a period. Aggregate margins by weighted average, so the total column on the right shows a correct blended margin instead of a sum of percentages.
 
-The P&L is the source that the Balance Sheet and cash flow statement draw from. Net profit flows into retained earnings on the Balance Sheet. Depreciation flows into the cash flow statement as a non-cash add-back. Tax and interest from the P&L feed the corresponding Balance Sheet liabilities. Getting the P&L structure right before building the Balance Sheet and cash flow saves significant rework.
+## Sign conventions
+
+When you budget and forecast, follow the sign convention: income positive, expenses negative. This matches how actuals arrive from your accounting system, so every subtotal down the P&L is a sum rather than a subtraction.
 
 ## FAQ
 
