@@ -14,17 +14,29 @@ The template includes the classic balance sheet categories you'll find in most c
 
 Redesign the balance sheet with components however suits your business. Add specific rows for the items you track, like receivables, inventory, prepayments, and VAT under current assets, or bank debt and shareholder loans under long-term liabilities. Rename, regroup, or remove sections as you see fit. The level of detail depends on what you need to report and forecast.
 
+## Map your GL accounts to the balance sheet
+
+Map all your balance sheet GL accounts to the BS. There are two schools of thought in Francis. Some prefer a clean balance sheet, where GL accounts are grouped into reader-friendly lines. Others prefer an accounting-oriented layout, with one line per GL account for a direct link to the chart of accounts.
+
+We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget. GL accounts are often created with a different purpose in mind than planning and reporting.
+
+## The validation row
+
 A **Validation** row sits at the bottom. It checks that assets equal liabilities plus equity. If it shows a non-zero value, something in the model is out of balance. See [BS validation](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation) for how to diagnose and fix it.
 
-Map all your balance sheet GL accounts to the BS. There are two schools of thought in Francis. Some prefer a clean balance sheet, where GL accounts are grouped into reader-friendly lines. Others prefer an accounting-oriented layout, with one line per GL account for a direct link to the chart of accounts. We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget.
+## Sign conventions
+
+When you budget and forecast, follow the sign convention: assets, liabilities, and equity are all entered as positive figures. This matches how balances arrive from your accounting system.
+
+## Aggregation
+
+Aggregate balance sheet lines by END. Balance sheet values accumulate, so the total column on the right should show the closing balance, not a sum across periods.
+
+Aggregate the validation row by SUM. Each period's check should be zero, so the total stays at zero only if every period balances. Any period that's out of balance then surfaces in the total.
 
 ## How balance sheet forecasting works
 
 Balance sheet forecasting always follows the same pattern: last period's value, plus additions, minus detractions.
-
-Last period's value is included because balance sheet items accumulate. A receivables balance doesn't reset to zero each month. It carries forward from the previous period and changes only when new invoices are issued or payments come in. The net movement (additions minus detractions) is what flows through to the cash flow statement.
-
-This pattern applies to every BS line item:
 
 | Line item | Formula |
 | :--- | :--- |
@@ -33,11 +45,29 @@ This pattern applies to every BS line item:
 | CAPEX | `"Fixed assets"[-1] + "New investments"[0] - "Depreciation"[0]` |
 | Loans | `"Loan balance"[-1] + "New draws"[0] - "Repayments"[0]` |
 
-Each line item page covers how additions and detractions work in practice. Actuals and forecast columns are determined by the **Forecast Start** date, visible in the top right of the model. Move it forward as you close each period to reforecast.
+Last period's value is included because balance sheet items accumulate. For example, a receivables balance doesn't reset to zero each month. It carries forward from the previous period and changes only when new invoices are issued or payments come in. The net movement (additions minus detractions) is what flows through to the cash flow statement.
 
-## Sign conventions
+The subsequent pages cover how they're modeled in practice. 
 
-When you budget and forecast, follow the sign convention: assets, liabilities, and equity are all entered as positive figures. This matches how balances arrive from your accounting system.
+## A simplified balance sheet budget
+
+For a first pass, you can budget the balance sheet on the assumption that nothing moves: no additions, no detractions, every line item held flat. You do this by referencing the last known period and dropping the movement terms.
+
+| Line item | Formula |
+| :--- | :--- |
+| Receivables | `"Receivables"[-1]` |
+| VAT | `"VAT payable"[-1]` |
+| CAPEX | `"Fixed assets"[-1]` |
+| Loans | `"Loan balance"[-1]` |
+
+This has two benefits:
+
+1. It removes noise from the cash flow statement. With no balance sheet movement, the cash flow is driven entirely by your P&L forecast.
+2. It still lets you analyze real movements once actuals arrive. You can also reforecast on a rolling basis, rebasing the balance sheet to the latest numbers, so the forecast never drifts far from reality.
+
+When taking this approach, reference the last known period rather than hardcoding the value. A hardcoded number won't rebase when a forecast with new actuals is created; a reference to `[-1]` will.
+
+This is a simplified approach, but a pragmatic and effective one. It gets you to a working budget quickly, and you can replace it with a proper forecast line by line as specific items become material.
 
 ## Connected across statements
 
