@@ -1,0 +1,64 @@
+---
+title: "Dashboards"
+sidebarTitle: "Dashboards"
+description: "Build live reporting on top of your model with charts, tables, metric boxes, text, and images that update automatically."
+---
+
+<video controls className="w-full aspect-video rounded-xl" src="/videos/features/dashboards.mp4" />
+
+In Francis, you build dashboards on top of your financial model. Every table, chart, and metric box pulls live data from the model and updates automatically, so once the model holds clean data, your reporting follows without a separate rebuild.
+
+This keeps reporting downstream of the model. Fix a number once, in the model, and every dashboard that references it updates.
+
+## Dashboard primitives
+
+A dashboard is built from primitives. You can add:
+
+- **Heading**: titles in your dashboard, as H1, H2, or H3.
+- **Text**: commentary, with standard formatting including bold, italic, numbered lists, and bullets.
+- **Table**: summaries, variance analysis, or side-by-side comparisons. See [tables](/features-new/using-francis/tables).
+- **Chart**: a visual highlight of key metrics. See [charts](/features-new/using-francis/charts).
+- **Metric**: a box highlighting a single metric, compared against another version or period.
+- **Image**: logos, brand imagery, or screenshots of analysis you can't build in the dashboard. Use it to bring any external analysis into one place alongside your live data.
+- **Spacer**: white space. Useful for a less dense layout, or to fill space before a page break.
+
+Right-click a primitive to duplicate, copy, or delete it. You can also delete one by selecting it and pressing **Backspace**.
+
+## Auto layout
+
+Drag and drop any primitive to position it wherever you want in the dashboard. Dashboards use auto layout, so moving or adding one can push others around to keep everything aligned. This sometimes shifts a primitive onto the next page in pursuit of a clean layout.
+
+You control the vertical length of charts, images, and spacers. Headings, text boxes, and tables size themselves to their content, so their length isn't adjustable.
+
+Every primitive fills the full horizontal width by default, and you can't set a width directly. To place primitives side by side, drag one next to another. Once two or more sit on the same row, you can adjust their relative widths so one takes more space than the others. To make a single primitive narrower, place a spacer beside it. That has the same effect as reducing its width.
+
+## Date settings and the Last Close month
+
+Set the **Last Close** month in the top bar. This setting syncs with your model. Several date ranges (Last month, YTD, LTM, Full year, Last year, and Next year) update dynamically from it, and actuals in charts and tables display through the Last Close month. For a fixed range instead, choose **Custom dates**.
+
+To roll the dashboard forward after a close, update the Last Close month and any table date settings. Actuals for the new month then appear automatically.
+
+## Sharing and exporting dashboards
+
+You can share a dashboard three ways:
+
+1. **Workspace access**: owners, admins, editors, and viewers reach dashboards the same way they reach sheets in the model.
+2. **Limited Viewer access**: invite specific people into a specific dashboard as Limited Viewers.
+3. **PDF export**: download the dashboard as a PDF.
+
+Inviting people into a dashboard carries no space restrictions. Tables can be as wide and as long as you need.
+
+A PDF is fixed and opens easily across devices, but it introduces space restrictions on primitive width and length. Before exporting, make sure no primitive breaks across a page or runs too wide. Where one does, add a spacer to push it onto the next page.
+
+### Canvas and Print Preview
+
+Dashboards have two view modes to guide this work:
+
+- **Canvas**: one continuous canvas with no page breaks. Use it for dashboards you invite people into.
+- **Print Preview**: shows page breaks and flags any space-restriction violations with red lines. Use it when you plan to export to PDF.
+
+## See in action
+
+<Note>
+  Use dashboards to build a [management report](/masterclasses-new/reporting/management-report) or [department dashboards](/masterclasses-new/reporting/department-dashboards).
+</Note>
