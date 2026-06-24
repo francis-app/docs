@@ -12,7 +12,7 @@ Salary forecasting involves enough moving parts (hire dates, increase cycles, pe
 
 Driver-based is the right default for headcount. Salary costs are determined by known inputs you control directly: hire dates, salary levels, increase cycles, pension rates. Model them explicitly rather than projecting from history.
 
-Use statistical when headcount is stable and salary increases follow a predictable annual pattern. It doesn't account for new hires or departures.
+Use statistical when headcount is stable and salary increases follow a predictable annual pattern. It doesn't account for changes in the trend.
 
 Hardcoded is for discrete, known costs that don't follow a formula: bonuses, one-off contractor fees, signing bonuses. Not the right fit for recurring salary costs.
 
@@ -31,9 +31,9 @@ Hardcoded is for discrete, known costs that don't follow a formula: bonuses, one
 
     In the **Assumptions** section, add rows for variables that apply across all employees: salary increase percentage, pension percentage, or any other shared inputs. These become the single inputs that drive calculations across the sheet.
 
-    For the salary section, group by department. A common approach adds a group per employee or role with rows for base salary, pension, and other employer costs. The exact structure depends on what your business tracks — you might group by role rather than individual, or use a single aggregated row per department if you don't need that level of detail.
+    A common approach adds a group per employee or role with rows for base salary, pension, and other employer costs. Consider grouping employees into groups for departments.
 
-    <Tip>If you use dimensions, you can break down actuals by department or employee without splitting GL accounts into separate rows. This is useful if your chart of accounts doesn't map cleanly to your headcount structure.</Tip>
+    <Tip>If you use dimensions, you can break down actuals by department without splitting GL accounts into separate rows. The headcount sheet is primarily a forecasting tool: build your plan at the employee or role level, then reference the totals on the P&L where they sit alongside actuals at the department level.</Tip>
 
     **Enter starting salaries**
 
@@ -73,7 +73,7 @@ Hardcoded is for discrete, known costs that don't follow a formula: bonuses, one
 
     For a new hire joining mid-year, leave the **Salary** row empty for months before their start date. Enter their salary directly in the month they join, then apply the ongoing salary formula from the following month forward.
 
-    <Note>As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual salary values for those periods on the headcount sheet. Formulas referencing prior months will break if the preceding actuals period is empty.</Note>
+    <Note>As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual salary values for those periods on the headcount sheet. Formulas referencing prior months will break if the preceding actuals period is empty. If you don't have actuals, put the budget numbers into the actuals layer to avoid formulas breaking.</Note>
   </Tab>
   <Tab title="Statistical">
     The right fit for a stable workforce with predictable annual salary increases. If headcount is steady and increases follow a known pattern, a YoY reference with a growth rate captures the forecast accurately:

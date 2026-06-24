@@ -12,20 +12,28 @@ OPEX covers a wide range of cost lines (software, marketing, facilities, profess
 
 Statistical is the right default for most OPEX lines. Recurring costs without a clear driver are well-served by a rolling average or a YoY reference.
 
-Use driver-based only when a meaningful, reliable driver exists for the cost line. For most OPEX items, statistical is simpler and often more accurate. Avoid forcing a driver where the relationship is weak.
+Use driver-based only when a meaningful, reliable driver exists for the cost line. Equipment and rent are good examples: where cost scales with headcount, model it as # FTEs × cost per FTE. For most OPEX items, statistical is simpler and often more accurate. Avoid forcing a driver where the relationship is weak.
 
-Use hardcoded for committed costs where the amount and timing are already fixed: a signed contract, an annual software renewal, a booked consulting engagement. A signed contract isn't a forecast — enter the number.
+Use hardcoded for committed costs where the amount and timing are already fixed: a signed contract, an annual software renewal, a booked consulting engagement. A signed contract isn't a forecast. Enter the number.
 
 ## Where to forecast OPEX
 
 - **Directly on the P&L:** right for most cases. A rolling average or hardcoded value lives on the cost row itself. Simple to set up, easy to maintain.
-- **Supporting sheet:** right when a cost area has multiple inputs or needs granular breakdown (marketing split by channel, professional services with several engagements). The sheet handles the detail; the P&L row references the total.
+- **Supporting sheet:** right when a cost area has multiple inputs or needs granular breakdown (software split by vendors, marketing split by channel). The sheet handles the detail; the P&L row references the total.
 
 ## Forecasting approaches
 
 <Tabs>
   <Tab title="Driver-based">
-    Use driver-based when a meaningful, reliable driver exists for the cost line. Add a formula that links the cost to its driver and add the assumption to a separate assumptions sheet:
+    Use driver-based when a meaningful, reliable driver exists for the cost line. Add a formula that links the cost to its driver and add the assumption to a separate assumptions sheet.
+
+    Equipment and rent are good examples where cost scales with headcount:
+
+    ```typescript
+    = "Headcount"[0] * "Cost per FTE"[0]
+    ```
+
+    Marketing spend as a percentage of revenue is another common pattern:
 
     ```typescript
     = "Revenue"[0] * "Marketing %"[0]

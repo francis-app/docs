@@ -45,7 +45,9 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
     = "Income incl. VAT"[0] * "VAT %"[0]
     ```
 
-    On the balance sheet, use three rows. **Cost VAT** takes last month's balance and adds this month's newly captured cost VAT:
+    On the balance sheet, use three rows.
+
+    **Cost VAT** takes last month's balance and adds this month's newly captured cost VAT:
 
     ```typescript
     = "Cost VAT"[-1] + "Captured cost VAT"[0]
@@ -56,6 +58,8 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
     ```typescript
     = "Sales VAT"[-1] + "Captured income VAT"[0]
     ```
+
+    <Note>Sales VAT and Cost VAT individually grow in perpetuity. Each month adds to the prior balance without any settlement logic on those rows. The Settlement row provides the offset. What matters is the sum of all three rows, which represents the net VAT position on the balance sheet.</Note>
 
     The **Settlement** row formula depends on your settlement frequency.
 
@@ -69,7 +73,7 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
     - "Cost VAT"[-1]
     ```
 
-    The NET VAT balance (the sum of all three rows) always equals the current month's incremental VAT exposure. Everything prior has been settled.
+    After settlement fires, the sum of all three rows reflects only the VAT captured in the current month. All prior accumulated balances have been cleared by the settlement row.
 
     **Quarterly settlement**
 
@@ -84,7 +88,7 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
 
     The cash flow picks up the change in the Settlement row each period automatically. When cost VAT consistently exceeds sales VAT (common in export-led, investment-heavy, or B2B businesses with limited domestic sales), the balance carries a receivable and the settlement becomes a cash inflow. The sign of the balance tells Francis whether a payment goes out or a refund comes in.
 
-    <Note>If you change VAT reporting frequency, for example from quarterly to monthly, historical data will show apparent cash spikes in the transition period that are not structural. Annotate these periods rather than adjusting the underlying data.</Note>
+    <Note>If you change VAT reporting frequency, for example from quarterly to monthly, historical data will show apparent cash spikes in the transition period. These are an artifact of the frequency change, not real cash movements. Add a formula note to the affected periods to explain the change rather than restating the historical balances.</Note>
   </Tab>
   <Tab title="Statistical">
     Use a rolling average of recent actuals when VAT exposure is stable month to month:

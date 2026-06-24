@@ -16,7 +16,7 @@ Driver-based is the right default when revenue is the primary driver. Express th
 
 Use statistical when payment patterns are stable and you want a quick, reliable estimate without rebuilding the revenue link.
 
-Hardcoded is often the most accurate in practice. Payment delays, disputes, and changes in payment terms can make driver-based models less reliable. It is also the right approach when modeling a deliberate reduction in trade receivables to hit a cash target.
+Use hardcoded when you have a management target, such as a deliberate reduction in payment days or a collection drive. The limitation is that hardcoded values don't adapt when operations change. Revenue growth, new customers, or revised payment terms all require a manual update.
 
 ## Where to forecast trade receivables
 
@@ -52,7 +52,7 @@ Hardcoded is often the most accurate in practice. Payment delays, disputes, and 
 
     **Cash flow**
 
-    The change in trade receivables flows automatically to the working capital section of the cash flow statement. An increase in the balance is a cash outflow; a decrease is a cash inflow. Francis calculates this from the balance sheet movement each period on a 12-month rolling basis. See [cash flow fundamentals](/masterclasses-new/budgeting-forecasting/cf-forecasting/cf-fundamentals) for how working capital movements feed the cash flow statement.
+    The change in trade receivables flows automatically to the working capital section of the cash flow statement. An increase in the balance is a cash outflow; a decrease is a cash inflow. See [cash flow fundamentals](/masterclasses-new/budgeting-forecasting/cf-forecasting/cf-fundamentals) for how working capital movements feed the cash flow statement.
   </Tab>
   <Tab title="Statistical">
     A rolling average works when the receivables balance is steady with no significant spikes or seasonal swings:
@@ -73,11 +73,11 @@ Hardcoded is often the most accurate in practice. Payment delays, disputes, and 
     Statistical is not a good fit when the historical balance does not accurately represent how the business will behave going forward. Common cases: payment terms are changing, new revenue streams have different collection profiles, or a large spike or one-off in the actuals distorts the average.
   </Tab>
   <Tab title="Hardcoded">
-    Enter the expected closing balance for each month based on management estimates. This is often the most accurate approach: driver-based models assume payment timing follows a fixed formula, but delays, disputes, and changes in payment terms can make the actual balance deviate significantly.
+    Enter the target closing balance directly for each month. Use this when working toward a management target, such as a reduction in payment days or a one-off collection drive. Enter the balance you're aiming for rather than trying to back-solve a driver.
 
-    Hardcoded is also the right approach when modeling a deliberate reduction in trade receivables, for example a target to reduce payment days or a one-off collection drive. Enter the target balance directly rather than trying to back-solve a driver.
+    The limitation is that hardcoded values don't adapt when operations change. Revenue growth, new customers, or revised payment terms all require a manual update each cycle.
 
-    Document the basis in a formula note. Trade receivables change with revenue and customer behaviour, so hardcoded values require a manual review each planning cycle.
+    Document the basis in a formula note so the assumption is clear when you revisit it.
   </Tab>
 </Tabs>
 
