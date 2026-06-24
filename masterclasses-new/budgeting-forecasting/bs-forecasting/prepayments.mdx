@@ -12,7 +12,7 @@ Balance sheet forecasting is always a function of last period's value, additions
 
 ## What approach to use
 
-Driver-based is the right primary approach. Link each prepayment to its underlying cost driver and coverage period. When assumptions change, the balance updates automatically and the P&L and cash flow stay in sync.
+Driver-based is the right primary approach. Build a supporting sheet listing each contract with its payment amount, due month, and coverage period. The sheet flows into both the P&L and the balance sheet — when assumptions change, both update automatically.
 
 Use statistical when the same contracts renew at roughly the same time each year with a small price increase. It is not flexible enough for a changing contract mix.
 
@@ -29,13 +29,13 @@ Hardcoded is acceptable for specific contracts with known amounts and timing. Us
   <Tab title="Driver-based">
     **Set up the supporting sheet**
 
-    Build the prepayments model on a supporting sheet. Group contracts by their coverage period so each group uses the correct expense formula. Name each group by period: **Prepayments** for annual contracts, **Quarterly prepayments** for quarterly.
+    Build the prepayments model on a supporting sheet. Group contracts by coverage period: one group for annual contracts, one for quarterly. Name the groups accordingly — **Prepayments** for annual, **Quarterly prepayments** for quarterly. Each group gets its own amortisation formula below it.
 
     Within each group, add one row per contract and hardcode the cash payment in the month it falls due.
 
     **P&L recognized**
 
-    Add a **P&L recognized** row below each group. The formula takes the rolling sum of the last 12 months of cash payments and divides by 12:
+    Add a **P&L recognized** row below each group. The formula takes the rolling sum of the last 12 months of annual payments and divides by 12:
 
     ```typescript
     = -sum("Prepayments" [-11:0]) / 12

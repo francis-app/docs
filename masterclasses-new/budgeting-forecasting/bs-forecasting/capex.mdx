@@ -8,20 +8,28 @@ description: "How to model fixed asset balances in Francis, including new invest
 
 CAPEX is spending on fixed assets expected to generate value over multiple periods. Common examples include machinery, equipment, leasehold improvements, and software licences. Unlike operating expenses, CAPEX is capitalised on the balance sheet and depreciated over the asset's useful life.
 
-Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For CAPEX, this means fixed asset value last period + new investments in period − depreciation in period.
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For CAPEX, this means fixed asset value last period + new investments in period − selloffs in period − depreciation in period.
 
 ## What approach to use
 
 Driver-based is the right default. Build an asset register on a supporting sheet, hardcode each acquisition in the month it occurs, and let the depreciation formula run automatically from those additions.
 
-Use hardcoded when you already have a known investment plan and depreciation schedule, for example from an existing Excel budget or an accountant's estimate.
-
 Statistical rarely fits. Investment is lumpy and project-driven, making historical averages an unreliable guide.
+
+Use hardcoded when you already have a known investment plan and depreciation schedule, for example from an existing Excel budget or an accountant's estimate.
 
 ## Where to forecast CAPEX
 
 - **Supporting sheet:** right for most cases. Build one section per asset class, each with its own asset register, gross cost roll-forward, and accumulated depreciation roll-forward. The balance sheet references the net book value totals.
 - **Directly on the balance sheet:** right for simple setups with a single asset class.
+
+## Existing vs. new CAPEX
+
+The approach differs depending on whether the asset is already in the books or planned for the forecast period.
+
+**Existing assets** carry a depreciation schedule that is already fixed. Source it from your accounting system, or calculate it in Francis by entering the historical acquisition costs and running the depreciation formula against them.
+
+**New assets** start fresh in the forecast period. Hardcode each acquisition in the month it occurs and let the depreciation formula run automatically from that point forward.
 
 ## Forecasting approaches
 
@@ -29,7 +37,7 @@ Statistical rarely fits. Investment is lumpy and project-driven, making historic
   <Tab title="Driver-based">
     **Set up the supporting sheet**
 
-    Create one section per asset class: Furniture, Vehicles, Machinery, Intangible assets. Within each section, add a group for new investments. Add one row per asset and hardcode the acquisition cost in the month the asset is acquired. This is your asset register.
+    Create one section per asset class: Furniture, Vehicles, Machinery, Intangible assets. Group by depreciation cadence, not just asset type. Two machinery items with different useful lives need separate groups, since the formula offset and divisor must match the useful life of every asset in the group. Within each group, add one row per asset and hardcode the acquisition cost in the month the asset is acquired. This is your asset register.
 
     Cost additions are the only rows with a cash effect. They flow to investing activities on the cash flow statement.
 
@@ -43,7 +51,7 @@ Statistical rarely fits. Investment is lumpy and project-driven, making historic
     = sum("Cost addition" [-59:0]) / 60
     ```
 
-    When a new asset is added to the register, the depreciation row picks it up in the current period and runs for the full 60 months. Adjust the offset and divisor to match each asset class. Depreciation flows to the P&L as a non-cash expense and to the accumulated depreciation balance on the balance sheet.
+    When a new asset is added to the register, the depreciation row picks it up in the current period and runs for the full 60 months. Adjust the offset and divisor to match each asset class. Depreciation flows to the **Depreciation expense** line on the P&L as a non-cash charge, and to the accumulated depreciation balance on the balance sheet.
 
     **Net book value**
 
