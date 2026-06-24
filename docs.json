@@ -210,7 +210,7 @@
               "features-new/using-francis/inspect",
               "features-new/using-francis/shortcuts",
               "features-new/using-francis/breakdowns",
-              "features-new/using-francis/reports",
+              "features-new/using-francis/dashboards",
               "features-new/using-francis/charts",
               "features-new/using-francis/tables",
               "features-new/using-francis/total-column",
@@ -280,7 +280,8 @@
           {
             "group": "Reporting",
             "pages": [
-              "masterclasses-new/reporting/management-report"
+              "masterclasses-new/reporting/management-report",
+              "masterclasses-new/reporting/department-dashboards"
             ]
           },
           {

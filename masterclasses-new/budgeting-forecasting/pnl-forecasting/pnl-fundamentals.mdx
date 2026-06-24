@@ -18,17 +18,19 @@ Redesign the P&L with components however suits your business. Some teams split g
 
 Map all your P&L GL accounts to the P&L. There are two schools of thought in Francis. Some prefer a clean P&L, where GL accounts are grouped into reader-friendly lines. Others prefer an accounting-oriented layout, with one line per GL account for a direct link to the chart of accounts.
 
-We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget. GL accounts are often created with a different purpose in mind than the one you're planning toward.
-
-## Margins and aggregation
-
-For margin rows, wrap the formula in `ignore_div_zero()` so it returns zero in periods where revenue is zero, rather than a `#DIV/0` error.
-
-Aggregate P&L lines by SUM, since the P&L reflects performance over a period. Aggregate margins by weighted average, so the total column on the right shows a correct blended margin instead of a sum of percentages.
+We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget. GL accounts are often created with a different purpose in mind than planning and reporting.
 
 ## Sign conventions
 
 When you budget and forecast, follow the sign convention: income positive, expenses negative. This matches how actuals arrive from your accounting system, so every subtotal down the P&L is a sum rather than a subtraction.
+
+## Margins
+
+For margin rows, wrap the formula in `ignore_div_zero()` so it returns zero in periods where revenue is zero, rather than a `#DIV/0` error. 
+
+## Aggregation
+
+Aggregate P&L lines by SUM, since the P&L reflects performance over a period. Aggregate margins by weighted average, so the total column on the right shows a correct blended margin instead of a sum of percentages.
 
 ## FAQ
 
