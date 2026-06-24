@@ -204,6 +204,7 @@
             "group": "Using Francis",
             "pages": [
               "features-new/using-francis/getting-started",
+              "features-new/using-francis/timeline-and-dates",
               "features-new/using-francis/components",
               "features-new/using-francis/data-mappings",
               "features-new/using-francis/formulas",
@@ -297,9 +298,14 @@
         "tab": "Integrations (preview)",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "integrations-new/overview"
+            ]
+          },
+          {
             "group": "Accounting",
             "pages": [
-              "integrations-new/accounting/overview",
               "integrations-new/accounting/business-central",
               "integrations-new/accounting/e-conomic",
               "integrations-new/accounting/quickbooks",

@@ -1,40 +1,51 @@
 ---
 title: "Version control"
 sidebarTitle: "Version control"
-description: "Save snapshots of your financial model to compare budgets, forecasts, and actuals in charts and reports."
+description: "Save snapshots of your model to lock in budgets and forecasts, then reference them in reports."
 icon: "clock-rotate-left"
 ---
 
 <video controls className="w-full aspect-video rounded-xl" src="/videos/features/version-control.mp4" />
 
-Version control lets you save snapshots of your model at key points in the year. Once saved, versions are available for comparison in charts and reports. Use them to track how your forecast has evolved, or to lock in an anchor budget before the year begins.
+Version control lets you save snapshots of your model when you want to lock budgets and forecasts. Once saved, versions are available for analysis in charts and reports. Use them to track budget vs. actuals or how your forecasts evolved over time.
+
+## How versioning works
+
+You work in one master model continuously. That live, editable version is your **Latest forecast**, and it holds the most current view at all times. When you reach a milestone worth preserving, a finalized budget or a new forecast, you save a snapshot. The snapshot locks that state so you can reference it later, while you carry on working in the master model.
+
+There is one source of truth that keeps moving forward, and a trail of locked snapshots behind it that you can always compare against.
 
 ## Save a version
 
-Navigate to **Versions** in the top bar and select **Save version** from the side drawer. Name the version and confirm. It appears on the version timeline immediately.
+The version selector sits in the top left sidebar, showing the active version (**Latest forecast** by default). Open the dropdown to see every saved version.
 
-<Tip>
-  Include a time reference in the name. Common conventions are "Q1 Reforecast" or "3+9 Forecast". These stay meaningful months later when the timeline has multiple entries.
-</Tip>
+Two versions always exist:
 
-## Use versions
+- **Initial version**: a snapshot of the model at creation.
+- **Latest forecast**: the open, editable version. This is your master model. Every change you make lives here until you save a snapshot.
 
-Saved versions are available in two places:
+To save a snapshot, press **+** next to the selector title. Name the version and confirm. It appears in the list immediately as a locked version. Name versions with both an identity and a time reference, like “2026 budget” or “3+9 Forecast”. Clear names keep the list easy to navigate as it grows.
 
-**Charts** — open a chart and go to **Sources**. Saved versions appear alongside built-in sources (latest forecast, actuals, prior year). Add them to compare budget vs. actuals or budget vs. forecast in the same view.
+Saved versions are locked. They cannot be edited or deleted after saving. The one exception is actuals: if new entries are booked to mapped accounts for months prior to the forecast start date, those actuals update in saved versions automatically.
 
-**Reports** — the variance report takes two inputs: an anchor budget and a forecast. Saved versions are the intended source for both. See Reports for how to configure the report layout.
+<Note>
+  Editing and archiving saved versions are on the Francis roadmap.
+</Note>
 
-## Access and editing
+## Open a saved version
 
-All roles can view the version timeline and saved versions. It is not possible to restrict access to specific versions or share individual versions with specific users.
+Click any version in the list to open it and see its numbers. You'll be in view mode, since locked versions cannot be edited. To return to your master model, switch back to **Latest forecast** in the selector.
 
-Saved versions are locked. They cannot be edited after saving. The exception is actuals: if new entries are booked to mapped accounts for months prior to the forecast start date, those actuals update in saved versions automatically.
+## Reference versions in charts and reports
 
-If you need to adjust a recently saved version, save a new version with your changes rather than trying to edit the existing one.
+You can reference any saved version in charts and tables, for both analysis and reporting. Common uses are comparing budget vs. actuals in a table, or visualizing budgets and forecasts side by side in a chart.
+
+To add a version, open the **Sources** dropdown in any chart or table. Saved versions appear there alongside the built-in sources (latest forecast, actuals, prior year).
+
+## Access
+
+All roles can view the version list and saved versions. It is not possible to restrict access to specific versions or share individual versions with specific users.
 
 ## See in action
 
-<Note>
-  See versions in practice in the [Budget and forecast versions](/masterclasses-new/budgeting-forecasting/budget-and-forecast-versions) and [Management report](/masterclasses-new/reporting/management-report) masterclasses.
-</Note>
+See versions in practice in the [Budget and forecast versions](/masterclasses-new/budgeting-forecasting/budget-and-forecast-versions) and [Management report](/masterclasses-new/reporting/management-report) masterclasses.
