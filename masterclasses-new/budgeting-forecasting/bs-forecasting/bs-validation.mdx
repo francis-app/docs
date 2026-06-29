@@ -10,22 +10,46 @@ The Francis template includes a **Validation** row that checks assets equal liab
 
 ## Check fails for actuals months
 
-1. **Have all balance sheet accounts been mapped?** If not, map the missing accounts to the relevant rows in Francis.
-2. **Have you incorrectly mapped P&L accounts to the balance sheet, or vice versa?** Check the account category label (I, EX, A, or L) in the mapping interface. Any account showing I or EX on a balance sheet row is in the wrong place. Move it to the correct section.
-3. **Have you mapped asset accounts to the liability side, or vice versa?** Francis flips the sign of liability accounts, so a wrong-side mapping causes a mismatch. Remap to the correct side.
-4. **Are there manual overrides in the balance sheet?** Look for cells with a yellow corner indicator. Remove the override or update the value to match your GL.
-5. **Does the balance sheet contain rows with values not sourced from your GL?** Review each row. Any row driven by a hardcoded value or formula not tied to your GL mapping will cause a mismatch. Remove it or map it to a GL account.
-6. **If you use QuickBooks Online, Xero, or NetSuite, have you manually adjusted retained earnings?** If not, apply the adjustment — see your [integration setup guide](/integrations) for the steps.
+<Steps>
+  <Step title="Check account mappings">
+    Have all balance sheet accounts been mapped? If not, map the missing accounts to the relevant rows in Francis.
+  </Step>
+  <Step title="Check for misclassified accounts">
+    Have you incorrectly mapped P&L accounts to the balance sheet, or vice versa? Check the account category label (I, EX, A, or L) in the mapping interface. Any account showing I or EX on a balance sheet row is in the wrong place. Move it to the correct section.
+  </Step>
+  <Step title="Check for wrong-side mappings">
+    Have you mapped asset accounts to the liability side, or vice versa? Francis flips the sign of liability accounts, so a wrong-side mapping causes a mismatch. Remap to the correct side.
+  </Step>
+  <Step title="Check for manual overrides">
+    Are there manual overrides in the balance sheet? Look for cells with a yellow corner indicator. Remove the override or update the value to match your GL.
+  </Step>
+  <Step title="Check for non-GL rows">
+    Does the balance sheet contain rows with values not sourced from your GL? Review each row. Any row driven by a hardcoded value or formula not tied to your GL mapping will cause a mismatch. Remove it or map it to a GL account.
+  </Step>
+  <Step title="Adjust retained earnings">
+    If you use QuickBooks Online, Xero, or NetSuite, have you manually adjusted retained earnings? If not, apply the adjustment. See your [integration setup guide](/integrations) for the steps.
+  </Step>
+</Steps>
 
 ## Check fails for forecast months
 
-1. **Is the check passing for actuals months?** If not, resolve that first before troubleshooting forecasts.
-2. **Have you forecasted the asset line item Cash as ending cash from the cash flow statement?** If not, set the Cash row formula to `= "Cash end period"[0]`.
-3. **Is the cash flow check passing for actuals months?** If not, resolve the cash flow check before continuing.
-4. **Have all non-cash line items been forecasted correctly?** These don't flow through the cash flow statement but still affect the balance sheet. Common causes:
-   - **Retained earnings** should equal last period's value plus this period's net profit.
-   - **Accumulated depreciation** should equal last period plus this period's depreciation expense.
-   - **Investments in subsidiaries** (equity method) should equal last period plus this period's income from subsidiaries.
+<Steps>
+  <Step title="Resolve actuals first">
+    Is the check passing for actuals months? If not, resolve that first before troubleshooting forecasts.
+  </Step>
+  <Step title="Link Cash to ending cash">
+    Have you forecasted the asset line item Cash as ending cash from the cash flow statement? If not, set the Cash row formula to `= "Cash end period"[0]`.
+  </Step>
+  <Step title="Check the cash flow validation">
+    Is the cash flow check passing for actuals months? If not, resolve the cash flow check before continuing.
+  </Step>
+  <Step title="Check non-cash line items">
+    Have all non-cash line items been forecasted correctly? These don't flow through the cash flow statement but still affect the balance sheet. Common causes:
+    - **Retained earnings** should equal last period's value plus this period's net profit.
+    - **Accumulated depreciation** should equal last period plus this period's depreciation expense.
+    - **Investments in subsidiaries** (equity method) should equal last period plus this period's income from subsidiaries.
+  </Step>
+</Steps>
 
 <Note>All cash-related P&L and balance sheet line items flow through the cash flow statement and affect the cash asset line. Errors there won't cause the balance sheet to go out of balance, but they may distort the cash value itself.</Note>
 
