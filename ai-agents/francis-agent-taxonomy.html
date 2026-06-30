@@ -79,6 +79,13 @@
   .c-basis{background:#E8EBEF; color:#3f4a57}
   .c-active{background:#E2F0E8; color:var(--good)}
   .c-planned{background:var(--admin-bg); color:var(--admin)}
+
+  /* ---- guide-map (worked example) ---- */
+  .guidemap{margin-top:12px; border-top:1px solid var(--rule); padding-top:10px}
+  .gm-group{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:12px 0 7px}
+  .guidemap ol{margin:0; padding-left:20px; font-size:13.5px; color:var(--muted); display:flex; flex-direction:column; gap:6px}
+  .guidemap li{line-height:1.5}
+  .gm-tool{font-family:var(--mono); font-size:11.5px; background:var(--surface); border:1px solid var(--rule-strong); color:var(--accent-ink); padding:1px 6px; border-radius:4px; white-space:nowrap; margin-left:2px}
   .c-admin{background:var(--admin-bg); color:var(--admin)}
   .c-comment{background:var(--accent-soft); color:var(--accent-ink)}
   .c-edit{background:var(--admin-bg); color:var(--admin)}
@@ -104,6 +111,8 @@
   .legend li{display:contents}
   .legend li b{color:var(--ink); font-weight:600}
   .legend .chip{margin-top:2px}
+  .legend ul.stacked{display:flex; flex-direction:column; gap:14px}
+  .legend ul.stacked li{display:flex; flex-direction:column; align-items:flex-start; gap:5px}
 
   /* ---- model tree reference ---- */
   .modeltree{overflow:auto; max-height:540px; background:var(--surface-2); border:1px solid var(--rule); border-radius:10px; margin-top:8px}
@@ -206,28 +215,13 @@
 
 <header class="mast">
   <h1>A capability taxonomy for Francis agents</h1>
-  <p class="standfirst">Worked backwards from 20 user prompts to create unifying tools. The taxonomy follows from seven principles.</p>
-  <div class="ptable-wrap">
-    <table class="principles">
-      <thead><tr><th>Principle</th><th>What it means</th></tr></thead>
-      <tbody>
-        <tr><td class="p-name">Agentic retrieval, never the whole model</td><td>The agent pulls the small slice each task needs, on demand. The full model is never handed to the LLM.</td></tr>
-        <tr><td class="p-name">Defaults come from the caller's context</td><td>When the user prompts from inside a model, sheet, or date range, that location is attached as context and becomes the default model, sheet, source, and period a tool reads. With no such context, the agent falls back to a sensible default or asks — so the tool inputs below don't restate per-field defaults.</td></tr>
-        <tr><td class="p-name">Reads return a bounded slice</td><td>Any read over a large collection — accounts, journal entries, ranked results — returns counts plus a capped, paged slice, never the full set, regardless of filter state.</td></tr>
-        <tr><td class="p-name">The engine computes; the LLM narrates</td><td>Reconciliation, variance, and integrity checks are deterministic engine work. The LLM navigates, explains, and proposes — it never does the arithmetic itself.</td></tr>
-        <tr><td class="p-name">Writes default to suggestions</td><td>Model changes are proposed for a human to approve — by default the commit path contains no AI. A trusted operator can opt a session into direct-edit mode (set up front, not per call), where changes commit immediately with no approval; it's off by default and audit-logged.</td></tr>
-        <tr><td class="p-name">Comments are a direct write</td><td>They annotate rather than change numbers, so they take effect immediately instead of going through the suggestion queue.</td></tr>
-        <tr><td class="p-name">Permissions mirror the user</td><td>The agent can do only what the calling user can.</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <p class="standfirst">Worked backwards from 20 user prompts to create unifying tools.</p>
 </header>
 
 <!-- ================= LEGEND ================= -->
 <section>
   <p class="sec-no">00 / How to read this</p>
   <h2>The classification system</h2>
-  <p class="lede">Two orthogonal axes describe every tool. <em>What it does to state</em> (read, suggest, write) and <em>who computes</em> (the engine returns numbers; the LLM narrates them). A build-status tag marks each tool active or planned.</p>
   <div class="legend">
     <div>
       <h4>Effect on state</h4>
@@ -241,6 +235,10 @@
         <li><span class="chip c-active">active</span><span><b>Active.</b> Built and callable today.</span></li>
         <li><span class="chip c-planned">planned</span><span><b>Planned.</b> Net-new capability, not yet built.</span></li>
       </ul>
+      <h4 style="margin-top:22px">Result size</h4>
+      <ul>
+        <li><span class="chip c-bounded">bounded</span><span><b>Bounded.</b> Returns counts plus a capped, paged slice of a potentially large collection — never the full set.</span></li>
+      </ul>
     </div>
     <div>
       <h4>Who computes</h4>
@@ -249,9 +247,9 @@
         <li><span class="chip c-llm">llm</span><span><b>LLM-side.</b> The model decides what to call, sequences calls, and turns the returned slice into prose, commentary, or a proposed structure.</span></li>
       </ul>
       <h4 style="margin-top:22px">Committed vs. suggested edits (a git model)</h4>
-      <ul>
+      <ul class="stacked">
         <li><span class="chip c-basis">committed</span><span>Reads the real, merged model — git's <code>main</code>, what's actually committed.</span></li>
-        <li><span class="chip c-basis">pending(bundleId)</span><span>Reads the model <em>as if</em> that bundle of suggestions — an unmerged branch — were applied. Lets the agent verify its own proposal before handoff: ask the engine whether the BS still balances and the CF still ties, then present only a checked suggestion. The central engineering requirement — see §04.</span></li>
+        <li><span class="chip c-basis">pending(bundleId)</span><span>Reads the model <em>as if</em> that bundle of suggestions — an unmerged branch — were applied. Lets the agent verify its own proposal before handoff: ask the engine whether the BS still balances and the CF still ties, then present only a checked suggestion.</span></li>
       </ul>
     </div>
   </div>
@@ -261,7 +259,7 @@
 <section>
   <p class="sec-no">Reference / The example model</p>
   <h2>A large client's model, for reference</h2>
-  <p class="lede">The representative structure the bounded reads were designed against (see §06). Companies are anonymized; the shape is real — three parallel breakdown hierarchies over eight entities, plus standalone sheets. Two things to notice: entity assignments are sparse (≈1 per sheet), and department dimensions carry hundreds of values but are hand-grouped onto sheets, most holding 1–5 with a catch-all "other" absorbing the tail.</p>
+  <p class="lede">Three parallel breakdown hierarchies over eight entities, plus standalone sheets. Two things to notice: entity assignments are sparse (≈1 per sheet), and department dimensions carry hundreds of values but are hand-grouped onto sheets, most holding 1–5 with a catch-all "other" absorbing the tail.</p>
   <div class="modeltree">
 <pre><b>Functional P&amp;L (breakdown roll-up)</b>
 - Holding (roll-up)
@@ -393,7 +391,6 @@
   <!-- Family 1 -->
   <div class="family">
     <div class="family-head"><h3>Retrieval &amp; navigation</h3><span class="tag">agentic context</span></div>
-    <p class="family-note">The agent has no pre-stuffed model; it pulls exactly the slice a prompt needs. Reads of model state — structure, values, formulas — take a <code>basis</code> (committed or pending). Connection, journal-entry, and source lookups read committed reality only, since pending suggestions don't change them. Tools tagged <span class="chip c-bounded">bounded</span> return counts plus a capped, paged slice of a potentially large collection rather than the full set.</p>
 
     <div class="tool">
       <div class="tool-top"><span class="tool-name">list_data_sources</span>
@@ -416,7 +413,7 @@
         <div class="tool-chips"><span class="chip c-read">read</span><span class="chip c-engine">engine</span><span class="chip c-bounded">bounded</span><span class="chip c-active">active</span></div></div>
       <p class="tool-purpose">Within a sheet: the sections, groups, rows and calculations, with each one's GL mappings, row/calc descriptions, and To-do/In-progress/Done status.</p>
       <dl class="io"><dt>in</dt><dd>sheet (or subsheet); source; <code>basis</code>; page cursor</dd>
-        <dt>out</dt><dd>a capped page of the typed component tree (sections, groups, rows, calculations), each with its mappings, description, and status; cursor for the next page</dd></dl>
+        <dt>out</dt><dd>a capped page of the typed component tree (sections, groups, rows, calculations), each with its mappings (and each mapped account's category — I / EX / A / L — and side), description, and status; cursor for the next page</dd></dl>
     </div>
 
     <div class="tool">
@@ -424,7 +421,7 @@
         <div class="tool-chips"><span class="chip c-read">read</span><span class="chip c-engine">engine</span><span class="chip c-active">active</span></div></div>
       <p class="tool-purpose">The small-slice numeric read. Computed values for a {rows × periods} window, from any source: latest forecast, actuals, prior year, or a saved version.</p>
       <dl class="io"><dt>in</dt><dd>rows; period range; source; <code>basis</code></dd>
-        <dt>out</dt><dd>resolved values (tabular); never the full model</dd></dl>
+        <dt>out</dt><dd>resolved values (tabular), flagging any cell that is a manual override (the yellow-corner state); never the full model</dd></dl>
     </div>
 
     <div class="tool">
@@ -463,7 +460,6 @@
   <!-- Family 2 -->
   <div class="family">
     <div class="family-head"><h3>Analytical &amp; diagnostic engine</h3><span class="tag">deterministic · returns a small slice or findings list</span></div>
-    <p class="family-note">Math and integrity tests the LLM must never attempt itself. Each returns a compact, ordered result the model narrates.</p>
 
     <div class="tool">
       <div class="tool-top"><span class="tool-name">compute_variance</span>
@@ -484,7 +480,7 @@
     <div class="tool">
       <div class="tool-top"><span class="tool-name">run_health_check</span>
         <div class="tool-chips"><span class="chip c-read">read</span><span class="chip c-engine">engine</span><span class="chip c-planned">planned</span></div></div>
-      <p class="tool-purpose">The model health check (planned feature): the deterministic suite of automated tests over a model. Surfaces notifications and unassigned dimension values, and runs the BS integrity check (assets − liabilities − equity) and the CF cash-tie check (statement ending cash vs. GL cash) — per period and per sub-sheet, so an imbalance is localized to the entity that causes it. The agent's entry point for "what's wrong with this model," and the place it starts before walking a troubleshooting guide. <span class="gapflag">Net-new feature; per-sub-sheet localization in particular — see §03.</span></p>
+      <p class="tool-purpose">The model health check (planned feature): the deterministic suite of automated tests over a model. Surfaces notifications and unassigned dimension values, and runs the BS integrity check (assets − liabilities − equity) and the CF cash-tie check (statement ending cash vs. GL cash) — per period and per sub-sheet, so an imbalance is localized to the entity that causes it. The agent's entry point for "what's wrong with this model," and the place it starts before walking a troubleshooting guide. <span class="gapflag">Net-new as a packaged feature — but the checks it bundles, including per-sub-sheet localization, are feasible with today's reads.</span></p>
       <dl class="io"><dt>in</dt><dd>scope (model / sheet / sub-sheet); optional check types; period range; <code>basis</code></dd>
         <dt>out</dt><dd>findings, each with type (notification, unassigned value, BS imbalance, CF mismatch), location (sheet / sub-sheet / period), and signed residual where numeric</dd></dl>
     </div>
@@ -493,7 +489,6 @@
   <!-- Family 3 -->
   <div class="family">
     <div class="family-head"><h3>Suggestion authoring</h3><span class="tag">the only write path · zero AI on commit</span></div>
-    <p class="family-note">Suggestions never mutate committed state. The agent verifies its own proposal by reading in <code>pending</code> basis before a human ever sees it. This surface is intentionally thin — three tools — because the complexity lives in the engine's pending-aware reads, not in the write surface.</p>
 
     <div class="tool">
       <div class="tool-top"><span class="tool-name">suggest_values</span>
@@ -523,7 +518,6 @@
   <!-- Family 4 -->
   <div class="family">
     <div class="family-head"><h3>Direct edits</h3><span class="tag">gated · immediate · bypasses approval by design</span></div>
-    <p class="family-note">A deliberate, separately gated exception to "writes are suggestions." These mutate committed state with no approval step, so their availability is governed by a session mode the operator sets up front, not a choice the model makes per call: off by default, enabled only for a trusted principal. They mirror the suggestion pair, so the model reasons about the same value/structure split — but skip the bundle, the pending overlay, and the human review loop, which is exactly why they're gated apart. They target the live model (saved versions stay locked), and every direct edit is audit-logged.</p>
 
     <div class="tool">
       <div class="tool-top"><span class="tool-name">write_values</span>
@@ -545,7 +539,6 @@
   <!-- Family 5 -->
   <div class="family">
     <div class="family-head"><h3>Collaboration</h3><span class="tag">comments · direct write, not a suggestion</span></div>
-    <p class="family-note">Threads are how the agent and the team discuss the model in place. Reading them is context; writing one is a direct action — a comment annotates, it never changes a number, so it doesn't go through the suggestion path. Comments are also where a colleague reviews a bundle (see §05).</p>
 
     <div class="tool">
       <div class="tool-top"><span class="tool-name">list_comments</span>
@@ -581,7 +574,7 @@
 
     <div class="prompt"><p class="q">A red notification next to the Veloton ApS sheet — what does it mean?</p>
       <div class="flow"><span class="step">run_health_check</span><span class="arr">→</span><span class="step">get_model_tree</span></div>
-      <p class="split"><b>Engine:</b> the health check first confirms what the badge flags — a notification or an unassigned dimension value; the breakdown configuration then reveals which value is unassigned and where it routes. <b>LLM:</b> explains what the badge means and what needs assigning. (A stale data source is the other candidate — <code>list_data_sources</code> rules it in or out.)</p></div>
+      <p class="split"><b>Engine:</b> <code>run_health_check</code> first confirms what the badge flags — a notification or an unassigned dimension value; the breakdown configuration then reveals which value is unassigned and where it routes. <b>LLM:</b> explains what the badge means and what needs assigning. (A stale data source is the other candidate — <code>list_data_sources</code> rules it in or out.)</p></div>
 
     <div class="prompt"><p class="q">Account 6115 Overkurs exists in e-conomic but not Francis.</p>
       <div class="flow"><span class="step">list_accounts</span><span class="arr">→</span><span class="step">suggest_structure (add_mapping)</span></div>
@@ -614,12 +607,12 @@
     <div class="cluster-head"><span class="k">C</span><h3>Variance &amp; source comparison</h3></div>
 
     <div class="prompt"><p class="q">Biggest variances between May Forecast and actuals after closing June 2026.</p>
-      <div class="flow"><span class="step">list_sources</span><span class="arr">→</span><span class="step">compute_variance</span></div>
-      <p class="split"><b>Engine:</b> diffs the saved "May Forecast" version against actuals over closed months, ranked. <b>LLM:</b> narrates the top movers and likely drivers. <span style="color:var(--good);font-weight:600">Feasible from variance groups + saved versions.</span></p></div>
+      <div class="flow"><span class="step">list_sources</span><span class="arr">→</span><span class="step">get_model_tree</span><span class="arr">→</span><span class="step">compute_variance</span></div>
+      <p class="split"><b>Engine:</b> <code>list_sources</code> resolves "May Forecast" and actuals; <code>get_model_tree</code> locates the P&amp;L (the default scope); <code>compute_variance</code> diffs them across it over closed months, ranked. <b>LLM:</b> narrates the top movers and likely drivers. <span style="color:var(--good);font-weight:600">Feasible from variance groups + saved versions.</span></p></div>
 
     <div class="prompt"><p class="q">Which OPEX item grows most, Budget-2026 vs Actuals-2025?</p>
-      <div class="flow"><span class="step">list_sources</span><span class="arr">→</span><span class="step">compute_variance</span></div>
-      <p class="split"><b>Engine:</b> resolves the Budget-2026 and Actuals-2025 sources, then diffs them across OPEX rows, ranked by growth. <b>LLM:</b> reports the largest and the percentage.</p></div>
+      <div class="flow"><span class="step">list_sources</span><span class="arr">→</span><span class="step">get_model_tree</span><span class="arr">→</span><span class="step">get_components</span><span class="arr">→</span><span class="step">compute_variance</span></div>
+      <p class="split"><b>Engine:</b> <code>list_sources</code> resolves Budget-2026 and Actuals-2025; <code>get_model_tree</code> and <code>get_components</code> identify the OPEX group; <code>compute_variance</code> diffs the two sources across the OPEX rows, ranked by growth. <b>LLM:</b> reports the largest and the percentage.</p></div>
   </div>
 
   <!-- D -->
@@ -628,16 +621,81 @@
     <p class="split" style="margin-bottom:14px">These start at the <b>model health check</b>, which surfaces and localizes the failing check deterministically. The agent then works the <b>documented troubleshooting guide step by step</b> — each step in the guide maps to a read tool, so the agent calls one per step until it finds the cause.</p>
 
     <div class="prompt"><p class="q">BS doesn't match for Veloton ApS actuals Dec-2025.</p>
-      <div class="flow"><span class="step">run_health_check (BS, sub-sheet)</span><span class="arr">→</span><span class="step">get_components</span><span class="arr">→</span><span class="step">get_formula</span><span class="arr">→</span><span class="step">inspect_journal_entries</span></div>
-      <p class="split"><b>Engine:</b> the health check returns the residual on that sub-sheet for Dec-25; the read tools then return mappings, formulas, and journal detail on demand. <b>LLM:</b> walks the BS troubleshooting guide in order — P&amp;L/BS mapping, manual overrides, wrong-side mappings — calling the matching tool at each step.</p></div>
+      <div class="gm-group">1 · Identify the failing row</div>
+      <div class="flow"><span class="step">run_health_check (BS)</span><span class="arr">→</span><span class="step">get_model_tree</span><span class="arr">→</span><span class="step">get_components</span><span class="arr">→</span><span class="step">get_values (BS validation row)</span></div>
+      <p class="split">These four calls flag the failing BS check, localize it to Veloton ApS, and find the balance-sheet validation row and the Dec-25 cell that isn't zero.</p>
+      <div class="gm-group" style="margin-top:18px">2 · Troubleshoot — walk the documented BS guide</div>
+      <p class="split">Scoped to that sheet — and to both the P&amp;L and BS+CF sheets when they're split — the agent works the guide one read per step:</p>
+      <div class="guidemap">
+        <div class="gm-group">Actuals months</div>
+        <ol>
+          <li>All balance-sheet accounts mapped? <span class="gm-tool">list_accounts</span></li>
+          <li>A P&amp;L account mapped to a BS row, or vice versa (check the I / EX / A / L category)? <span class="gm-tool">get_components</span></li>
+          <li>An asset mapped to the liability side, or vice versa (sign flip)? <span class="gm-tool">get_components</span></li>
+          <li>Manual overrides — the yellow-corner cells? <span class="gm-tool">get_values</span></li>
+          <li>Rows not sourced from the GL (a hardcoded value or off-mapping formula)? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Manually adjusted retained earnings (QuickBooks, Xero, NetSuite)? <span class="gm-tool">get_components → get_formula</span></li>
+        </ol>
+        <div class="gm-group">Forecast months</div>
+        <ol>
+          <li>Is the check passing for actuals first? <span class="gm-tool">get_values</span></li>
+          <li>Is Cash forecast as ending cash from the cash flow statement? <span class="gm-tool">get_formula</span></li>
+          <li>Is the cash-flow check passing for actuals? <span class="gm-tool">run_health_check (CF)</span></li>
+          <li>Non-cash lines correct — retained earnings, accumulated depreciation, investments in subsidiaries? <span class="gm-tool">get_formula</span></li>
+        </ol>
+      </div></div>
 
     <div class="prompt"><p class="q">Consolidated BS check won't zero — identify which entities/sub-sheets cause it.</p>
-      <div class="flow"><span class="step">run_health_check (BS, per sub-sheet)</span><span class="arr">→</span><span class="step">get_components</span></div>
-      <p class="split"><b>Engine:</b> the health check runs the BS test per sub-sheet and ranks residuals — this is the localization. <b>LLM:</b> names the offending entities, then drills into each via the guide. <span class="gapflag">Per-sub-sheet localization is part of the planned health check, not in today's binary check (§03).</span></p></div>
+      <div class="gm-group">1 · Localize the imbalance</div>
+      <div class="flow"><span class="step">get_model_tree</span><span class="arr">→</span><span class="step">get_components</span><span class="arr">→</span><span class="step">get_values (BS validation row, across sub-sheets)</span></div>
+      <p class="split"><code>get_model_tree</code> lays out the consolidation hierarchy and its sub-sheets; <code>get_components</code> resolves the BS validation row (the breakdown deploys it to every sub-sheet); <code>get_values</code> reads that row across sub-sheets for the failing period — the non-zero ones, often several, are the entities driving the imbalance, already placed in the hierarchy (which roll-up, which eliminations sheet). <code>run_health_check</code> would package this once built.</p>
+      <div class="gm-group" style="margin-top:18px">2 · Troubleshoot by where the residual sits</div>
+      <div class="guidemap">
+        <div class="gm-group">An entity sub-sheet is off</div>
+        <ol>
+          <li>Walk the single-entity BS guide (above) on that sheet — it's a standalone balance-sheet problem.</li>
+        </ol>
+        <div class="gm-group">A roll-up or eliminations level is off (consolidation-specific)</div>
+        <ol>
+          <li>Do eliminations net to zero for each intercompany pair? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Are both sides of each intercompany balance mapped? <span class="gm-tool">list_accounts</span></li>
+          <li>Multi-currency — is an FX fluctuation row absorbing the residual between the two converted sides? <span class="gm-tool">get_components → get_formula</span></li>
+        </ol>
+      </div></div>
 
     <div class="prompt"><p class="q">CF doesn't match for Veloton ApS actuals Dec-2025.</p>
-      <div class="flow"><span class="step">run_health_check (CF)</span><span class="arr">→</span><span class="step">get_formula</span><span class="arr">→</span><span class="step">inspect_journal_entries</span></div>
-      <p class="split"><b>Engine:</b> the health check returns the cash-tie residual (statement ending cash vs. GL cash); read tools return the derived movement formulas and journal entries. <b>LLM:</b> walks the CF troubleshooting guide step by step, calling a tool per step, to find which movement breaks the tie.</p></div>
+      <div class="gm-group">1 · Identify the failing month</div>
+      <div class="flow"><span class="step">run_health_check (CF)</span><span class="arr">→</span><span class="step">get_model_tree</span><span class="arr">→</span><span class="step">get_components</span><span class="arr">→</span><span class="step">get_values (CF validation row)</span></div>
+      <p class="split"><code>run_health_check</code> flags the failing CF check (ending cash on the statement vs. the GL cash account) and localizes it to Veloton ApS; <code>get_model_tree</code> and <code>get_components</code> locate the cash-flow statement, and <code>get_values</code> reads the CF validation row to pinpoint the month the tie breaks. A break in one month points at a journal entry; a consistent break points at structure.</p>
+      <div class="gm-group" style="margin-top:18px">2 · Troubleshoot — walk the documented CF guide</div>
+      <div class="guidemap">
+        <div class="gm-group">Actuals · P&amp;L and BS prerequisites</div>
+        <ol>
+          <li>All P&amp;L and BS accounts mapped? <span class="gm-tool">list_accounts</span></li>
+          <li>Manual overrides in the P&amp;L or BS? <span class="gm-tool">get_values</span></li>
+          <li>P&amp;L subtotals correct, giving a clean net profit? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Is the BS check passing? Resolve it first. <span class="gm-tool">run_health_check (BS)</span></li>
+          <li>Line items not sourced from the GL? <span class="gm-tool">get_components → get_formula</span></li>
+        </ol>
+        <div class="gm-group">Actuals · the cash-flow statement</div>
+        <ol>
+          <li>Are all cash movements included? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Are non-cash items excluded — depreciation, accumulated depreciation, income from and investment in subsidiaries? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Multi-currency adjustments made? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Any missing formulas (blank cells)? <span class="gm-tool">get_components → get_formula</span></li>
+          <li>Signs correct — assets minus, liabilities and equity plus? <span class="gm-tool">get_formula</span></li>
+          <li>BS movement deltas correct (this period − prior)? <span class="gm-tool">get_formula</span></li>
+        </ol>
+        <div class="gm-group">Actuals · journal entries</div>
+        <ol>
+          <li>Cash journals posted to non-cash lines? <span class="gm-tool">inspect_journal_entries</span></li>
+          <li>Non-cash journals posted to cash lines? <span class="gm-tool">inspect_journal_entries</span></li>
+        </ol>
+        <div class="gm-group">Forecast months</div>
+        <ol>
+          <li>Is Cash forecast as ending cash from the CF statement (cash as a plug)? <span class="gm-tool">get_formula</span></li>
+        </ol>
+      </div></div>
   </div>
 
   <!-- E -->
@@ -654,7 +712,7 @@
 
     <div class="prompt"><p class="q">Replicate the FX conversion (AVG for P&amp;L/CF, closing for BS, plus CF FX-adjustment lines) across all sheets, using FR as reference.</p>
       <div class="flow"><span class="step">get_components (FR)</span><span class="arr">→</span><span class="step">get_formula (FR FX rows)</span><span class="arr">→</span><span class="step">suggest_structure + suggest_values (per target sheet)</span><span class="arr">→</span><span class="step">run_health_check (pending)</span></div>
-      <p class="split"><b>Engine:</b> resolves FR's FX rows, projects the copied rows onto each target sheet, recomputes. <b>LLM:</b> reads FR as the template and emits per-sheet suggestions. <span class="gapflag">No "use sheet X as reference" primitive exists — the agent reads FR and re-emits; structure-deploy is otherwise a breakdown behavior (§03).</span></p></div>
+      <p class="split"><b>Engine:</b> resolves FR's FX rows, projects the copied rows onto each target sheet, recomputes. <b>LLM:</b> reads FR as the template and emits per-sheet suggestions. <span class="gapflag">No dedicated "replicate" primitive — it's the ordinary read-then-suggest pattern, one suggestion set per target sheet.</span></p></div>
 
     <div class="prompt"><p class="q">Build a functional P&amp;L (S&amp;M / R&amp;D / Admin) pulling department data from the nature-based P&amp;Ls.</p>
       <div class="flow"><span class="step">get_model_tree</span><span class="arr">→</span><span class="step">get_components</span><span class="arr">→</span><span class="step">suggest_structure (new sheet + calc rows referencing dept sub-sheets)</span><span class="arr">→</span><span class="step">get_values (pending)</span></div>
@@ -684,117 +742,28 @@
 
 </section>
 
-<!-- ================= GAPS ================= -->
-<section>
-  <p class="sec-no">03 / Gaps</p>
-  <h2>Where the docs give no reason to assume a capability</h2>
-  <p class="lede">Flagged as net-new rather than invented. Two were called out explicitly; both verdicts below are grounded in what the validation and variance docs actually describe.</p>
-
-  <div class="gap">
-    <div class="gap-head"><span class="verdict v-net">net-new</span><h3>Imbalance localization (BS / CF) — which entity broke the check</h3></div>
-    <p>The BS validation is a single row (assets − liabilities − equity, summed per period) returning a binary zero/non-zero. The CF check compares statement ending cash to the GL cash account, also binary. Both ship with <b>manual</b> troubleshooting checklists; intercompany reconciliation is a <b>manual</b> per-pair difference formula. <b>Nothing in the docs attributes a residual to a specific entity or sub-sheet.</b></p>
-    <p>It is, however, <b>computable</b>: the engine holds per-sub-sheet values, so the check can run independently per sub-sheet and rank residuals. This is slated to live inside the <b>model health check</b> feature (<code>run_health_check</code>) — the deterministic home for these tests — and is the capability behind cluster D's hardest prompt. Net-new; don't assume it exists today.</p>
-  </div>
-
-  <div class="gap feasible">
-    <div class="gap-head"><span class="verdict v-ok">feasible</span><h3>Source-pair variance</h3></div>
-    <p>Documented directly. Variance groups compare any two sources — saved versions, latest forecast, actuals, prior year — with diff columns (<code>#</code>, index, <code>%</code>) and a baseline. <code>compute_variance</code> is a thin engine wrapper that returns a ranked slice instead of rendering a table. The "after closing June 2026" framing is just the last-close marker gating which months count as actuals.</p>
-  </div>
-
-  <div class="gap">
-    <div class="gap-head"><span class="verdict v-net">net-new</span><h3>The entire suggestion / pending / approval substrate</h3></div>
-    <p>The docs describe comments, threads, and To-do/In-progress/Done statuses — but <b>no draft, pending-change, review, or approval workflow</b>, and saved versions are immutable snapshots, not a scratch layer. The whole suggestion architecture, including the human commit path, is new build. Expected, since it's the thing being designed — flagged so it isn't mistaken for an existing primitive.</p>
-  </div>
-
-  <div class="gap">
-    <div class="gap-head"><span class="verdict v-net">net-new</span><h3>"Use sheet X as reference" replication</h3></div>
-    <p>There is no documented primitive for "replicate this sheet's structure onto others using FR as a reference." The one structure-deployment mechanism Francis describes is the breakdown (parent template syncs top-down to sub-sheets) — which doesn't fit ad-hoc cross-sheet replication. So the FX-replication prompt is served by the agent <b>reading FR and re-emitting per-sheet suggestions</b>, not by a replicate primitive. Fine, but it means N sheets = N suggestion sets, bundled.</p>
-  </div>
-
-  <div class="gap">
-    <div class="gap-head"><span class="verdict v-net">net-new</span><h3>Functional P&amp;L template</h3></div>
-    <p>The docs only describe departments as a <em>cost-centre dimension</em> scoped to OPEX. A functional S&amp;M / R&amp;D / Admin P&amp;L that pulls department data across sub-sheets is a modeling pattern the agent constructs from cross-sheet formulas — not a missing tool. Feasible with existing formula syntax; just undocumented as a pattern.</p>
-  </div>
-</section>
-
-<!-- ================= PENDING STATE ================= -->
-<section>
-  <p class="sec-no">04 / The central engineering requirement</p>
-  <h2>Structural pending-state: reading the model <span class="rule-accent">as if a bundle were applied</span></h2>
-  <p class="lede">Every structural prompt in cluster E depends on this. The agent must verify a proposed structure — that FX rows reconcile, that the CF tie zeroes, that the consolidated BS still balances — <em>before</em> a human reviews it. That means reads must evaluate committed state plus a pending bundle, and the bundle can change the model's <em>shape</em>, not just its cell values.</p>
-
-  <ol class="req">
-    <li>
-      <h4>An overlay evaluation mode, not a write</h4>
-      <p>The engine takes the committed model graph plus a bundle's ordered, uncommitted operations and produces a projected computation — without touching committed state. The bundle id is the overlay handle every <code>basis: pending</code> read passes in.</p>
-    </li>
-    <li>
-      <h4>Operations are DDL-like, not just cell edits</h4>
-      <p>The overlay must replay <code>add_sheet</code>, <code>add_row</code>, <code>add_calculation</code>, <code>add_group/section</code>, <code>apply_breakdown</code>, <code>add_rollup</code>, and <code>add_mapping</code> — plus edits and deletes — so a "new sheet" or "new breakdown" projects correctly, not only pending values on existing cells.</p>
-    </li>
-    <li>
-      <h4>Re-run the behaviors that structure triggers</h4>
-      <p>Adding structure cascades: a breakdown deploys the parent template top-down into new sub-sheets and re-routes actuals by mapping; a new mapping changes which journal entries land on which row; parent rows become read-only roll-ups of new sub-rows. The overlay must reproduce all of this, not just append nodes.</p>
-    </li>
-    <li>
-      <h4>Resolve new cross-sheet and cross-layer references</h4>
-      <p>Pending formulas use the same path grammar — sheet <code>!</code>, container <code>.</code>, relative offsets, fill-right, separate actuals/forecast layers. A pending FX row on Sheet B referencing a pending row on Sheet A must resolve within the overlay. This is what lets the agent assert "with my two CF-FX rows applied, the cash-tie residual is 0."</p>
-    </li>
-    <li>
-      <h4>The bundle is the consistency unit</h4>
-      <p>Interdependent suggestions — new sheet + its mappings + its FX rows — must be evaluated and approved together, because none reconciles alone. <code>bundle_suggestions</code> defines that unit; the overlay evaluates exactly that set.</p>
-    </li>
-    <li>
-      <h4>Evaluate against a chosen base source</h4>
-      <p>The overlay applies on top of a <em>selectable</em> base — the latest forecast, or a specific saved version. So a bundle's calculations can be previewed in the context that matters: a reviewer opens it and sees its effect "in the 2026 budget", not only against live. This is the hinge between pending state and the human review loop in §05.</p>
-    </li>
-  </ol>
-
-  <div class="call">
-    <h3>What the docs say is — and isn't — already there</h3>
-    <p><span class="ev"><span class="for">FOR feasibility</span></span> &nbsp;Francis already recomputes the whole model deterministically, resolves cross-sheet and cross-layer references, deploys breakdown templates top-down, and routes actuals by mapping. The computational machinery the overlay needs exists.</p>
-    <p><span class="ev"><span class="against">NOT YET THERE</span></span> &nbsp;Nothing in the docs describes a non-committed evaluation mode. Saved versions are locked snapshots, and there is no draft/pending/approval concept anywhere. The overlay engine — committed graph + bundle ops, evaluated without commit — is net-new, and it is the hardest single thing in this design.</p>
-  </div>
-</section>
-
-<section>
-  <p class="sec-no">05 / The shareable concept</p>
-  <h2>The review loop: <span class="rule-accent">bundles, pending state, and comments together</span></h2>
-  <p class="lede">This is the one idea that hasn't been socialized yet, and it's worth leading with for anyone seeing this cold. Three primitives already in this design combine into a single human-review surface. None of them is interesting alone; together they're how a colleague reviews and approves what an agent proposes.</p>
-
-  <div class="call">
-    <h3>How it reads to a reviewer</h3>
-    <p><b>1. The agent groups its proposal into a bundle.</b> A SaaS revenue build, or the CF FX fix, arrives as one set of interdependent suggestions — not a scatter of cell edits.</p>
-    <p><b>2. The bundle is evaluated in pending state, against a chosen source.</b> Open it "in the 2026 budget" and the engine shows the calculations <em>as if applied</em> — the new rows compute, the BS still balances, the CF tie zeroes — without anything being committed.</p>
-    <p><b>3. Colleagues discuss it in place with comments.</b> A reviewer leaves a thread on a specific suggested cell, mentions a teammate, and the agent can reply with its rationale. The thread is anchored to the bundle, so the conversation travels with the proposal.</p>
-    <p><b>4. A human approves the bundle.</b> The commit path contains zero AI. Approval turns the previewed calculations into committed state, in the source the reviewer was looking at.</p>
-  </div>
-
-  <p>The thing to land with colleagues: <b>seeing a calculation's effect before committing it is not a preview feature bolted on at the end — it's the substrate.</b> The same overlay engine that lets the agent self-verify a proposal (§04) is what lets a human review one. Build it once and both audiences are served. The source-context selection (§04, point 06) is what makes it review-grade: people reason about changes inside a named source, not against an abstract "live" model.</p>
-
-  <h3>How to share this</h3>
-  <p>The page itself is the artifact to circulate — it's a default-private link you can share with teammates from the artifact's share control, and it stands alone for someone with no prior context. If you want a cut pitched specifically at the reviewer audience rather than the tool-builder audience, say so and I'll cut a shorter companion that leads with this section and drops the per-tool detail.</p>
-</section>
-
 <section style="border-bottom:none">
-  <p class="sec-no">06 / Design considerations</p>
-  <h2>The thinking behind the choices</h2>
-  <p class="lede">The questions that shaped this taxonomy, distilled into the decisions they produced and why. This is the rationale a colleague needs to evaluate, defend, or extend the design.</p>
+  <p class="sec-no">03 / Design considerations</p>
+  <h2>The principles, and the thinking behind them</h2>
+  <p class="lede">The principles the taxonomy follows and the reasoning behind each — the context a colleague needs to evaluate, defend, or extend the design.</p>
 
   <h3>Work backwards from prompts, but name tools above the prompt</h3>
   <p>The taxonomy is the union of calls the 20 prompts demand — yet tools are named one level of abstraction above any single prompt, so many prompts reuse the same few tools. Naming at the prompt level (a <code>diagnose_connection</code> here, an <code>explain_forecast</code> there) would have produced a sprawl of one-off verbs; naming at the capability level keeps the surface small and composable.</p>
 
   <h3>A tool is the unit of selection, authorization, and observability at once</h3>
-  <p>Granularity was chosen where those three agree. When they conflict, the safety boundary wins, because the whole architecture rests on writes being approvable and the external caller being read-only. That is why read, suggest, and write are hard tool boundaries rather than modes of one tool.</p>
+  <p>A tool is the level at which three different things happen simultaneously: the model <b>selects</b> it (it picks which tool to call from the name and description), you <b>authorize</b> it (permissions are granted or denied per tool), and you <b>observe</b> it (logs and audit trails show which tool fired). Granularity was chosen where those three agree. When they pull in different directions, the authorization boundary wins — because the whole architecture rests on writes being approvable — which is why read, suggest, and write are hard tool boundaries rather than modes of one tool.</p>
 
   <h3>Split reads by payload; merge writes by lifecycle</h3>
-  <p>Structure is two tools to read — the whole-model map (<code>get_model_tree</code>) versus one sheet's contents (<code>get_components</code>) — because the binding constraint is payload size. Structure is one tool to write (<code>suggest_structure</code>, operation-typed) because the binding constraint is a shared approval lifecycle and the fact that related edits compose into a single proposal. The dominant force flips between reading and writing.</p>
+  <p>The same thing — structure — is split across two tools to <em>read</em> but handled by one tool to <em>write</em>, because the constraint that matters flips. On the read side it's <b>payload</b>: the whole-model map (<code>get_model_tree</code>) and one sheet's full contents (<code>get_components</code>) are very different sizes, so they're separate tools to keep each read small. On the write side it's <b>lifecycle</b>: every structural change — add a sheet, a row, a mapping — rides the same approval path and composes into a single reviewable proposal, so one operation-typed tool (<code>suggest_structure</code>) is cleaner than a verb per change. Reads are governed by "don't return too much"; writes by "these belong to one change."</p>
 
   <h3>The verb prefix predicts behavior</h3>
   <p><code>list_</code> returns a collection, <code>get_</code> a scoped single read, <code>suggest_</code> an approval-gated write, <code>write_</code> an immediate one. Consistent prefixes act as a selection signal for the model and a prior on the return shape, which measurably improves tool-use accuracy — so we standardized them rather than letting synonyms like <code>read_</code> and <code>get_</code> drift.</p>
 
   <h3>A tool's class is its lifecycle, not its payload</h3>
-  <p>Effect on state is read, suggest, or write. Whether a write touches a value or a structure is a payload detail the tool name carries (<code>suggest_values</code> vs <code>suggest_structure</code>), not a separate class. By the same logic a comment is a write — immediate, annotation-only — not a suggestion, and routing it through the approval queue would miscategorize it.</p>
+  <p>A tool's <b>class</b> is its effect-on-state category in the key — read, suggest, or write — the lifecycle a change goes through, not what it touches. <code>suggest_values</code> and <code>suggest_structure</code> are two separate <em>tools</em> because their inputs differ (cell formulas for a window of rows and periods, versus structural operations like add-sheet or add-mapping), but they are one <em>class</em>: both propose a change a human approves. So value-versus-structure is a payload distinction the tool name carries, not a separate class. By the same logic a comment is a write — immediate, annotation-only — not a suggestion, and routing it through the approval queue would miscategorize it.</p>
+
+  <h3>Writes default to suggestions; direct edit is a gated exception</h3>
+  <p>Model changes are proposed for a human to approve — by default the commit path contains no AI. A trusted operator can opt a session into direct-edit mode, where changes commit immediately with no approval; it's off by default, audit-logged, and chosen up front rather than per call, so the human keeps the authority. And throughout, the agent can do only what the calling user can — permissions mirror the user.</p>
 
   <h3>Suggestions and pending reads are one mechanism — a git model</h3>
   <p>Committed state is <code>main</code>, a bundle of suggestions is an unmerged branch, reading with <code>basis: pending(bundleId)</code> is checking that branch out, and human approval is the merge. The payoff is that one overlay engine serves both the agent verifying its own work and a human previewing it. It is harder than git because the diffs are structural (closer to a database migration than a text patch), recompute isn't free, and committed state drifts under an open bundle — so bundles stay atomic and carry a base.</p>
@@ -811,20 +780,12 @@
   <h3>Every read over a large collection is bounded</h3>
   <p>Accounts, journal entries, and large breakdowns return counts plus a capped, cursor-paged slice. A smart default is not enough — a fresh model has every account unmapped, and a breakdown can carry 100+ values — so the bound is a hard cap with a cursor, while summary counts carry the overview. The full collection never lands in the model's context.</p>
 
-  <h3>Designed against a real large-client structure</h3>
-  <p>The model tree was pressure-tested against a representative large client: three parallel breakdown hierarchies — functional P&amp;L, nature-based P&amp;L, and BS + CF — over eight legal entities, plus standalone sheets. Two facts shaped the bounding. Entity assignments are sparse, since a sheet almost always holds a single entity, so the entity layer never fans out. And department dimensions, though they carry hundreds of values, are manually grouped onto sheets — most sheets hold one to five departments while a catch-all "other" sheet absorbs the long tail. So the sheet hierarchy stays human-scale and is returned whole; the only large lists are the per-sheet dimension-value assignments, which is why those are summarized by count and expanded on demand.</p>
-
-  <h3>Source is the umbrella, and it carries more than it appears</h3>
-  <p>Sources are saved versions plus the built-ins: latest forecast, actuals, and prior year. Picking a source determines the layer, so there is no separate layer argument. And because structure and forecast start differ across sources, every structural read is parameterized by source.</p>
-
   <h3>Each fact at its native scope; the narrowest identifier implies the rest; defaults come from context</h3>
   <p>A connection is workspace-level, but which sub-sheet it feeds is model-level, so the binding lives in the model tree, not on the connection. A sheet identifier implies its model. And the location the user is prompting from — a model, a sheet, a date range — seeds the defaults, so the tool inputs never restate them.</p>
 
   <h3>Deterministic diagnostics live in the model health check; the agent then walks the guide</h3>
   <p>Balance-sheet and cash-flow integrity, notifications, unassigned values, and per-sub-sheet imbalance localization are engine work surfaced by one check. The agent calls it to find <em>where</em> something is wrong, then works the documented troubleshooting guide step by step — one read tool per step — rather than guessing at causes.</p>
 
-  <h3>The scope lines are deliberate: admin out, direct edit gated</h3>
-  <p>Inviting members and setting roles are not model edits, so they are descoped from v1 and the agent simply explains the manual path. Direct edit is an opt-in session mode, off by default and audit-logged, that consciously amends the "zero AI on the commit path" rule for trusted operators — chosen up front, not per call, so the human keeps the authority.</p>
 
   <h3>This is a design reference, and some of it is net-new</h3>
   <p>These descriptions are written for humans; the runtime tool schemas the model reads are a separate, derived artifact that strips the rationale and ships only what is built. And several capabilities — the entire pending/suggestion substrate and per-sub-sheet imbalance localization among them — are net-new engineering, flagged here so they are not mistaken for primitives that already exist.</p>
