@@ -18,30 +18,64 @@ Work through these steps in order. The earlier steps catch structural errors; th
 
 ### P&L and balance sheet prerequisites
 
-1. Have all P&L and balance sheet accounts been mapped? The cash flow statement depends on these mappings.
-2. Are there manual overrides in the P&L or balance sheet that cause calculated values to diverge from your accounting system?
-3. Are the P&L subtotals set up correctly, producing an accurate net profit line? This line feeds directly into the cash flow statement.
-4. Is the balance sheet check passing? [Resolve that first.](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation)
-5. Does the P&L or balance sheet contain line items with values not sourced from your accounting system?
+<Steps>
+  <Step title="Check account mappings">
+    Have all P&L and balance sheet accounts been mapped? The cash flow statement depends on these mappings.
+  </Step>
+  <Step title="Check for manual overrides">
+    Are there manual overrides in the P&L or balance sheet that cause calculated values to diverge from your accounting system?
+  </Step>
+  <Step title="Check P&L subtotals">
+    Are the P&L subtotals set up correctly, producing an accurate net profit line? This line feeds directly into the cash flow statement.
+  </Step>
+  <Step title="Resolve the BS check first">
+    Is the balance sheet check passing? [Resolve that first.](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-validation)
+  </Step>
+  <Step title="Check for non-GL line items">
+    Does the P&L or balance sheet contain line items with values not sourced from your accounting system?
+  </Step>
+</Steps>
 
 ### Cash flow statement line items
 
-6. Are all line items that represent cash movements included in the cash flow statement?
-7. Are all non-cash line items excluded? Common items incorrectly included:
-   - Depreciation (P&L) and accumulated depreciation (contra-asset)
-   - Income from subsidiaries (P&L) and investment in subsidiaries (asset)
-8. If you use multiple currencies, have you made the relevant adjustments? [See the Currency integration.](/integrations-new/other/currency)
+<Steps>
+  <Step title="Confirm all cash movements are included">
+    Are all line items that represent cash movements included in the cash flow statement?
+  </Step>
+  <Step title="Confirm non-cash items are excluded">
+    Are all non-cash line items excluded? Common items incorrectly included:
+    - Depreciation (P&L) and accumulated depreciation (contra-asset)
+    - Income from subsidiaries (P&L) and investment in subsidiaries (asset)
+  </Step>
+  <Step title="Check multi-currency adjustments">
+    If you use multiple currencies, have you made the relevant adjustments? [See the Currency integration.](/integrations-new/other/currency)
+  </Step>
+</Steps>
 
 ### Cash flow statement formulas
 
-9. Are any formulas missing? Check for cells that are blank where a formula should be.
-10. Are the signs correct? Asset formulas need a minus sign; liability and equity formulas need a plus sign. An increase in liabilities or equity means you've gained or kept liquidity. An increase in assets means you've tied up liquidity.
-11. Are balance sheet movement deltas set up correctly (this period minus previous period)?
+<Steps>
+  <Step title="Check for missing formulas">
+    Are any formulas missing? Check for cells that are blank where a formula should be.
+  </Step>
+  <Step title="Check signs">
+    Are the signs correct? Asset formulas need a minus sign; liability and equity formulas need a plus sign. An increase in liabilities or equity means you've gained or kept liquidity. An increase in assets means you've tied up liquidity.
+  </Step>
+  <Step title="Check balance sheet movement deltas">
+    Are balance sheet movement deltas set up correctly (this period minus previous period)?
+  </Step>
+</Steps>
 
 ### Journal entries
 
-12. Have any cash journal entries been posted to non-cash line items, causing them to be excluded from the cash flow statement? Look for journal entry descriptions that suggest cash activity: *invoice allocation*, *expense*.
-13. Have any non-cash journal entries been posted to cash line items, causing them to be incorrectly included? Look for descriptions that indicate non-cash activity: *depreciation*, *subsidiary*, *adjustment entry*.
+<Steps>
+  <Step title="Check for cash journals in non-cash lines">
+    Have any cash journal entries been posted to non-cash line items, causing them to be excluded from the cash flow statement? Look for journal entry descriptions that suggest cash activity: *invoice allocation*, *expense*.
+  </Step>
+  <Step title="Check for non-cash journals in cash lines">
+    Have any non-cash journal entries been posted to cash line items, causing them to be incorrectly included? Look for descriptions that indicate non-cash activity: *depreciation*, *subsidiary*, *adjustment entry*.
+  </Step>
+</Steps>
 
 <Note>
   If the check is off in only one or a few months rather than consistently, the issue is likely a specific journal entry rather than a structural error.

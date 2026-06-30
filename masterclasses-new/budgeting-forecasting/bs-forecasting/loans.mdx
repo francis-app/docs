@@ -8,15 +8,15 @@ description: "How to model the loan balance in Francis, including opening balanc
 
 Loans sit on the liability side of the balance sheet and represent outstanding principal owed to lenders. Common examples include term loans, mortgage facilities, and revolving credit facilities.
 
-Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For loans, this means loan balance last period + new draws in period − principal repayments in period.
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses-new/budgeting-forecasting/bs-forecasting/bs-fundamentals). For loans, this means loan balance last period + new draws in period − principal repayments in period. Where interest is not paid in the period, it accrues to the balance as an additional addition.
 
 ## What approach to use
 
 Driver-based is the right default. Build the amortisation schedule from the total payment and interest rate, and let the interest charge and principal split calculate automatically. When rate assumptions change, the balance updates throughout the forecast.
 
-Use hardcoded when you have a complete repayment schedule from your lender with exact draws, repayments, and interest charges per period already calculated.
-
 Statistical is not applicable to loans. Balances are contractual, not pattern-driven.
+
+Use hardcoded when you have a complete repayment schedule from your lender with exact draws, repayments, and interest charges per period already calculated.
 
 ## Where to forecast loans
 
@@ -49,7 +49,7 @@ Statistical is not applicable to loans. Balances are contractual, not pattern-dr
     = "Ending value"[-1]
     ```
 
-    When forecasting for the first time, this formula will break because there is no prior ending value in the forecast. Fix it in one of two ways: hardcode the loan balance in the last actuals period so the formula picks it up, or reference `"Ending value"[-1]` to the corresponding balance on the balance sheet.
+    <Note>When setting up for the first time, hardcode the opening loan balance in the last actuals period so the formula picks it up. As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual loan balance values for those periods on the supporting sheet. If actuals aren't available yet, enter the budget values to keep the formula chain intact.</Note>
 
     **Total payment**
 
@@ -95,6 +95,17 @@ Statistical is not applicable to loans. Balances are contractual, not pattern-dr
 ## FAQ
 
 <AccordionGroup>
+  <Accordion title="How do I model accrued interest on a loan?">
+    Most loans require monthly interest payments, which flow to the P&L as a finance cost and do not accumulate on the balance sheet. For loans where interest is deferred or capitalised (PIK interest), the unpaid interest accrues to the loan balance each period. Add an **Accrued interest** row to the supporting sheet and include it in the ending value formula:
+
+    ```typescript
+    = "Starting value"[0]
+    - "Principal repayment"[0]
+    + "Accrued interest"[0]
+    ```
+
+    The accrued interest row uses the same formula as the regular interest charge. The difference is that it is not paid out in the period, so it stays on the balance sheet rather than flowing to cash. When the interest is eventually settled, model it as a negative entry on the accrued interest row in the period it is paid.
+  </Accordion>
   <Accordion title="How do I model a bullet loan?">
     A bullet loan has no principal repayments during the term. The full balance is repaid at maturity. Set repayments to zero for all periods except the final month, where you enter the full outstanding balance as a repayment.
   </Accordion>

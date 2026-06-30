@@ -40,7 +40,7 @@ Hardcoded is acceptable when you have a known purchase plan or a specific target
 
     **Supporting sheet by category**
 
-    For businesses with multiple inventory categories, build a supporting sheet. Create one section per category: Raw materials, Finished goods, Packaging. Within each section, add four rows.
+    For businesses with multiple inventory categories, build a supporting sheet. Create one section per category. Categories can follow a process-oriented structure (Raw materials, Work in progress, Finished goods) or a SKU-oriented structure (individual product lines or families). Choose based on how your business tracks inventory and what level of P&L detail you need. Within each section, add four rows.
 
     *Opening balance:* hardcode the first period, then reference the prior period's closing balance:
 
@@ -50,7 +50,7 @@ Hardcoded is acceptable when you have a known purchase plan or a specific target
 
     *Purchases:* hardcode the expected purchase amount in the month it arrives. This is the addition to inventory and flows to cash flow as an operating outflow.
 
-    *COGS:* the cost of inventory sold in the period. Enter as a negative value. This row feeds the P&L cost of goods sold line directly, keeping inventory and P&L in sync.
+    *COGS:* the cost of inventory sold in the period, entered as a negative value. The direction can go either way: forecast COGS here and reference the total on the P&L, or take COGS from an existing P&L forecast and reference it here to drive the closing inventory balance.
 
     *Closing balance:* the roll-forward:
 
@@ -62,7 +62,9 @@ Hardcoded is acceptable when you have a known purchase plan or a specific target
 
     The balance sheet references the closing balance total across all categories. The P&L references the COGS total.
 
-    <Note>Modelling purchases and sales on the same supporting sheet means a change in inventory assumptions automatically updates both the balance sheet and the P&L cost of sales line. This is the main advantage of the category approach over % of revenue.</Note>
+    <Note>Linking inventory and COGS through the supporting sheet keeps both in sync automatically. If COGS is forecast here, changes flow to the P&L. If COGS comes from the P&L, changes flow to the inventory balance. Either way, the two statements move together. This is the main advantage of the category approach over % of revenue.</Note>
+
+    <Note>When setting up for the first time, hardcode the opening inventory balance in the last actuals period so the formula picks it up. As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual inventory values for those periods on the supporting sheet. If actuals aren't available yet, enter the budget values to keep the formula chain intact.</Note>
   </Tab>
   <Tab title="Statistical">
     A rolling average works when the inventory balance is steady with no significant spikes:
