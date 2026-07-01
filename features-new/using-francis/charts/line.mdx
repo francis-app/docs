@@ -1,0 +1,68 @@
+---
+title: "Line chart"
+description: "Plot one or more series over time as connected lines, for trends and comparing trajectories across versions."
+icon: "chart-line"
+---
+
+<video controls className="w-full aspect-video rounded-xl" src="/videos/features/charts/line.mp4" />
+
+A line chart plots values over time as connected lines, with periods on the x-axis. It's the default choice for showing a trend and for comparing trajectories across versions, such as actuals against budget and forecast. Lines can be smooth or straight, and each series can show point markers.
+
+## Settings
+
+<AccordionGroup>
+  <Accordion title="Date range">
+    The span of data the chart shows. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or set a Custom range. Dynamic ranges resolve against the last close date set for the model, so they roll forward automatically as you close each period.
+  </Accordion>
+  <Accordion title="Colors">
+    The color palette applied to the series. Options are Ocean blue, Olive green, Sun burst, Death star, Pastel, Nature, Temperature, Dawn, Blue, Green, Orange, Red, Pink, Purple, and Gray. Override the palette on an individual series from the series settings.
+  </Accordion>
+  <Accordion title="Series">
+    The time series shown in the chart. For each series you can include multiple versions, such as actuals, budget, or forecast. Series order sets the legend order: the top series shows first, then the next, and so on.
+
+    Click a series to reveal its own settings:
+
+    - **Color**: override the palette color assigned to this series.
+    - **Data labels**: show or hide the value labels on the series.
+    - **Absolute values**: plot the absolute value of each point, ignoring sign.
+    - **Markers**: show or hide point markers.
+  </Accordion>
+  <Accordion title="Title">
+    Toggle the chart title on or off. When on, set the **Chart title** as free text and choose its **Title alignment**: left, center, or right.
+  </Accordion>
+  <Accordion title="Legend">
+    Toggle the legend on or off. When on, set the **Legend position**: top left, top right, or bottom.
+  </Accordion>
+  <Accordion title="X-axis">
+    Control how the x-axis displays.
+
+    - **X-axis line**: show or hide the x-axis line.
+    - **X-axis slant**: rotate the x-axis labels by 0, 15, 30, 45, 60, 75, or 90 degrees.
+  </Accordion>
+  <Accordion title="Y-axis">
+    Control how the y-axis displays.
+
+    - **Y-axis title**: set the y-axis title as free text.
+    - **Y-axis line**: show or hide the y-axis line.
+    - **Y-axis unit**: Auto inherits the unit from the series in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
+    - **Y-axis limits**: by default the axis fits the bounds of the series. Set a fixed minimum and maximum to lock the scale.
+  </Accordion>
+  <Accordion title="Target">
+    Toggle a target line on or off. When on, set the **Label** (the target's name), the **Value** it sits at, and the **Color** of the line.
+  </Accordion>
+  <Accordion title="Aggregate by">
+    How periods group along the x-axis: monthly, quarterly, calendar year, fiscal year, or all.
+  </Accordion>
+  <Accordion title="Grid">
+    The gridlines behind the chart: No grid, Horizontal only, Vertical only, or Both.
+  </Accordion>
+  <Accordion title="Line style">
+    Whether lines are Smooth or Straight.
+  </Accordion>
+</AccordionGroup>
+
+## See in action
+
+<Note>
+  See charts in practice in the [Management report](/masterclasses-new/reporting/management-report) masterclass.
+</Note>

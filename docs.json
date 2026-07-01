@@ -212,7 +212,19 @@
               "features-new/using-francis/shortcuts",
               "features-new/using-francis/breakdowns",
               "features-new/using-francis/dashboards",
-              "features-new/using-francis/charts",
+              {
+                "group": "Charts",
+                "pages": [
+                  "features-new/using-francis/charts/overview",
+                  "features-new/using-francis/charts/line",
+                  "features-new/using-francis/charts/column",
+                  "features-new/using-francis/charts/stacked-column",
+                  "features-new/using-francis/charts/stacked-area",
+                  "features-new/using-francis/charts/combo",
+                  "features-new/using-francis/charts/bar",
+                  "features-new/using-francis/charts/waterfall"
+                ]
+              },
               "features-new/using-francis/tables",
               "features-new/using-francis/total-column",
               "features-new/using-francis/excel-export",
