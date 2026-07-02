@@ -1,0 +1,58 @@
+---
+title: "Waterfall chart"
+description: "Sequential positive and negative movements bridging a start value to an end value, for bridges and variance."
+icon: "chart-waterfall"
+---
+
+<video controls className="w-full aspect-video rounded-xl" src="/videos/features/charts/waterfall.mp4" />
+
+A waterfall chart shows how sequential positive and negative movements build from a start value to an end value at a fixed date range. Use it for bridges, such as opening cash to closing cash or budget to actual variance. Because the x-axis is categorical, the time-series settings (Aggregate by and Grid) don't apply.
+
+## Settings
+
+<AccordionGroup>
+  <Accordion title="Date range">
+    The span of data the chart shows. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or set a Custom range. Dynamic ranges resolve against the last close date set for the model, so they roll forward automatically as you close each period.
+  </Accordion>
+  <Accordion title="Colors">
+    The color palette applied to the series. Options are Ocean blue, Olive green, Sun burst, Death star, Pastel, Nature, Temperature, Dawn, Blue, Green, Orange, Red, Pink, Purple, and Gray. Override the palette on an individual series from the series settings.
+  </Accordion>
+  <Accordion title="Series">
+    The series shown in the chart. For each series you can include multiple versions, such as actuals, budget, or forecast. Series order sets the legend order: the top series shows first, then the next, and so on.
+
+    Click a series to reveal its own settings:
+
+    - **Color**: override the palette color assigned to this series.
+    - **Data labels**: show or hide the value labels on the series.
+    - **Absolute values**: plot the absolute value of each point, ignoring sign.
+  </Accordion>
+  <Accordion title="Title">
+    Toggle the chart title on or off. When on, set the **Chart title** as free text and choose its **Title alignment**: left, center, or right.
+  </Accordion>
+  <Accordion title="Legend">
+    Toggle the legend on or off. When on, set the **Legend position**: top left, top right, or bottom.
+  </Accordion>
+  <Accordion title="X-axis">
+    Control how the x-axis displays.
+
+    - **X-axis line**: show or hide the x-axis line.
+    - **X-axis slant**: rotate the x-axis labels by 0, 15, 30, 45, 60, 75, or 90 degrees.
+  </Accordion>
+  <Accordion title="Y-axis">
+    Control how the y-axis displays.
+
+    - **Y-axis title**: set the y-axis title as free text.
+    - **Y-axis line**: show or hide the y-axis line.
+    - **Y-axis unit**: Auto inherits the unit from the series in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
+    - **Y-axis limits**: by default the axis fits the bounds of the series. Set a fixed minimum and maximum to lock the scale.
+  </Accordion>
+  <Accordion title="Target">
+    Toggle a target line on or off. When on, set the **Label** (the target's name), the **Value** it sits at, and the **Color** of the line.
+  </Accordion>
+</AccordionGroup>
+
+## See in action
+
+<Note>
+  See charts in practice in the [Management report](/masterclasses-new/reporting/management-report) masterclass.
+</Note>
