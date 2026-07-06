@@ -279,17 +279,18 @@ Each page has a **sub-three-minute video walkthrough** embedded directly below t
 
 Video embed standard
 Every page video uses this exact embed pattern, placed directly below the H1:
-jsx<video controls className="w-full aspect-video rounded-xl" src="/videos/[page-slug].mp4" />
+jsx<video controls className="w-full aspect-video rounded-xl" poster="/images/[page-path]/[page-slug].jpg" src="/videos/[page-path]/[page-slug].mp4" />
 Conventions:
 
-Videos live in /videos/ at the repo root
+Videos live in /videos/ at the repo root, mirroring the page path (e.g. videos/features/charts/line.mp4 for the Line chart page)
 Filename matches the page slug (e.g. videos/components.mp4 for the Components page, videos/bs-fundamentals.mp4 for BS fundamentals)
 Always include controls — without it, users can't pause, scrub, or adjust volume
+Always include a poster thumbnail — the still image shown before playback, so the embed doesn't render as a black first frame. Store posters under /images/ mirroring the video path, same slug, as .jpg (e.g. images/features/charts/line.jpg pairs with videos/features/charts/line.mp4). If the poster file doesn't exist yet, the browser falls back to the video's first frame.
 Always include className="w-full aspect-video rounded-xl" — full width, correct aspect ratio, rounded corners to match Mintlify's visual style
 Self-closing tag (/>), not a closing </video>
 Don't use autoPlay, loop, or muted on content videos — those are for decorative background videos, not page walkthroughs
 
-When adding a new video: drop the .mp4 file in /videos/ named to match the page slug, then insert the embed at the top of the page (just below the H1, above the lede).
+When adding a new video: drop the .mp4 file in /videos/ named to match the page slug, add a matching poster .jpg under /images/, then insert the embed at the top of the page (just below the H1, above the lede).
 
 **Implication:** don't let video do the heavy lifting at the expense of prose. The text must stand alone and answer the user's question completely. Video supplements, never replaces.
 

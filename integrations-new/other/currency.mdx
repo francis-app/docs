@@ -15,8 +15,8 @@ Go to **Settings > Integrations** and add a currency data source. You configure 
   <Tab title="Market rates">
     Francis sources market rates automatically from the European Central Bank.
 
-    * **Monthly closing rates:** imported directly from the ECB.
-    * **Monthly average rates:** the arithmetic mean of the month's daily closing rates.
+    * **Monthly closing rates:** the rate the ECB published on the last business day of the month. This is the last trading day the ECB has data for, not necessarily the last calendar day.
+    * **Monthly average rates:** the simple average of all daily rates the ECB published that month, calculated as the sum of the daily rates divided by the number of days with data.
   </Tab>
   <Tab title="Custom rates">
     Enter custom rates manually if your group applies standardized exchange rates.

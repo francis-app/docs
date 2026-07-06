@@ -4,33 +4,49 @@ description: "Sequential positive and negative movements bridging a start value 
 icon: "chart-waterfall"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/features/charts/waterfall.mp4" />
+<video controls className="w-full aspect-video rounded-xl" poster="/images/features/charts/waterfall.jpg" src="/videos/features/charts/waterfall.mp4" />
 
-A waterfall chart shows how sequential positive and negative movements build from a start value to an end value at a fixed date range. Use it for bridges, such as opening cash to closing cash or budget to actual variance. Because the x-axis is categorical, the time-series settings (Aggregate by and Grid) don't apply.
+A waterfall chart shows how sequential positive and negative movements build from a start value to an end value at a fixed date range. Use it for bridges, such as opening cash to closing cash or budget to actual variance. Because the x-axis is categorical, the Group by setting doesn't apply.
 
 ## Settings
 
 <AccordionGroup>
   <Accordion title="Date range">
-    The span of data the chart shows. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or set a Custom range. Dynamic ranges resolve against the last close date set for the model, so they roll forward automatically as you close each period.
+    The span of data the chart shows. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or set a Custom range. Dynamic ranges resolve against the Last close date set for the model, so they roll forward automatically as you close each period.
   </Accordion>
   <Accordion title="Colors">
-    The color palette applied to the series. Options are Ocean blue, Olive green, Sun burst, Death star, Pastel, Nature, Temperature, Dawn, Blue, Green, Orange, Red, Pink, Purple, and Gray. Override the palette on an individual series from the series settings.
+    The color palette applied to the columns. Options are Ocean blue, Olive green, Sun burst, Death star, Pastel, Nature, Temperature, Dawn, Blue, Green, Orange, Red, Pink, Purple, and Gray. Override the palette on an individual column from the column settings.
   </Accordion>
-  <Accordion title="Series">
-    The series shown in the chart. For each series you can include multiple versions, such as actuals, budget, or forecast. Series order sets the legend order: the top series shows first, then the next, and so on.
+  <Accordion title="Grid">
+    The gridlines behind the chart: No grid, Horizontal only, Vertical only, or Both.
+  </Accordion>
+  <Accordion title="Bridge">
+    What the waterfall bridges between. This choice determines whether the intermediate steps are model values or version differences, and what you enter under Columns.
 
-    Click a series to reveal its own settings:
+    - **Rows**: bridge two rows, such as revenue to net profit. The intermediate steps are values from the model, like COGS, OPEX, depreciation, and financial items. Choose a single version up front, then enter the start, end, and intermediate steps under Columns.
+    - **Versions**: bridge two versions of the same line, such as budget revenue to actual revenue. The intermediate steps are the differences between the two versions, for example the gap between budget and actual revenue for bicycle hardware. Choose the two versions to bridge, **From** and **To**, up front, then enter the start, end, and intermediate steps under Columns.
+  </Accordion>
+  <Accordion title="Columns">
+    The columns shown in the chart. Column order sets the left-to-right order: the top column shows first, then the next, and so on. How you fill them in depends on the Bridge setting.
 
-    - **Color**: override the palette color assigned to this series.
-    - **Data labels**: show or hide the value labels on the series.
-    - **Absolute values**: plot the absolute value of each point, ignoring sign.
+    - **Rows bridge**: the first two columns you enter are the start and end, for example revenue and net profit. Enter rows, groups, or calculations between them as the intermediate steps that bridge start to end, for example COGS, OPEX, depreciation, and financial items. You set both the start and end yourself.
+    - **Versions bridge**: you enter a single column, which automatically becomes both the start and end, so you compare like with like across the two versions. For example, a group showing consolidated revenue forms the start (its **From** version) and the end (its **To** version). Add columns between them as the intermediate steps. Each shows the version difference for one component, such as the rows inside that group (hardware, projects, and licenses) or the Revenue sub-sheets from each entity (Veloton ApS and Veloton Ltd).
+
+    The chart automatically adds a **residual** so the waterfall always bridges from start to end. Use it as a check: a large residual means your intermediate steps don't fully account for the movement between start and end.
+
+    Click a column to reveal its own settings:
+
+    - **Title**: the column name. Defaults to the name of the row, group, or calculation the column is drawn from; override it to rename the column.
+    - **Color**: override the palette color assigned to this column.
   </Accordion>
   <Accordion title="Title">
-    Toggle the chart title on or off. When on, set the **Chart title** as free text and choose its **Title alignment**: left, center, or right.
+    Toggle the chart title on or off. When on:
+
+    - **Chart title**: defaults to the name of the row, group, or calculation the chart is drawn from; override it with free text.
+    - **Align**: position the title to the left, center, or right.
   </Accordion>
   <Accordion title="Legend">
-    Toggle the legend on or off. When on, set the **Legend position**: top left, top right, or bottom.
+    Toggle the legend on or off. When on, the legend sits at the top of the chart.
   </Accordion>
   <Accordion title="X-axis">
     Control how the x-axis displays.
@@ -43,11 +59,15 @@ A waterfall chart shows how sequential positive and negative movements build fro
 
     - **Y-axis title**: set the y-axis title as free text.
     - **Y-axis line**: show or hide the y-axis line.
-    - **Y-axis unit**: Auto inherits the unit from the series in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
-    - **Y-axis limits**: by default the axis fits the bounds of the series. Set a fixed minimum and maximum to lock the scale.
+    - **Y-axis unit**: Auto inherits the unit from the columns in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
+    - **Y-axis limits**: by default the axis fits the bounds of the columns. Set a fixed minimum and maximum to lock the scale.
   </Accordion>
   <Accordion title="Target">
-    Toggle a target line on or off. When on, set the **Label** (the target's name), the **Value** it sits at, and the **Color** of the line.
+    Toggle a target line on or off. When on:
+
+    - **Label**: name the target.
+    - **Value**: set the value the line sits at.
+    - **Color**: set the color of the line.
   </Accordion>
 </AccordionGroup>
 
