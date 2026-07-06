@@ -1,0 +1,44 @@
+---
+title: "Periods table"
+description: "A time series column group shown month over month, quarter over quarter, or year over year."
+icon: "calendar-days"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" poster="/images/features/tables/periods.jpg" src="/videos/features/tables/periods.mp4" /> */}
+
+A periods column group shows a time series, such as monthly columns for the current year or a single year-total column. Use it to show values month over month, quarter over quarter, year to date, or year over year.
+
+## Settings
+
+Section, title, number scaling, and decimals sit in the sidebar and apply to the whole table. A column group's own settings open when you click the group in the table.
+
+<AccordionGroup>
+  <Accordion title="Section">
+    The section whose data the table displays.
+  </Accordion>
+  <Accordion title="Title">
+    The table's title.
+  </Accordion>
+  <Accordion title="Number scaling">
+    Default, no scaling, thousands, millions, or billions. Default inherits the model-wide scale set in model settings, reached from the three-dot menu next to the model name in the top-left corner.
+  </Accordion>
+  <Accordion title="Decimals">
+    Auto, or a fixed precision from 0 to 6 decimal places (0, 0.1, 0.12, 0.123, 0.1234, 0.12345, 0.123456). Auto shows no decimals for values above 100, and otherwise targets three significant digits, so 99.532 displays as 99.5 and 4.514 as 4.51. For consistent decimals across a block, set this at the section level.
+  </Accordion>
+  <Accordion title="Column group">
+    A table is one or more column groups placed side by side. Click a column group to open its settings:
+
+    - **Title**: the column group heading.
+    - **Date range**: the span of periods to show. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or a Custom range. Dynamic ranges resolve against the Last Close month set for the model, so they roll forward automatically as you close each period.
+    - **Group by**: how periods group into columns: monthly, quarterly, calendar year, or fiscal year.
+    - **Source**: the version or actuals variant the column displays. The list includes every saved version in your model (budgets and forecasts) plus the actuals variants; Actuals and Actuals (last year) are always available. When the date range extends beyond your last close, Actuals + X also becomes available: it shows actuals up to the last closed month, then the version you pick for the months after.
+
+    In a periods group the columns are derived from these settings, so you can't edit individual columns.
+  </Accordion>
+</AccordionGroup>
+
+## See in action
+
+<Note>
+  See tables in practice in the [Management report](/masterclasses-new/reporting/management-report) masterclass.
+</Note>

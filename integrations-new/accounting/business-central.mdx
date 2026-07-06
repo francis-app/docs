@@ -1,12 +1,12 @@
 ---
-title: "Business Central"
+title: "Microsoft Business Central"
 description: "Connect Business Central to feed actuals into your financial model."
 sidebarTitle: "Microsoft Business Central"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/business-central.mp4" />
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/business-central.mp4" /> */}
 
-Connect your Business Central instance to import actuals into Francis. You can connect multiple instances if you operate across several companies. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map Business Central accounts to line items in your model.
+Connect your Business Central instance to import actuals into Francis. You can connect multiple instances if you operate across several companies. Once connected, your chart of accounts is available in the [Mappings](/features-new/using-francis/data-mappings) view, where you map Business Central accounts to line items in your model.
 
 ## Connect Business Central
 
@@ -45,7 +45,7 @@ Francis pulls the following data from Business Central:
 
 - Journal entries: amount, date, and description
 - GL accounts
-- Dimension tags, available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis
+- Dimension tags, available for [breakdowns](/features-new/using-francis/breakdowns) within Francis
 
 ## Adjustments
 
@@ -61,7 +61,7 @@ Francis automatically adjusts imported data in three ways. All adjustments are b
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
 
-    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+    For this reason, in Francis, summarize balance sheet items using `ENDING` instead of `SUM`.
   </Tab>
   <Tab title="Year-end closing entries">
     Throughout the fiscal year, Business Central holds net profit in a system-generated "Retained earnings current year" account that isn't exposed via the API. To capture this, Francis recreates it as a synthetic account named "Årets foreløbige resultat".
@@ -97,7 +97,7 @@ Francis runs tests on your imported data to flag setup issues before they distor
   <Accordion title="Missing journal entries">
     In rare cases, the user setting up the connection has admin permission to connect to the BC instance but not to access the journal entry table in the BC environment. This check fails when Francis detects this permission setup. When that happens, the Chart of Accounts imports correctly, but no journal entries appear, making it look like there's no activity in the company.
 
-    To resolve this, either grant the user the missing permissions in Business Central, or replace the connection: use a user with broader permissions, or switch to Method 2 (App installation). Delete the old connection afterwards.
+    To resolve this, either grant the user the missing permissions in Business Central, or replace the connection. If replacing the connection, use a user with broader permissions, or switch to Method 2 (App installation). Delete the old connection afterwards.
   </Accordion>
   <Accordion title="Deleted dimension values">
     In rare cases, some journal entries are tagged with a dimension value that no longer exists, because it has been deleted. When that happens, the BC sync will fail, and you will be notified about which dimension value has been deleted. To fix this, you must create the missing dimension value again.

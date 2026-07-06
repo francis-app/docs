@@ -338,7 +338,7 @@ Links cost the reader something. Every hyperlink is a visual interruption and a 
 
 ### When not to link
 
-- **Don't link to Features pages from masterclasses or FAQs.** Features are reference material the reader can find via the sidebar. Linking to *components*, *formulas*, *charts* etc. on every mention adds visual noise without earning the click. Trust the reader to navigate the docs.
+- **Don't link the same Feature page on every mention.** Linking a feature the first time it materially helps is fine, including from masterclasses and FAQs. Linking to *components*, *formulas*, *charts* etc. on every mention adds visual noise without earning the click. Link once, on first meaningful mention, then stop.
 - **Don't link UI element mentions.** *"Click **Save**"* doesn't need a link to the Save button.
 - **Don't link the same destination twice in the same paragraph.** Distracting.
 
@@ -354,7 +354,7 @@ Links cost the reader something. Every hyperlink is a visual interruption and a 
 
 - **Link the noun, not "click here" or "this page."**
 - **Link on first meaningful mention per page, then stop.**
-- **Don't link to a Feature page just because a Feature is mentioned** — that's the editorial principle inverted into noise.
+- **Link a Feature page on first meaningful mention, not on every mention.**
 
 ---
 

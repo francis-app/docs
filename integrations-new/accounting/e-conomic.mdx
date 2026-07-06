@@ -4,16 +4,16 @@ description: "Connect Visma e-conomic to feed actuals into your financial model.
 sidebarTitle: "Visma e-conomic"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/e-conomic.mp4" />
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/e-conomic.mp4" /> */}
 
-Connect your Visma e-conomic account to import actuals into Francis. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map e-conomic accounts to line items in your model.
+Connect your Visma e-conomic account to import actuals into Francis. You can connect multiple accounts if you operate across several companies. Once connected, your chart of accounts is available in the [Mappings](/features-new/using-francis/data-mappings) view, where you map e-conomic accounts to line items in your model.
 
 ## Connect Visma e-conomic
 
 Go to **Settings > Integrations > Visma e-conomic > Connect**. A prompt will appear asking you to authorize Francis as an application in your Visma e-conomic account. This requires Admin rights.
 
 <Tip>
-  Sign in to the right e-conomic company in a separate tab before connecting. The connect flow uses whichever account is signed in, and switching midway can break it. For multiple companies, switch to the right one before each connection.
+  Before you begin, open the e-conomic company you want to connect in a separate tab and make sure you're signed in to it. The connect flow uses whichever account is signed in, so having the right one open keeps it on track. Signing in or switching accounts during the flow can break it. To connect multiple companies, do them one at a time, switching to the right account in the separate tab before each.
 </Tip>
 
 ## What Francis sources
@@ -21,9 +21,9 @@ Go to **Settings > Integrations > Visma e-conomic > Connect**. A prompt will app
 Francis pulls the following data from e-conomic:
 
 - Posted journal entries (bogførte posteringer): amount, date, and description
-- Draft entries (kassekladder), if enabled: amount, date, and description
+- Optional: Draft entries (kassekladder): amount, date, and description
 - GL accounts
-- Dimension tags, available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis
+- Dimension tags, available for [breakdowns](/features-new/using-francis/breakdowns) within Francis
 
 ## Adjustments
 
@@ -39,12 +39,12 @@ Francis automatically adjusts imported data in three ways. All three rely on the
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
 
-    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+    For this reason, in Francis, summarize balance sheet items using `ENDING` instead of `SUM`.
   </Tab>
   <Tab title="Retained earnings">
-    When you close a fiscal year, e-conomic moves retained earnings from a "Retained earnings this year" account to a "Retained earnings from previous years" account. Francis supports this by introducing an additional "Retained earnings this year" account.
+    Throughout the fiscal year, e-conomic holds net profit in a system-generated "Retained earnings current year" account that isn't exposed via the API. To capture this, Francis recreates it as a synthetic account named "Periodens resultat efter skat".
 
-    If you specified a retained earnings account during setup, this adjustment is applied automatically.
+    When you close a fiscal year, e-conomic moves retained earnings from the "Retained earnings current year" account to a "Retained earnings from previous years" account. Francis mirrors this movement and offsets it from the synthetic account.
   </Tab>
 </Tabs>
 
@@ -54,7 +54,7 @@ Francis relies on two user-set settings to make the adjustments.
 
 ### Asset range
 
-If your chart of accounts does not match the default e-conomic template, Francis will prompt you to confirm the asset account range. Adjust `asset_range_start` and `asset_range_end` to match your setup.
+You must specify your asset range in Francis. Set `asset_range_start` and `asset_range_end`. If your chart of accounts matches the default e-conomic template, Francis picks up the values automatically.
 
 <Tip>
   The default asset range for Visma e-conomic is 5000 to 5990. Francis may prompt you to confirm even if your chart follows this default.
@@ -62,7 +62,7 @@ If your chart of accounts does not match the default e-conomic template, Francis
 
 ### Retained earnings
 
-If your chart of accounts differs from the e-conomic default template, you will also be prompted to specify your retained earnings account.
+You must also set your retained earnings from previous years. If your chart of accounts matches the default e-conomic template, Francis picks up the value automatically.
 
 <Tip>
   In most cases this is account 6130 "Retained earnings last year". To verify in e-conomic, go to **Regnskab > Systemkonti > Årsafslutning**.

@@ -1,0 +1,45 @@
+---
+title: "Variance table"
+description: "A column group comparing sources, such as budget vs. actuals, with diff columns."
+icon: "code-compare"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" poster="/images/features/tables/variance.jpg" src="/videos/features/tables/variance.mp4" /> */}
+
+A variance column group compares sources, such as budget vs. actuals, and shows the difference between them in diff columns. Use it to put a plan and an outcome next to each other with the gap called out explicitly.
+
+## Settings
+
+Section, title, number scaling, and decimals sit in the sidebar and apply to the whole table. A column group's own settings open when you click the group in the table.
+
+<AccordionGroup>
+  <Accordion title="Section">
+    The section whose data the table displays.
+  </Accordion>
+  <Accordion title="Title">
+    The table's title.
+  </Accordion>
+  <Accordion title="Number scaling">
+    Default, no scaling, thousands, millions, or billions. Default inherits the model-wide scale set in model settings, reached from the three-dot menu next to the model name in the top-left corner.
+  </Accordion>
+  <Accordion title="Decimals">
+    Auto, or a fixed precision from 0 to 6 decimal places (0, 0.1, 0.12, 0.123, 0.1234, 0.12345, 0.123456). Auto shows no decimals for values above 100, and otherwise targets three significant digits, so 99.532 displays as 99.5 and 4.514 as 4.51. For consistent decimals across a block, set this at the section level.
+  </Accordion>
+  <Accordion title="Column group">
+    A table is one or more column groups placed side by side. Click a column group to open its settings:
+
+    - **Title**: the column group heading.
+    - **Date range**: the span of periods to compare. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or a Custom range. Dynamic ranges resolve against the Last Close month set for the model, so they roll forward automatically as you close each period.
+
+    Click an individual column within the group to set its **name** and **source**. Use **Add column** to add more. Columns come in two kinds:
+
+    - **Value columns**: display values from a source. Settings are **Title** and **Source**. The first value column is the anchor, most often actuals. A source is the version or actuals variant the column displays; the list includes every saved version in your model (budgets and forecasts) plus the actuals variants, and Actuals + X becomes available when the date range runs past your last close.
+    - **Diff columns**: show the difference between two value columns. Settings are **Type** (`#`, index, or `%`) and **Baseline** (the value column to measure against). A diff measures a specified baseline against the anchor, most often budget or actuals (last year).
+  </Accordion>
+</AccordionGroup>
+
+## See in action
+
+<Note>
+  See tables in practice in the [Management report](/masterclasses-new/reporting/management-report) masterclass.
+</Note>

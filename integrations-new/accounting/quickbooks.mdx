@@ -4,9 +4,9 @@ description: "Connect QuickBooks Online to feed actuals into your financial mode
 sidebarTitle: "QuickBooks Online"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/quickbooks.mp4" />
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/quickbooks.mp4" /> */}
 
-Connect your QuickBooks Online account to import actuals into Francis. Once connected, your chart of accounts is available in the [Mappings](/documentation/features/modeling/mappings) view, where you map QuickBooks accounts to line items in your model.
+Connect your QuickBooks Online account to import actuals into Francis. You can connect multiple accounts if you operate across several companies. Once connected, your chart of accounts is available in the [Mappings](/features-new/using-francis/data-mappings) view, where you map QuickBooks accounts to line items in your model.
 
 ## Connect QuickBooks
 
@@ -23,7 +23,7 @@ Dimensions ("tracking categories") are not currently supported for QuickBooks On
 
 ## Adjustments
 
-Francis adjusts imported data in two ways.
+Francis automatically adjusts imported data in two ways.
 
 <Tabs>
   <Tab title="Number convention">
@@ -36,13 +36,13 @@ Francis adjusts imported data in two ways.
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
 
-    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+    For this reason, in Francis, summarize balance sheet items using `ENDING` instead of `SUM`.
   </Tab>
 </Tabs>
 
 ### Retained earnings
 
-QuickBooks Online does not expose its retained earnings account via the API. Francis automatically adjusts for this on other accounting systems, but it is not yet supported for QuickBooks Online. For now, calculate retained earnings manually by adding net profit to the opening balance:
+QuickBooks Online does not expose its retained earnings account via the API. Francis automatically adjusts for this on other accounting systems, but it is not yet supported for QuickBooks Online. For now, calculate retained earnings manually by adding net profit to equity:
 
 ```typescript
 = "Retained earnings"[-1] + "Net profit"[0]

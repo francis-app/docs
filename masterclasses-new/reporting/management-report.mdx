@@ -1,175 +1,179 @@
 ---
-title: "Management report"
-sidebarTitle: "🔴 Management report"
-description: "A page-by-page walkthrough of a Francis management report template, with the settings used to build each page."
+title: "Build a management report"
+sidebarTitle: "Management report"
+description: "A page-by-page walkthrough of a Francis management report template, with the primitives that produce each page."
 ---
 
-# Build a management report
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/reporting/management-report.mp4" /> */}
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/reporting/management-report.mp4" />
+The primary report created by Francis customers is the monthly management report. You can create such a report with Francis dashboards.
 
-This template shows a full 20-page management report built in Francis. Each page below shows what it looks like and which settings produce it — so you can replicate any section directly in your own model.
+The template below shows a 19-page management report built in Francis, for inspiration. Each page shows what it looks like and the primitives that build it.
 
-<Update label="Page 1" description="KPI overview">
-  ![KPI overview](/images/report/page-01.png)
+<Update label="Cover">
+  ![Cover](/images/report/page-01.png)
 
-  **Components shown** — revenue, gross profit, EBITDA, and net income as headline KPIs.
-  **Comparison** — actuals vs. budget, current month.
-  **Format** — numbers displayed in thousands. Set this in **Settings > Display > Number format**.
-  **Date range** — current month, driven by the report date in **Date settings**.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Company logo: [image](/features-new/using-francis/dashboards)
+  - White space: [spacer](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 2" description="Executive summary">
-  ![Executive summary](/images/report/page-02.png)
+<Update label="Agenda">
+  ![Agenda](/images/report/page-02.png)
 
-  **Layout** — free-text commentary section alongside a summary table.
-  **Commentary** — written directly into a text component. Update each reporting period.
-  **Table** — a sheet pulling the top-level P&L rows from your model.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Agenda list: [text](/features-new/using-francis/dashboards)
+  - Bicycle photo: [image](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 3" description="Revenue overview">
-  ![Revenue overview](/images/report/page-03.png)
+<Update label="Executive summary">
+  ![Executive summary](/images/report/page-03.png)
 
-  **Rows shown** — total revenue broken down by revenue stream.
-  **Columns** — actuals, budget, variance (absolute and %), prior year.
-  **Variance colour coding** — enabled in **Settings > Display > Variance colours**.
-  **Period** — year to date. Set the YTD toggle in **Date settings**.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - KPI highlights: [metric boxes](/features-new/using-francis/dashboards)
+  - LTM revenue and margin: [combo chart](/features-new/using-francis/charts/combo)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 4" description="Revenue by channel">
-  ![Revenue by channel](/images/report/page-04.png)
+<Update label="Consolidated P&L performance">
+  ![Consolidated P&L performance](/images/report/page-04.png)
 
-  **Dimensions** — revenue split by channel dimension (retail, wholesale, e-commerce).
-  **Chart type** — stacked bar, showing channel mix over the trailing 12 months.
-  **Dimension setup** — configure channels in **Settings > Dimensions**.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - P&L statement: [table](/features-new/using-francis/tables/overview)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 5" description="Revenue by geography">
-  ![Revenue by geography](/images/report/page-05.png)
+<Update label="Consolidated BS performance">
+  ![Consolidated BS performance](/images/report/page-05.png)
 
-  **Dimensions** — revenue split by entity (Denmark, UK, US).
-  **Currency** — each entity shown in its local currency, with a group total in reporting currency.
-  **FX rates** — pulled automatically from the consolidation settings. See the Consolidation masterclass for setup.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Balance sheet: [table](/features-new/using-francis/tables/overview)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 6" description="Gross profit and margins">
-  ![Gross profit and margins](/images/report/page-06.png)
+<Update label="Consolidated CF performance">
+  ![Consolidated CF performance](/images/report/page-06.png)
 
-  **Rows shown** — revenue, COGS, and gross profit. Margin % calculated as a formula row.
-  **Margin formula** — `"Gross profit" / "Revenue"`, formatted as a percentage.
-  **Comparison** — actuals vs. prior year, trailing 12 months.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Cash flow statement: [table](/features-new/using-francis/tables/overview)
+  - Commentary: [text](/features-new/using-francis/dashboards)
+  - White space: [spacer](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 7" description="Cost of goods sold">
-  ![Cost of goods sold](/images/report/page-07.png)
+<Update label="KPI performance">
+  ![KPI performance](/images/report/page-07.png)
 
-  **Rows shown** — COGS broken down by cost category (materials, freight, production labour).
-  **Driver-based rows** — COGS lines linked to revenue drivers where applicable.
-  **Period** — current month and year to date, side by side.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - KPI matrix: [table](/features-new/using-francis/tables/overview)
+  - White space: [spacer](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 8" description="EBITDA bridge">
-  ![EBITDA bridge](/images/report/page-08.png)
+<Update label="Net working capital breakdown">
+  ![Net working capital breakdown](/images/report/page-08.png)
 
-  **Chart type** — waterfall, showing the movement from budget EBITDA to actual EBITDA.
-  **Bridge items** — revenue variance, COGS variance, OPEX variance, one-offs.
-  **Chart setup** — configure waterfall in the chart component settings panel.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - NWC composition: [waterfall chart](/features-new/using-francis/charts/waterfall)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 9" description="Operating expenses overview">
-  ![Operating expenses overview](/images/report/page-09.png)
+<Update label="Status: CPH studio">
+  ![Status: CPH studio](/images/report/page-09.png)
 
-  **Rows shown** — total OPEX broken down by department.
-  **Columns** — actuals, budget, variance, prior year.
-  **Drill-down** — each department links to its own dashboard page (pages 10–13).
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Status commentary: [text](/features-new/using-francis/dashboards)
+  - Non-current assets: [table](/features-new/using-francis/tables/overview)
+  - Studio photo: [image](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 10" description="Sales and marketing spend">
-  ![Sales and marketing spend](/images/report/page-10.png)
+<Update label="Appendix I: monthly revenue review">
+  ![Appendix I: monthly revenue review](/images/report/page-10.png)
 
-  **Rows shown** — headcount costs, software, events, paid media, agency fees.
-  **Headcount** — pulled from the headcount model. Ensure headcount is linked to this department.
-  **Period** — year to date vs. full-year budget.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - White space: [spacer](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 11" description="Product and engineering spend">
-  ![Product and engineering spend](/images/report/page-11.png)
+<Update label="Revenue performance per channel">
+  ![Revenue performance per channel](/images/report/page-11.png)
 
-  **Rows shown** — headcount costs, contractors, software licences, hosting.
-  **Headcount** — engineering and product roles from the headcount model.
-  **Period** — current month and year to date.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Revenue bridge by channel: [waterfall chart](/features-new/using-francis/charts/waterfall)
 </Update>
 
-<Update label="Page 12" description="G&A spend">
-  ![G&A spend](/images/report/page-12.png)
+<Update label="Revenue performance per entity">
+  ![Revenue performance per entity](/images/report/page-12.png)
 
-  **Rows shown** — finance, legal, HR, office, insurance, and other overhead.
-  **One-off items** — flagged separately using a dedicated one-off row or tag.
-  **Period** — year to date vs. budget.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Revenue bridge by entity: [waterfall chart](/features-new/using-francis/charts/waterfall)
 </Update>
 
-<Update label="Page 13" description="Headcount overview">
-  ![Headcount overview](/images/report/page-13.png)
+<Update label="Appendix II: YTD review">
+  ![Appendix II: YTD review](/images/report/page-13.png)
 
-  **Rows shown** — headcount by department, split into employees and contractors.
-  **Metrics** — opening headcount, new hires, leavers, closing headcount.
-  **Source** — headcount model. Set up roles and departments in the headcount section.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - White space: [spacer](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 14" description="Headcount cost breakdown">
-  ![Headcount cost breakdown](/images/report/page-14.png)
+<Update label="P&L breakdown">
+  ![P&L breakdown](/images/report/page-14.png)
 
-  **Rows shown** — salary, employer NI/social costs, benefits, bonuses, total cost per department.
-  **Employer costs** — modelled as a percentage of salary. Set the rate in headcount settings.
-  **Period** — year to date, with a full-year forecast column.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Revenue to EBITDA bridge: [waterfall chart](/features-new/using-francis/charts/waterfall)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 15" description="Balance sheet overview">
-  ![Balance sheet overview](/images/report/page-15.png)
+<Update label="Cash flow performance">
+  ![Cash flow performance](/images/report/page-15.png)
 
-  **Rows shown** — condensed balance sheet: fixed assets, working capital, net debt, equity.
-  **Period** — end of current month vs. prior year end.
-  **Validation** — balance sheet must balance. Francis flags imbalances automatically.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Cash bridge: [waterfall chart](/features-new/using-francis/charts/waterfall)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 16" description="Working capital">
-  ![Working capital](/images/report/page-16.png)
+<Update label="Appendix III: misc.">
+  ![Appendix III: misc.](/images/report/page-16.png)
 
-  **Rows shown** — trade receivables, trade payables, inventory, prepayments, accruals.
-  **Days metrics** — DSO, DPO, DIO calculated as formula rows.
-  **Period** — current month end, with a 12-month trailing chart.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - White space: [spacer](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 17" description="Cash flow statement">
-  ![Cash flow statement](/images/report/page-17.png)
+<Update label="Working capital: LTM trends">
+  ![Working capital: LTM trends](/images/report/page-17.png)
 
-  **Method** — indirect method, derived from P&L and balance sheet movements.
-  **Sections** — operating, investing, financing activities.
-  **Period** — current month and year to date.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Six trend charts: [line charts](/features-new/using-francis/charts/line)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 18" description="Cash and net debt">
-  ![Cash and net debt](/images/report/page-18.png)
+<Update label="P&L breakdown by department">
+  ![P&L breakdown by department](/images/report/page-18.png)
 
-  **Rows shown** — cash, drawn debt, net debt position, available credit facility.
-  **Chart** — net debt waterfall over the trailing 12 months.
-  **Covenant tracking** — add covenant metrics as formula rows beneath the main table.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Departmental P&L: [table](/features-new/using-francis/tables/overview)
+  - Commentary: [text](/features-new/using-francis/dashboards)
 </Update>
 
-<Update label="Page 19" description="Budget vs. actuals — full P&L">
-  ![Budget vs. actuals](/images/report/page-19.png)
+<Update label="BS breakdown by entity">
+  ![BS breakdown by entity](/images/report/page-19.png)
 
-  **Columns** — actuals, budget, variance (£ and %), prior year, prior year variance.
-  **Scope** — full P&L from revenue to net income.
-  **Period** — year to date. Switch to current month using the date toggle.
-  **Variance colours** — enabled in **Settings > Display > Variance colours**.
-</Update>
-
-<Update label="Page 20" description="Rolling forecast">
-  ![Rolling forecast](/images/report/page-20.png)
-
-  **Columns** — actuals months (closed), forecast months (open), full-year total.
-  **Forecast method** — driver-based for revenue and COGS; departmental budgets for OPEX.
-  **Reforecast cadence** — update open months each period by revising the relevant drivers.
-  **Lock actuals** — lock closed periods in **Date settings** to prevent edits.
+  **Primitives**
+  - Title: [heading](/features-new/using-francis/dashboards) (H1)
+  - Balance sheet by entity: [table](/features-new/using-francis/tables/overview)
 </Update>

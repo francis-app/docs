@@ -204,8 +204,8 @@
             "group": "Using Francis",
             "pages": [
               "features-new/using-francis/getting-started",
-              "features-new/using-francis/timeline-and-dates",
               "features-new/using-francis/components",
+              "features-new/using-francis/timeline-and-dates",
               "features-new/using-francis/data-mappings",
               "features-new/using-francis/formulas",
               "features-new/using-francis/inspect",
@@ -225,7 +225,16 @@
                   "features-new/using-francis/charts/waterfall"
                 ]
               },
-              "features-new/using-francis/tables",
+              {
+                "group": "Tables",
+                "icon": "table",
+                "pages": [
+                  "features-new/using-francis/tables/overview",
+                  "features-new/using-francis/tables/periods",
+                  "features-new/using-francis/tables/variance",
+                  "features-new/using-francis/tables/side-by-side"
+                ]
+              },
               "features-new/using-francis/excel-export",
               "features-new/using-francis/version-control",
               "features-new/using-francis/comments"
@@ -257,9 +266,6 @@
                 "group": "P&L forecasting",
                 "pages": [
                   "masterclasses-new/budgeting-forecasting/pnl-forecasting/pnl-fundamentals",
-                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/subscription-revenue",
-                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/project-revenue",
-                  "masterclasses-new/budgeting-forecasting/pnl-forecasting/product-revenue",
                   "masterclasses-new/budgeting-forecasting/pnl-forecasting/cogs",
                   "masterclasses-new/budgeting-forecasting/pnl-forecasting/headcount",
                   "masterclasses-new/budgeting-forecasting/pnl-forecasting/opex"
@@ -285,15 +291,13 @@
                   "masterclasses-new/budgeting-forecasting/cf-forecasting/cf-fundamentals",
                   "masterclasses-new/budgeting-forecasting/cf-forecasting/cf-validation"
                 ]
-              },
-              "masterclasses-new/budgeting-forecasting/budget-and-forecast-versions"
+              }
             ]
           },
           {
             "group": "Reporting",
             "pages": [
-              "masterclasses-new/reporting/management-report",
-              "masterclasses-new/reporting/department-dashboards"
+              "masterclasses-new/reporting/management-report"
             ]
           },
           {

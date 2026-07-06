@@ -1,16 +1,16 @@
 ---
 title: "Workspace management"
-description: "Configure your organization name, branding, and access settings in Francis."
+description: "Configure your workspace name, branding, and access settings in Francis."
 icon: "building"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/admin/workspace-management.mp4" />
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/admin/workspace-management.mp4" /> */}
 
-Workspace settings are under **Settings > Organization > General**. Only Owners can access and edit these settings.
+Workspace settings are under **Settings > Workspace > General**. Only Owners can access and edit these settings.
 
-## Organization name
+## Workspace name
 
-Update the display name of your organization. This is what members see when switching between organizations.
+Update the display name of your workspace. This is what members see when switching between workspaces.
 
 ## Brand color
 
@@ -24,25 +24,25 @@ Toggle the "Powered by Francis" label in PDF reports on or off. It is enabled by
 
 When enabled, viewers can pull the latest data from connected data sources directly. When disabled, only Editors and above can trigger a data refresh.
 
-## Multiple organizations
+## Delete your workspace
 
-You can run multiple organizations under a single Francis account. This is common for fractional CFOs managing several clients from one login.
-
-To create an additional organization:
-
-1. Click your organization name in the top left
-2. Hover over **Switch organization**
-3. Select **Create or join organization**
-4. Enter the name of the new organization
-
-<Note>
-  The person who creates an organization is automatically assigned as Owner. To transfer ownership to another member, contact [support@francis.app](mailto:support@francis.app).
-</Note>
-
-## Delete your organization
-
-Go to **Settings > Organization > General** and select **Delete this organization** in the Danger Zone.
+Go to **Settings > Workspace > General** and select **Delete this workspace** in the Danger Zone.
 
 <Warning>
-  Deleting an organization permanently removes all content and user data within it. This cannot be undone.
+  Deleting a workspace permanently removes all content and user data within it. This cannot be undone.
 </Warning>
+
+## Multiple workspaces
+
+You can run multiple workspaces under a single Francis account. This is common for fractional CFOs managing several clients from one login.
+
+To create an additional workspace:
+
+1. Click your workspace name in the top left
+2. Hover over **Switch workspace**
+3. Select **Create or join workspace**
+4. Enter the name of the new workspace
+
+<Note>
+  The person who creates a workspace is assigned as Owner. To transfer ownership, go to **Settings > Workspace > Members**, open the role menu next to a member's name, and select **Make owner**. A workspace can have multiple owners, so you can demote yourself afterwards if you want.
+</Note>

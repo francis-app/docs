@@ -4,9 +4,9 @@ description: "Import actuals from accounting systems not natively supported by F
 sidebarTitle: "Non-supported ERP"
 ---
 
-<video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/other-erp.mp4" />
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/other-erp.mp4" /> */}
 
-Use Google Sheets as a bridge to import actuals from accounting systems Francis does not natively support. Francis creates a synced sheet in your Google Drive, you paste your data into it, and your chart of accounts becomes available in the [Mappings](/documentation/features/modeling/mappings) view, where you map accounts to line items in your model.
+Use Google Sheets as a bridge to import actuals from accounting systems Francis does not natively support. Francis creates a synced sheet in your Google Drive, you paste your data into it, and your chart of accounts becomes available in the [Mappings](/features-new/using-francis/data-mappings) view, where you map accounts to line items in your model.
 
 ## Connect Google Sheets
 
@@ -15,7 +15,7 @@ Go to **Settings > Integrations > Google Sheets > Connect**. A prompt asks you t
 - **Monthly totals:** upload monthly trial balances (high-level).
 - **Detailed entries:** upload journal entries (detailed).
 
-Francis creates a sheet in your Google Drive and live-syncs it to Francis on every refresh. Francis must create the sheet. You cannot create your own sheet and then connect it. Enter your data into the sheet Francis creates.
+Francis creates a sheet in your Google Drive that's live-synced to Francis on every refresh. Francis must create the sheet for it to be live-synced. You cannot create your own sheet and then connect it. Enter your data into the sheet Francis creates.
 
 <Tip>
   Francis can only view, edit, create, and delete the specific Google Drive files it creates. It does not access any of your other Google Drive files.
@@ -38,7 +38,7 @@ What Francis pulls depends on the template you chose.
   <Tab title="Detailed entries">
     - Journal entries: amount, date, and description
     - GL accounts
-    - Dimension tags (optional), available for [breakdowns](/documentation/features/consolidation/breakdowns) within Francis. To add dimension tags, enter a dimension title in cell **E1** and populate dimension tags in column **E**.
+    - Dimension tags (optional), available for [breakdowns](/features-new/using-francis/breakdowns) within Francis. To add dimension tags, enter a dimension title in cell **E1** and populate dimension tags in column **E**.
   </Tab>
 </Tabs>
 
@@ -56,7 +56,7 @@ Francis accumulates balance sheet accounts automatically on import. Provide **de
 
 ## Adjustments
 
-Francis adjusts imported data in two ways.
+Francis automatically adjusts imported data in two ways.
 
 <Tabs>
   <Tab title="Number convention">
@@ -69,14 +69,14 @@ Francis adjusts imported data in two ways.
   <Tab title="Balance sheet">
     Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
 
-    Summarize balance sheet items using `ENDING` or `DELTA` values instead of `SUM`.
+    For this reason, in Francis, summarize balance sheet items using `ENDING` instead of `SUM`.
   </Tab>
 </Tabs>
 
 To enable these adjustments, turn on **Treat as entity** under the Google Sheets settings. This tells Francis the data represents accounting information and triggers the adjustments.
 
 <Note>
-  Connecting Google Sheets as an entity counts toward your plan's limit on active accounting connections.
+  Connecting Google Sheets as an entity counts toward your plan's limit on active data sources.
 </Note>
 
 ## Settings to enable adjustments
@@ -132,3 +132,11 @@ Francis runs tests on each sync to flag formatting issues before they distort yo
     </AccordionGroup>
   </Tab>
 </Tabs>
+
+## Microsoft users
+
+If you use Microsoft 365, create a Google account with your Microsoft email address to connect Google Sheets to Francis.
+
+<Note>
+  Excel Online support is coming soon. Reach out at [support@francis.app](mailto:support@francis.app) with questions.
+</Note>
