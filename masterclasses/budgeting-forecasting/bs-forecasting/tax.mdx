@@ -1,0 +1,86 @@
+---
+title: "Forecast tax"
+sidebarTitle: "Tax"
+description: "How to forecast corporate tax payable in Francis: monthly accrual, year-end recognition, aconto payments, and final settlement."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/tax.mp4" /> */}
+
+Corporate tax accrues against profit and settles at known points in the year. The balance sheet balance accumulates tax expense, reduces with aconto payments during the year, and clears with the final settlement in November of the following year.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals). For tax, this means tax payable last period + tax expense recognized in period − aconto payments made in period − final settlement.
+
+## What approach to use
+
+Driver-based is the right default. Apply the effective tax rate to profit before tax, either monthly or as a single year-end entry. The choice of recognition approach is separate from the BS mechanics. Aconto payments and the final settlement work the same way either way.
+
+Use monthly recognition when profitability varies significantly through the year and you want the P&L and BS to reflect the tax liability in real time.
+
+Use year-end recognition for a simpler setup. A single tax expense entry in December based on full-year profit is enough for most businesses and matches how most companies actually book the entry.
+
+Statistical is rarely a good fit. Tax is determined by profitability and applicable rates, not historical patterns.
+
+Hardcoded works as a placeholder when working from an accountant's estimate. Enter the accrual in the relevant month and model the settlement separately.
+
+## Where to forecast tax
+
+- **Directly on the balance sheet:** right for most cases. The accrual and settlement logic live on the tax payable row itself.
+- **Supporting sheet:** worth considering for driver-based setups or when you have a complex tax structure with multiple entities, rates, or payment schedules. The sheet handles the detail; the balance sheet row references the total.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    **P&L: tax expense**
+
+    Add a tax expense row on the P&L. Two approaches for when to recognize the charge:
+
+    *Monthly recognition* applies the effective rate to each month's profit:
+
+    ```typescript
+    = "Profit before tax"[0]
+    * "Effective tax rate"[0]
+    ```
+
+    *Year-end recognition* fires only in December, summing the full year's profit before tax:
+
+    ```typescript
+    = if(if_month(12) = 1, sum("Profit before tax" [-11:0]) * "Effective tax rate"[0], 0)
+    ```
+
+    Add the effective tax rate to an assumptions sheet. The BS mechanics are the same regardless of which recognition approach you use.
+
+    **Balance sheet: tax payable**
+
+    The tax payable balance accumulates tax expense, decreases with aconto payments, and clears in November of the following year when the final settlement fires:
+
+    ```typescript
+    = "Tax payable"[-1]
+    + "Tax expense"[0]
+    - "Aconto"[0]
+    - if(if_month(11) = 1, "Tax payable"[-1] + "Tax expense"[0], 0)
+    ```
+
+    In every month except November, the settlement term is zero and the balance rolls forward normally. In November, the `if_month(11)` term equals the full accumulated balance, clearing it to zero.
+
+    The settlement always clears the prior year's liability. Aconto payments during the income year are estimates; the November settlement is the final reconciliation once the year has closed and the actual tax liability is known. The balance accumulates through the current year while the prior year is being settled.
+
+    <Note>Adjust the month number if your jurisdiction settles on a different schedule.</Note>
+
+    **Aconto payments**
+
+    Aconto payments are hardcoded values entered in the months they fall due. In Denmark, the standard schedule has three instalments: March and November of the income year, and an optional February payment the following year. The February instalment is available if you want to top up the aconto to avoid a large final settlement in November.
+
+    The simplest approach is to enter the aconto amounts directly into the tax payable row for those months, without adding a new row. If you want the cash flow statement to show aconto payments as a separate line, add a dedicated **Aconto** row and reference it in the roll-forward formula above. Either way, the cash flow picks up the movement automatically.
+  </Tab>
+  <Tab title="Statistical">
+    Statistical forecasting is rarely a good fit for corporate tax. The liability is determined by profitability and applicable tax rules, not historical patterns. A year with a different profit level or a change in deductions makes historical averages unreliable.
+
+    If you need a quick placeholder, reference last year's total and apply a growth rate. Migrate to driver-based once you have a clearer picture of the year ahead.
+  </Tab>
+  <Tab title="Hardcoded">
+    Enter the tax expense directly in the month it falls due, typically as a single year-end entry based on your accountant's estimate. Add the expected aconto payment amounts in March and November, and the final settlement amount in November of the following year.
+
+    Document the basis in a formula note. Tax is an obligation that changes with profitability and tax rules, so hardcoded values require a manual review each planning cycle.
+  </Tab>
+</Tabs>

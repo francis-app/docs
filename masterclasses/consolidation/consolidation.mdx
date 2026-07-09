@@ -1,34 +1,170 @@
 ---
-title: "Consolidating Financial Statements"
-description: "Consolidate actuals across multiple entities and enable entity-level forecasting."
+title: "Consolidate multi-entity financials"
 sidebarTitle: "Consolidation"
-icon: "sitemap"
+description: "Set up entity breakdowns, sub-consolidations, and eliminations to reflect your group structure in Francis."
 ---
 
-<iframe width="720" height="466" src="https://www.loom.com/embed/8c8165f77eac4fdda8216aa56b4689c0?sid=b8bffbd4-cd3f-48d8-b9d6-25ef1af2d365" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/consolidation.mp4" /> */}
 
-## Overview
+Build your consolidation with an [entity breakdown](/features/using-francis/breakdowns). Apply the breakdown and every entity follows one shared template, so the group consolidates automatically as actuals and forecasts roll up. This guide covers reflecting your group structure in Francis: mapping entities to sheets, eliminating intercompany transactions, building sub-consolidations, and layering in adjustments like IFRS or transfer pricing. It's for finance teams running multi-entity groups who want the consolidation to stay correct without manual rework.
 
-After connecting and configuring your data sources, the next step is to build a consolidated model. This Masterclass explains how to use consolidation templates to organize your managed instances in Francis, so you can create a reliable, streamlined consolidation process.
+## Each entity gets a sheet
 
-## Basics
+When you apply a breakdown, each entity gets its own sub-sheet. In the breakdown settings, reached from the three-dot menu next to the breakdown then **Adjust breakdown**, you assign each accounting system connection to the entity sub-sheet it feeds. This links a data source to a sheet. It's separate from mapping GL accounts to line items, which you do once on the shared template, covered below.
 
-### Create a model
+You can create new sheets for new entities at any time. When a new accounting system is connected, Francis notifies you to map it to a sheet so the consolidation stays complete. Add sheets from the three-dot menu, **Add sheet**.
 
-To consolidate actuals across multiple entities, begin by creating a model in Francis. You can choose to build it from scratch or start with one of our pre-made templates.
+Because every entity follows the same P&L and balance sheet template, the group always consolidates cleanly. Map all GL accounts to that shared structure. Where entities use the same accounts for a line item, point them all at the same line: one line carries every account and filters the actuals per sub-sheet automatically.
 
-* **Starting from a template** is recommended if you’re new to Francis or want a reliable framework for structuring your model. Templates can be edited to suit your specific needs, so you’re not locked into the initial format.
+Entities' charts of accounts won't always match. Some drift apart over time, and some entities genuinely run different operations. Either way, add all the accounts to the structure. A line item with no mapping for a given entity simply shows zero, and those zeros are the price of a consolidation that always ties out. When the differences come from genuinely different operations, put those lines in their own group in the P&L or balance sheet, then collapse the group in the entities where it doesn't apply.
 
-* **Starting from scratch** may suit you if you already have modeling experience or a detailed financial model in Excel or Google Sheets that you want to replicate in Francis. However, most users benefit from starting with a template, as it provides a faster path to a working consolidation set-up.
+In practice, some revenue and COGS accounts often vary per legal entity, while everything below gross profit (salaries, rent, sales and marketing, admin) fits standard buckets.
 
-### Map your general ledger
+## Eliminations are included via separate sheets
 
-Once your model is set up, map your general ledger accounts from your connected data sources. Go to **Mappings** in the top-left for an overview of your data sources and their respective ledgers.
+Put eliminations on their own sheet. The entity sub-sheets keep their correct standalone numbers, and the eliminations only apply at the consolidated level.
 
-During this step, unify your general ledger accounts so that actuals from different entities can be automatically imported and consolidated. The next step is to split these consolidated numbers into separate entities for more detailed forecasting.
+In practice, write formulas on the elimination sheet that pull each IC value from the entity, with a leading minus to offset it. The one prerequisite is separate line items for IC, so there's a clean value to reference.
 
-### Split your model by entities
+<Tip>
+  Structure your IC data in your accounting system on separate GL accounts or dimension values. That makes it easy to isolate IC on its own line items in Francis.
+</Tip>
 
-After mapping your general ledger accounts into a single unified structure, you now have a consolidated view of all entities. For planning purposes, however, you may want to forecast each entity separately.
+If you have subgroups, add multiple elimination sheets to capture eliminations at the subgroup level rather than only the top group. Decide where in the group structure each elimination sheet sits, then input the elimination formulas in the right place so the subtotals come out right.
 
-To enable forecasting at the entity level, split your consolidated sheet into multiple instances. Hover over the sheet that contains your consolidated actuals, select the three dots (**...**) to open the action menu, then choose **Split by...**. A modal will appear where you can create separate instances, each reflecting the actuals for one of your entities.
+This works only if you can split eliminations by counterparty. In a sub-consolidation, you want to eliminate only the IC between the entities in that subgroup. If that IC is mixed together with IC against entities in other subgroups, you can't isolate it on the local sub-consolidation, and you must eliminate it at the top level instead.
+
+These are the eliminations a group typically needs.
+
+<AccordionGroup>
+  <Accordion title="IC revenue and costs">
+    One entity bills another. The seller books IC revenue, the buyer books the matching IC cost. Offset both sides so they cancel at group level.
+  </Accordion>
+  <Accordion title="IC receivables and payables">
+    The balance sheet side of IC trading. The unpaid portion sits as a receivable on the seller and a payable on the buyer. Eliminate the receivable against the payable.
+  </Accordion>
+  <Accordion title="Management fees">
+    A parent charges its subsidiaries a fee: income to the parent, a cost to each subsidiary. Eliminate both sides. If the fee is a fixed amount, the elimination can reference a hardcoded value rather than a GL row.
+  </Accordion>
+  <Accordion title="IC loans">
+    A loan is a financial asset for the lender and a liability for the borrower. Eliminate both. The interest on the loan needs eliminating too, from the P&L and the balance sheet.
+  </Accordion>
+  <Accordion title="Ownership in subsidiaries">
+    Eliminate the parent's investment in each subsidiary against the subsidiary's equity and retained earnings, so the group doesn't double-count the net assets it already consolidates line by line.
+  </Accordion>
+</AccordionGroup>
+
+### IC reconciliation
+
+If you have many eliminations, add a separate IC reconciliation sheet. For each IC pair, write a formula that takes the difference between the two sides as a test of whether they net to zero. Build one test per pair, and any non-zero result points you straight at the mismatch.
+
+Reconciliation becomes stronger the more granular data you have. For example, recording IC in dedicated GL accounts per entity pair. When your group has more than two entities, create separate IC accounts for each pair, for example DK-UK, UK-US, and DK-US. If all IC sits in shared accounts, you can't tell whether eliminations are accurate or which entity relationships are mismatched or incomplete. It matters most for cross-currency IC, where small differences between the two sides are expected from exchange rate movements. Without separated pairs, those differences are hard to investigate.
+
+### Eliminations across currencies
+
+Each entity records the same IC transaction in its own base currency, and Francis converts each side separately to the reporting currency. The converted amounts often differ slightly, because the exchange rates Francis uses differ from the ones used in your accounting system. Add an FX fluctuation row to the P&L or balance sheet structure with a formula that takes the residual between the two eliminated amounts, so the two sides net to zero at group level.
+
+<Warning>
+  The residual method can also absorb accounting mispostings. If you rely on Francis to reconcile eliminations, sanity-check that the FX differences sit within reasonable bounds and aren't hiding mispostings.
+</Warning>
+
+## Create sub-consolidations via roll-ups
+
+Build sub-consolidations with roll-ups. Open the three-dot menu, choose **Add roll-up**, and drag the relevant entity sub-sheets into it. A roll-up gives a clean consolidated view for any slice of the group, a legal holding layer, a region, or any other grouping, without duplicating the model structure.
+
+## Other adjustments such as IFRS and transfer pricing
+
+Handle other consolidation adjustments the same way as eliminations: on separate sheets that apply only at the consolidated level. IFRS adjustments, transfer pricing, and similar group-level entries each go on their own sheet, leaving the entity sub-sheets correct for standalone reporting.
+
+Make the actual adjustments by writing formulas on the adjustment sheet, referencing the relevant entity values and applying the correction. Those adjustments then flow into the consolidated total without touching the underlying entity numbers.
+
+## Common use cases
+
+### Standard consolidation
+
+The common case is three entities and an elimination sheet. Give each entity its own sub-sheet and add one sheet for eliminations. The top-level sheet consolidates all three entities net of eliminations.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.File name="DK" />
+    <Tree.File name="UK" />
+    <Tree.File name="US" />
+    <Tree.File name="Eliminations" />
+  </Tree.Folder>
+</Tree>
+
+### Consolidation with subgroups
+
+For a group with subgroups, the holding entity sits at the top and each subgroup gets its own roll-up. Take a holding company over two subgroups, each with three operating companies. Build a roll-up per subgroup, drag its three operating-entity sub-sheets in, and the top level rolls the two subgroups and the holding into the group view. Place an elimination sheet inside each subgroup for the IC transactions within it, and one at the top for cross-subgroup eliminations. That way every subtotal, subgroup and group, comes out right.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.File name="Holding" />
+    <Tree.Folder name="Europe (roll-up)" defaultOpen>
+      <Tree.File name="DK" />
+      <Tree.File name="UK" />
+      <Tree.File name="DE" />
+      <Tree.File name="IC Eliminations – Europe" />
+    </Tree.Folder>
+    <Tree.Folder name="Americas (roll-up)" defaultOpen>
+      <Tree.File name="US" />
+      <Tree.File name="CA" />
+      <Tree.File name="MX" />
+      <Tree.File name="IC Eliminations – Americas" />
+    </Tree.Folder>
+    <Tree.File name="IC Eliminations – Consolidated" />
+  </Tree.Folder>
+</Tree>
+
+### Regional splits
+
+Group entities by geography with roll-ups. Add a roll-up per region, for example EMEA and Americas, and drag each region's entity sub-sheets in. The top-level sheet rolls up all regions, giving you a regional P&L alongside the group view in one model.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="EMEA (roll-up)" defaultOpen>
+      <Tree.File name="DK" />
+      <Tree.File name="UK" />
+      <Tree.File name="DE" />
+    </Tree.Folder>
+    <Tree.Folder name="Americas (roll-up)" defaultOpen>
+      <Tree.File name="US" />
+      <Tree.File name="CA" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+### Single entity with department breakdown
+
+If you run as a single legal entity, skip the entity breakdown and build a [P&L per department](/masterclasses/consolidation/department-pnls) instead. You get the same per-department forecasting without a consolidation layer.
+
+<Tree>
+  <Tree.Folder name="P&L" defaultOpen>
+    <Tree.File name="Sales" />
+    <Tree.File name="Marketing" />
+    <Tree.File name="Operations" />
+    <Tree.File name="Finance" />
+  </Tree.Folder>
+</Tree>
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="I want to forecast in local currencies and consolidate to my reporting currency manually. How do I set this up?">
+    <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/consolidation/lcy-consolidation.mp4" />
+  </Accordion>
+  <Accordion title="Why can't I map GL accounts to a sub-sheet?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Why can't I change lines in a sub-sheet?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Do I need to eliminate IC transactions in the forecast too?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="How do I handle partial ownership in eliminations?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}

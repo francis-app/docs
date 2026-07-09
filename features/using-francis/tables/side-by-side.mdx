@@ -1,0 +1,47 @@
+---
+title: "Side-by-side table"
+description: "A column group comparing entities, departments, or other units in parallel columns."
+icon: "table-columns"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" poster="/images/features/tables/side-by-side.jpg" src="/videos/features/tables/side-by-side.mp4" /> */}
+
+A side-by-side column group compares units in parallel columns, such as entities or departments shown next to each other for the same period. Use it to read one line item across every unit at a glance.
+
+## Roll-up sections
+
+Side-by-side is only available when the table's section uses roll-up sections. Roll-ups tell Francis that all subsheets share the same template and can be compared in parallel columns. You can show either roll-ups or individual sheets. A roll-up functions as a total column, so use one whenever you want a total.
+
+## Settings
+
+Section, title, number scaling, and decimals sit in the sidebar and apply to the whole table. A column group's own settings open when you click the group in the table.
+
+<AccordionGroup>
+  <Accordion title="Section">
+    The section whose data the table displays.
+  </Accordion>
+  <Accordion title="Title">
+    The table's title.
+  </Accordion>
+  <Accordion title="Number scaling">
+    Default, no scaling, thousands, millions, or billions. Default inherits the model-wide scale set in model settings, reached from the three-dot menu next to the model name in the top-left corner.
+  </Accordion>
+  <Accordion title="Decimals">
+    Auto, or a fixed precision from 0 to 6 decimal places (0, 0.1, 0.12, 0.123, 0.1234, 0.12345, 0.123456). Auto shows no decimals for values above 100, and otherwise targets three significant digits, so 99.532 displays as 99.5 and 4.514 as 4.51. For consistent decimals across a block, set this at the section level.
+  </Accordion>
+  <Accordion title="Column group">
+    A table is one or more column groups placed side by side. Click a column group to open its settings:
+
+    - **Title**: the column group heading.
+    - **Date range**: the span of periods to show. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or a Custom range. Dynamic ranges resolve against the Last Close month set for the model, so they roll forward automatically as you close each period.
+    - **Source**: the version or actuals variant the columns display. The list includes every saved version in your model (budgets and forecasts) plus the actuals variants; Actuals and Actuals (last year) are always available. When the date range extends beyond your last close, Actuals + X also becomes available: it shows actuals up to the last closed month, then the version you pick for the months after.
+
+    Click an individual column within the group to set its **title**. Use **Add sheet** to add more subsheets as columns.
+  </Accordion>
+</AccordionGroup>
+
+## See in action
+
+<Note>
+  See tables in practice in the [Management report](/masterclasses/reporting/management-report) masterclass.
+</Note>

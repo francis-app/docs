@@ -1,0 +1,92 @@
+---
+title: "Forecast trade receivables"
+sidebarTitle: "Trade receivables"
+description: "How to forecast trade receivables in Francis: driver-based, statistical, and hardcoded approaches."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/receivables.mp4" /> */}
+
+Trade receivables represent amounts owed by customers for goods or services already delivered. The balance builds with new invoices and reduces as customers pay.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals). For trade receivables, this means trade receivables last period + new invoices issued in period − customer payments received in period.
+
+## What approach to use
+
+Driver-based is the right default when revenue is the primary driver. Express the closing balance as a function of revenue and/or payment days. When revenue assumptions change, the receivables balance updates automatically.
+
+Use statistical when payment patterns are stable and you want a quick, reliable estimate without rebuilding the revenue link.
+
+Use hardcoded when you have a management target, such as a deliberate reduction in payment days or a collection drive. The limitation is that hardcoded values don't adapt when operations change. Revenue growth, new customers, or revised payment terms all require a manual update.
+
+## Where to forecast trade receivables
+
+- **Directly on the balance sheet:** right for most cases.
+- **Supporting sheet:** worth considering when receivables are segmented by customer, channel, or payment terms and each segment has different payment days.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    **Payment days**
+
+    Use the built-in `receivables()` function. It accumulates revenue from previous months based on a payment days assumption, treating each month as 30 days:
+
+    ```typescript
+    = receivables("Revenue", 30)
+    ```
+
+    30 days means customers pay within the same month, so the balance equals one full month of revenue. 45 days means half of last month's revenue is still outstanding on top of the current month's full balance.
+
+    The payment days argument must be hardcoded. You cannot reference a row or cell for it. To change the assumption, update the number directly in the formula.
+
+    <Note>This approach applies one uniform payment days assumption to all revenue. If your actuals reflect different payment terms across customers or revenue streams, switching to a single driver at the forecast start can create a step change in the balance. Check that the opening forecast balance is consistent with the closing actual balance.</Note>
+
+    **% of revenue**
+
+    A simpler alternative when the day-count framing isn't useful. Add a **Trade receivables %** assumption and apply it to monthly revenue:
+
+    ```typescript
+    = "Revenue"[0]
+    * "Trade receivables %"[0]
+    ```
+
+    **Cash flow**
+
+    The change in trade receivables flows automatically to the working capital section of the cash flow statement. An increase in the balance is a cash outflow; a decrease is a cash inflow. See [cash flow fundamentals](/masterclasses/budgeting-forecasting/cf-forecasting/cf-fundamentals) for how working capital movements feed the cash flow statement.
+  </Tab>
+  <Tab title="Statistical">
+    A rolling average works when the receivables balance is steady with no significant spikes or seasonal swings:
+
+    ```typescript
+    = avg_last("Trade receivables", 3)
+    ```
+
+    If the balance follows a seasonal pattern, reference the same month last year and apply an expected growth rate:
+
+    ```typescript
+    = "Trade receivables"[-12]
+    * (1 + 5%)
+    ```
+
+    Replace 5% with the growth rate that reflects your revenue expectations.
+
+    Statistical is not a good fit when the historical balance does not accurately represent how the business will behave going forward. Common cases: payment terms are changing, new revenue streams have different collection profiles, or a large spike or one-off in the actuals distorts the average.
+  </Tab>
+  <Tab title="Hardcoded">
+    Enter the target closing balance directly for each month. Use this when working toward a management target, such as a reduction in payment days or a one-off collection drive. Enter the balance you're aiming for rather than trying to back-solve a driver.
+
+    The limitation is that hardcoded values don't adapt when operations change. Revenue growth, new customers, or revised payment terms all require a manual update each cycle.
+
+    Document the basis in a formula note so the assumption is clear when you revisit it.
+  </Tab>
+</Tabs>
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I convert payment days to a trade receivables percentage?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}

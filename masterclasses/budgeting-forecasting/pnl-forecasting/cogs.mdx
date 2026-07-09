@@ -1,0 +1,77 @@
+---
+title: "Forecast COGS"
+sidebarTitle: "COGS"
+description: "How to forecast cost of goods sold in Francis: driver-based, statistical, and hardcoded approaches, and when to use a supporting sheet."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/pnl-forecasting/cogs.mp4" /> */}
+
+COGS moves with revenue more closely than any other P&L line. The right forecasting method depends on how variable your cost structure is and how much granularity the model needs.
+
+## What approach to use
+
+Driver-based is the right default for most COGS lines. If you can express cost as a function of revenue or volume, model it that way.
+
+Use statistical when you don't have the granular data for a clean driver, or when costs are stable enough that historical patterns are a reliable guide.
+
+Hardcoded is for exceptions: a fixed contract, a one-off cost, or a fallback when there's no signal worth modeling.
+
+## Where to forecast COGS
+
+- **Directly on the P&L:** right for most cases. A percentage-of-revenue formula or statistical projection lives on the COGS row itself. Simple to set up, easy to maintain.
+- **Supporting sheet:** right when COGS is driven by multiple inputs (unit economics, inventory levels, multiple product lines with different margin profiles). The sheet handles the complexity; the P&L row references the result.
+
+If you're unsure, start directly on the P&L. A supporting sheet is straightforward to add later once the model's complexity justifies it.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    The default for variable direct costs. Add a formula to the COGS row that references your revenue group and applies a cost percentage. When revenue assumptions change, COGS updates automatically.
+
+    ```typescript
+    = "Revenue"[0] * "COGS % of Revenue"[0]
+    ```
+
+    Add your COGS % of Revenue assumption to a separate assumptions sheet. The formula references it directly.
+
+    For unit-based forecasting, the same driver logic applies with volume × unit cost as inputs instead of a revenue percentage. If unit costs vary by product line or are tied to inventory movements, build a supporting sheet and reference the total into the COGS row.
+
+    Driver-based breaks down when the cost-to-revenue relationship is unstable: a business going through a significant change in cost structure, or where purchasing is lumpy and doesn't track revenue closely.
+  </Tab>
+  <Tab title="Statistical">
+    Use this approach when costs are stable and the near future is expected to mirror recent history. The simplest setup is a YoY reference with a growth adjustment:
+
+    ```typescript
+    = "COGS"[-12] * (1 + 5%)
+    ```
+
+    If month-to-month actuals are volatile, a rolling average smooths the baseline:
+
+    ```typescript
+    = avg_last("COGS", 3) * (1 + 5%)
+    ```
+
+    For lines where trend and seasonality interact, `predict()` handles both automatically.
+
+    Statistical becomes unreliable when costs have shifted structurally: a new supplier, a change in product mix, or a step-change in volume.
+  </Tab>
+  <Tab title="Hardcoded">
+    Enter a value directly on the COGS row. No formula needed.
+
+    Use hardcoded values for fixed costs that don't scale with revenue or volume: a fixed-price supply contract, a one-off bulk purchase, or a licensing fee with a fixed annual amount. Outside these cases, hardcoded COGS becomes a maintenance problem as volumes change.
+  </Tab>
+</Tabs>
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My COGS margin varies significantly month to month. Which method should I use?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="How do I forecast COGS across multiple product lines with different margins?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}

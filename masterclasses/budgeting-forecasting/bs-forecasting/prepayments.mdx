@@ -1,0 +1,96 @@
+---
+title: "Forecast prepayments"
+sidebarTitle: "Prepayments"
+description: "How to forecast the prepaid asset balance in Francis: driver-based, statistical, and hardcoded approaches."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/prepayments.mp4" /> */}
+
+A prepayment is cash paid in advance for goods or services not yet received. Common examples include insurance premiums, SaaS subscriptions, rent deposits, and annual maintenance contracts.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals). For prepayments, this means prepaid asset last period + cash paid in period − amortisation recognised in period.
+
+## What approach to use
+
+Driver-based is the right primary approach. Build a supporting sheet listing each contract with its payment amount, due month, and coverage period. The sheet flows into both the P&L and the balance sheet, so when assumptions change, both update automatically.
+
+Use statistical when the same contracts renew at roughly the same time each year with a small price increase. It is not flexible enough for a changing contract mix.
+
+Hardcoded is acceptable for specific contracts with known amounts and timing. Use it selectively. The BS roll-forward must still hold regardless of approach: Opening + Cash Paid − Amortisation = Closing.
+
+## Where to forecast prepayments
+
+- **Supporting sheet:** right for most cases. List each contract with its payment amount, due month, and coverage period. The balance sheet row references the monthly total. This keeps renewals easy to update and gives a clear view of upcoming cash payments.
+- **Directly on the balance sheet:** right for simple single-contract setups.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    **Set up the supporting sheet**
+
+    Build the prepayments model on a supporting sheet. Group contracts by coverage period: one group for annual contracts, one for quarterly. Name the groups accordingly: **Prepayments** for annual, **Quarterly prepayments** for quarterly. Each group gets its own amortisation formula below it.
+
+    Within each group, add one row per contract and hardcode the cash payment in the month it falls due.
+
+    **P&L recognized**
+
+    Add a **P&L recognized** row below each group. The formula takes the rolling sum of the last 12 months of annual payments and divides by 12:
+
+    ```typescript
+    = -sum("Prepayments" [-11:0]) / 12
+    ```
+
+    For quarterly contracts, use the last 3 months divided by 3:
+
+    ```typescript
+    = -sum("Quarterly prepayments" [-2:0]) / 3
+    ```
+
+    The formula is negative because it is an expense. When a new contract is added, the row picks it up in the current period and amortises it going forward. A 120k annual contract added in February produces a 10k monthly expense from that month onwards.
+
+    **Balance sheet roll-forward**
+
+    The balance sheet row references the P&L recognized row and the group directly:
+
+    ```typescript
+    = "Amount on BS"[-1]
+    + "P&L recognized"[0]
+    + "Prepayments"[0]
+    ```
+
+    The group addition is positive (cash paid in); P&L recognized is negative (expense flowing out). Driver-based gives you scenario flexibility, auditability (every balance traces back to a cash payment and a coverage period), and automatic P&L and cash flow linkage.
+  </Tab>
+  <Tab title="Statistical">
+    Statistical works when the same contracts renew at roughly the same time each year with a small price increase. Rather than re-entering every contract, reference the prior year's balance and apply an expected growth rate:
+
+    ```typescript
+    = "Prepayments"[-12] * (1 + 5%)
+    ```
+
+    Replace 5% with the expected price increase across your contract base.
+
+    This approach breaks down as soon as the contract mix changes. A new contract, a cancellation, or a shift in renewal timing makes the prior year balance an unreliable starting point. If you are adding suppliers or renegotiating terms, rebuild with driver-based instead.
+  </Tab>
+  <Tab title="Hardcoded">
+    Hardcoded is acceptable for specific contracts where the amount and timing are fixed in advance. Enter the cash payment in the month it falls due and the monthly amortisation for the contract period.
+
+    The BS roll-forward must still hold:
+
+    ```typescript
+    = "Prepayments"[-1]
+    + "Cash paid"[0]
+    - "Amortisation"[0]
+    ```
+
+    The main risks with hardcoded values are no scenario flexibility (a change in assumptions requires manual updates across every affected period) and an audit trail that relies entirely on formula notes. Document the contract name, total value, and coverage period in a note on each row.
+  </Tab>
+</Tabs>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I model a contract renewal?">
+    Add the renewal payment as a new cash paid addition in the month it falls due. Model the renewal as a fresh prepayment with its own total and coverage period rather than extending the existing amortisation schedule.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,79 @@
+---
+title: "Forecast OPEX"
+sidebarTitle: "OPEX"
+description: "How to forecast operating expenses in Francis: driver-based, statistical, and hardcoded approaches across different cost lines."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/pnl-forecasting/opex.mp4" /> */}
+
+OPEX covers a wide range of cost lines (software, marketing, facilities, professional services), each with different predictability and drivers. Salaries and payroll are covered on the [Headcount](/masterclasses/budgeting-forecasting/pnl-forecasting/headcount) page; this page covers the rest.
+
+## What approach to use
+
+Statistical is the right default for most OPEX lines. Recurring costs without a clear driver are well-served by a rolling average or a YoY reference.
+
+Use driver-based only when a meaningful, reliable driver exists for the cost line. Equipment and rent are good examples: where cost scales with headcount, model it as # FTEs × cost per FTE. For most OPEX items, statistical is simpler and often more accurate. Avoid forcing a driver where the relationship is weak.
+
+Use hardcoded for committed costs where the amount and timing are already fixed: a signed contract, an annual software renewal, a booked consulting engagement. A signed contract isn't a forecast. Enter the number.
+
+## Where to forecast OPEX
+
+- **Directly on the P&L:** right for most cases. A rolling average or hardcoded value lives on the cost row itself. Simple to set up, easy to maintain.
+- **Supporting sheet:** right when a cost area has multiple inputs or needs granular breakdown (software split by vendors, marketing split by channel). The sheet handles the detail; the P&L row references the total.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    Use driver-based when a meaningful, reliable driver exists for the cost line. Add a formula that links the cost to its driver and add the assumption to a separate assumptions sheet.
+
+    Equipment and rent are good examples where cost scales with headcount:
+
+    ```typescript
+    = "Headcount"[0] * "Cost per FTE"[0]
+    ```
+
+    Marketing spend as a percentage of revenue is another common pattern:
+
+    ```typescript
+    = "Revenue"[0] * "Marketing %"[0]
+    ```
+
+    Avoid forcing a driver where the relationship is weak. A loose correlation produces a less accurate forecast than a rolling average, with more complexity to maintain.
+  </Tab>
+  <Tab title="Statistical">
+    The right fit for most OPEX lines. When costs are stable and historical patterns are a reliable guide, a rolling average smooths short-term volatility:
+
+    ```typescript
+    = avg_last("Software subscriptions", 3)
+    ```
+
+    Where seasonal patterns matter, reference the same month last year with a growth adjustment instead:
+
+    ```typescript
+    = "Marketing"[-12] * (1 + 10%)
+    ```
+
+    For lines where trend and seasonality interact, `predict()` handles both automatically.
+
+    Statistical becomes unreliable when a cost line has changed structurally: a renegotiated contract, a shift in spend policy, or a significant scale change.
+  </Tab>
+  <Tab title="Hardcoded">
+    Use hardcoded values for committed costs where the amount and timing are already known: a signed office lease, an annual software contract, a booked consulting engagement. There's no forecasting uncertainty to model; enter the value directly.
+
+    For recurring costs without a fixed amount, hardcoded values require a manual update every cycle and become a maintenance problem over time.
+  </Tab>
+</Tabs>
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I handle a cost line that's partly fixed and partly variable?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Should I forecast OPEX at the GL account level or aggregate into groups?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}

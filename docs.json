@@ -10,109 +10,72 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Features",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Overview",
             "pages": [
-              "documentation/getting-started/welcome",
-              "documentation/getting-started/onboarding-guide",
+              "features/overview"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
               {
-                "group": "Account",
+                "group": "Personal account",
                 "pages": [
-                  "documentation/getting-started/account/profile",
-                  "documentation/getting-started/account/preferences"
+                  "features/admin/profile",
+                  "features/admin/preferences"
                 ]
               },
               {
-                "group": "Administration",
+                "group": "Workspace",
                 "pages": [
-                  "documentation/getting-started/administration/organizations",
-                  "documentation/getting-started/administration/members-roles",
-                  "documentation/getting-started/administration/billing-plans"
+                  "features/admin/workspace-management",
+                  "features/admin/members-and-roles",
+                  "features/admin/billing"
                 ]
               }
             ]
           },
           {
-            "group": "Features",
+            "group": "Using Francis",
             "pages": [
-              "documentation/features/overview",
+              "features/using-francis/getting-started",
+              "features/using-francis/components",
+              "features/using-francis/timeline-and-dates",
+              "features/using-francis/data-mappings",
+              "features/using-francis/formulas",
+              "features/using-francis/inspect",
+              "features/using-francis/shortcuts",
+              "features/using-francis/breakdowns",
+              "features/using-francis/dashboards",
               {
-                "group": "Modeling",
+                "group": "Charts",
+                "icon": "chart-line",
                 "pages": [
-                  "documentation/features/modeling/components",
-                  "documentation/features/modeling/mappings",
-                  "documentation/features/modeling/date-settings",
-                  "documentation/features/modeling/formulas",
-                  "documentation/features/modeling/functions",
-                  "documentation/features/modeling/manual-entries",
-                  "documentation/features/modeling/shortcuts",
-                  "documentation/features/modeling/errors"
+                  "features/using-francis/charts/overview",
+                  "features/using-francis/charts/line",
+                  "features/using-francis/charts/column",
+                  "features/using-francis/charts/stacked-column",
+                  "features/using-francis/charts/stacked-area",
+                  "features/using-francis/charts/combo",
+                  "features/using-francis/charts/waterfall"
                 ]
               },
               {
-                "group": "Consolidation",
+                "group": "Tables",
+                "icon": "table",
                 "pages": [
-                  "documentation/features/consolidation/splits",
-                  "documentation/features/consolidation/breakdowns"
+                  "features/using-francis/tables/overview",
+                  "features/using-francis/tables/periods",
+                  "features/using-francis/tables/variance",
+                  "features/using-francis/tables/side-by-side"
                 ]
               },
-              "documentation/features/version-control/version-control",
-              {
-                "group": "Variance analysis",
-                "pages": [
-                  "documentation/features/variance-analysis/three-column-report",
-                  "documentation/features/variance-analysis/month-by-month",
-                  "documentation/features/variance-analysis/transactions-drill-down"
-                ]
-              },
-              {
-                "group": "Reporting",
-                "pages": [
-                  "documentation/features/reporting/charts",
-                  "documentation/features/reporting/dashboards",
-                  "documentation/features/reporting/reports",
-                  "documentation/features/reporting/export-to-excel"
-                ]
-              },
-              {
-                "group": "Collaboration",
-                "pages": [
-                  "documentation/features/collaboration/comments",
-                  "documentation/features/collaboration/status-indicators",
-                  "documentation/features/collaboration/descriptions"
-                ]
-              },
-              {
-                "group": "Confidentiality",
-                "pages": [
-                  "documentation/features/confidentiality/limited-viewers"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Integrations",
-        "groups": [
-          {
-            "group": "Accounting",
-            "pages": [
-              "integrations/accounting/overview",
-              "integrations/accounting/business-central",
-              "integrations/accounting/e-conomic",
-              "integrations/accounting/quickbooks",
-              "integrations/accounting/netsuite",
-              "integrations/accounting/xero"
-            ]
-          },
-          {
-            "group": "Other",
-            "pages": [
-              "integrations/other/google-sheets",
-              "integrations/other/currency"
+              "features/using-francis/excel-export",
+              "features/using-francis/version-control",
+              "features/using-francis/comments"
             ]
           }
         ]
@@ -121,58 +84,94 @@
         "tab": "Masterclasses",
         "groups": [
           {
-            "group": "Topics",
+            "group": "Overview",
             "pages": [
-              "masterclasses/overview",
+              "masterclasses/overview"
+            ]
+          },
+          {
+            "group": "Consolidation",
+            "pages": [
+              "masterclasses/consolidation/consolidation",
+              "masterclasses/consolidation/department-pnls"
+            ]
+          },
+          {
+            "group": "Budgeting & forecasting",
+            "pages": [
+              "masterclasses/budgeting-forecasting/forecasting-approaches",
               {
-                "group": "Chart of account",
+                "group": "P&L forecasting",
                 "pages": [
-                  "masterclasses/chart-of-account-checklist/gl-accounts-and-dimensions",
-                  "masterclasses/chart-of-account-checklist/ic-accounts",
-                  "masterclasses/chart-of-account-checklist/non-cash-accounts"
+                  "masterclasses/budgeting-forecasting/pnl-forecasting/pnl-fundamentals",
+                  "masterclasses/budgeting-forecasting/pnl-forecasting/cogs",
+                  "masterclasses/budgeting-forecasting/pnl-forecasting/headcount",
+                  "masterclasses/budgeting-forecasting/pnl-forecasting/opex"
                 ]
               },
               {
-                "group": "Financial statements",
+                "group": "BS forecasting",
                 "pages": [
-                  "masterclasses/financial-statements/profit-loss",
-                  "masterclasses/financial-statements/balance-sheet",
-                  "masterclasses/financial-statements/cash-flow"
+                  "masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/bs-validation",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/vat",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/tax",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/receivables",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/prepayments",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/capex",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/inventory",
+                  "masterclasses/budgeting-forecasting/bs-forecasting/loans"
                 ]
               },
               {
-                "group": "Consolidation",
+                "group": "CF forecasting",
                 "pages": [
-                  "masterclasses/consolidation/integrations",
-                  "masterclasses/consolidation/consolidation",
-                  "masterclasses/consolidation/eliminations"
-                ]
-              },
-              {
-                "group": "Forecasting",
-                "pages": [
-                  "masterclasses/forecasting/importing-forecasts",
-                  "masterclasses/forecasting/driver-based-forecasting",
-                  "masterclasses/forecasting/methods",
-                  "masterclasses/forecasting/headcount",
-                  "masterclasses/forecasting/kpis",
-                  "masterclasses/forecasting/receivables",
-                  "masterclasses/forecasting/revenue-recognition",
-                  "masterclasses/forecasting/tax",
-                  "masterclasses/forecasting/vat"
-                ]
-              },
-              "masterclasses/monthly-close/monthly-close",
-              {
-                "group": "Support articles",
-                "pages": [
-                  "masterclasses/support-articles/department-allocations",
-                  "masterclasses/support-articles/retained-earnings",
-                  "masterclasses/support-articles/assign-gl-categories",
-                  "masterclasses/support-articles/cash-flow-check",
-                  "masterclasses/support-articles/currency-adjustments"
+                  "masterclasses/budgeting-forecasting/cf-forecasting/cf-fundamentals",
+                  "masterclasses/budgeting-forecasting/cf-forecasting/cf-validation"
                 ]
               }
+            ]
+          },
+          {
+            "group": "Financial reporting",
+            "pages": [
+              "masterclasses/reporting/management-report"
+            ]
+          },
+          {
+            "group": "Business partnering",
+            "pages": [
+              "masterclasses/business-partnering/gathering-budget-input",
+              "masterclasses/business-partnering/performance-reviews"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "integrations/overview"
+            ]
+          },
+          {
+            "group": "Accounting",
+            "pages": [
+              "integrations/accounting/business-central",
+              "integrations/accounting/e-conomic",
+              "integrations/accounting/quickbooks",
+              "integrations/accounting/netsuite",
+              "integrations/accounting/xero",
+              "integrations/accounting/other-erp"
+            ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "integrations/other/google-sheets",
+              "integrations/other/currency"
             ]
           }
         ]

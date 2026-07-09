@@ -1,0 +1,82 @@
+---
+title: "Build a P&L per department"
+sidebarTitle: "Department P&Ls"
+description: "Deploy one P&L template across every department using a dimension breakdown, with actuals flowing in automatically."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" poster="/images/masterclasses/consolidation/department-pnls.jpg" src="/videos/masterclasses/consolidation/department-pnls.mp4" /> */}
+
+As a company grows, finance usually wants to plan and hold each department accountable for its own numbers. If your accounting system tags entries with a department dimension, you can deploy a single P&L template across every department in Francis, with actuals flowing into each one automatically.
+
+## Split the P&L by department
+
+Most companies already carry a department dimension in their accounting system, with a value for each department on the relevant journal entries. Francis reads those values directly, so the departments are available to break down by without any setup.
+
+Break the P&L down by department with a [breakdown](/features/using-francis/breakdowns). The sheet becomes a template: you build the P&L structure once on the parent sheet, every department inherits it, and each department's actuals filter into its own sub-sheet. Department heads plan their own numbers, the entity rolls them up, and the consolidated sheet rolls up all entities.
+
+On a multi-entity model, split by entity first and then by department, as covered in the [breakdowns](/features/using-francis/breakdowns) walkthrough. A dimension breakdown always sits under an entity, never on the consolidated sheet.
+
+<Tree>
+  <Tree.Folder name="Consolidated" defaultOpen>
+    <Tree.Folder name="Veloton ApS" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+    <Tree.Folder name="Veloton Inc" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+## Keep the balance sheet and cash flow at entity level
+
+Split the P&L by department, but keep the balance sheet and cash flow in a separate sheet broken down by entity only. Companies rarely tag balance sheet values with a department, so a full balance sheet per department is just noise, with the **Unallocated** sub-sheet carrying nearly every value.
+
+Keep the model clean instead: the P&L splits by entity and department, and the balance sheet and cash flow split by entity alone. The cash flow then pulls its P&L inputs (net profit, the depreciation add-back) at entity level, giving you cash flow per entity without a departmental split it doesn't need.
+
+<Tree>
+  <Tree.Folder name="Consolidated P&L" defaultOpen>
+    <Tree.Folder name="Veloton ApS" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+    <Tree.Folder name="Veloton Inc" defaultOpen>
+      <Tree.File name="Sales" />
+      <Tree.File name="Marketing" />
+      <Tree.File name="Finance" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+<Tree>
+  <Tree.Folder name="Consolidated BS + CF" defaultOpen>
+    <Tree.File name="Veloton ApS" />
+    <Tree.File name="Veloton Inc" />
+  </Tree.Folder>
+</Tree>
+
+## Departments that are only cost centres
+
+Sometimes departments are pure cost centres, so you only want to plan their OPEX rather than a full P&L. Even then, deploy the full P&L template for simplicity and just leave the lines that don't apply (revenue, direct costs, financial items, depreciation) at zero on those sub-sheets.
+
+The zero rows roll up correctly and don't affect totals. Each department sub-sheet becomes an OPEX planning view by default, which is usually exactly what the department head needs, while the entity and consolidated sheets still show the full P&L. This keeps the number of sub-sheets to a minimum and everything rolls up cleanly.
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I view departments or channels across legal entities?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Can I assign specific GL accounts to a specific department?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="I want to plan by department, but we haven't tagged departments in our ERP?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}
