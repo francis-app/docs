@@ -23,8 +23,9 @@ All page video embeds are commented out (`{/* <video ... /> */}`) across the `-n
 
 ## Empty FAQs commented out
 
-FAQ sections with only placeholder answers were wrapped in `{/* ... */}`. Fill in real answers and uncomment. Affected pages:
+FAQ sections with only placeholder answers (TODO or "coming soon") were wrapped in `{/* ... */}`. Fill in real answers and uncomment. Affected pages:
 
+- `features-new/using-francis/components.mdx` (two "coming soon" FAQs: duplicating and moving a component inside a breakdown)
 - `features-new/using-francis/data-mappings.mdx`
 - `masterclasses-new/consolidation/dimensions.mdx`
 - `masterclasses-new/consolidation/consolidation.mdx`

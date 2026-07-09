@@ -12,25 +12,32 @@ The cash flow statement in Francis is fully derived. It pulls net profit from th
 
 Operating, investing, and financing activities are organised into clearly separated sections. The closing cash balance is a pre-built calculation derived from opening cash plus the net movement across all three sections. Map your GL accounts to the relevant rows before you start. Balances won't populate until the mapping is in place.
 
+## Direct vs. indirect forecasting
+
+There are two ways to forecast cash flow, and they answer different questions.
+
+The **direct method** forecasts actual cash transactions as they hit the bank: opening cash plus invoices minus payments equals closing cash. It's precise in the short term, because most invoices and payments already sit in your AR and AP ledgers. It reconciles straight to the bank and connects easily to operational detail like overdue debtors and upcoming supplier runs. This is best suited for short-term forecasting such as 13-week forecasts.
+
+The **indirect method** derives cash flow from the P&L and Balance Sheet. It starts from profit, adjusts for non-cash items such as depreciation, then applies working capital movements. The indirect method ties directly to your financial statements, which makes it easy to anchor to targets and track performance. Cash is driven by strategic assumptions rather than specific invoices, because forecasting individual invoices many months out becomes meaningless. This is better suited for 12-month horizons.
+
+Francis uses the indirect method because it's built for the strategic planning horizon: a P&L, Balance Sheet, and cash flow that move together over 12 months and beyond. For short-term liquidity management, run a direct 13-week forecast alongside it.
+
 ## How cash flow forecasting works
 
 Francis uses the indirect method. The statement starts from net profit, adjusts for non-cash items such as depreciation and amortisation, then applies working capital movements from the Balance Sheet. Investing and financing flows follow from there.
+
+Because of the indirect method, a cash flow forecast assumes a complete P&L and Balance Sheet forecast. The cash flow has nothing to derive from until both are in place, so forecast them first.
 
 Each movement is derived from the corresponding Balance Sheet line. You don't enter cash flow figures directly.
 
 | Line item | Formula |
 | :--- | :--- |
+| Net profit | Net profit from P&L |
 | Depreciation | Depreciation from P&L (positive add-back) |
 | Receivables movement | Receivables opening − receivables closing |
 | Payables movement | Payables closing − payables opening |
 | CAPEX | New fixed asset investments (negative outflow) |
-| Loan movements | New draws − repayments |
-
-Each specific line item page covers how inflows and outflows work in practice.
-
-<Note>
-  The depreciation add-back needs to be set up manually. Reference the depreciation add-back row in the CF statement to the depreciation row in your P&L, rather than hardcoding a value, so the two stay in sync as your forecast changes.
-</Note>
+| Loan movements | Loans closing − loans opening |
 
 ## Connected across sheets
 

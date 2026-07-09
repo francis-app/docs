@@ -10,7 +10,13 @@ Francis validates your cash flow statement by comparing the ending cash balance 
 
 ## How the check works
 
-Francis subtracts the ending balance on the cash asset line item (mapped to your GL) from the ending cash on the cash flow statement. The result should be zero. A non-zero result means either the cash flow statement is structured incorrectly, or there is an issue in your bookkeeping data.
+Francis subtracts the ending balance on the cash asset line item (mapped to your GL) from the ending cash on the cash flow statement:
+
+```
+round("Balance sheet"."Assets"."Current assets"."Cash"[0] - "Cash end period"[0]) # Should return zero
+```
+
+A non-zero result means either the cash flow statement is structured incorrectly, or there is an issue in your bookkeeping data.
 
 ## Check fails for actuals months
 

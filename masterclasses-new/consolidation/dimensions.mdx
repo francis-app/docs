@@ -64,8 +64,10 @@ Build sub-groups with roll-ups. Open the three-dot menu, choose **Add roll-up**,
 
 Break down each entity by department. Each department gets its own sub-sheet for forecasting. Department heads manage their own numbers, the entity rolls them up, and the consolidated sheet rolls up all entities. This is the most common use of dimension breakdowns.
 
+Split the P&L first by entity and then by department. The balance sheet and cash flow are only split by entity, since departmental splits rarely apply below the P&L.
+
 <Tree>
-  <Tree.Folder name="Consolidated" defaultOpen>
+  <Tree.Folder name="Consolidated P&L" defaultOpen>
     <Tree.Folder name="DK" defaultOpen>
       <Tree.File name="Sales" />
       <Tree.File name="Marketing" />
@@ -78,6 +80,13 @@ Break down each entity by department. Each department gets its own sub-sheet for
       <Tree.File name="Finance" />
       <Tree.File name="Operations" />
     </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+<Tree>
+  <Tree.Folder name="Consolidated BS + CF" defaultOpen>
+    <Tree.File name="DK" />
+    <Tree.File name="UK" />
   </Tree.Folder>
 </Tree>
 

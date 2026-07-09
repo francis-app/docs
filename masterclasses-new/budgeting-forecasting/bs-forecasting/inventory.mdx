@@ -64,7 +64,7 @@ Hardcoded is acceptable when you have a known purchase plan or a specific target
 
     <Note>Linking inventory and COGS through the supporting sheet keeps both in sync automatically. If COGS is forecast here, changes flow to the P&L. If COGS comes from the P&L, changes flow to the inventory balance. Either way, the two statements move together. This is the main advantage of the category approach over % of revenue.</Note>
 
-    <Note>When setting up for the first time, hardcode the opening inventory balance in the last actuals period so the formula picks it up. As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual inventory values for those periods on the supporting sheet. If actuals aren't available yet, enter the budget values to keep the formula chain intact.</Note>
+    <Note>When setting up the supporting sheet, pull the opening inventory balance with a formula, so the starting value sits in the actuals layer and feeds the forecast automatically. As you move the Forecast Start date forward, periods that were forecast become actuals, and the formula keeps sourcing each opening balance from the actuals layer with no manual update.</Note>
   </Tab>
   <Tab title="Statistical">
     A rolling average works when the inventory balance is steady with no significant spikes:

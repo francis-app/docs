@@ -23,14 +23,6 @@ Use hardcoded when you already have a known investment plan and depreciation sch
 - **Supporting sheet:** right for most cases. Build one section per asset class, each with its own asset register, gross cost roll-forward, and accumulated depreciation roll-forward. The balance sheet references the net book value totals.
 - **Directly on the balance sheet:** right for simple setups with a single asset class.
 
-## Existing vs. new CAPEX
-
-The approach differs depending on whether the asset is already in the books or planned for the forecast period.
-
-**Existing assets** carry a depreciation schedule that is already fixed. Source it from your accounting system, or calculate it in Francis by entering the historical acquisition costs and running the depreciation formula against them.
-
-**New assets** start fresh in the forecast period. Hardcode each acquisition in the month it occurs and let the depreciation formula run automatically from that point forward.
-
 ## Forecasting approaches
 
 <Tabs>
@@ -52,6 +44,8 @@ The approach differs depending on whether the asset is already in the books or p
     ```
 
     When a new asset is added to the register, the depreciation row picks it up in the current period and runs for the full 60 months. Adjust the offset and divisor to match each asset class. Depreciation flows to the **Depreciation expense** line on the P&L as a non-cash charge, and to the accumulated depreciation balance on the balance sheet.
+
+    This formula only handles depreciation on new CAPEX acquired in the forecast period. Existing assets already carry a depreciation waterfall from before the forecast starts, and that schedule is hard to reproduce in Francis. Don't try to derive it. Instead, split depreciation expense into two parts: base the depreciation from existing CAPEX on a statistical approach or on the waterfall exported from your accounting system, and forecast depreciation from new CAPEX directly in Francis with the formula above.
 
     **Net book value**
 
@@ -79,8 +73,8 @@ The approach differs depending on whether the asset is already in the books or p
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="Should I track gross cost and accumulated depreciation separately?">
-    For most Francis models, tracking net book value directly (last period + new investments − depreciation) is sufficient. If your accounting system tracks gross cost and accumulated depreciation separately and you want actuals to reconcile cleanly, map both accounts and model each movement explicitly.
+  <Accordion title="Should I track CAPEX and accumulated depreciation separately?">
+    Yes. Since accumulated depreciation is a non-cash item, it shouldn't be included in the cash flow statement. Separating the two lets you capture only CAPEX in the cash flow statement.
   </Accordion>
   <Accordion title="How do I handle an asset disposal?">
     Model a disposal as a cost detraction in the period the asset is removed, and a depreciation detraction for the accumulated depreciation on that asset. If the disposal generates proceeds, those flow through investing activities on the cash flow statement.

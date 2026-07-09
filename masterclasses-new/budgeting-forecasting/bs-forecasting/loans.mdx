@@ -49,7 +49,7 @@ Use hardcoded when you have a complete repayment schedule from your lender with 
     = "Ending value"[-1]
     ```
 
-    <Note>When setting up for the first time, hardcode the opening loan balance in the last actuals period so the formula picks it up. As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual loan balance values for those periods on the supporting sheet. If actuals aren't available yet, enter the budget values to keep the formula chain intact.</Note>
+    <Note>When setting up the supporting sheet, pull the opening loan balance with a formula, so the starting value sits in the actuals layer and feeds the forecast automatically. As you move the Forecast Start date forward, periods that were forecast become actuals, and the formula keeps sourcing each opening balance from the actuals layer with no manual update.</Note>
 
     **Total payment**
 

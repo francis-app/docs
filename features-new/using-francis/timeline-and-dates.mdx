@@ -15,7 +15,7 @@ Every column in Francis is a month, and every line item is a time series that fo
 
 Because the timeline is continuous, you are not boxed into fiscal years. You can plan across year boundaries freely. When you connect your accounting system, Francis pulls all historical data, back to the first entry recorded in that system.
 
-Planning always happens in monthly increments. Reports then summarize those months by quarter, YTD, full year, or LTM.
+Planning always happens in monthly increments. Reports then summarize by month, quarter, YTD, full year, or LTM.
 
 ## The actuals and forecast layers
 
@@ -29,15 +29,17 @@ The timeline has two layers: the actuals layer and the forecast layer. They cove
   The forecast layer holds both budgets and forecasts, which are managed via [saved versions](/features-new/using-francis/version-control). Input values and give them an identity, like "Anchor budget" or "Q2 forecast", when saving the version. A budget is simply a forecast that happens to start at the beginning of the year.
 </Note>
 
-The two layers are independent. A formula in one layer does not spill into the other unless you write the same formula in both. If you [fill right](/features-new/using-francis/formulas) in the actuals layer, it fills right within the actuals layer only, never into the forecast layer.
+How the two layers interact depends on the component type. For rows, the layers are independent: a formula you write in one layer does not spill into the other unless you write the same formula in both. If you [fill right](/features-new/using-francis/formulas) in the actuals layer, it fills within the actuals layer only, never into the forecast layer.
 
-The mental model is that the actuals layer progressively takes over the forecast layer as time passes. As each month closes, you move the forecast start forward to absorb the newly closed month into actuals, which produces a fresh forecast for the months that remain.
+Calculations behave differently. A calculation's formula applies across both layers automatically, but each layer evaluates it against its own values. The same calculation therefore returns actuals in the actuals layer and a forecast in the forecast layer, with no extra work.
+
+The mental model is that the actuals layer progressively takes over the forecast layer as time passes. As each month closes, actuals absorb the forecast layer, either to show actuals for comparison or to produce a fresh forecast for the remaining months.
 
 Only the actuals layer can connect to data sources. To bring external data into the forecast layer, copy and paste it in.
 
 ## Date settings
 
-Three dates control how the model reads the timeline, each color-coded in the date settings. Only the forecast start is drawn as a vertical line running through every sheet.
+Three dates control how values are calculated and presented in the timeline, each color-coded in the date settings.
 
 ### Timeline view (green)
 
@@ -50,12 +52,12 @@ The **Forecast start** is the cut-off between the actuals and forecast layers, s
 Moving the forecast start does two things:
 
 1. Months that were previously forecast are replaced by actuals.
-2. Forecast formulas recompute to include the newly introduced actuals.
+2. Forecast formulas referencing prior periods recompute to include the newly introduced actuals.
 
 For example, a 2026 anchor budget has a forecast start of Jan 2026, while a Q2 2026 forecast has a forecast start of Apr 2026.
 
 ### Last close (orange)
 
-The **Last close** is the last closed month in your accounting system, color-coded orange in the date settings. It should always fall on or after the forecast start. It determines how many months of actuals are available since your forecast start, and updating it enables comparisons to actuals across all charts, tables, and reports. Moving it does not change your forecast.
+The **Last close** is the last closed month in your accounting system, color-coded orange in the date settings. It should always fall on or after the forecast start. It determines how many months of actuals are available since your forecast start, and updating it enables comparisons to actuals across all charts, tables, and reports. Moving it does not change your model values, but affects charts, tables, and reports.
 
 Under the hood, Francis imports every journal entry from your accounting system. The last close date defines which months count as valid to analyze in Francis.

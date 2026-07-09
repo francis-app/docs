@@ -31,7 +31,7 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
 
     1. Create a dedicated sheet and add a section called **VAT forecast**.
     2. Add a **VAT %** row and enter the applicable rate (25% in Denmark).
-    3. Create a group called **Costs incl. VAT**. Add a row for each cost line subject to VAT at the granularity your model needs: one row per GL account, or one per cost category.
+    3. Create a group called **Costs incl. VAT**. Add a calculation row for each cost line subject to VAT at the granularity your model needs: one per GL account, or one per cost category. Each calculation pulls in that cost value from the P&L, so the group subtotal gives total costs incl. VAT.
     4. Create a group called **Income incl. VAT** and do the same for income lines.
     5. Add a **Captured cost VAT** row below the groups:
 
@@ -90,7 +90,7 @@ Hardcoded is rarely the right fit for VAT. The most common case is copying an ex
 
     <Note>If you change VAT reporting frequency, for example from quarterly to monthly, historical data will show apparent cash spikes in the transition period. These are an artifact of the frequency change, not real cash movements. Add a formula note to the affected periods to explain the change rather than restating the historical balances.</Note>
 
-    <Note>When setting up for the first time, hardcode the opening VAT balance in the last actuals period so the formula picks it up. As you move the Forecast Start date forward, periods that were forecast become actuals. Enter actual VAT values for those periods on the supporting sheet. If actuals aren't available yet, enter the budget values to keep the formula chain intact.</Note>
+    <Note>When setting up the supporting sheet, pull the opening VAT balance with a formula, so the starting value sits in the actuals layer and feeds the forecast automatically. As you move the Forecast Start date forward, periods that were forecast become actuals, and the formula keeps sourcing each opening balance from the actuals layer with no manual update.</Note>
   </Tab>
   <Tab title="Statistical">
     Use a rolling average of recent actuals when VAT exposure is stable month to month:

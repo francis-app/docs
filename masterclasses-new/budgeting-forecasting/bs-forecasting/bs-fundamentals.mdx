@@ -38,8 +38,8 @@ Aggregate the validation row by SUM. Each period's check should be zero, so the 
 
 Balance sheet forecasting always follows the same pattern: last period's value, plus additions, minus detractions.
 
-| Line item | Formula |
-| :--- | :--- |
+| Item | Formula |
+| :-- | :------------------------------------------------------------ |
 | Receivables | `"Receivables"[-1] + "Invoices issued"[0] - "Payments received"[0]` |
 | VAT | `"VAT payable"[-1] + "Sales VAT"[0] - "Cost VAT"[0] - "VAT paid"[0]` |
 | CAPEX | `"Fixed assets"[-1] + "New investments"[0] - "Depreciation"[0]` |
@@ -53,8 +53,8 @@ The subsequent pages cover how they're modeled in practice.
 
 For a first pass, you can budget the balance sheet on the assumption that nothing moves: no additions, no detractions, every line item held flat. You do this by referencing the last known period and dropping the movement terms.
 
-| Line item | Formula |
-| :--- | :--- |
+| Item | Formula |
+| :-- | :------------------------------------------------------------ |
 | Receivables | `"Receivables"[-1]` |
 | VAT | `"VAT payable"[-1]` |
 | CAPEX | `"Fixed assets"[-1]` |
@@ -74,6 +74,8 @@ This is a simplified approach, but a pragmatic and effective one. It gets you to
 In forecast periods, the formulas for **Cash**, **Retained earnings**, and **accumulated depreciation** must be linked to the other statements in order for the balance sheet to match. Cash pulls from the cash flow statement, retained earnings from the net profit on the P&L, and depreciation from the depreciation expense on the P&L.
 
 In actuals periods, these rows populate from your GL mapping like any other balance sheet row.
+
+For the cash flow statement to work, split non-current assets into gross CAPEX and accumulated depreciation on separate line items. Only the CAPEX movement is a cash outflow. Accumulated depreciation is a non-cash contra-asset, so it must not flow into the cash flow statement. Keeping them on separate lines lets you route new investments to the cash flow while depreciation stays a non-cash entry that ties back to the P&L.
 
 {/*
 ## FAQ

@@ -9,7 +9,7 @@ icon: "code"
 
 When you edit a cell, you write a formula. In Francis, a hardcoded value is also considered a formula - just a simple one.
 
-Francis formulas reference rows by name and period rather than by cell position. Rename a row, move a section, reorganize an entire sheet. No references break. This is the main practical difference from Excel, and it matters most when your model evolves mid-cycle.
+Francis formulas reference rows by name and period rather than by cell position. The benefit is that you can rename a row, move a section, or reorganize an entire sheet without any formulas breaking. This is the main practical difference from Excel, and it matters most when your model evolves mid-cycle.
 
 ## Syntax
 
@@ -31,15 +31,13 @@ A driver-based cost:
 ="Headcount"[0] * "Average salary"[0]
 ```
 
-A balance sheet movement (this period minus last period):
+A balance sheet movement (last period + addition - detraction):
 
 ```
-="Fixed assets"[-1] + "Capex"[0] - "Depreciation"[0]
+="Inventory"[-1] + "Inventory purchases"[0] - "COGS"[0]
 ```
 
 Because all references are relative, rolling forecasts work without any maintenance. As time moves forward, every formula automatically references the right period.
-
-Francis also supports a set of built-in functions (`avg()`, `sum()`, `if()`, and others) for more complex logic. See [Functions](#functions) below.
 
 <Tip>
   A group sums its contents, so reference the group rather than the individual rows inside it. When you add a new row to the group, any formula pointing at the group picks it up automatically, with no manual updates as the model grows.
@@ -47,7 +45,7 @@ Francis also supports a set of built-in functions (`avg()`, `sum()`, `if()`, and
 
 ## Sign conventions
 
-Income and balance sheet items are entered as positive values. Expenses are entered as negative values. This matches how actuals arrive from your accounting system.
+Income and balance sheet items are entered as positive values. Expenses are entered as negative values. This is how Francis presents actuals from your accounting system, so follow this convention to compare apples to apples.
 
 The practical effect: subtotals add rather than subtract. Gross profit looks like this:
 
@@ -67,6 +65,8 @@ Direct costs are already negative, so adding them reduces the total correctly. T
 
 Write the formula logic once, then fill right to apply it to every future period. You don't need to repeat the formula cell by cell. The same formula carries forward, and because references are relative, each period resolves against its own neighbors. It's a small mechanic that most users come to rely on heavily once it's part of their workflow.
 
+Fill right applies to rows. A calculation already uses one formula across every period by definition, so there is nothing to fill right.
+
 Override individual cells whenever you need to. To make a step change at a point in time, write a new formula in that period and fill right again. Everything from that period forward picks up the new logic, and the periods before it keep the old.
 
 Fill right works within the layer you're in. Fill right in the actuals layer and the formula applies to all future periods of the actuals layer, so when you close a new month the formula is already in place. Fill right in the forecast layer and it applies to future forecast periods.
@@ -85,12 +85,12 @@ Two separators can appear in the path:
 Example:
 
 ```
-= "Cost VAT"."Cost VAT"[-1] + "VAT"!"VAT calculations"."Cost VAT addition"[0]
+= "Cost VAT"[-1] + "VAT"!"VAT calculations"."Cost VAT addition"[0]
 ```
 
 This formula references two rows:
 
-- `"Cost VAT"."Cost VAT"[-1]`: the `"Cost VAT"` row inside the `"Cost VAT"` group on the current sheet, previous period.
+- `"Cost VAT"[-1]`: the `"Cost VAT"` row on the current sheet, previous period.
 - `"VAT"!"VAT calculations"."Cost VAT addition"[0]`: the `"Cost VAT addition"` row inside the `"VAT calculations"` group on the `"VAT"` sheet, current period.
 
 Francis builds the path automatically when you click a target cell in edit mode, so you rarely need to type one by hand.
@@ -106,6 +106,8 @@ Add `#` at the end of any formula to insert a comment. Everything after `#` is h
 Use comments to document non-obvious logic: a sign flip, a hardcoded assumption, a workaround for a specific edge case. A reader opening your model six months later will thank you.
 
 ## Functions
+
+Francis supports a set of built-in functions (`avg()`, `sum()`, `if()`, and others) for more complex logic.
 
 <Warning>
   Your number format setting in Francis determines whether to use commas (US) or semicolons (EU) to separate function parameters. All examples below use the US format with commas.

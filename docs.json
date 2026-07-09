@@ -181,6 +181,12 @@
         "tab": "Features (preview)",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "features-new/overview"
+            ]
+          },
+          {
             "group": "Admin",
             "pages": [
               {

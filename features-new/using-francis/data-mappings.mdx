@@ -1,13 +1,13 @@
 ---
 title: "Data mappings"
-description: "Map your GL accounts to your Francis model to pull in actuals automatically."
+description: "Map your data sources to your Francis model to pull in data automatically."
 sidebarTitle: "Data mappings"
 icon: "list-tree"
 ---
 
 {/* <video controls className="w-full aspect-video rounded-xl" src="/videos/features/data-mappings.mp4" /> */}
 
-Data mappings connect your GL accounts to rows in your model. Once mapped, actuals flow in automatically from your accounting system every time Francis syncs.
+Data mappings connect your data sources to rows in your model. Most often that's GL accounts from your accounting system, but it also covers other sources like FX rates and Google Sheets. Once mapped, the data flows in automatically every time Francis syncs.
 
 ## How mappings work
 
@@ -15,7 +15,7 @@ Open the **Mappings** view to see all GL accounts from your connected accounting
 
 You can bundle multiple accounts on a single row. This serves two purposes:
 
-1. **Keeping the model clean.** There are two approaches in Francis: mirror your chart of accounts 1:1, or bundle GL accounts into categories. Bundle by default. It keeps the model readable and lean. Charts of accounts are designed for accounting workflows, and that structure rarely needs to carry into the FP&A model. You can always inspect a row to see where the numbers come from.
+1. **Keeping the model clean.** There are two approaches in Francis: mirror your chart of accounts 1:1, or bundle GL accounts into rows. Bundle by default. It keeps the model readable and lean. Charts of accounts are designed for accounting workflows, and that structure rarely needs to carry into the FP&A model. You can always inspect a row to see where the numbers come from.
 2. **Matching GL accounts across entities.** When you consolidate multiple entities, map equivalent GL accounts from each entity to the same row in Francis.
 
 <Note>
@@ -26,14 +26,14 @@ You can bundle multiple accounts on a single row. This serves two purposes:
 
 GL accounts in the Mappings view are split into two groups:
 
-- **Active:** GL accounts with at least one journal entry. Francis notifies you to map them for completeness.
+- **Active:** GL accounts with at least one journal entry to them. Francis notifies you to map them for completeness.
 - **Unused:** GL accounts with no journal entries. No action required. If an entry is later booked to an unused account, it moves to the active group automatically.
 
 The **Mappings** button shows a notification count for unmapped active accounts. Treat it as your to-do list.
 
-The Mappings view also shows the last entry date for each account, which for some accounts can be far in the past. Map all active accounts to keep your historicals complete. For old or retired accounts, map them to an "Other" row to preserve historical accuracy without cluttering the model. You can also ignore an account, which clears the notification until a new entry is posted to it. Avoid this in most cases.
+The Mappings view also shows the last entry date for each account, which for some accounts can be far in the past. Map all active accounts to keep your historicals complete. For old or retired accounts, map them to an "Other" row to preserve historical accuracy without cluttering the model. You can also ignore an account, which clears the notification until a new entry is posted to it. Prefer mapping to an "Other" row over ignoring, since it keeps your historicals complete. Only ignore an account when you don't want to map it and you're sure it won't be used again. For balance sheet accounts, which accumulate over time, only ignore ones with a zero balance.
 
-When new GL accounts are created, or unused accounts start receiving entries, they appear in the Active section and trigger a notification.
+When new GL accounts are created, or unused accounts start receiving entries, they appear in the Active section and trigger a notification. This way, your model stays complete even as your accounting system changes, since new activity always surfaces for mapping rather than slipping in unmapped.
 
 Accounts from non-accounting data sources do not generate notifications, since they aren't treated as a completeness checklist the way GL accounts are.
 
