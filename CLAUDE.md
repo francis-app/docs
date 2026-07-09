@@ -92,7 +92,7 @@ This replaces a capitalization convention — the link does the disambiguation w
 
 - **Function names are lowercase.** Francis function names use lowercase everywhere — in code blocks, inline code, and prose references. *`if`, `avg_last`, `predict`, `sum_ytd`* — never *`IF`, `AVG_LAST`, `PREDICT`*. The exception is when explicitly referencing a function name from another tool (e.g. *"similar to IF in Excel"*), where the source tool's capitalization is preserved.
 - **Spaces around binary operators.** Put a single space on each side of binary operators (`+`, `-`, `*`, `/`, `=`) when they sit between operands, including comparison `=` inside function arguments. *`"Revenue"[0] = 0`* and *`"Marketing"[-12] * (1 + 10%)`* — never *`"Revenue"[0]=0`* or *`(1+10%)`*. No space inside slice notation (*`[-3:0]`*).
-- **"Formula" is the umbrella term for what a user writes into a cell.** A hardcoded value is the simplest formula — a constant that evaluates to itself. So "write a formula" includes typing a plain value, and you don't need to write "write a formula or input a hardcoded number" every time. This covers cell edits only, not values imported into actuals periods from the accounting system (those aren't formulas). The equivalence is defined once on the [Formulas](/features-new/using-francis/formulas) page; rely on it elsewhere. Only distinguish the two when the difference is the point (e.g. overriding a calculation by pasting a literal over it), and use *hardcoded value* (not *hardcoded number*) as the canonical term.
+- **"Formula" is the umbrella term for what a user writes into a cell.** A hardcoded value is the simplest formula — a constant that evaluates to itself. So "write a formula" includes typing a plain value, and you don't need to write "write a formula or input a hardcoded number" every time. This covers cell edits only, not values imported into actuals periods from the accounting system (those aren't formulas). The equivalence is defined once on the [Formulas](/features/using-francis/formulas) page; rely on it elsewhere. Only distinguish the two when the difference is the point (e.g. overriding a calculation by pasting a literal over it), and use *hardcoded value* (not *hardcoded number*) as the canonical term.
 
 ---
 
@@ -175,13 +175,14 @@ Meta-headers describe the section's role rather than its content and fail both s
 - H2s cover: how it works, every meaningful option and state, key decisions, common patterns, gotchas, edge cases, limits, and interactions with other features
 - **Optimize for completeness over brevity, inline.** This is the AI-first page type (see *The editorial principle*). Enrich the detail throughout the prose so an agent can answer from the page alone — don't strand the detail in a closing reference block, and don't lean on the video or screenshots to carry behavior. The prose must stand alone.
 - State the full behavior explicitly: what each setting does, defaults, what happens at the boundaries, and what the feature can't do. If a behavior would surprise a careful reader, document it.
-- Ends with links to relevant masterclasses
+- Ends with a *See in action* H2 linking to relevant masterclasses. Omit it when no masterclass is genuinely relevant (e.g. *Shortcuts*, *Excel export*, *Inspect*)
 
 **Masterclass page** (e.g. *Consolidate multi-entity financials*)
 
 - H1 = outcome-oriented
 - Lede states what the user will accomplish and who it's for
-- H2s: *Before you start* (prerequisites, required integrations), then each step named descriptively (*Map your entity accounts*, not *Step 1*), then *Common patterns* / *Advanced scenarios* for progressive disclosure, then *FAQ* scoped to this masterclass
+- H2s: each step named descriptively (*Map your entity accounts*, not *Step 1*), then *Common patterns* / *Advanced scenarios* for progressive disclosure, then *FAQ* scoped to this masterclass
+- No *Before you start* H2. Fold prerequisites (required integrations, model setup) into the lede, a Note callout at the top, or the first descriptive step (e.g. *Structure the model first*)
 
 **Reference page** (e.g. *Functions*, *Shortcuts*)
 
@@ -191,7 +192,7 @@ Meta-headers describe the section's role rather than its content and fail both s
 
 **Accounting integration page** (e.g. *Business Central*, *Xero*)
 
-Applies to each supported accounting system page under `integrations/accounting/` and `integrations-new/accounting/`, and to the *Non-supported ERP* / *other-erp* page (with one extra section, noted below). Does **not** apply to the *Overview* page — it follows its own structure.
+Applies to each supported accounting system page under `integrations/accounting/`, and to the *Non-supported ERP* / *other-erp* page (with one extra section, noted below). Does **not** apply to the *Overview* page — it follows its own structure.
 
 - H1 = the accounting system's name
 - Lede states what connecting enables and where the chart of accounts surfaces in Francis
@@ -243,7 +244,7 @@ Feature pages, reference pages, and admin pages don't need the split — their n
 
 - **Docs landing page acts as a router by intent:** *I'm new* → Quickstart · *I'm trying to do X* → pick a masterclass · *I need to connect something* → Integrations.
 - **Universal Quickstart** is a short orientation ("this is Francis"), not a full onboarding — the real onboarding happens inside the masterclass the customer bought for.
-- **Each masterclass has its own onboarding-flavored intro** (the *Before you start* H2) so new users arriving directly from marketing aren't stranded.
+- **Each masterclass has its own onboarding-flavored intro** (the lede, plus a Note callout or first descriptive step covering prerequisites) so new users arriving directly from marketing aren't stranded.
 
 ---
 
@@ -308,20 +309,20 @@ This is also why screenshots are used sparingly: with video doing the rich visua
 
 Use a single fictional company as the running example across all docs.
 
-**`[CompanyName]`** is a consumer-facing brand with:
+**Veloton** is a consumer-facing brand with:
 
-- **Legal entities** in Denmark (parent), the UK, and the US — exercises multi-entity consolidation and FX
+- **Legal entities**: Veloton ApS (Denmark, parent), Veloton Ltd (UK), and Veloton Inc (US) — exercises multi-entity consolidation and FX
 - **Channels**: retail, wholesale, e-commerce — exercises dimensions and channel-level reporting
 - **Functional departments**: typical org structure (sales, marketing, ops, product, G&A) — exercises business partnering and headcount/OPEX planning
 
-This single example exercises consolidation, dimensions, multi-channel reporting, business partnering, and most forecasting patterns we cover. Readers build fluency with the example as they move through the docs — when a guide says *"`[CompanyName]`'s UK retail channel"*, they already know what that means.
+This single example exercises consolidation, dimensions, multi-channel reporting, business partnering, and most forecasting patterns we cover. Readers build fluency with the example as they move through the docs — when a guide says *"Veloton's UK retail channel"*, they already know what that means.
 
 **Conventions for examples:**
 
-- Use `[CompanyName]` as a placeholder until the real name is decided. Single replace-all pass updates everything.
+- The company is named **Veloton**. Entity names carry the local legal suffix: Veloton ApS (DK, parent), Veloton Ltd (UK), Veloton Inc (US). Short country codes (DK, UK, US) are fine as sub-sheet labels where a full legal name would clutter a tree.
 - Numbers should be plausible for a lower-mid-market consumer brand — multi-million revenue, not Fortune 500 numbers, not garage startup numbers.
 - Use the entity's natural currency in examples. DKK for the parent, GBP for UK operations, USD for US operations. Reporting currency depends on the masterclass context.
-- A separate dataset (real Francis model with `[CompanyName]` data) will support these examples at the end of the rebuild process. Examples in prose should match what a reader would see if they opened that model.
+- A separate dataset (real Francis model with Veloton data) will support these examples at the end of the rebuild process. Examples in prose should match what a reader would see if they opened that model.
 - Don't anonymize so heavily it loses meaning. The whole point of a running example is recognizability.
 
 ---

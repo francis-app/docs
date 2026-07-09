@@ -1,0 +1,88 @@
+---
+title: "Balance sheet fundamentals"
+sidebarTitle: "BS fundamentals"
+description: "How to work with the balance sheet in Francis: structuring the template, mapping GL accounts, and forecasting balances forward."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals.mp4" /> */}
+
+The balance sheet shows what the business owns, what it owes, and what remains for equity holders. Actuals map from your GL; the forecast carries each balance forward and adjusts when movements occur.
+
+## The Francis balance sheet template
+
+The template includes the classic balance sheet categories you'll find in most charts of accounts: assets (non-current and current), liabilities (long-term and short-term), and equity (share capital, dividends, and retained earnings). That structure makes it easy to map your general ledger accounts onto the template.
+
+Redesign the balance sheet with components however suits your business. Add specific rows for the items you track, like receivables, inventory, prepayments, and VAT under current assets, or bank debt and shareholder loans under long-term liabilities. Rename, regroup, or remove sections as you see fit. The level of detail depends on what you need to report and forecast.
+
+## Map your GL accounts to the balance sheet
+
+Map all your balance sheet GL accounts to the BS. There are two schools of thought in Francis. Some prefer a clean balance sheet, where GL accounts are grouped into reader-friendly lines. Others prefer an accounting-oriented layout, with one line per GL account for a direct link to the chart of accounts.
+
+We recommend fewer, cleaner line items. It keeps the model manageable, and you rarely need full chart-of-accounts granularity in a budget. GL accounts are often created with a different purpose in mind than planning and reporting.
+
+## The validation row
+
+A **Validation** row sits at the bottom. It checks that assets equal liabilities plus equity. If it shows a non-zero value, something in the model is out of balance. See [BS validation](/masterclasses/budgeting-forecasting/bs-forecasting/bs-validation) for how to diagnose and fix it.
+
+## Sign conventions
+
+When you budget and forecast, follow the sign convention: assets, liabilities, and equity are all entered as positive figures. This matches how balances arrive from your accounting system.
+
+## Aggregation
+
+Aggregate balance sheet lines by END. Balance sheet values accumulate, so the total column on the right should show the closing balance, not a sum across periods.
+
+Aggregate the validation row by SUM. Each period's check should be zero, so the total stays at zero only if every period balances. Any period that's out of balance then surfaces in the total.
+
+## How balance sheet forecasting works
+
+Balance sheet forecasting always follows the same pattern: last period's value, plus additions, minus detractions.
+
+| Item | Formula |
+| :-- | :------------------------------------------------------------ |
+| Receivables | `"Receivables"[-1] + "Invoices issued"[0] - "Payments received"[0]` |
+| VAT | `"VAT payable"[-1] + "Sales VAT"[0] - "Cost VAT"[0] - "VAT paid"[0]` |
+| CAPEX | `"Fixed assets"[-1] + "New investments"[0] - "Depreciation"[0]` |
+| Loans | `"Loan balance"[-1] + "New draws"[0] - "Repayments"[0]` |
+
+Last period's value is included because balance sheet items accumulate. For example, a receivables balance doesn't reset to zero each month. It carries forward from the previous period and changes only when new invoices are issued or payments come in. The net movement (additions minus detractions) is what flows through to the cash flow statement.
+
+The subsequent pages cover how they're modeled in practice. 
+
+## A simplified balance sheet budget
+
+For a first pass, you can budget the balance sheet on the assumption that nothing moves: no additions, no detractions, every line item held flat. You do this by referencing the last known period and dropping the movement terms.
+
+| Item | Formula |
+| :-- | :------------------------------------------------------------ |
+| Receivables | `"Receivables"[-1]` |
+| VAT | `"VAT payable"[-1]` |
+| CAPEX | `"Fixed assets"[-1]` |
+| Loans | `"Loan balance"[-1]` |
+
+This has two benefits:
+
+1. It removes noise from the cash flow statement. With no balance sheet movement, the cash flow is driven entirely by your P&L forecast.
+2. It still lets you analyze real movements once actuals arrive. You can also reforecast on a rolling basis, rebasing the balance sheet to the latest numbers, so the forecast never drifts far from reality.
+
+When taking this approach, reference the last known period rather than hardcoding the value. A hardcoded value won't rebase when a forecast with new actuals is created; a reference to `[-1]` will.
+
+This is a simplified approach, but a pragmatic and effective one. It gets you to a working budget quickly, and you can replace it with a proper forecast line by line as specific items become material.
+
+## Connected across statements
+
+In forecast periods, the formulas for **Cash**, **Retained earnings**, and **accumulated depreciation** must be linked to the other statements in order for the balance sheet to match. Cash pulls from the cash flow statement, retained earnings from the net profit on the P&L, and depreciation from the depreciation expense on the P&L.
+
+In actuals periods, these rows populate from your GL mapping like any other balance sheet row.
+
+For the cash flow statement to work, split non-current assets into gross CAPEX and accumulated depreciation on separate line items. Only the CAPEX movement is a cash outflow. Accumulated depreciation is a non-cash contra-asset, so it must not flow into the cash flow statement. Keeping them on separate lines lets you route new investments to the cash flow while depreciation stays a non-cash entry that ties back to the P&L.
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="What if I don't have an existing balance sheet budget?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}

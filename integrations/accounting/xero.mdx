@@ -1,75 +1,70 @@
 ---
 title: "Xero"
-description: "How to connect and configure Xero."
+description: "Connect Xero to feed actuals into your financial model."
+sidebarTitle: "Xero"
 ---
 
-## Overview
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/xero.mp4" /> */}
 
-By connecting your Xero instance to Francis, you can import and consolidate your actuals. Once integrated, Francis makes your chart of accounts accessible via the **Mappings** view in your model. From there, you can define custom mappings of Xero accounts to corresponding line items in your financial model.
+Connect your Xero account to import actuals into Francis. You can connect multiple accounts if you operate across several companies. Once connected, your chart of accounts is available in the [Mappings](/features/using-francis/data-mappings) view, where you map Xero accounts to line items in your model.
 
-## Configuration
+## Connect Xero
 
-To set up the Xero integration, go to **Settings > Integrations > Xero**. After enabling this option, a prompt will appear asking you to authorize Francis as an application in your Xero account. Completing this authorization step ensures that Francis can securely access journal entries from your Xero environment.
+Go to **Settings > Integrations > Xero > Connect**. A prompt will appear asking you to authorize Francis as an application in your Xero account. This requires Admin rights.
 
-### Account categories
+## What Francis sources
 
-For Francis to process your Xero data correctly, each general ledger account must have a valid account category. If you haven’t assigned these categories review your Xero settings and ensure that each account is properly classified.
+Francis pulls the following data from Xero:
 
-### Currency conversion
+- Journal entries: amount, date, and description
+- GL accounts
 
-Imported transactions from Xero can automatically convert from their base currency into a chosen target currency. To enable this feature, open the **Currency Conversion** section of your Xero connection settings in Francis and toggle **Enable currency conversion**. You can use either market rates or custom rates for your conversions.
-
-### Dimensions
-
-<Info>
-  Dimensional planning for Xero is coming soon. If you have questions about this upcoming feature, feel free to reach out at [support@francis.app](mailto:support@francis.app).
-</Info>
+Dimensions ("tracking categories") are not currently supported for Xero, but are on the roadmap.
 
 ## Adjustments
 
-Francis applies several adjustments to ensure that imported data is aligned with best practices and supports clear financial analysis.
+Francis automatically adjusts imported data in two ways.
 
 <Tabs>
   <Tab title="Number convention">
-    Francis follows a consistent convention for interpreting accounts:
+    Francis flips the sign for income, expenses, liabilities, and equity accounts to follow the Francis sign convention:
 
     * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
-
     * **Negative (-):** Expense (EX)
-
-    This standardization simplifies comparisons and makes reporting easier. Because Francis determines each account’s classification based on your asset range settings, verify that your configuration is correct before proceeding.
   </Tab>
 
   <Tab title="Balance sheet">
-    Francis presents balance sheet values as accumulated amounts at a specific point in time, rather than as movements over a period. This approach requires an adjustment upon import to ensure your balance sheet data aligns with common reporting conventions.
+    Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
+
+    For this reason, in Francis, summarize balance sheet items using `ENDING` instead of `SUM`.
   </Tab>
 </Tabs>
 
 ### Retained earnings
 
-<iframe width="720" height="467" src="https://www.loom.com/embed/82c6f24084364b4dbbddbabd504ca943?sid=531cd2c5-b672-48a5-83c1-95d42db54f57" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />
-
-When importing your chart of accounts from Xero, Francis currently doesn't automatically include your retained earnings account. Therefore, you'll need to manually calculate retained earnings on your balance sheet for all entities using Xero.
-
-<Info>
-  Including retained earnings for Xero is coming soon. If you have questions about this upcoming feature, feel free to reach out at [support@francis.app](mailto:support@francis.app).
-</Info>
-
-To calculate retained earnings, add net profit (or loss) to the beginning retained earnings balance:
+Xero does not expose its retained earnings account via the API. Francis automatically adjusts for this on other accounting systems, but it is not yet supported for Xero. For now, calculate retained earnings manually by adding net profit to equity:
 
 ```typescript
-// Example
 = "Retained earnings"[-1] + "Net profit"[0]
 ```
 
-If currency conversion is enabled on your Xero connection, the retained earnings formula must account for differences between average and closing exchange rates:
+Reach out to [support@francis.app](mailto:support@francis.app) if you have questions.
 
-1. **Retained earnings (starting value):** Adjust to the new month’s closing exchange rate.
+## Settings to enable adjustments
 
-2. **Net profit (current month):** Convert from the average exchange rate to the closing rate.
+### Account types
 
-```typescript
-// Currency conversion example
-= "Retained earnings"[-1] / "Exchange rate - closing"[-1] * "Exchange rate - closing"[0] 
-+ "Net profit"[0] / "Exchange rate - avg"[0] * "Exchange rate - closing"[0]
-```
+Francis applies its adjustments based on account types (Income, Expense, Asset, Liability, or Equity), so every account in Xero needs one assigned.
+
+To update an account type:
+
+1. Navigate to **Accounting > Chart of Accounts**.
+2. Click the account name.
+3. Update the **Account Type**.
+4. Click **Save**.
+
+{/*
+## Status checks
+
+No automated status checks for this integration yet.
+*/}

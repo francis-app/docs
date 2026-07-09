@@ -1,4 +1,14 @@
-<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="1000" height="1000" fill="#202020"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M790.035 446.452H658.064L634.792 607.779H440.684L417.412 769.107H176.5L210.115 536.079H210.122L256.634 213.425H823.54L790.035 446.452ZM584.022 446.452H297.068L284.165 536.078H571.118L584.022 446.452ZM726.361 374.752L307.441 374.751L320.345 285.126H739.228L726.361 374.752ZM353.701 697.406H260.885L273.679 607.78H366.642L353.701 697.406Z" fill="#FCFCFC"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.26 111.36">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #21201c;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M125.26,0h-62.63v27.85h62.63V0Z"/>
+  <path class="cls-1" d="M125.26,55.67h-62.63v27.85h62.63v-27.85Z"/>
+  <path class="cls-1" d="M62.63,83.51H0v27.85h62.63v-27.85Z"/>
+  <path class="cls-1" d="M62.63,27.85H0v27.85h62.63v-27.85Z"/>
 </svg>

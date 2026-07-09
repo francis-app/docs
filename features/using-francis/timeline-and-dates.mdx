@@ -1,0 +1,67 @@
+---
+title: "Timeline and dates"
+sidebarTitle: "Timeline and dates"
+description: "How Francis's continuous monthly timeline works, the actuals and forecast layers that sit on it, and the date settings that control them."
+icon: "timeline"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/features/timeline-and-dates.mp4" /> */}
+
+Francis is built on a continuous monthly timeline. Every column is a month and every line item is a time series, which is what powers the automation behind importing actuals, forecasting, and reporting.
+
+## The continuous timeline
+
+Every column in Francis is a month, and every line item is a time series that follows the timeline. This is one of the core differences from a traditional spreadsheet, and it is what enables much of the automation around actuals, forecasting, and reporting.
+
+Because the timeline is continuous, you are not boxed into fiscal years. You can plan across year boundaries freely. When you connect your accounting system, Francis pulls all historical data, back to the first entry recorded in that system.
+
+Planning always happens in monthly increments. Reports then summarize by month, quarter, YTD, full year, or LTM.
+
+## The actuals and forecast layers
+
+The timeline has two layers: the actuals layer and the forecast layer. They cover the same months but hold different data.
+
+**Actuals layer.** Data sources mapped to the model, such as GL accounts, fill the actuals layer. You can also derive actuals with a formula (for example, a revenue growth % assumption computed from P&L revenue), or enter them manually.
+
+**Forecast layer.** Build your budgets and forecasts here. You can also copy values in from an existing Excel model or another system, such as a CRM for pipeline forecasts.
+
+<Note>
+  The forecast layer holds both budgets and forecasts, which are managed via [saved versions](/features/using-francis/version-control). Input values and give them an identity, like "Anchor budget" or "Q2 forecast", when saving the version. A budget is simply a forecast that happens to start at the beginning of the year.
+</Note>
+
+How the two layers interact depends on the component type. For rows, the layers are independent: a formula you write in one layer does not spill into the other unless you write the same formula in both. If you [fill right](/features/using-francis/formulas) in the actuals layer, it fills within the actuals layer only, never into the forecast layer.
+
+Calculations behave differently. A calculation's formula applies across both layers automatically, but each layer evaluates it against its own values. The same calculation therefore returns actuals in the actuals layer and a forecast in the forecast layer, with no extra work.
+
+The mental model is that the actuals layer progressively takes over the forecast layer as time passes. As each month closes, actuals absorb the forecast layer, either to show actuals for comparison or to produce a fresh forecast for the remaining months.
+
+Only the actuals layer can connect to data sources. To bring external data into the forecast layer, copy and paste it in.
+
+## Date settings
+
+Three dates control how values are calculated and presented in the timeline, each color-coded in the date settings.
+
+### Timeline view (green)
+
+The green **From** and **To** dates set which months are visible in the model. They are display only: changing them does not affect any formula or calculation. They simply define the date range you see at a given moment.
+
+### Forecast start (violet)
+
+The **Forecast start** is the cut-off between the actuals and forecast layers, shown as a violet line through the model. Months before it are actuals, and months after it are your forecast. Every financial plan in Francis has a forecast start.
+
+Moving the forecast start does two things:
+
+1. Months that were previously forecast are replaced by actuals.
+2. Forecast formulas referencing prior periods recompute to include the newly introduced actuals.
+
+For example, a 2026 anchor budget has a forecast start of Jan 2026, while a Q2 2026 forecast has a forecast start of Apr 2026.
+
+### Last close (orange)
+
+The **Last close** is the last closed month in your accounting system, color-coded orange in the date settings. It should always fall on or after the forecast start. It determines how many months of actuals are available since your forecast start, and updating it enables comparisons to actuals across all charts, tables, and reports. Moving it does not change your model values, but affects charts, tables, and reports.
+
+Under the hood, Francis imports every journal entry from your accounting system. The last close date defines which months count as valid to analyze in Francis.
+
+## See in action
+
+See the timeline and date settings in practice in the [Forecasting approaches](/masterclasses/budgeting-forecasting/forecasting-approaches) masterclass.

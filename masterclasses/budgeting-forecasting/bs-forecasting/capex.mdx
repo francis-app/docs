@@ -1,0 +1,82 @@
+---
+title: "Forecast CAPEX"
+sidebarTitle: "CAPEX"
+description: "How to model fixed asset balances in Francis, including new investments and depreciation."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/bs-forecasting/capex.mp4" /> */}
+
+CAPEX is spending on fixed assets expected to generate value over multiple periods. Common examples include machinery, equipment, leasehold improvements, and software licences. Unlike operating expenses, CAPEX is capitalised on the balance sheet and depreciated over the asset's useful life.
+
+Balance sheet forecasting is always a function of last period's value, additions, and detractions. See [BS fundamentals](/masterclasses/budgeting-forecasting/bs-forecasting/bs-fundamentals). For CAPEX, this means fixed asset value last period + new investments in period − selloffs in period − depreciation in period.
+
+## What approach to use
+
+Driver-based is the right default. Build an asset register on a supporting sheet, hardcode each acquisition in the month it occurs, and let the depreciation formula run automatically from those additions.
+
+Statistical rarely fits. Investment is lumpy and project-driven, making historical averages an unreliable guide.
+
+Use hardcoded when you already have a known investment plan and depreciation schedule, for example from an existing Excel budget or an accountant's estimate.
+
+## Where to forecast CAPEX
+
+- **Supporting sheet:** right for most cases. Build one section per asset class, each with its own asset register, gross cost roll-forward, and accumulated depreciation roll-forward. The balance sheet references the net book value totals.
+- **Directly on the balance sheet:** right for simple setups with a single asset class.
+
+## Forecasting approaches
+
+<Tabs>
+  <Tab title="Driver-based">
+    **Set up the supporting sheet**
+
+    Create one section per asset class: Furniture, Vehicles, Machinery, Intangible assets. Group by depreciation cadence, not just asset type. Two machinery items with different useful lives need separate groups, since the formula offset and divisor must match the useful life of every asset in the group. Within each group, add one row per asset and hardcode the acquisition cost in the month the asset is acquired. This is your asset register.
+
+    Cost additions are the only rows with a cash effect. They flow to investing activities on the cash flow statement.
+
+    If an asset is disposed of in the period, enter the detraction as a negative value in the same section. The depreciation formula will reduce automatically from that month onwards.
+
+    **Depreciation**
+
+    Add a **Depreciation** row below the asset register. The formula takes the rolling sum of all cost additions within the useful life and divides by the number of months. For a 5-year asset class:
+
+    ```typescript
+    = sum("Cost addition" [-59:0]) / 60
+    ```
+
+    When a new asset is added to the register, the depreciation row picks it up in the current period and runs for the full 60 months. Adjust the offset and divisor to match each asset class. Depreciation flows to the **Depreciation expense** line on the P&L as a non-cash charge, and to the accumulated depreciation balance on the balance sheet.
+
+    This formula only handles depreciation on new CAPEX acquired in the forecast period. Existing assets already carry a depreciation waterfall from before the forecast starts, and that schedule is hard to reproduce in Francis. Don't try to derive it. Instead, split depreciation expense into two parts: base the depreciation from existing CAPEX on a statistical approach or on the waterfall exported from your accounting system, and forecast depreciation from new CAPEX directly in Francis with the formula above.
+
+    **Net book value**
+
+    Net book value is gross cost minus accumulated depreciation. The balance sheet row references both:
+
+    ```typescript
+    = "Gross cost"[0]
+    - "Accumulated depreciation"[0]
+    ```
+
+    <Note>New investments are a cash outflow in investing activities. Depreciation is a non-cash expense and appears as an add-back in operating activities. Both must be modelled explicitly for the cash flow statement to balance.</Note>
+  </Tab>
+  <Tab title="Statistical">
+    Statistical rarely fits CAPEX. Investment is project-driven and lumpy; historical averages smooth out the timing in ways that do not reflect how the business actually invests.
+
+    If you need a placeholder, reference last year's total with a growth rate. Migrate to driver-based once you have visibility on the investment plan.
+  </Tab>
+  <Tab title="Hardcoded">
+    Enter management estimates directly on the balance sheet for each period: the expected addition, any detractions, and the depreciation charge. This works when you already have a known investment plan and depreciation schedule, for example from an existing Excel budget or an accountant's estimate.
+
+    Document the basis in a formula note. Hardcoded values require a manual update each planning cycle as the investment plan changes.
+  </Tab>
+</Tabs>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Should I track CAPEX and accumulated depreciation separately?">
+    Yes. Since accumulated depreciation is a non-cash item, it shouldn't be included in the cash flow statement. Separating the two lets you capture only CAPEX in the cash flow statement.
+  </Accordion>
+  <Accordion title="How do I handle an asset disposal?">
+    Model a disposal as a cost detraction in the period the asset is removed, and a depreciation detraction for the accumulated depreciation on that asset. If the disposal generates proceeds, those flow through investing activities on the cash flow statement.
+  </Accordion>
+</AccordionGroup>

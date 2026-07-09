@@ -1,0 +1,68 @@
+---
+title: "Pick the right forecasting approach"
+sidebarTitle: "Forecasting approaches"
+description: "How to pick between the three forecasting approaches: driver-based, statistical, and hardcoded."
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/masterclasses/budgeting-forecasting/forecasting-approaches.mp4" /> */}
+
+Decide your forecasting approach on a line-item-by-line-item basis. Different line items call for different approaches depending on their size, how predictable they are, and whether their movements are best explained by underlying drivers, historical patterns, or known one-off events. There are three approaches, and most models combine all three.
+
+## Driver-based
+
+Forecast as a function of underlying assumptions, called drivers, rather than projecting from history. Drivers map to things people in the business actually understand and control: headcount plans, sales metrics, payment terms. When an assumption changes, everything connected to it updates.
+
+It reflects how finance teams think about causality, not just historical patterns. That transparency is also what makes driver-based models useful for scenario planning. It also requires you to define your assumptions and have good data on them.
+
+## Statistical
+
+Forecast as a function of historical patterns. The simplest forms are last year's average plus a YoY growth rate, a rolling average, or a flat value. More sophisticated forms account for trend, seasonality, and effects from another line item.
+
+{/*
+Francis offers a function for this purpose: `predict()`. It takes trend, seasonality, and a driver-like effect from another line item into account automatically. You don't need to model seasonality by hand or guess whether a 3- or 6-month rolling average fits best.
+*/}
+
+## Hardcoded
+
+Hardcode the estimates. No formula, no driver, just a value. Sometimes called "dead numbers" because nothing flows through when assumptions elsewhere change.
+
+The right use case is a known one-off event at a specific time: a big accountant bill in August, a one-time consulting engagement, an annual audit fee. The number doesn't repeat or scale, so there's nothing for a driver or trend to learn from. Hardcoded values are fast to set up but become a maintenance and explainability problem. If you hardcode, use formula notes to document the reasoning.
+
+## Choosing between the three
+
+Driver-based fits best when you want to model causality between drivers and the line item. As a general pattern, the biggest items on the P&L, balance sheet, and cash flow warrant driver-based forecasting. These are typically items such as revenue, headcount, receivables, and VAT. Driver-based also matters more when the business is changing in ways history doesn't capture: startups or new business areas.
+
+Statistical fits better when a line item is pattern-based or when your data isn't granular enough for a clean driver. Smaller items like many OPEX categories, or static items like many balance sheet items, are fine on statistical. It does not fit contractual items like loans, where future movements are set by agreement rather than by trend.
+
+Hardcoded is the right choice for known one-off events at specific times, the fallback when there's no signal worth modeling, or a starting point when migrating an old Excel model to Francis during onboarding.
+
+The trade-off is effort and data. A driver model is more to build, and only as good as the drivers you pick and the data you have to estimate them.
+
+## Hardcoded inputs are often statistical in disguise
+
+A common pattern: a department head submits hardcoded values, but estimated them as "last year's average plus 5%." That isn't really a hardcoded value. It's statistical forecasting written down without the logic.
+
+When this comes up, model it as an explicit function instead. The logic becomes transparent, scenarios become possible, and the next forecast cycle doesn't require a manual update.
+
+## Starting hardcoded, migrating over time
+
+Finance teams onboarding to Francis often want to copy-paste their Excel budget straight in. That's fine. Hardcoded values get reporting running quickly, which is usually the fastest path to value. Once reporting is in place, migrate the larger line items to driver-based or statistical. The first cycle after migration is where the work pays off.
+
+{/*
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I forecast more granularly than I have actuals?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Can I have granular actuals but an aggregate budget?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Can I apply calculations across multiple sub-sheets?">
+    TODO: answer
+  </Accordion>
+  <Accordion title="Can I import my Excel budget?">
+    TODO: answer
+  </Accordion>
+</AccordionGroup>
+*/}

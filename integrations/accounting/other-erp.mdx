@@ -1,0 +1,142 @@
+---
+title: "Non-supported ERP"
+description: "Import actuals from accounting systems not natively supported by Francis via Google Sheets."
+sidebarTitle: "Non-supported ERP"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" src="/videos/integrations/accounting/other-erp.mp4" /> */}
+
+Use Google Sheets as a bridge to import actuals from accounting systems Francis does not natively support. Francis creates a synced sheet in your Google Drive, you paste your data into it, and your chart of accounts becomes available in the [Mappings](/features/using-francis/data-mappings) view, where you map accounts to line items in your model.
+
+## Connect Google Sheets
+
+Go to **Settings > Integrations > Google Sheets > Connect**. A prompt asks you to choose a template:
+
+- **Monthly totals:** upload monthly trial balances (high-level).
+- **Detailed entries:** upload journal entries (detailed).
+
+Francis creates a sheet in your Google Drive that's live-synced to Francis on every refresh. Francis must create the sheet for it to be live-synced. You cannot create your own sheet and then connect it. Enter your data into the sheet Francis creates.
+
+<Tip>
+  Francis can only view, edit, create, and delete the specific Google Drive files it creates. It does not access any of your other Google Drive files.
+</Tip>
+
+To share the sheet with team members, update permissions under **Share** in Google Sheets, or move the sheet to a shared drive.
+
+## What Francis sources
+
+Francis pulls data from **Sheet 1**, which must follow the template format. You are free to use Sheet 2, Sheet 3, and so on for your own working data.
+
+What Francis pulls depends on the template you chose.
+
+<Tabs>
+  <Tab title="Monthly totals">
+    - Monthly value
+    - GL accounts
+  </Tab>
+
+  <Tab title="Detailed entries">
+    - Journal entries: amount, date, and description
+    - GL accounts
+    - Dimension tags (optional), available for [breakdowns](/features/using-francis/breakdowns) within Francis. To add dimension tags, enter a dimension title in cell **E1** and populate dimension tags in column **E**.
+  </Tab>
+</Tabs>
+
+## Required data format
+
+Francis flips signs on import, so upload values using the debit/credit sign convention:
+
+- **Income** accounts: negative (-) values
+- **Expense** accounts: positive (+) values
+- **Asset** accounts: positive (+) values
+- **Liability** accounts: negative (-) values
+- **Equity** accounts: negative (-) values
+
+Francis accumulates balance sheet accounts automatically on import. Provide **delta values**, not cumulative totals.
+
+## Adjustments
+
+Francis automatically adjusts imported data in two ways.
+
+<Tabs>
+  <Tab title="Number convention">
+    Francis flips the sign for income, expenses, liabilities, and equity accounts to follow the Francis sign convention:
+
+    * **Positive (+):** Income (I), Asset (A), Liability (L), and Equity (EQ)
+    * **Negative (-):** Expense (EX)
+  </Tab>
+
+  <Tab title="Balance sheet">
+    Francis presents balance sheet values as accumulated amounts at a point in time, not as period movements. Imported data is adjusted on the way in to match this convention.
+
+    For this reason, in Francis, summarize balance sheet items using `ENDING` instead of `SUM`.
+  </Tab>
+</Tabs>
+
+To enable these adjustments, turn on **Treat as entity** under the Google Sheets settings. This tells Francis the data represents accounting information and triggers the adjustments.
+
+<Note>
+  Connecting Google Sheets as an entity counts toward your plan's limit on active data sources.
+</Note>
+
+## Settings to enable adjustments
+
+### Account categories
+
+Francis applies its adjustments based on account categories (Income, Expense, Asset, Liability, or Equity). Francis detects unique GL account names from the import, and you assign a category to each.
+
+To set account categories:
+
+1. Navigate to **Settings > Integrations > Google Sheets > Chart of accounts**.
+2. Set a category for each line item.
+3. Click **Save** at the bottom.
+
+If Francis detects new accounts later, it prompts you to categorize them.
+
+## Status checks
+
+Francis runs tests on each sync to flag formatting issues before they distort your numbers. The checks depend on the template you chose.
+
+<Tabs>
+  <Tab title="Monthly totals">
+    <AccordionGroup>
+      <Accordion title="Month headers">
+        Month headers must begin at cell **B1** and follow the `YYYY-MM` format. This check fails when the headers start in the wrong cell or use a different format. Reformat the affected headers and sync again.
+      </Accordion>
+      <Accordion title="Unique accounts">
+        Every account name must be unique. This check fails when the same account name appears more than once. Merge the duplicate rows into one before syncing.
+      </Accordion>
+      <Accordion title="Account names">
+        Every row must have an account name. This check fails when an account name is left blank. Fill in the account name for each row before syncing.
+      </Accordion>
+      <Accordion title="Amount format">
+        Amounts must be in numeric format. This check fails when a value contains text, currency symbols, or other non-numeric characters. Remove the formatting so each amount is a plain number.
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+
+  <Tab title="Detailed entries">
+    <AccordionGroup>
+      <Accordion title="Headers">
+        Row 1 must have the column headers **Date**, **Account**, **Amount**, and **Description**. This check fails when a header is missing or renamed. Restore the exact header names in row 1 of Sheet 1.
+      </Accordion>
+      <Accordion title="Account names">
+        Every row must have an account name. This check fails when an account name is left blank. Fill in the account name for each row before syncing.
+      </Accordion>
+      <Accordion title="Amount format">
+        Amounts must be in numeric format. This check fails when a value contains text, currency symbols, or other non-numeric characters. Remove the formatting so each amount is a plain number.
+      </Accordion>
+      <Accordion title="Date format">
+        Dates must follow the `YYYY-MM-DD` format. This check fails when a date uses a different format. Reformat the affected dates and sync again.
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+</Tabs>
+
+## Microsoft users
+
+If you use Microsoft 365, create a Google account with your Microsoft email address to connect Google Sheets to Francis.
+
+<Note>
+  Excel Online support is coming soon. Reach out at [support@francis.app](mailto:support@francis.app) with questions.
+</Note>
