@@ -30,6 +30,10 @@ Go to **Settings > Integrations** and add a currency data source. You configure 
 
 Once you have added a rate source, open the configuration settings for the relevant accounting integration. Francis detects the base currency automatically. Set the exchange rate source and select your target currency. If you import from Google Sheets, set the base currency manually.
 
+<Warning>
+  You can't switch rate source from a chosen date. Changing the exchange rate source applies to the full history, so closed periods are retranslated at the new rates and your historical figures move. If you have been running on custom rates and want market rates going forward, you have two options: stay on custom rates and keep entering them monthly to preserve historical consistency, or switch to market rates and accept that historical figures will differ. Switching from a specific date is on the roadmap.
+</Warning>
+
 ## Conversion method
 
 Francis applies a standard conversion approach:
