@@ -184,18 +184,21 @@ Display settings inherit down the hierarchy. Set a setting on a parent and every
 
 Statuses propagate the other way, up to groups. If any row within a group has a status set, the most critical status across those rows shows at the group level when the group is collapsed. To-do is treated as the most critical status, so a group containing a mix of To-do, In progress, and Done rows displays To-do. This keeps parts of your model that still need attention visible, even when rows are collapsed inside nested groups.
 
-{/*
 ## FAQ
 
 <AccordionGroup>
+  <Accordion title="Can I hide zero rows?" id="faq-hide-zero-rows">
+    No. Neither the model nor [dashboards](/features/using-francis/dashboards) can hide rows with no activity, and there is no filter. A row with no entries in the period shows zeros rather than disappearing. To present a narrower view, build a separate section with calculations that reference exactly the groups and rows you want, and share that section instead.
+  </Accordion>
+  {/*
   <Accordion title="Why can't I duplicate a component inside a breakdown?" id="faq-duplicate-in-breakdown">
     Coming soon.
   </Accordion>
   <Accordion title="Why can't I move a component inside a breakdown?" id="faq-move-in-breakdown">
     Coming soon.
   </Accordion>
+  */}
 </AccordionGroup>
-*/}
 
 <Note>
   See components in practice in the [Forecasting approaches](/masterclasses/budgeting-forecasting/forecasting-approaches) masterclass.
