@@ -45,6 +45,8 @@ The first sync is always a global sync: Francis pulls the full history from the 
 
 A delta sync pulls only what's new since the last run, which is much faster. It is currently available for Visma e-conomic and Microsoft Business Central. For those integrations, Francis runs a delta sync after the initial global sync, and falls back to a global sync if it detects system changes to historical data. You don't have to choose between the two. Francis always routes to the right one.
 
+A delta sync cannot leave gaps in your data. Because Francis detects changes to historical data and routes to a global sync automatically, a delta sync is never the reason an entry is missing or a historical figure is stale. If data you expect is missing, the cause sits upstream of syncing: the entry isn't booked, the account isn't mapped, or the month falls outside the actuals you're looking at. Work through [the diagnostic steps below](#faq) rather than re-running syncs.
+
 All other sources run a global sync every time you sync.
 
 ## FAQ
@@ -64,6 +66,18 @@ All other sources run a global sync every time you sync.
 
   <Accordion title="Does Francis write any data back to my systems?">
     No. Francis reads data only.
+  </Accordion>
+
+  <Accordion title="An invoice or entry in my accounting system isn't showing up in Francis">
+    Work through these in order. The first three account for nearly every case.
+
+    1. **Is the entry booked?** Francis sources posted journal entries. An invoice that exists in your accounting system but hasn't been booked yet has no journal entry behind it, so there is nothing for Francis to import. Draft entries (in Visma e-conomic, kassekladder) are an optional data type on some integrations, so check whether they're included for your data source.
+    2. **Is the GL account mapped?** An entry posted to an unmapped account imports but lands nowhere in your model. Open the **Mappings** view and check the notification count for unmapped active accounts. See [Data mappings](/features/using-francis/data-mappings).
+    3. **Does the month sit before your forecast start?** Months after the forecast start display the forecast layer, not actuals, so a recently booked entry in the current month can be correct in the data and still absent from the column you're looking at. See [Timeline and dates](/features/using-francis/timeline-and-dates).
+    4. **Is it the right company?** When you connect several companies or entities, confirm the entry sits in the company that data source points at, and that the account is mapped for that entity.
+    5. **Verify with Inspect.** Select the cell for the month in question and open [Inspect](/features/using-francis/inspect) to see every journal entry behind that value. If the entry is there, the import worked and the question is where it lands in the model. If it isn't, work back up this list.
+
+    Syncing is rarely the cause. Delta syncs cannot leave gaps, so re-running a sync won't surface an entry that failed one of the checks above.
   </Accordion>
 
   <Accordion title="My sync is stuck at 0%. What should I do?">
