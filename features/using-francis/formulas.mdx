@@ -73,6 +73,23 @@ Fill right works within the layer you're in. Fill right in the actuals layer and
 
 To run the same formula across both layers, enter it in each layer and fill right in both. In the actuals layer, start from far enough back, because fill right only carries forward, as the name says. Begin at the earliest period you want the formula to cover, otherwise the periods to its left stay untouched.
 
+## Overriding imported actuals
+
+Actuals cells hold values from your mapped data sources, but they are still cells you can write to. Write a value or a formula into an actuals cell and it replaces the imported value for that month. Francis keeps what you wrote, so the cell shows your number rather than the one your accounting system holds.
+
+Override deliberately, not as a habit. The legitimate cases are narrow: an accrual your accounting system hasn't booked yet, a reclassification you don't want to make in the ledger, or a known posting error you're correcting ahead of the fix. Add a [comment](#comments) explaining why, because an override is otherwise invisible to whoever reads the number six months from now.
+
+Overridden cells carry a yellow corner indicator. That marker is the only thing separating a value you typed from a value Francis imported, so scan for it first whenever your model doesn't tie to your accounting system.
+
+Two consequences matter:
+
+- **The override survives every sync.** Syncing imports new journal entries, but it does not reclaim a cell you've written to. Entries booked to the mapped accounts after you set the override change nothing in the model until you remove it. [Inspect](/features/using-francis/inspect) keeps listing those entries, because it reads the accounts mapped to the row rather than the value in the cell. An override is the usual explanation when an entry is visible in Inspect but the row total ignores it.
+- **Everything downstream reads the override.** Groups, calculations, and any formula referencing the row all take the overridden value, not the imported one. A single override propagates up the statement, so a small correction in one cell can move a subtotal you weren't looking at.
+
+Remove the override to hand the cell back to your data source. The imported value returns and every dependent total recomputes.
+
+Overrides are per layer. An override in the actuals layer leaves the forecast layer untouched, and the same holds in reverse. See [Timeline and dates](/features/using-francis/timeline-and-dates) for how the two layers relate.
+
 ## Formula paths
 
 A row name alone is enough when it is unique in the model. When the same row name appears in multiple sheets, groups, or breakdowns, Francis qualifies the reference with a formula path. The path keeps every cell reference unique even when row names repeat across entities, dimensions, or sections.
