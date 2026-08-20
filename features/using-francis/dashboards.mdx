@@ -19,7 +19,7 @@ A dashboard is built from primitives. You can add:
 - **Text**: commentary, with standard formatting including bold, italic, numbered lists, and bullets.
 - **Table**: summaries, variance analysis, or side-by-side comparisons. See [tables](/features/using-francis/tables/overview).
 - **Chart**: a visual highlight of key metrics. See [charts](/features/using-francis/charts/overview).
-- **Metric**: a box highlighting a single metric, compared against another version or period.
+- **Metric**: a box highlighting a single number, with an optional comparison against another version or period. See [metric box](/features/using-francis/metric-box).
 - **Image**: logos, brand imagery, or screenshots of analysis you can't build in the dashboard. Use it to bring any external analysis into one place alongside your live data.
 - **Spacer**: white space. Useful for a less dense layout, or to fill space before a page break.
 
@@ -51,6 +51,8 @@ Inviting people into a dashboard means no space restrictions. Tables can be as w
 
 A PDF is fixed and opens easily across devices, but it introduces space restrictions on primitive width and length. Before exporting, make sure no primitive breaks across a page or runs too wide. Where one does, add a spacer to push it onto the next page.
 
+A spacer only helps a primitive that fits on a page but straddles a break. A table taller than a page can't be pushed anywhere useful, and no primitive splits across pages. Fix that one in the model instead: a table shows one section, so split the section in two and place a table for each. If you don't want to restructure the model you forecast in, build a separate reporting sheet whose sections hold [calculations](/features/using-francis/components) referencing the rows you want, sized so each section fits a page.
+
 ### Canvas and Print Preview
 
 Dashboards have two view modes to guide this work:
@@ -63,6 +65,13 @@ Dashboards have two view modes to guide this work:
 <AccordionGroup>
   <Accordion title="Can I show just some groups in a dashboard, not an entire section?" id="faq-partial-section">
     No. A dashboard shows a whole section, not a subset of it, and rows with no activity can't be hidden either. To present a narrower view, build a separate section in the model with [calculations](/features/using-francis/components) that reference exactly the groups and rows you want, and share that section instead.
+  </Accordion>
+  <Accordion title="My table is longer than one page. Can it print across two?" id="faq-table-across-pages">
+    No. No primitive splits across pages in a PDF, and a table sizes itself to its content, so a table taller than a page can't be made to fit or continue overleaf. A spacer won't help either, since it can only move a primitive that already fits.
+
+    Split it in the model. A table shows one section, so divide that section into two and put a table for each on its own page. To leave your forecast model untouched, build a separate reporting sheet whose sections hold calculations referencing the rows you want, each section sized to fit a page. Use Print Preview to check where the breaks land.
+
+    Sharing the dashboard rather than exporting it removes the constraint entirely. Tables can be as long as you need for people you invite in as Limited Viewers.
   </Accordion>
 </AccordionGroup>
 

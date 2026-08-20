@@ -10,7 +10,9 @@ A variance column group compares sources, such as budget vs. actuals, and shows 
 
 ## Settings
 
-Section, title, number scaling, and decimals sit in the sidebar and apply to the whole table. A column group's own settings open when you click the group in the table.
+### Table
+
+These settings sit in the sidebar and apply to the whole table.
 
 <AccordionGroup>
   <Accordion title="Section">
@@ -25,16 +27,62 @@ Section, title, number scaling, and decimals sit in the sidebar and apply to the
   <Accordion title="Decimals">
     Auto, or a fixed precision from 0 to 6 decimal places (0, 0.1, 0.12, 0.123, 0.1234, 0.12345, 0.123456). Auto shows no decimals for values above 100, and otherwise targets three significant digits, so 99.532 displays as 99.5 and 4.514 as 4.51. For consistent decimals across a block, set this at the section level.
   </Accordion>
-  <Accordion title="Column group">
-    A table is one or more column groups placed side by side. Click a column group to open its settings:
+</AccordionGroup>
 
-    - **Title**: the column group heading.
-    - **Date range**: the span of periods to compare. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or a Custom range. Dynamic ranges resolve against the Last Close month set for the model, so they roll forward automatically as you close each period.
+### Column group
 
-    Click an individual column within the group to set its **name** and **source**. Use **Add column** to add more. Columns come in two kinds:
+A table is one or more column groups placed side by side. Click a column group in the table to open its settings.
 
-    - **Value columns**: display values from a source. Settings are **Title** and **Source**. The first value column is the anchor, most often actuals. A source is the version or actuals variant the column displays; the list includes every saved version in your model (budgets and forecasts) plus the actuals variants, and Actuals + X becomes available when the date range runs past your last close.
-    - **Diff columns**: show the difference between two value columns. Settings are **Type** (`#`, index, or `%`) and **Baseline** (the value column to measure against). A diff measures a specified baseline against the anchor, most often budget or actuals (last year).
+<AccordionGroup>
+  <Accordion title="Title">
+    The column group heading.
+  </Accordion>
+  <Accordion title="Date range">
+    The span of periods to compare. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or a Custom range. Dynamic ranges resolve against the Last Close month set for the model, so they roll forward automatically as you close each period.
+  </Accordion>
+</AccordionGroup>
+
+### Columns
+
+Click an individual column within the group to open its settings. Use **Add column** to add more. Columns come in two kinds.
+
+#### Value columns
+
+Display values from a source. The first value column is the anchor, most often actuals, and diffs measure against it.
+
+<AccordionGroup>
+  <Accordion title="Title">
+    The column heading. It labels the source the column displays, so it doesn't create an empty column to fill in.
+  </Accordion>
+  <Accordion title="Source">
+    The version or actuals variant the column displays. The list includes every saved version in your model (budgets and forecasts) plus the actuals variants, and Actuals + X becomes available when the date range runs past your last close. Months before the source's [forecast start](/features/using-francis/timeline-and-dates#forecast-start-violet) show actuals.
+  </Accordion>
+</AccordionGroup>
+
+#### Diff columns
+
+Show the difference between two value columns, most often budget or actuals (last year) measured against the anchor.
+
+<AccordionGroup>
+  <Accordion title="Type">
+    How the difference is expressed: `#` for the difference in the column's own unit, `%` for the relative change, or index for the value relative to the baseline, with the baseline as the base.
+  </Accordion>
+  <Accordion title="Baseline">
+    The value column to measure against.
+  </Accordion>
+</AccordionGroup>
+
+Diff values are colored automatically: green above the anchor, red below. The rule isn't configurable and follows the sign of the change, so it reads correctly only while expenses carry their minus. See [green and red comparison colors](/features/using-francis/metric-box#green-and-red-comparison-colors).
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My budget column shows the same number as my actuals column" id="faq-budget-equals-actuals">
+    Both columns are resolving to actuals for that month. A column shows actuals for any month before its source's [forecast start](/features/using-francis/timeline-and-dates#forecast-start-violet), so if you moved the forecast start past the month you're looking at, a column pointing at Latest forecast returns the actual, not the plan you entered.
+
+    If you don't re-forecast during the year, move the forecast start back to the beginning of the year and leave it there. Your budget months show the budget again, and nothing is locked, so you can keep editing.
+
+    If you do re-forecast, save the budget [version](/features/using-francis/version-control) to freeze the forecast start. A version keeps the forecast start it had when saved, so it still holds the budget value for that month.
   </Accordion>
 </AccordionGroup>
 

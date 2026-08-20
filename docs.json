@@ -73,6 +73,7 @@
                   "features/using-francis/tables/side-by-side"
                 ]
               },
+              "features/using-francis/metric-box",
               "features/using-francis/excel-export",
               "features/using-francis/version-control",
               "features/using-francis/comments"

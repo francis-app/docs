@@ -161,6 +161,14 @@ Once a breakdown is applied, three additional options appear in the action menu 
 
 A line item breakdown splits a single row rather than the whole sheet. Hover over the row, open the action menu (...), choose **Breakdown**, and select the dimension to split by. Francis creates one subrow per dimension value directly below the parent row. The parent row becomes a read-only roll-up of all subrows. The same 20-value limit applies: if the dimension has more than 20 values, the remainder roll up into an **Unallocated** subrow. Use **Adjust breakdown** to add subrows for additional values.
 
+### Line item breakdown vs. a group
+
+Both put sub-lines under a parent that sums them, so they're easy to confuse. The difference is where the sub-lines come from.
+
+A [group](/features/using-francis/components) is structure you build. You add and name each row yourself, and on a sheet breakdown the group syncs to every subsheet as part of the template. Reach for it when the split is your own and you want it across the model.
+
+A line item breakdown is generated. The subrows come from the dimension values in your accounting system, actuals route to them automatically from your mappings, and the parent row turns read-only. It stays local to the sheet it sits on rather than running across sheets. Reach for it when you want to drill into one line by a dimension you already track in your accounting system.
+
 ## Common use cases
 
 ### Revenue by product

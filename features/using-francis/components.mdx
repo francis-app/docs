@@ -98,7 +98,9 @@ Open the action menu on any component to reach its settings. Not every setting a
     Renames the component.
   </Accordion>
   <Accordion title="Duplicate">
-    Copies the component and places the copy directly beneath it.
+    Copies the component and places the copy directly beneath it. Duplicating a sheet or a section brings every row with it, but not the formulas in those rows, so re-enter them on the copy.
+
+    Anything with a [breakdown](/features/using-francis/breakdowns) applied can't be duplicated, whether that's a parent sheet or a single row. Rebuild the structure and the formulas instead.
   </Accordion>
   <Accordion title="Delete">
     Removes the component.
@@ -190,14 +192,18 @@ Statuses propagate the other way, up to groups. If any row within a group has a 
   <Accordion title="Can I hide zero rows?" id="faq-hide-zero-rows">
     No. Neither the model nor [dashboards](/features/using-francis/dashboards) can hide rows with no activity, and there is no filter. A row with no entries in the period shows zeros rather than disappearing. To present a narrower view, build a separate section with calculations that reference exactly the groups and rows you want, and share that section instead.
   </Accordion>
-  {/*
+  <Accordion title="Do formulas come with a duplicated sheet or section?" id="faq-duplicate-formulas">
+    No. Duplicating a sheet or section brings every row across, but the formulas in those rows don't come with it. Re-enter them on the copy.
+  </Accordion>
+  <Accordion title="Why can't I duplicate a parent sheet that has been broken down?" id="faq-duplicate-parent-sheet">
+    Duplicating a sheet with a [breakdown](/features/using-francis/breakdowns) applied isn't supported. This is a current limitation rather than anything about how breakdowns work, so there's no modeling reason to work around. Build a new sheet with the structure and formulas you want, then apply the breakdown to it.
+  </Accordion>
   <Accordion title="Why can't I duplicate a component inside a breakdown?" id="faq-duplicate-in-breakdown">
-    Coming soon.
+    Structure on a subsheet comes from the parent sheet, so it can't be changed locally. Duplicate the component on the parent sheet instead and the copy syncs to every subsheet. See [breakdowns](/features/using-francis/breakdowns).
   </Accordion>
   <Accordion title="Why can't I move a component inside a breakdown?" id="faq-move-in-breakdown">
-    Coming soon.
+    Subsheets inherit their structure from the parent sheet, so a move has to happen on the parent. Move the component there and the change syncs to every subsheet.
   </Accordion>
-  */}
 </AccordionGroup>
 
 <Note>

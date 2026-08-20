@@ -10,6 +10,10 @@ A line chart plots values over time as connected lines, with periods on the x-ax
 
 ## Settings
 
+Click a chart to open its settings, grouped in the sidebar. Remove a group with the **X** next to its name to hide that element from the chart, and use **+** to add a series or a target.
+
+### Chart
+
 <AccordionGroup>
   <Accordion title="Date range">
     The span of data the chart shows. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or set a Custom range. Dynamic ranges resolve against the Last close date set for the model, so they roll forward automatically as you close each period.
@@ -26,48 +30,90 @@ A line chart plots values over time as connected lines, with periods on the x-ax
   <Accordion title="Line style">
     Whether lines are Smooth or Straight.
   </Accordion>
-  <Accordion title="Series">
-    The series shown in the chart, each drawn from a row, group, or calculation in your model. For each series you can include multiple sources, such as actuals, budget, or forecast. Series order sets the legend order: the top series shows first, then the next, and so on. Sources are [styled automatically](/features/using-francis/charts/overview#actuals-and-forecast-styling): the actuals line is solid, and budget or forecast continues dashed.
+</AccordionGroup>
 
-    Click a series to reveal its own settings. When a series has a single source, click the series directly. When it has multiple sources, click the specific source to open its settings:
+### Series
 
-    - **Title**: the series name. Defaults to the name of the row, group, or calculation the series is drawn from; override it to rename the series.
-    - **Color**: override the palette color assigned to this series.
-    - **Markers**: show or hide point markers.
-    - **Data labels**: show or hide the value labels on the series.
-    - **Absolute values**: plot the absolute value of each point, ignoring sign.
-  </Accordion>
+The series shown in the chart, each drawn from a row, group, or calculation in your model. For each series you can include multiple sources, such as actuals, budget, or forecast. Series order sets the legend order: the top series shows first, then the next, and so on. Sources are [styled automatically](/features/using-francis/charts/overview#actuals-and-forecast-styling): the actuals line is solid, and budget or forecast continues dashed.
+
+Click a series to reveal its own settings. When a series has a single source, click the series directly. When it has multiple sources, click the specific source to open its settings.
+
+<AccordionGroup>
   <Accordion title="Title">
-    Toggle the chart title on or off. When on:
-
-    - **Chart title**: defaults to the name of the row, group, or calculation the chart is drawn from; override it with free text.
-    - **Align**: position the title to the left, center, or right.
+    The series name. Defaults to the name of the row, group, or calculation the series is drawn from; override it to rename the series.
   </Accordion>
-  <Accordion title="Legend">
-    Toggle the legend on or off. When on:
-
-    - **Legend position**: top or right. Right places the legend beside the series on the right of the chart.
+  <Accordion title="Color">
+    Override the palette color assigned to this series.
   </Accordion>
-  <Accordion title="X-axis">
-    Control how the x-axis displays.
-
-    - **X-axis line**: show or hide the x-axis line.
-    - **X-axis slant**: rotate the x-axis labels by 0, 15, 30, 45, 60, 75, or 90 degrees.
+  <Accordion title="Markers">
+    Show or hide point markers.
   </Accordion>
-  <Accordion title="Y-axis">
-    Control how the y-axis displays.
-
-    - **Y-axis title**: set the y-axis title as free text.
-    - **Y-axis line**: show or hide the y-axis line.
-    - **Y-axis unit**: Auto inherits the unit from the series in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
-    - **Y-axis limits**: by default the axis fits the bounds of the series. Set a fixed minimum and maximum to lock the scale.
+  <Accordion title="Data labels">
+    Show or hide the value labels on the series.
   </Accordion>
-  <Accordion title="Target">
-    Toggle a target line on or off. When on:
+  <Accordion title="Absolute values">
+    Plot the absolute value of each point, ignoring sign.
+  </Accordion>
+</AccordionGroup>
 
-    - **Label**: name the target.
-    - **Value**: set the value the line sits at.
-    - **Color**: set the color of the line.
+### Title
+
+<AccordionGroup>
+  <Accordion title="Content">
+    The chart title. Defaults to the name of the row, group, or calculation the chart is drawn from; override it with free text.
+  </Accordion>
+  <Accordion title="Align">
+    Position the title to the left, center, or right.
+  </Accordion>
+</AccordionGroup>
+
+### Legend
+
+<AccordionGroup>
+  <Accordion title="Position">
+    Where the legend sits: top or right. Right places the legend beside the series on the right of the chart.
+  </Accordion>
+</AccordionGroup>
+
+### X-axis
+
+<AccordionGroup>
+  <Accordion title="Line">
+    Show or hide the x-axis line.
+  </Accordion>
+  <Accordion title="Slant">
+    Rotate the x-axis labels by 0, 15, 30, 45, 60, 75, or 90 degrees.
+  </Accordion>
+</AccordionGroup>
+
+### Y-axis
+
+<AccordionGroup>
+  <Accordion title="Title">
+    The y-axis title, as free text.
+  </Accordion>
+  <Accordion title="Line">
+    Show or hide the y-axis line.
+  </Accordion>
+  <Accordion title="Unit">
+    Auto inherits the unit from the series in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
+  </Accordion>
+  <Accordion title="Limit">
+    By default the axis fits the bounds of the series. Set a fixed minimum and maximum to lock the scale.
+  </Accordion>
+</AccordionGroup>
+
+### Target
+
+<AccordionGroup>
+  <Accordion title="Label">
+    The target's name.
+  </Accordion>
+  <Accordion title="Value">
+    The value the line sits at.
+  </Accordion>
+  <Accordion title="Color">
+    The color of the line.
   </Accordion>
 </AccordionGroup>
 

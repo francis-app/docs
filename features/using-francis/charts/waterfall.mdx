@@ -10,6 +10,10 @@ A waterfall chart shows how sequential positive and negative movements build fro
 
 ## Settings
 
+Click a chart to open its settings, grouped in the sidebar. Remove a group with the **X** next to its name to hide that element from the chart, and use **+** to add a column or a target. A waterfall has no legend, since each column is labeled on the x-axis.
+
+### Chart
+
 <AccordionGroup>
   <Accordion title="Date range">
     The span of data the chart shows. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or set a Custom range. Dynamic ranges resolve against the Last close date set for the model, so they roll forward automatically as you close each period.
@@ -26,48 +30,78 @@ A waterfall chart shows how sequential positive and negative movements build fro
     - **Rows**: bridge two rows, such as revenue to net profit. The intermediate steps are values from the model, like COGS, OPEX, depreciation, and financial items. Choose a single source up front, then enter the start, end, and intermediate steps under Columns.
     - **Sources**: bridge two sources of the same line, such as budget revenue to actual revenue. The intermediate steps are the differences between the two sources, for example the gap between budget and actual revenue for bicycle hardware. Choose the two sources to bridge, **From** and **To**, up front, then enter the start, end, and intermediate steps under Columns.
   </Accordion>
-  <Accordion title="Columns">
-    The columns shown in the chart. Column order sets the left-to-right order: the top column shows first, then the next, and so on. How you fill them in depends on the Bridge setting.
+</AccordionGroup>
 
-    - **Rows bridge**: the first two columns you enter are the start and end, for example revenue and net profit. Enter rows, groups, or calculations between them as the intermediate steps that bridge start to end, for example COGS, OPEX, depreciation, and financial items. You set both the start and end yourself.
-    - **Sources bridge**: you enter a single column, which automatically becomes both the start and end, so you compare like with like across the two sources. For example, a group showing consolidated revenue forms the start (its **From** source) and the end (its **To** source). Add columns between them as the intermediate steps. Each shows the source difference for one component, such as the rows inside that group (hardware, projects, and licenses) or the Revenue sub-sheets from each entity (Veloton ApS and Veloton Ltd).
+### Columns
 
-    The chart automatically adds a **residual** so the waterfall always bridges from start to end. Use it as a check: a large residual means your intermediate steps don't fully account for the movement between start and end.
+The columns shown in the chart. Column order sets the left-to-right order: the top column shows first, then the next, and so on. How you fill them in depends on the Bridge setting.
 
-    Click a column to reveal its own settings:
+- **Rows bridge**: the first two columns you enter are the start and end, for example revenue and net profit. Enter rows, groups, or calculations between them as the intermediate steps that bridge start to end, for example COGS, OPEX, depreciation, and financial items. You set both the start and end yourself.
+- **Sources bridge**: you enter a single column, which automatically becomes both the start and end, so you compare like with like across the two sources. For example, a group showing consolidated revenue forms the start (its **From** source) and the end (its **To** source). Add columns between them as the intermediate steps. Each shows the source difference for one component, such as the rows inside that group (hardware, projects, and licenses) or the Revenue sub-sheets from each entity (Veloton ApS and Veloton Ltd).
 
-    - **Title**: the column name. Defaults to the name of the row, group, or calculation the column is drawn from; override it to rename the column.
-    - **Color**: override the palette color assigned to this column.
-  </Accordion>
+The chart automatically adds a **residual** so the waterfall always bridges from start to end. Use it as a check: a large residual means your intermediate steps don't fully account for the movement between start and end.
+
+Click a column to reveal its own settings.
+
+<AccordionGroup>
   <Accordion title="Title">
-    Toggle the chart title on or off. When on:
-
-    - **Chart title**: defaults to the name of the row, group, or calculation the chart is drawn from; override it with free text.
-    - **Align**: position the title to the left, center, or right.
+    The column name. Defaults to the name of the row, group, or calculation the column is drawn from; override it to rename the column.
   </Accordion>
-  <Accordion title="Legend">
-    Toggle the legend on or off. When on, the legend sits at the top of the chart.
+  <Accordion title="Color">
+    Override the palette color assigned to this column.
   </Accordion>
-  <Accordion title="X-axis">
-    Control how the x-axis displays.
+</AccordionGroup>
 
-    - **X-axis line**: show or hide the x-axis line.
-    - **X-axis slant**: rotate the x-axis labels by 0, 15, 30, 45, 60, 75, or 90 degrees.
+### Title
+
+<AccordionGroup>
+  <Accordion title="Content">
+    The chart title. Defaults to the name of the row, group, or calculation the chart is drawn from; override it with free text.
   </Accordion>
-  <Accordion title="Y-axis">
-    Control how the y-axis displays.
-
-    - **Y-axis title**: set the y-axis title as free text.
-    - **Y-axis line**: show or hide the y-axis line.
-    - **Y-axis unit**: Auto inherits the unit from the columns in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
-    - **Y-axis limits**: by default the axis fits the bounds of the columns. Set a fixed minimum and maximum to lock the scale.
+  <Accordion title="Align">
+    Position the title to the left, center, or right.
   </Accordion>
-  <Accordion title="Target">
-    Toggle a target line on or off. When on:
+</AccordionGroup>
 
-    - **Label**: name the target.
-    - **Value**: set the value the line sits at.
-    - **Color**: set the color of the line.
+### X-axis
+
+<AccordionGroup>
+  <Accordion title="Line">
+    Show or hide the x-axis line.
+  </Accordion>
+  <Accordion title="Slant">
+    Rotate the x-axis labels by 0, 15, 30, 45, 60, 75, or 90 degrees.
+  </Accordion>
+</AccordionGroup>
+
+### Y-axis
+
+<AccordionGroup>
+  <Accordion title="Title">
+    The y-axis title, as free text.
+  </Accordion>
+  <Accordion title="Line">
+    Show or hide the y-axis line.
+  </Accordion>
+  <Accordion title="Unit">
+    Auto inherits the unit from the columns in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
+  </Accordion>
+  <Accordion title="Limit">
+    By default the axis fits the bounds of the columns. Set a fixed minimum and maximum to lock the scale.
+  </Accordion>
+</AccordionGroup>
+
+### Target
+
+<AccordionGroup>
+  <Accordion title="Label">
+    The target's name.
+  </Accordion>
+  <Accordion title="Value">
+    The value the line sits at.
+  </Accordion>
+  <Accordion title="Color">
+    The color of the line.
   </Accordion>
 </AccordionGroup>
 

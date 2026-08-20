@@ -61,6 +61,8 @@ Not this:
 
 Direct costs are already negative, so adding them reduces the total correctly. The same logic applies down the P&L: every subtotal is a sum, and the signs in the source rows do the work.
 
+The convention also carries into reporting. Comparisons in [metric boxes](/features/using-francis/metric-box#green-and-red-comparison-colors) and diff columns in variance tables color on direction: up is green, down is red. Costs read correctly there only while they carry their minus.
+
 ## Fill right
 
 Write the formula logic once, then fill right to apply it to every future period. You don't need to repeat the formula cell by cell. The same formula carries forward, and because references are relative, each period resolves against its own neighbors. It's a small mechanic that most users come to rely on heavily once it's part of their workflow.

@@ -1,0 +1,99 @@
+---
+title: "Metric box"
+description: "A single highlighted number on a dashboard, with an optional comparison against another version or period."
+icon: "gauge"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" poster="/images/features/metric-box.jpg" src="/videos/features/metric-box.mp4" /> */}
+
+A metric box highlights one number on a dashboard, such as revenue year to date or OPEX as a percentage of revenue. Add an optional comparison and the box also shows how that number moved against another version or period. Metric boxes exist only in [dashboards](/features/using-francis/dashboards), where you add them as a primitive.
+
+## Settings
+
+Click a metric box to open its settings, grouped in the sidebar.
+
+### Metric
+
+<AccordionGroup>
+  <Accordion title="Row">
+    The row, group, or calculation in your model the number is drawn from.
+  </Accordion>
+  <Accordion title="Title">
+    The label above the number. Defaults to the name of the row the metric is drawn from; override it with free text.
+  </Accordion>
+  <Accordion title="Date range">
+    The span of periods the number covers. Choose a dynamic range (Last month, YTD, LTM, Full year, Last year, or Next year) or a Custom range. Dynamic ranges resolve against the Last Close month set for the model, so they roll forward automatically as you close each period.
+
+    A box shows a single number, so when the range spans several periods the value is aggregated using the row's own aggregation setting. Flow lines sum, and margins and other ratios use weighted average.
+  </Accordion>
+  <Accordion title="Source">
+    The version or actuals variant the number displays. The list includes every saved version in your model (budgets and forecasts) plus the actuals variants, and Actuals + X becomes available when the date range runs past your last close.
+  </Accordion>
+</AccordionGroup>
+
+### Format
+
+<AccordionGroup>
+  <Accordion title="Unit">
+    Auto inherits the unit from the row in the model, or override it with number, percentage, or a currency (DKK, EUR, USD, or GBP).
+  </Accordion>
+  <Accordion title="Scale">
+    Default, no scaling, thousands, millions, or billions. Default inherits the model-wide scale set in model settings, reached from the three-dot menu next to the model name in the top-left corner.
+  </Accordion>
+  <Accordion title="Decimals">
+    Auto, or a fixed precision from 0 to 6 decimal places. Auto shows no decimals for values above 100, and otherwise targets three significant digits, so 99.532 displays as 99.5 and 4.514 as 4.51.
+  </Accordion>
+</AccordionGroup>
+
+### Comparison
+
+An optional second line under the number, showing how the metric moved against another source. Leave the comparison source empty and the box shows the number on its own.
+
+<AccordionGroup>
+  <Accordion title="Source">
+    The version or actuals variant to compare against, such as Actuals (last year) or a saved budget.
+  </Accordion>
+  <Accordion title="Type">
+    How the difference is expressed: percent (the relative change), absolute (the difference in the metric's own unit), multiples (the metric as a multiple of the comparison, such as 1.4x), percent + absolute (both figures on one line), or index (the metric relative to the comparison, with the comparison as the base).
+  </Accordion>
+  <Accordion title="Label">
+    Free text shown after the comparison figure, such as "vs. Actuals, last year". Use it to name what the number is measured against, since the comparison source isn't otherwise visible on the dashboard.
+  </Accordion>
+</AccordionGroup>
+
+## Green and red comparison colors
+
+The comparison figure is colored automatically: green with an up arrow when the metric is above the comparison, red with a down arrow when it's below. There's no setting for it.
+
+The color tracks direction, not whether the move is good news. Up is always green. On P&L lines that works, because Francis holds expenses as negative values, so higher OPEX is a larger negative number, sits below the comparison, and colors red. Keep the [sign convention](/features/using-francis/formulas#sign-conventions) and cost metrics read correctly.
+
+Where direction isn't inherently good or bad, treat the color as direction only. Inventory rising, headcount rising, or a loan balance falling are neither green nor red in a business sense, and the coloring won't tell you how to read them.
+
+Flipped signs are the usual cause of a color that looks wrong. Written the convention-consistent way, OPEX as a percentage of revenue returns a negative percentage:
+
+```
+="OPEX"[0] / "Revenue"[0]
+```
+
+A rising cost ratio moves further negative and colors red. If you wrap that in `abs()` to present a positive 14.3%, the coloring inverts and a rising cost ratio turns green. Keep the sign, or turn the comparison off.
+
+Diff columns in a [variance table](/features/using-francis/tables/variance) follow the same rule.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I change the green and red variance colors?" id="faq-variance-colors">
+    No. The coloring is automatic and can't be configured, in metric boxes or in variance table diff columns. Where green shows and you expect red, the cause is usually a flipped sign rather than the color logic.
+  </Accordion>
+  <Accordion title="My costs went up but the comparison shows green" id="faq-cost-increase-green">
+    The metric is carrying a flipped sign. Check the row or calculation feeding the box: if it takes the absolute value of an expense, or of a ratio built on one, remove that and let the number display with its minus.
+
+    If you'd rather keep the positive presentation, turn the comparison off. The trend is usually already visible in the neighboring metric boxes or in a [variance table](/features/using-francis/tables/variance).
+  </Accordion>
+</AccordionGroup>
+
+## See in action
+
+<Note>
+  See metric boxes in practice in the [Management report](/masterclasses/reporting/management-report) masterclass.
+</Note>
