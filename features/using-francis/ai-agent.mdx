@@ -1,0 +1,66 @@
+---
+title: "AI agent"
+description: "Ask the Francis AI agent about model values, formulas, structure, journal entries, and data sources."
+sidebarTitle: "AI agent"
+icon: "location-arrow"
+---
+
+{/* <video controls className="w-full aspect-video rounded-xl" poster="/images/features/ai-agent.jpg" src="/videos/features/ai-agent.mp4" /> */}
+
+The Francis AI agent is a chat assistant that sits inside your model. Ask it about values, [formulas](/features/using-francis/formulas), model structure, journal entries, and data sources. It reads and analyzes that data to answer questions, summarize findings, and help you troubleshoot.
+
+## Enable the AI agent
+
+AI features are off by default. Only workspace Owners can enable them, and once enabled they are on for every member of the workspace. There are two ways to do it:
+
+- Go to **Settings > Workspace > General > Artificial intelligence** and click **Enable**
+- Open a model, click **Agent** in the top right corner, and click **Enable**
+
+By enabling AI features, the Owner accepts that using them means sharing model data with Francis's AI providers, who process it to generate the reply, as set out in the DPA. Turning AI features off stops any further processing by those providers.
+
+## Open the agent
+
+Open the agent from the top right corner of your model. The chat panel opens alongside the model, so you can keep working while you read the answer.
+
+Click the clock icon in the top right of the panel to reopen a previous conversation.
+
+## Data available to the agent
+
+The agent answers from your workspace and model data. It has access to:
+
+- Model structure: sheets, breakdowns, sections, and rows, per version
+- Formulas and values, per version
+- Date settings, including last close, forecast start, and fiscal year
+- Variances between versions
+- Journal entries
+- Data sources
+- GL account mappings, including missing ones
+- Dimension value mappings, including missing ones
+
+The agent decides which of these sources to use based on your question. You don't need to point it at one.
+
+<Note>
+  The agent inherits your permissions. It can only read the sheets and dashboards you can see in Francis, so a [Limited Viewer](/features/admin/members-and-roles#limited-viewer) gets answers scoped to their own sheets and dashboards.
+</Note>
+
+## Write prompts that get good answers
+
+The agent works with named rows and periods, the same way formulas do. Be specific about three things:
+
+- **The sheet and row or metric.** For example revenue, EBITDA %, or a named row on a specific entity sheet.
+- **The time period.** For example the current year, last twelve months, or April 2026.
+- **The version.** For example actuals, budget, or latest forecast. See [version control](/features/using-francis/version-control).
+
+Example prompts:
+
+- What were actual wholesale sales in 2025?
+- How did we perform on budget vs. actuals for revenue last month?
+- My balance sheet validation in Veloton Ltd is off by 324,304 in April 2026. Can you help me troubleshoot?
+
+The agent reads, analyzes, and summarizes. It doesn't change your model, so apply anything it suggests yourself.
+
+## Cost
+
+AI usage is included in all plans. There is no extra cost for using the AI agent.
+
+For more on how the agent handles your data, see Francis's [Terms of Service](https://www.francis.app/policies/terms-of-service), [Privacy Policy](https://www.francis.app/policies/privacy-policy), DPA, and AI policy.

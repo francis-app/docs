@@ -46,6 +46,7 @@
               "features/using-francis/timeline-and-dates",
               "features/using-francis/data-mappings",
               "features/using-francis/formulas",
+              "features/using-francis/ai-agent",
               "features/using-francis/inspect",
               "features/using-francis/shortcuts",
               "features/using-francis/breakdowns",
