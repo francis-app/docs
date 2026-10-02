@@ -302,11 +302,12 @@ Francis supports a set of built-in functions (`avg()`, `sum()`, `if()`, and othe
     - `if_quarter_month(3)` returns `1` in March, June, September, December
   </Accordion>
   <Accordion title="days()">
-    Returns the number of calendar days in the current month, including weekends. Takes no arguments. Use it to convert daily rates into monthly amounts, or to normalize monthly figures to a per-day basis.
+    Returns the number of calendar days in the current month, including weekends. Takes no arguments.
 
-    ```
-    days() // January 2025 returns 31, February 2024 returns 29
-    ```
+    - `days()` returns `31` in January 2025
+    - `days()` returns `30` in April 2025
+    - `days()` returns `28` in February 2025
+    - `days()` returns `29` in February 2024 (leap year)
   </Accordion>
   <Accordion title="weekdays()">
     Returns the number of weekdays (Monday through Friday) in the current month.
