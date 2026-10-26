@@ -1,0 +1,98 @@
+---
+title: "MCP Server"
+description: "Connect Claude, ChatGPT, Cursor, and other AI clients to Francis through the Francis MCP server. Read-only access to your Francis data, available on every plan."
+icon:
+  name: "server"
+  style: "regular"
+  library: "fontawesome"
+---
+
+The Francis MCP server lets AI clients such as Claude, ChatGPT, and Cursor read your Francis data. Ask questions about your model in the AI tool you already use, without exporting to Excel or copying numbers into a chat.
+
+MCP (Model Context Protocol) is an open standard for connecting AI apps to external data. Any client that supports MCP can connect to Francis once a workspace Owner has authorized it.
+
+## What the MCP server can do
+
+<Info>
+  The MCP server is currently read-only. Write access is expected to launch by the end of 2026.
+</Info>
+
+Use it for questions like these:
+
+- _"What was our gross margin in Q3, and how does it compare to budget?"_
+- _"Which OPEX accounts are furthest over forecast year to date?"_
+- _"Summarize the revenue trend for the e-commerce channel over the last 12 months."_
+
+{/* TODO: List the data the server exposes (e.g. models, sheets, components, actuals, forecasts, dimensions) and the tools it provides. */}
+
+## Availability
+
+The MCP server is available on every Francis plan at no extra cost.
+
+The MCP server isn't supported for [Limited Viewers](/features/admin/members-and-roles#limited-viewer). Every other role (Owner, Admin, Editor, and Viewer) can connect an authorized client.
+
+## Setup
+
+Two things need to be in place before you can connect an app.
+
+1. **A workspace Owner must authorize the client.** Every client is off by default. An Owner turns each one on separately, under **Settings > AI > Authorized apps**. Once a client is authorized, any member of the workspace with full access can connect it.
+2. **You need full access to the workspace.** Members with Limited Viewer access can't connect apps to that workspace. An Owner or Admin can change your role under **Settings > Workspace > Members**.
+
+### Supported clients
+
+Francis supports the following AI clients. A workspace Owner authorizes each one separately before members can connect it.
+
+- Claude
+- Claude Code
+- ChatGPT
+- Codex
+- Cursor
+- GitHub
+
+Using a client that isn't on the list? Email [support@francis.app](mailto:support@francis.app) and the Francis team will consider adding it.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can the AI change my model or numbers?">
+    Not yet. The MCP server is currently read-only. Write access is expected to launch by the end of 2026.
+  </Accordion>
+
+  <Accordion title="I can't connect my AI app to Francis">
+    Check two things. First, a workspace Owner must authorize that specific client under **Settings > AI > Authorized apps**, since every client is off by default. Second, you need full access to the workspace. Limited Viewers can't connect apps, so ask an Owner or Admin to change your role if you need access.
+  </Accordion>
+
+  <Accordion title="I'm a Limited Viewer. Can I use the MCP server?">
+    Not at the moment. The MCP server isn't supported for Limited Viewers. An Owner or Admin can change your role to Viewer or above under **Settings > Workspace > Members**.
+  </Accordion>
+
+  <Accordion title="Does the MCP server cost extra?">
+    No. The MCP server is available on every Francis plan.
+  </Accordion>
+
+  <Accordion title="Which AI clients can I connect?">
+    Claude, Claude Code, ChatGPT, Codex, Cursor, and GitHub. Each client must be authorized separately by a workspace Owner before members can connect it.
+  </Accordion>
+
+  <Accordion title="How do I stop an AI app from accessing our Francis data?">
+    An Owner can turn off a client under **Settings > AI > Authorized apps**. {/* TODO: Confirm that turning off a client revokes existing connections, and whether individual members can disconnect their own connection. */}
+  </Accordion>
+
+  <Accordion title="Can the AI see data I don't have access to in Francis?">
+    {/* TODO: Confirm whether the MCP server inherits the connecting member's permissions. */}
+
+    Answer coming soon.
+  </Accordion>
+
+  <Accordion title="Is our financial data used to train AI models?">
+    {/* TODO: Confirm Francis's position, and note that each AI provider's own data policy applies to what the client receives. */}
+
+    Answer coming soon.
+  </Accordion>
+
+  <Accordion title="Can I connect more than one workspace?">
+    {/* TODO: Confirm whether one connection covers multiple workspaces or each workspace needs its own connection. */}
+
+    Answer coming soon.
+  </Accordion>
+</AccordionGroup>
