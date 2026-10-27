@@ -38,6 +38,95 @@ Two things need to be in place before you can connect an app.
 1. **A workspace Owner must authorize the client.** Every client is off by default. An Owner turns each one on separately, under **Settings > AI > Authorized apps**. Once a client is authorized, any member of the workspace with full access can connect it.
 2. **You need full access to the workspace.** Members with Limited Viewer access can't connect apps to that workspace. An Owner or Admin can change your role under **Settings > Workspace > Members**.
 
+<AccordionGroup>
+  <Accordion title="Claude">
+    <Steps>
+      <Step title="In Claude, open **Customize → Connectors**">
+      </Step>
+      <Step title="Search Francis">
+      </Step>
+      <Step title="Click **Connect** and sign into Francis">
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Claude Code">
+    <Steps>
+      <Step title="Add Francis as an MCP server">
+        ```text
+        claude mcp add --transport http francis https://launch.francis.app/api/v1/mcp
+        ```
+      </Step>
+      <Step title="In Claude Code, run **/mcp**">
+      </Step>
+      <Step title="Select Francis and press **Authenticate**">
+      </Step>
+      <Step title="Sign in to Francis and choose your workspace">
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="ChatGPT">
+    <Steps>
+      <Step title="In ChatGPT, open **Settings → Apps**">
+      </Step>
+      <Step title="Turn on **Developer mode** in **Advanced settings**.">
+        On Business and Enterprise plans, an admin may need to allow it first.
+      </Step>
+      <Step title="Select **Create app** and pick **OAuth** authentication">
+      </Step>
+      <Step title="Paste the Francis MCP Server URL">
+        ```text
+        https://launch.francis.app/api/v1/mcp
+        ```
+      </Step>
+      <Step title="Click **Connect** and sign into Francis">
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Codex">
+    <Steps>
+      <Step title="Add Francis as an MCP server">
+        ```text
+        codex mcp add francis --url https://launch.francis.app/api/v1/mcp
+        ```
+      </Step>
+      <Step title="Sign in to Francis and choose your workspace">
+        ```text
+        codex mcp login francis
+        ```
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="GitHub Copilot">
+    <Steps>
+      <Step title="Add Francis as an MCP server">
+        ```text
+        copilot mcp add --transport http francis https://launch.francis.app/api/v1/mcp
+        ```
+      </Step>
+      <Step title="Sign in to Francis and choose your workspace">
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Cursor">
+    <Steps>
+      <Step title="In Cursor, open **Settings → MCP**">
+      </Step>
+      <Step title="Add a new MCP server">
+        ```text
+        https://launch.francis.app/api/v1/mcp
+        ```
+      </Step>
+      <Step title="Click **Connect** an sign in to Francis">
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
 ### Supported clients
 
 Francis supports the following AI clients. A workspace Owner authorizes each one separately before members can connect it.
