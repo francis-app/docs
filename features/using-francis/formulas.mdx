@@ -316,6 +316,19 @@ Francis supports a set of built-in functions (`avg()`, `sum()`, `if()`, and othe
     weekdays() // January 2025 returns 23
     ```
   </Accordion>
+  <Accordion title="year()">
+    Returns the calendar year of the current month. Takes no arguments. Follows the calendar year, not the fiscal year, so a fiscal year starting in July spans two values of `year()`.
+
+    - `year()` returns `2025` in every month of 2025
+    - `if(year() >= 2026, 5000, 0)` returns `5000` from January 2026 onwards
+  </Accordion>
+  <Accordion title="month()">
+    Returns the calendar month number of the current month, from `1` (January) to `12` (December). Takes no arguments.
+
+    - `month()` returns `1` in January
+    - `month()` returns `12` in December
+    - `if(month() >= 7, 5000, 0)` returns `5000` from July to December
+  </Accordion>
 </AccordionGroup>
 
 ## Errors
